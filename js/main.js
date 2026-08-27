@@ -32,9 +32,34 @@
   const stickerBtn = document.querySelector('.site-footer__sticker-btn');
   if (stickerBtn) {
     const stickerSound = new Audio('assets/huh-cat.mp3');
+    let popupTimeout;
+    let popupRemoveTimeout;
+
+    function showMehPopup() {
+      const existing = document.querySelector('.sticker-popup');
+      if (existing) existing.remove();
+      clearTimeout(popupTimeout);
+      clearTimeout(popupRemoveTimeout);
+
+      const popup = document.createElement('div');
+      popup.className = 'sticker-popup';
+      popup.setAttribute('role', 'img');
+      popup.setAttribute('aria-label', 'Meh');
+      popup.innerHTML = '<img src="assets/andrius-meh.jpg" alt="" aria-hidden="true">';
+      document.body.appendChild(popup);
+
+      requestAnimationFrame(() => popup.classList.add('sticker-popup--visible'));
+
+      popupTimeout = setTimeout(() => {
+        popup.classList.remove('sticker-popup--visible');
+        popupRemoveTimeout = setTimeout(() => popup.remove(), prefersReducedMotion ? 0 : 250);
+      }, 2000);
+    }
+
     stickerBtn.addEventListener('click', () => {
       stickerSound.currentTime = 0;
       stickerSound.play().catch(() => {});
+      showMehPopup();
     });
   }
 
