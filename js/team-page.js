@@ -8,6 +8,7 @@
   let anshulDemoSound;
   let gifPopupTimeout;
   let gifPopupRemoveTimeout;
+  let gifPopupKeydownHandler;
 
   const PROFILE_GIFS = {
     'leonardo-gallego': {
@@ -26,6 +27,7 @@
     },
     'roger-lopez': {
       src: '../assets/roger-skeptical.gif',
+      durationMs: 4200,
       label: 'Roger at the bar',
     },
   };
@@ -178,6 +180,15 @@
     return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
   }
 
+  function skipGifSubBlocks(view, buffer, offset) {
+    while (offset < buffer.byteLength) {
+      const size = view.getUint8(offset++);
+      if (size === 0) break;
+      offset += size;
+    }
+    return offset;
+  }
+
   function parseGifDurationMs(buffer) {
     const view = new DataView(buffer);
     if (buffer.byteLength < 13) return 0;
@@ -192,34 +203,33 @@
     }
 
     let total = 0;
+    let pendingDelayMs = 100;
+
     while (offset < buffer.byteLength) {
       const block = view.getUint8(offset++);
 
       if (block === 0x21) {
         const label = view.getUint8(offset++);
         if (label === 0xf9) {
-          offset++;
-          const delay = view.getUint16(offset, true);
-          total += delay * 10;
-          offset += 4;
-        }
-        while (offset < buffer.byteLength) {
-          const size = view.getUint8(offset++);
-          if (size === 0) break;
-          offset += size;
+          const blockSize = view.getUint8(offset++);
+          if (blockSize >= 4) {
+            const delay = view.getUint16(offset + 1, true);
+            pendingDelayMs = (delay > 0 ? delay : 10) * 10;
+            offset += blockSize;
+          }
+          offset = skipGifSubBlocks(view, buffer, offset);
+        } else {
+          offset = skipGifSubBlocks(view, buffer, offset);
         }
       } else if (block === 0x2c) {
-        offset += 9;
-        const packedImage = view.getUint8(offset - 1);
+        total += pendingDelayMs;
+        offset += 8;
+        const packedImage = view.getUint8(offset++);
         if (packedImage & 0x80) {
           offset += 3 * (2 << (packedImage & 0x07));
         }
         offset++;
-        while (offset < buffer.byteLength) {
-          const size = view.getUint8(offset++);
-          if (size === 0) break;
-          offset += size;
-        }
+        offset = skipGifSubBlocks(view, buffer, offset);
       } else if (block === 0x3b) {
         break;
       } else {
@@ -259,28 +269,63 @@
     });
   }
 
+  function dismissGifPopup(popup) {
+    if (!popup || !popup.isConnected) return;
+    clearTimeout(gifPopupTimeout);
+    clearTimeout(gifPopupRemoveTimeout);
+    if (gifPopupKeydownHandler) {
+      document.removeEventListener('keydown', gifPopupKeydownHandler);
+      gifPopupKeydownHandler = null;
+    }
+    popup.classList.remove('sticker-popup--visible');
+    gifPopupRemoveTimeout = setTimeout(
+      () => popup.remove(),
+      prefersReducedMotion ? 0 : 250
+    );
+  }
+
   function showGifPopup(gifSrc, durationMs, ariaLabel) {
     const existing = document.querySelector('.team-gif-popup');
-    if (existing) existing.remove();
+    if (existing) dismissGifPopup(existing);
     clearTimeout(gifPopupTimeout);
     clearTimeout(gifPopupRemoveTimeout);
 
     const popup = document.createElement('div');
-    popup.className = 'sticker-popup team-gif-popup';
-    popup.setAttribute('role', 'img');
+    popup.className = 'sticker-popup sticker-popup--dismissible team-gif-popup';
+    popup.setAttribute('role', 'dialog');
     popup.setAttribute('aria-label', ariaLabel);
-    popup.innerHTML = '<img src="' + escapeAttr(gifSrc) + '" alt="" aria-hidden="true">';
+    popup.innerHTML =
+      '<div class="sticker-popup__content">' +
+        '<button type="button" class="sticker-popup__close" aria-label="Close">' +
+          '<span aria-hidden="true">&times;</span>' +
+        '</button>' +
+        '<img src="' + escapeAttr(gifSrc) + '" alt="" aria-hidden="true">' +
+      '</div>';
     document.body.appendChild(popup);
+
+    const closeBtn = popup.querySelector('.sticker-popup__close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dismissGifPopup(popup);
+      });
+    }
+
+    popup.addEventListener('click', (e) => {
+      if (e.target === popup) dismissGifPopup(popup);
+    });
+
+    gifPopupKeydownHandler = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        dismissGifPopup(popup);
+      }
+    };
+    document.addEventListener('keydown', gifPopupKeydownHandler);
 
     requestAnimationFrame(() => popup.classList.add('sticker-popup--visible'));
 
-    gifPopupTimeout = setTimeout(() => {
-      popup.classList.remove('sticker-popup--visible');
-      gifPopupRemoveTimeout = setTimeout(
-        () => popup.remove(),
-        prefersReducedMotion ? 0 : 250
-      );
-    }, durationMs);
+    gifPopupTimeout = setTimeout(() => dismissGifPopup(popup), durationMs);
   }
 
   function attachGifEasterEgg(photoWrap, gifConfig) {

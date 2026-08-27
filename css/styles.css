@@ -823,11 +823,53 @@ a:hover {
   transition: opacity 0.25s ease;
 }
 
+.sticker-popup--dismissible {
+  pointer-events: auto;
+}
+
 .sticker-popup--visible {
   opacity: 1;
 }
 
+.sticker-popup__content {
+  position: relative;
+}
+
+.sticker-popup__close {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.sticker-popup__close:hover,
+.sticker-popup__close:focus-visible {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.05);
+}
+
+.sticker-popup__close:focus-visible {
+  outline: 2px solid var(--color-accent, #ee0000);
+  outline-offset: 2px;
+}
+
 .sticker-popup img {
+  display: block;
   max-width: min(340px, 85vw);
   height: auto;
   border-radius: 12px;
