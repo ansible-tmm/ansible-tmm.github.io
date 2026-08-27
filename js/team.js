@@ -68,7 +68,7 @@ const TEAM = [
       'Before Red Hat, he worked at Cumulus Networks and Cisco, where he developed a deep understanding of network infrastructure and the challenges of managing it at scale. That experience shaped his approach: make complex technology accessible through hands-on demonstrations and clear storytelling.\n\n' +
       'He has spoken at over 50 conferences including Red Hat Summit, AnsibleFest, Cisco Live, All Things Open, and AutoCon, from Atlanta to Tokyo to Seoul. His YouTube channel has grown to over 16,000 subscribers.\n\n' +
       'When he\'s not building demos or on stage, he explores how AI agents can transform infrastructure management, and shares what he learns along the way.',
-    funFact: 'The only Ansible F1 appearance is a King Kong easter egg — type godzilla, then kingkong. The grid knows who the real boss is.',
+    funFact: 'The Ansible F1 architect! Spent so many tokens creating the game that now we have AI token restrictions. But hey, now we have godzilla and kingkong... try it out!',
     linkedin: 'https://www.linkedin.com/in/seanecavanaugh/',
     redhat: 'https://www.redhat.com/en/authors/sean-cavanaugh',
     github: 'https://github.com/orgs/ansible-tmm/people/IPvSean',
