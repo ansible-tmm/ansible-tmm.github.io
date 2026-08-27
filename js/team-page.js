@@ -98,7 +98,7 @@
       '<article class="team-card">' +
         '<a href="#' + escapeAttr(member.slug) + '" class="team-card__link" aria-label="' + escapeAttr('View profile for ' + member.name) + '">' +
           '<div class="team-card__photo-wrap">' +
-            '<img src="' + escapeAttr(ASSET_BASE + member.photo) + '" alt="" class="team-card__photo" width="240" height="240" loading="lazy" decoding="async">' +
+            '<img src="' + escapeAttr(ASSET_BASE + member.photo) + '" alt="" class="team-card__photo" width="120" height="120" loading="lazy" decoding="async">' +
           '</div>' +
           '<div class="team-card__body">' +
             '<h3 class="team-card__name">' + escapeHtml(member.name) + '</h3>' +
