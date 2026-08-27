@@ -12,6 +12,7 @@ const TEAM = [
     bio: 'Andrius leads the Ansible Technical Marketing team, shaping how customers discover, evaluate, and adopt automation across the portfolio. He champions open source, AI-assisted workflows, and practical technical content that helps field teams and partners tell a clearer automation story.',
     funFact: 'Ansible F1 calls him "The Evangelist" — and yes, he once bought 400 pounds of chicken tenders in a single Costco trip because bulk is a lifestyle.',
     linkedin: 'https://www.linkedin.com/in/andriusbeno/',
+    redhat: 'https://www.redhat.com/en/authors/andrius-benokraitis',
   },
   {
     slug: 'anshul-behl',
@@ -23,6 +24,7 @@ const TEAM = [
     bio: 'Anshul creates technical content and demos that show Ansible Automation Platform in real-world scenarios. He focuses on making complex automation approachable for practitioners building CI/CD pipelines and platform workflows.',
     funFact: 'In Ansible F1 he is "The Optimizer" — former neural-net architect, competitive diver, and father of two future engineers.',
     linkedin: 'https://www.linkedin.com/in/ianshulbehl/',
+    redhat: 'https://www.redhat.com/en/authors/anshul-behl',
     twitter: 'https://x.com/anshul_behl',
   },
   {
@@ -46,6 +48,7 @@ const TEAM = [
     bio: 'Aubrey develops workshops, demos, and hands-on content that help practitioners adopt Ansible in production environments. She brings a DevOps practitioner perspective to every lab and customer-facing session.',
     funFact: 'Known in Ansible F1 as "The Architect" — once deployed a zero-downtime migration across four continents while making dinosaur chicken nuggets.',
     linkedin: 'https://www.linkedin.com/in/ammtrotter/',
+    redhat: 'https://www.redhat.com/en/authors/aubrey-trotter',
   },
   {
     slug: 'sean-cavanaugh',
@@ -57,6 +60,7 @@ const TEAM = [
     bio: 'Sean leads technical marketing strategy for Ansible, creating demos, content, and thought leadership that connect automation to business outcomes. CCIE #40514. Previously at Cisco and Cumulus Networks before joining Red Hat.',
     funFact: 'The only Ansible F1 appearance is a King Kong easter egg — type godzilla, then kingkong. The grid knows who the real boss is.',
     linkedin: 'https://www.linkedin.com/in/seanecavanaugh/',
+    redhat: 'https://www.redhat.com/en/authors/sean-cavanaugh',
     twitter: 'https://x.com/IPvSean',
     bluesky: 'https://bsky.app/profile/ipvsean.bsky.social',
   },
@@ -70,6 +74,7 @@ const TEAM = [
     bio: 'Hicham works with customers and partners on cloud and private-cloud automation scenarios, drawing on deep VMware and infrastructure background. He builds consulting-ready demos and guides for complex enterprise environments.',
     funFact: 'Ansible F1 calls him "The Architect of Clouds" — born in Beirut, forged in Ottawa, and fueled by an unreasonable amount of maple syrup.',
     linkedin: 'https://www.linkedin.com/in/hichammourad/',
+    redhat: 'https://www.redhat.com/en/authors/hicham-mourad',
     twitter: 'https://x.com/HichamMourad',
   },
   {
@@ -82,6 +87,7 @@ const TEAM = [
     bio: 'Leo focuses on Ansible community engagement, open source storytelling, and technical content that resonates with practitioners worldwide. He bridges community contributions with product narratives that matter to builders.',
     funFact: 'Ansible F1 knows him as "El Rayo" — wrote his first program at five, better at soccer than Messi (allegedly), and despises broccoli.',
     linkedin: 'https://www.linkedin.com/in/leogallego/',
+    redhat: 'https://www.redhat.com/en/authors/leonardo-gallego',
     twitter: 'https://x.com/leogallegored',
   },
   {
@@ -94,6 +100,7 @@ const TEAM = [
     bio: 'Nuno specializes in security-focused Ansible content, malware research perspectives, and demos that show how automation supports defensive operations. He brings a researcher mindset to every technical narrative.',
     funFact: 'In Ansible F1, the dark web fears him and the hippos obey him. His pickup truck runs on diesel and paranoia.',
     linkedin: 'https://www.linkedin.com/in/nunomartins9/',
+    redhat: 'https://www.redhat.com/en/authors/nuno-martins',
     twitter: 'https://x.com/NunoMart11',
   },
   {
@@ -106,6 +113,7 @@ const TEAM = [
     bio: 'Roger creates Kubernetes, OpenShift, and orchestration demos that show Ansible Automation Platform at scale. A frequent speaker and content creator who makes complex platform stories accessible to technical audiences.',
     funFact: 'Ansible F1 calls him "El Orquestador" — holds the unofficial record for most pods on a single OpenShift cluster, deployed via Ansible during a brisket smoke.',
     linkedin: 'https://www.linkedin.com/in/rogeralopez/',
+    redhat: 'https://www.redhat.com/en/authors/roger-lopez',
     twitter: 'https://x.com/Lopez',
   },
 ];
