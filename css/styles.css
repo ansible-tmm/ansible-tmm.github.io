@@ -876,6 +876,10 @@ a:hover {
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.65);
 }
 
+.sticker-popup__image--wide {
+  max-width: min(560px, 92vw);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sticker-popup {
     transition: none;

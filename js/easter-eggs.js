@@ -50,6 +50,8 @@
     ariaLabel,
     durationMs = 2000,
     extraClass = '',
+    audioSrc = null,
+    imageClass = '',
   }) {
     dismissAll();
 
@@ -65,18 +67,32 @@
         '<button type="button" class="sticker-popup__close" aria-label="Close">' +
           '<span aria-hidden="true">&times;</span>' +
         '</button>' +
-        '<img src="' + escapeAttr(imageSrc) + '" alt="" aria-hidden="true">' +
+        '<img src="' + escapeAttr(imageSrc) + '" class="' + escapeAttr(imageClass) + '" alt="" aria-hidden="true">' +
       '</div>';
     document.body.appendChild(popup);
 
     const timeouts = { hide: null, remove: null };
+    let audio = null;
 
     function dismiss() {
       unregister();
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.removeEventListener('ended', dismiss);
+        audio = null;
+      }
       dismissPopup(popup, timeouts);
     }
 
     const unregister = registerDismiss(dismiss);
+
+    if (audioSrc) {
+      audio = new Audio(audioSrc);
+      audio.currentTime = 0;
+      audio.addEventListener('ended', dismiss);
+      audio.play().catch(() => {});
+    }
 
     const closeBtn = popup.querySelector('.sticker-popup__close');
     if (closeBtn) {
@@ -94,6 +110,8 @@
 
     if (durationMs > 0) {
       timeouts.hide = setTimeout(dismiss, durationMs);
+    } else if (audioSrc) {
+      timeouts.hide = setTimeout(dismiss, 15000);
     }
 
     return { popup, dismiss };

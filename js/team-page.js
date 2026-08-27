@@ -299,6 +299,21 @@
     photoWrap.setAttribute('title', 'Music sounds better with you');
   }
 
+  function attachPopupSoundEasterEgg(photoWrap, config) {
+    attachInteractivePhoto(photoWrap, () => {
+      EasterEggs.showDismissiblePopup({
+        imageSrc: config.imageSrc,
+        audioSrc: config.audioSrc,
+        ariaLabel: config.label,
+        durationMs: config.durationMs || 0,
+        extraClass: config.extraClass || 'team-popup',
+        imageClass: config.imageClass || '',
+      });
+    });
+    photoWrap.setAttribute('aria-label', config.label);
+    photoWrap.setAttribute('title', config.label);
+  }
+
   function attachGifEasterEgg(photoWrap, gifConfig) {
     attachInteractivePhoto(photoWrap, () => {
       resolveGifDuration(gifConfig.src, gifConfig).then((durationMs) => {
@@ -393,6 +408,18 @@
       const photoWrap = profileView.querySelector('.team-profile__photo-wrap');
       if (photoWrap && typeof EasterEggs !== 'undefined') {
         attachDiscoEasterEgg(photoWrap);
+      }
+    }
+
+    if (member.slug === 'andrius-benokraitis') {
+      const photoWrap = profileView.querySelector('.team-profile__photo-wrap');
+      if (photoWrap && typeof EasterEggs !== 'undefined') {
+        attachPopupSoundEasterEgg(photoWrap, {
+          imageSrc: '../assets/andrius-auugh.jpg',
+          audioSrc: '../assets/andrius-auugh.mp3',
+          label: 'Auughhh',
+          imageClass: 'sticker-popup__image--wide',
+        });
       }
     }
 
