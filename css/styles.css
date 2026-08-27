@@ -399,6 +399,25 @@ a:hover {
   margin-bottom: 0;
 }
 
+/* ── YouTube ── */
+.youtube {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+.youtube__intro {
+  margin: 0 0 1.5rem;
+  max-width: 42rem;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.card-grid--youtube {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -636,9 +655,21 @@ a:hover {
 }
 
 .site-footer__note {
-  margin: 0 0 0.75rem;
+  margin: 0 0 1rem;
   font-size: 0.8125rem;
   color: var(--color-text-muted);
+}
+
+.btn--subscribe {
+  margin-bottom: 1rem;
+  background: #ff0000;
+  color: #fff;
+}
+
+.btn--subscribe:hover {
+  background: #cc0000;
+  color: #fff;
+  box-shadow: 0 0 24px rgba(255, 0, 0, 0.35);
 }
 
 .site-footer__links {

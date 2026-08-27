@@ -77,3 +77,21 @@ const CATEGORIES = [
   { name: 'Tools and Utilities', id: 'tools-and-utilities' },
   { name: 'Games and Interactive Experiences', id: 'games' },
 ];
+
+/** YouTube channels featured on the hub */
+const YOUTUBE_CHANNELS = [
+  {
+    name: 'The Ansible Playbook',
+    label: 'Ansible TMM',
+    description: 'Hands-on videos from the Technical Marketing team — demos, tutorials, and practical automation content you can use in the field.',
+    url: 'https://www.youtube.com/ansibleautomation',
+    icon: 'youtube',
+  },
+  {
+    name: 'Red Hat Ansible',
+    label: 'Red Hat Official',
+    description: 'The official Red Hat Ansible channel — webinars, product updates, Red Hat Summit sessions, and enterprise automation stories.',
+    url: 'https://www.youtube.com/@RedHatAnsible',
+    icon: 'summit',
+  },
+];

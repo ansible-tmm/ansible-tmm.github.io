@@ -69,46 +69,6 @@
   }
 
   /* ── Project rendering ── */
-  if (typeof PROJECTS === 'undefined' || typeof CATEGORIES === 'undefined') return;
-
-  const sectionsContainer = document.getElementById('project-sections');
-
-  function createCard(project) {
-    const card = document.createElement('article');
-    card.className = 'card';
-
-    const iconId = 'icon-' + project.icon;
-    const linkLabel = project.name + ' — open project (opens in new tab)';
-
-    card.innerHTML =
-      '<a href="' + escapeAttr(project.url) + '" class="card__surface" target="_blank" rel="noopener noreferrer"' +
-        ' aria-label="' + escapeAttr(linkLabel) + '">' +
-        '<div class="card__icon" aria-hidden="true">' +
-          '<svg class="icon" viewBox="0 0 24 24"><use href="#' + iconId + '"></use></svg>' +
-        '</div>' +
-        '<div class="card__body">' +
-          '<span class="card__category">' + escapeHtml(project.category) + '</span>' +
-          '<h3 class="card__title">' + escapeHtml(project.name) + '</h3>' +
-          '<p class="card__desc">' + escapeHtml(project.description) + '</p>' +
-        '</div>' +
-        '<div class="card__actions">' +
-          '<span class="card__cta btn btn--card">' +
-            'Visit' +
-            '<svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-external"></use></svg>' +
-          '</span>' +
-        '</div>' +
-      '</a>' +
-      (project.github
-        ? '<a href="' + escapeAttr(project.github) + '" class="card__github" target="_blank" rel="noopener noreferrer"' +
-            ' aria-label="' + escapeAttr(project.name + ' — view source on GitHub (opens in new tab)') + '">' +
-            '<svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>' +
-            'Source' +
-          '</a>'
-        : '');
-
-    return card;
-  }
-
   function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;
@@ -119,31 +79,98 @@
     return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
-  if (sectionsContainer) {
-    CATEGORIES.forEach((cat) => {
-      const projects = PROJECTS.filter((p) => p.category === cat.name);
-      if (projects.length === 0) return;
+  function createLinkCard(item, { cta = 'Visit' } = {}) {
+    const card = document.createElement('article');
+    card.className = 'card';
 
-      const section = document.createElement('section');
-      section.className = 'category-section';
-      section.id = cat.id;
-      section.setAttribute('aria-labelledby', cat.id + '-heading');
+    const iconId = 'icon-' + item.icon;
+    const linkLabel = item.name + ' — open (opens in new tab)';
 
+    card.innerHTML =
+      '<a href="' + escapeAttr(item.url) + '" class="card__surface" target="_blank" rel="noopener noreferrer"' +
+        ' aria-label="' + escapeAttr(linkLabel) + '">' +
+        '<div class="card__icon" aria-hidden="true">' +
+          '<svg class="icon" viewBox="0 0 24 24"><use href="#' + iconId + '"></use></svg>' +
+        '</div>' +
+        '<div class="card__body">' +
+          '<span class="card__category">' + escapeHtml(item.label || item.category) + '</span>' +
+          '<h3 class="card__title">' + escapeHtml(item.name) + '</h3>' +
+          '<p class="card__desc">' + escapeHtml(item.description) + '</p>' +
+        '</div>' +
+        '<div class="card__actions">' +
+          '<span class="card__cta btn btn--card">' +
+            escapeHtml(cta) +
+            '<svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-external"></use></svg>' +
+          '</span>' +
+        '</div>' +
+      '</a>' +
+      (item.github
+        ? '<a href="' + escapeAttr(item.github) + '" class="card__github" target="_blank" rel="noopener noreferrer"' +
+            ' aria-label="' + escapeAttr(item.name + ' — view source on GitHub (opens in new tab)') + '">' +
+            '<svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>' +
+            'Source' +
+          '</a>'
+        : '');
+
+    return card;
+  }
+
+  if (typeof PROJECTS !== 'undefined' && typeof CATEGORIES !== 'undefined') {
+    const sectionsContainer = document.getElementById('project-sections');
+
+    if (sectionsContainer) {
+      CATEGORIES.forEach((cat) => {
+        const projects = PROJECTS.filter((p) => p.category === cat.name);
+        if (projects.length === 0) return;
+
+        const section = document.createElement('section');
+        section.className = 'category-section';
+        section.id = cat.id;
+        section.setAttribute('aria-labelledby', cat.id + '-heading');
+
+        const heading = document.createElement('h2');
+        heading.className = 'section-heading';
+        heading.id = cat.id + '-heading';
+        heading.textContent = cat.name;
+
+        const grid = document.createElement('div');
+        grid.className = 'card-grid';
+
+        projects.forEach((project) => {
+          grid.appendChild(createLinkCard(project));
+        });
+
+        section.appendChild(heading);
+        section.appendChild(grid);
+        sectionsContainer.appendChild(section);
+      });
+    }
+  }
+
+  /* ── YouTube channels ── */
+  if (typeof YOUTUBE_CHANNELS !== 'undefined') {
+    const youtubeContainer = document.getElementById('youtube-channels');
+
+    if (youtubeContainer) {
       const heading = document.createElement('h2');
       heading.className = 'section-heading';
-      heading.id = cat.id + '-heading';
-      heading.textContent = cat.name;
+      heading.id = 'youtube-heading';
+      heading.textContent = 'YouTube';
+
+      const intro = document.createElement('p');
+      intro.className = 'youtube__intro';
+      intro.textContent = 'Watch Ansible automation content on YouTube — from hands-on TMM videos to official Red Hat webinars and Summit sessions.';
 
       const grid = document.createElement('div');
-      grid.className = 'card-grid';
+      grid.className = 'card-grid card-grid--youtube';
 
-      projects.forEach((project) => {
-        grid.appendChild(createCard(project));
+      YOUTUBE_CHANNELS.forEach((channel) => {
+        grid.appendChild(createLinkCard(channel, { cta: 'Watch on YouTube' }));
       });
 
-      section.appendChild(heading);
-      section.appendChild(grid);
-      sectionsContainer.appendChild(section);
-    });
+      youtubeContainer.appendChild(heading);
+      youtubeContainer.appendChild(intro);
+      youtubeContainer.appendChild(grid);
+    }
   }
 })();
