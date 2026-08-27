@@ -391,10 +391,6 @@ a:hover {
   letter-spacing: -0.02em;
 }
 
-.featured {
-  margin-bottom: 3rem;
-}
-
 .category-section {
   margin-bottom: 3rem;
 }
@@ -409,22 +405,19 @@ a:hover {
   gap: 1.25rem;
 }
 
-.card-grid--featured {
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-}
-
 /* ── Cards ── */
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   transition: border-color var(--transition), background var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
-.card:hover {
+.card:hover,
+.card:focus-within {
   background: var(--color-bg-card-hover);
   border-color: var(--color-border-accent);
   transform: translateY(-3px);
@@ -432,20 +425,30 @@ a:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card:hover {
+  .card:hover,
+  .card:focus-within {
     transform: none;
   }
 }
 
-.card--featured {
-  position: relative;
-  border-color: var(--color-border-accent);
-  background: linear-gradient(145deg, var(--color-bg-card) 0%, rgba(238, 0, 0, 0.04) 100%);
+.card__surface {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.5rem;
+  color: inherit;
+  text-decoration: none;
+  border-radius: inherit;
 }
 
-.card--featured .card__category::before {
-  content: "★ ";
-  color: var(--color-accent);
+.card__surface:hover {
+  color: inherit;
+}
+
+.card__surface:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+  border-radius: var(--radius-lg);
 }
 
 .card__icon {
@@ -497,13 +500,30 @@ a:hover {
   border-top: 1px solid var(--color-border);
 }
 
+.card__cta {
+  pointer-events: none;
+}
+
+.card:hover .card__cta,
+.card:focus-within .card__cta {
+  background: rgba(238, 0, 0, 0.22);
+  color: #fff;
+}
+
 .card__github {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.65rem;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  padding: 0.35rem 0.5rem;
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--color-text-muted);
+  background: var(--color-bg-card-hover);
+  border-radius: 6px;
 }
 
 .card__github:hover {
@@ -670,8 +690,7 @@ a:hover {
     max-width: 280px;
   }
 
-  .card-grid,
-  .card-grid--featured {
+  .card-grid {
     grid-template-columns: 1fr;
   }
 }

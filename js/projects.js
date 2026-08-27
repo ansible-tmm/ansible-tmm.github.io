@@ -9,7 +9,6 @@ const PROJECTS = [
     category: 'Learn and Present',
     url: 'https://ansible.github.io/slides/',
     icon: 'slides',
-    featured: false,
   },
   {
     name: 'Workshops and Labs',
@@ -17,7 +16,6 @@ const PROJECTS = [
     category: 'Learn and Present',
     url: 'https://labs.demoredhat.com/',
     icon: 'lab',
-    featured: true,
   },
   {
     name: 'Solution Guides',
@@ -26,7 +24,6 @@ const PROJECTS = [
     url: 'https://ansible-tmm.github.io/solution-guides/',
     github: 'https://github.com/ansible-tmm/solution-guides',
     icon: 'guide',
-    featured: true,
   },
   {
     name: 'Ansible Product Demos',
@@ -34,7 +31,6 @@ const PROJECTS = [
     category: 'Product Demos',
     url: 'https://ansible.github.io/product-demos/',
     icon: 'demo',
-    featured: true,
   },
   {
     name: 'AAP Orchestrator Demos',
@@ -43,7 +39,6 @@ const PROJECTS = [
     url: 'https://ansible-tmm.github.io/aap-orchestrator-demos/',
     github: 'https://github.com/ansible-tmm/aap-orchestrator-demos',
     icon: 'orchestrator',
-    featured: false,
   },
   {
     name: 'Main Stage Demo Simulator',
@@ -51,7 +46,6 @@ const PROJECTS = [
     category: 'Product Demos',
     url: 'https://ansible-tmm.github.io/rh-summit-2026/',
     icon: 'stage',
-    featured: false,
   },
   {
     name: 'AAP CVE Report',
@@ -59,7 +53,6 @@ const PROJECTS = [
     category: 'Tools and Utilities',
     url: 'https://ansible-tmm.github.io/aap_cve_report/',
     icon: 'security',
-    featured: false,
   },
   {
     name: 'Ansible F1',
@@ -67,7 +60,6 @@ const PROJECTS = [
     category: 'Games and Interactive Experiences',
     url: 'https://ansible-tmm.github.io/ansible-f1/',
     icon: 'racing',
-    featured: false,
   },
   {
     name: 'Ansible Quest',
@@ -75,7 +67,6 @@ const PROJECTS = [
     category: 'Games and Interactive Experiences',
     url: 'https://ansible-tmm.github.io/ansible-quest/',
     icon: 'quest',
-    featured: false,
   },
 ];
 

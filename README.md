@@ -52,7 +52,6 @@ Edit `js/projects.js` and add an entry to the `PROJECTS` array:
   url: 'https://example.com/my-project/',
   github: 'https://github.com/ansible-tmm/my-project',  // optional
   icon: 'demo',                       // see icon IDs in index.html <symbol> elements
-  featured: false,                    // set true to highlight in the featured section
 },
 ```
 
