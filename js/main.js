@@ -38,26 +38,15 @@
 
   const sectionsContainer = document.getElementById('project-sections');
 
-  function isExternal(url) {
-    try {
-      const parsed = new URL(url);
-      return parsed.origin !== window.location.origin;
-    } catch {
-      return true;
-    }
-  }
-
   function createCard(project) {
-    const external = isExternal(project.url);
     const card = document.createElement('article');
     card.className = 'card';
 
     const iconId = 'icon-' + project.icon;
-    const linkLabel = project.name + ' — open project' + (external ? ' (opens in new tab)' : '');
+    const linkLabel = project.name + ' — open project (opens in new tab)';
 
     card.innerHTML =
-      '<a href="' + escapeAttr(project.url) + '" class="card__surface"' +
-        (external ? ' target="_blank" rel="noopener noreferrer"' : '') +
+      '<a href="' + escapeAttr(project.url) + '" class="card__surface" target="_blank" rel="noopener noreferrer"' +
         ' aria-label="' + escapeAttr(linkLabel) + '">' +
         '<div class="card__icon" aria-hidden="true">' +
           '<svg class="icon" viewBox="0 0 24 24"><use href="#' + iconId + '"></use></svg>' +
@@ -70,7 +59,7 @@
         '<div class="card__actions">' +
           '<span class="card__cta btn btn--card">' +
             'Visit' +
-            (external ? '<svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-external"></use></svg>' : '') +
+            '<svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-external"></use></svg>' +
           '</span>' +
         '</div>' +
       '</a>' +
