@@ -17,13 +17,16 @@
     },
     'nuno-martins': {
       src: '../assets/nuno-matrix.gif',
-      durationMs: 9540,
       label: 'Nuno stops bullets',
     },
     'hicham-mourad': {
       src: '../assets/hicham-nimbus.gif',
-      durationMs: 1000,
+      durationExtraMs: 2000,
       label: 'Hicham on the Flying Nimbus',
+    },
+    'roger-lopez': {
+      src: '../assets/roger-skeptical.gif',
+      label: 'Roger at the bar',
     },
   };
 
@@ -175,6 +178,73 @@
     return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
   }
 
+  function parseGifDurationMs(buffer) {
+    const view = new DataView(buffer);
+    if (buffer.byteLength < 13) return 0;
+    if (String.fromCharCode(view.getUint8(0), view.getUint8(1), view.getUint8(2)) !== 'GIF') {
+      return 0;
+    }
+
+    let offset = 13;
+    const packed = view.getUint8(10);
+    if (packed & 0x80) {
+      offset += 3 * (2 << (packed & 0x07));
+    }
+
+    let total = 0;
+    while (offset < buffer.byteLength) {
+      const block = view.getUint8(offset++);
+
+      if (block === 0x21) {
+        const label = view.getUint8(offset++);
+        if (label === 0xf9) {
+          offset++;
+          const delay = view.getUint16(offset, true);
+          total += delay * 10;
+          offset += 4;
+        }
+        while (offset < buffer.byteLength) {
+          const size = view.getUint8(offset++);
+          if (size === 0) break;
+          offset += size;
+        }
+      } else if (block === 0x2c) {
+        offset += 9;
+        const packedImage = view.getUint8(offset - 1);
+        if (packedImage & 0x80) {
+          offset += 3 * (2 << (packedImage & 0x07));
+        }
+        offset++;
+        while (offset < buffer.byteLength) {
+          const size = view.getUint8(offset++);
+          if (size === 0) break;
+          offset += size;
+        }
+      } else if (block === 0x3b) {
+        break;
+      } else {
+        break;
+      }
+    }
+
+    return total;
+  }
+
+  function resolveGifDuration(gifSrc, gifConfig) {
+    return fetch(gifSrc)
+      .then((response) => {
+        if (!response.ok) throw new Error('Failed to load GIF');
+        return response.arrayBuffer();
+      })
+      .then((buffer) => {
+        const parsed = parseGifDurationMs(buffer);
+        const extra = gifConfig.durationExtraMs || 0;
+        const fallback = gifConfig.durationMs || 2000;
+        return (parsed || fallback) + extra;
+      })
+      .catch(() => (gifConfig.durationMs || 2000) + (gifConfig.durationExtraMs || 0));
+  }
+
   function attachInteractivePhoto(photoWrap, onActivate) {
     photoWrap.classList.add('team-profile__photo-wrap--interactive');
     photoWrap.setAttribute('role', 'button');
@@ -215,7 +285,9 @@
 
   function attachGifEasterEgg(photoWrap, gifConfig) {
     attachInteractivePhoto(photoWrap, () => {
-      showGifPopup(gifConfig.src, gifConfig.durationMs, gifConfig.label);
+      resolveGifDuration(gifConfig.src, gifConfig).then((durationMs) => {
+        showGifPopup(gifConfig.src, durationMs, gifConfig.label);
+      });
     });
     photoWrap.setAttribute('aria-label', gifConfig.label);
     photoWrap.setAttribute('title', gifConfig.label);
