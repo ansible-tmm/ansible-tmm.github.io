@@ -40,6 +40,15 @@
     return TEAM.find((m) => m.slug === hash) || null;
   }
 
+  function formatBio(bio) {
+    return bio
+      .split(/\n\n+/)
+      .map(function (paragraph) {
+        return '<p class="team-profile__bio">' + escapeHtml(paragraph.trim()) + '</p>';
+      })
+      .join('');
+  }
+
   function socialLinks(member, { compact = false } = {}) {
     const links = [];
     const linkClass = compact ? 'team-social team-social--compact' : 'team-social';
@@ -139,7 +148,7 @@
         '</div>' +
         '<div class="team-profile__content">' +
           '<h3 class="team-profile__section-title">About</h3>' +
-          '<p class="team-profile__bio">' + escapeHtml(member.bio) + '</p>' +
+          formatBio(member.bio) +
           (member.funFact
             ? '<details class="team-fun-fact">' +
                 '<summary class="team-fun-fact__summary">Behind the scenes</summary>' +
