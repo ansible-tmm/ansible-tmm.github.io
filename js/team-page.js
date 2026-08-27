@@ -128,11 +128,27 @@
     document.title = 'Meet the Team — Ansible TMM';
   }
 
+  function goToTeamList() {
+    if (getMemberFromHash()) {
+      window.location.hash = '';
+    }
+  }
+
+  function isTypingTarget(target) {
+    if (!target || !(target instanceof Element)) return false;
+    const tag = target.tagName;
+    return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
+  }
+
   function renderProfile(member) {
     if (!profileView) return;
 
     profileView.innerHTML =
-      '<a href="#" class="team-back" id="team-back">← Back to team</a>' +
+      '<a href="#" class="team-back" id="team-back" aria-label="Back to team list. Keyboard shortcut: left arrow key.">' +
+        '<span class="team-back__arrow" aria-hidden="true">←</span>' +
+        '<span>Back to team</span>' +
+        '<kbd class="team-back__key" aria-hidden="true">←</kbd>' +
+      '</a>' +
       '<article class="team-profile">' +
         '<div class="team-profile__header">' +
           '<div class="team-profile__photo-wrap">' +
@@ -169,7 +185,7 @@
     if (backBtn) {
       backBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        window.location.hash = '';
+        goToTeamList();
       });
     }
   }
@@ -197,5 +213,14 @@
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
   window.addEventListener('hashchange', route);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'ArrowLeft' || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    if (!profileView || profileView.hidden) return;
+    if (isTypingTarget(e.target)) return;
+    e.preventDefault();
+    goToTeamList();
+  });
+
   route();
 })();
