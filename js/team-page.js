@@ -247,6 +247,13 @@
       navToggle.setAttribute('aria-expanded', String(!expanded));
       navMenu.classList.toggle('nav__menu--open', !expanded);
     });
+
+    navMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('nav__menu--open');
+      });
+    });
   }
 
   const yearEl = document.getElementById('footer-year');
