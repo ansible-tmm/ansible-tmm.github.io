@@ -13,6 +13,7 @@ const TEAM = [
     funFact: 'Ansible F1 calls him "The Evangelist" — and yes, he once bought 400 pounds of chicken tenders in a single Costco trip because bulk is a lifestyle.',
     linkedin: 'https://www.linkedin.com/in/andriusbeno/',
     redhat: 'https://www.redhat.com/en/authors/andrius-benokraitis',
+    github: 'https://github.com/abenokraitis',
   },
   {
     slug: 'anshul-behl',
@@ -25,6 +26,7 @@ const TEAM = [
     funFact: 'In Ansible F1 he is "The Optimizer" — former neural-net architect, competitive diver, and father of two future engineers.',
     linkedin: 'https://www.linkedin.com/in/ianshulbehl/',
     redhat: 'https://www.redhat.com/en/authors/anshul-behl',
+    github: 'https://github.com/anshulbehl',
     twitter: 'https://x.com/anshul_behl',
   },
   {
@@ -37,6 +39,7 @@ const TEAM = [
     bio: 'Alex is a Technical Marketing Manager for Ansible at Red Hat, where he builds demos and technical content that help practitioners adopt automation. He joined the team after internships with Ansible—where he implemented Event Driven Ansible workflows for network security—and at Tesla\'s HPC/AI Infrastructure group, supporting GPU cluster operations for initiatives including FSD and Optimus. A software engineer by training, he brings hands-on development experience to every workshop and customer session.',
     funFact: 'Ansible F1 nicknamed him "The Kid" — youngest on the grid, cracked his first firewall at 12, and his car is yellow so you see him coming.',
     linkedin: 'https://www.linkedin.com/in/alex-walczyk/',
+    github: 'https://github.com/abwalczyk',
   },
   {
     slug: 'aubrey-trotter',
@@ -51,6 +54,7 @@ const TEAM = [
     funFact: 'Known in Ansible F1 as "The Architect" — once deployed a zero-downtime migration across four continents while making dinosaur chicken nuggets.',
     linkedin: 'https://www.linkedin.com/in/ammtrotter/',
     redhat: 'https://www.redhat.com/en/authors/aubrey-trotter',
+    github: 'https://github.com/amoyament',
   },
   {
     slug: 'sean-cavanaugh',
@@ -67,6 +71,7 @@ const TEAM = [
     funFact: 'The only Ansible F1 appearance is a King Kong easter egg — type godzilla, then kingkong. The grid knows who the real boss is.',
     linkedin: 'https://www.linkedin.com/in/seanecavanaugh/',
     redhat: 'https://www.redhat.com/en/authors/sean-cavanaugh',
+    github: 'https://github.com/orgs/ansible-tmm/people/IPvSean',
     twitter: 'https://x.com/IPvSean',
     bluesky: 'https://bsky.app/profile/ipvsean.bsky.social',
   },
@@ -81,6 +86,7 @@ const TEAM = [
     funFact: 'Ansible F1 calls him "The Architect of Clouds" — born in Beirut, forged in Ottawa, and fueled by an unreasonable amount of maple syrup.',
     linkedin: 'https://www.linkedin.com/in/hichammourad/',
     redhat: 'https://www.redhat.com/en/authors/hicham-mourad',
+    github: 'https://github.com/HichamMourad',
     twitter: 'https://x.com/HichamMourad',
   },
   {
@@ -94,6 +100,7 @@ const TEAM = [
     funFact: 'Ansible F1 knows him as "El Rayo" — wrote his first program at five, better at soccer than Messi (allegedly), and despises broccoli.',
     linkedin: 'https://www.linkedin.com/in/leogallego/',
     redhat: 'https://www.redhat.com/en/authors/leonardo-gallego',
+    github: 'https://github.com/leogallego',
     twitter: 'https://x.com/leogallegored',
   },
   {
@@ -107,6 +114,7 @@ const TEAM = [
     funFact: 'In Ansible F1, the dark web fears him and the hippos obey him. His pickup truck runs on diesel and paranoia.',
     linkedin: 'https://www.linkedin.com/in/nunomartins9/',
     redhat: 'https://www.redhat.com/en/authors/nuno-martins',
+    github: 'https://github.com/nmartins0611',
     twitter: 'https://x.com/NunoMart11',
   },
   {
@@ -120,6 +128,7 @@ const TEAM = [
     funFact: 'Ansible F1 calls him "El Orquestador" — holds the unofficial record for most pods on a single OpenShift cluster, deployed via Ansible during a brisket smoke.',
     linkedin: 'https://www.linkedin.com/in/rogeralopez/',
     redhat: 'https://www.redhat.com/en/authors/roger-lopez',
+    github: 'https://github.com/rlopez133',
     twitter: 'https://x.com/Lopez',
   },
 ];
