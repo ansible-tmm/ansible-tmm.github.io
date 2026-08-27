@@ -209,11 +209,12 @@
         photoWrap.classList.add('team-profile__photo-wrap--interactive');
         photoWrap.setAttribute('role', 'button');
         photoWrap.setAttribute('tabindex', '0');
-        photoWrap.setAttribute('aria-label', 'Play demo sound');
+        photoWrap.setAttribute('aria-label', 'Play demo demo demo sound');
+        photoWrap.setAttribute('title', 'Demo demo demo');
 
         const playDemoSound = () => {
           if (!anshulDemoSound) {
-            anshulDemoSound = new Audio('../assets/demo-demo-demo.m4a');
+            anshulDemoSound = new Audio('../assets/demo-demo-demo.mp3');
           }
           anshulDemoSound.currentTime = 0;
           anshulDemoSound.play().catch(() => {});
