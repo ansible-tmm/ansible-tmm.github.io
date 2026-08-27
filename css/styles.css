@@ -593,21 +593,38 @@ a:hover {
   text-align: left;
 }
 
+.site-footer__sticker-btn {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  border-radius: 8px;
+  line-height: 0;
+}
+
+.site-footer__sticker-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
 .site-footer__sticker {
   width: 88px;
   height: auto;
-  flex-shrink: 0;
+  display: block;
   object-fit: contain;
   filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.45));
   transition: transform var(--transition);
 }
 
-.site-footer:hover .site-footer__sticker {
+.site-footer__sticker-btn:hover .site-footer__sticker,
+.site-footer__sticker-btn:focus-visible .site-footer__sticker {
   transform: translateY(-4px) rotate(-2deg);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-footer:hover .site-footer__sticker {
+  .site-footer__sticker-btn:hover .site-footer__sticker,
+  .site-footer__sticker-btn:focus-visible .site-footer__sticker {
     transform: none;
   }
 }

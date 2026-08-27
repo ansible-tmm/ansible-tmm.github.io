@@ -28,6 +28,16 @@
     yearEl.textContent = String(new Date().getFullYear());
   }
 
+  /* ── Footer sticker easter egg ── */
+  const stickerBtn = document.querySelector('.site-footer__sticker-btn');
+  if (stickerBtn) {
+    const stickerSound = new Audio('assets/huh-cat.mp3');
+    stickerBtn.addEventListener('click', () => {
+      stickerSound.currentTime = 0;
+      stickerSound.play().catch(() => {});
+    });
+  }
+
   /* ── Entrance animation ── */
   if (!prefersReducedMotion) {
     document.body.classList.add('has-entrance');
