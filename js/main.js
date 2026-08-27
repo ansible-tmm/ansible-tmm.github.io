@@ -45,7 +45,7 @@
       popup.className = 'sticker-popup';
       popup.setAttribute('role', 'img');
       popup.setAttribute('aria-label', 'Meh');
-      popup.innerHTML = '<img src="assets/andrius-meh.jpg" alt="" aria-hidden="true">';
+      popup.innerHTML = '<img src="assets/andrius-meh.png" alt="" aria-hidden="true">';
       document.body.appendChild(popup);
 
       requestAnimationFrame(() => popup.classList.add('sticker-popup--visible'));
