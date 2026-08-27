@@ -1,0 +1,31 @@
+name: Update GitHub org stats
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate stats JSON
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_ORG: ansible-tmm
+        run: bash scripts/update-github-stats.sh data/github-stats.json
+
+      - name: Commit updated stats
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/github-stats.json
+          git diff --staged --quiet && echo "No stats changes." && exit 0
+          git commit -m "Update ansible-tmm GitHub organization stats."
+          git push
