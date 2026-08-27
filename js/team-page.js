@@ -4,7 +4,18 @@
   const listView = document.getElementById('team-list');
   const profileView = document.getElementById('team-profile');
   const ASSET_BASE = '../assets/team/';
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let anshulDemoSound;
+  let gifPopupTimeout;
+  let gifPopupRemoveTimeout;
+
+  const PROFILE_GIFS = {
+    'leonardo-gallego': {
+      src: '../assets/leonardo-laugh.gif',
+      durationMs: 6280,
+      label: 'Leo laughs',
+    },
+  };
 
   const SOCIAL_ICONS = {
     linkedin:
@@ -154,6 +165,52 @@
     return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
   }
 
+  function attachInteractivePhoto(photoWrap, onActivate) {
+    photoWrap.classList.add('team-profile__photo-wrap--interactive');
+    photoWrap.setAttribute('role', 'button');
+    photoWrap.setAttribute('tabindex', '0');
+
+    photoWrap.addEventListener('click', onActivate);
+    photoWrap.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        onActivate();
+      }
+    });
+  }
+
+  function showGifPopup(gifSrc, durationMs, ariaLabel) {
+    const existing = document.querySelector('.team-gif-popup');
+    if (existing) existing.remove();
+    clearTimeout(gifPopupTimeout);
+    clearTimeout(gifPopupRemoveTimeout);
+
+    const popup = document.createElement('div');
+    popup.className = 'sticker-popup team-gif-popup';
+    popup.setAttribute('role', 'img');
+    popup.setAttribute('aria-label', ariaLabel);
+    popup.innerHTML = '<img src="' + escapeAttr(gifSrc) + '" alt="" aria-hidden="true">';
+    document.body.appendChild(popup);
+
+    requestAnimationFrame(() => popup.classList.add('sticker-popup--visible'));
+
+    gifPopupTimeout = setTimeout(() => {
+      popup.classList.remove('sticker-popup--visible');
+      gifPopupRemoveTimeout = setTimeout(
+        () => popup.remove(),
+        prefersReducedMotion ? 0 : 250
+      );
+    }, durationMs);
+  }
+
+  function attachGifEasterEgg(photoWrap, gifConfig) {
+    attachInteractivePhoto(photoWrap, () => {
+      showGifPopup(gifConfig.src, gifConfig.durationMs, gifConfig.label);
+    });
+    photoWrap.setAttribute('aria-label', gifConfig.label);
+    photoWrap.setAttribute('title', gifConfig.label);
+  }
+
   function renderProfile(member) {
     if (!profileView) return;
 
@@ -206,12 +263,6 @@
     if (member.slug === 'anshul-behl') {
       const photoWrap = profileView.querySelector('.team-profile__photo-wrap');
       if (photoWrap) {
-        photoWrap.classList.add('team-profile__photo-wrap--interactive');
-        photoWrap.setAttribute('role', 'button');
-        photoWrap.setAttribute('tabindex', '0');
-        photoWrap.setAttribute('aria-label', 'Play demo demo demo sound');
-        photoWrap.setAttribute('title', 'Demo demo demo');
-
         const playDemoSound = () => {
           if (!anshulDemoSound) {
             anshulDemoSound = new Audio('../assets/demo-demo-demo.mp3');
@@ -220,13 +271,17 @@
           anshulDemoSound.play().catch(() => {});
         };
 
-        photoWrap.addEventListener('click', playDemoSound);
-        photoWrap.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            playDemoSound();
-          }
-        });
+        attachInteractivePhoto(photoWrap, playDemoSound);
+        photoWrap.setAttribute('aria-label', 'Play demo demo demo sound');
+        photoWrap.setAttribute('title', 'Demo demo demo');
+      }
+    }
+
+    const gifConfig = PROFILE_GIFS[member.slug];
+    if (gifConfig) {
+      const photoWrap = profileView.querySelector('.team-profile__photo-wrap');
+      if (photoWrap) {
+        attachGifEasterEgg(photoWrap, gifConfig);
       }
     }
   }
