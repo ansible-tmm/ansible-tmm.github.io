@@ -15,6 +15,16 @@
       durationMs: 6280,
       label: 'Leo laughs',
     },
+    'nuno-martins': {
+      src: '../assets/nuno-matrix.gif',
+      durationMs: 9540,
+      label: 'Nuno stops bullets',
+    },
+    'hicham-mourad': {
+      src: '../assets/hicham-nimbus.gif',
+      durationMs: 1000,
+      label: 'Hicham on the Flying Nimbus',
+    },
   };
 
   const SOCIAL_ICONS = {
