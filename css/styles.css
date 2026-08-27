@@ -1000,6 +1000,18 @@ a:hover {
   object-position: top center;
 }
 
+.team-profile__photo-wrap--interactive {
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.team-profile__photo-wrap--interactive:hover,
+.team-profile__photo-wrap--interactive:focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(238, 0, 0, 0.2);
+  outline: none;
+}
+
 .team-profile__name {
   margin: 0 0 0.35rem;
   font-size: 1.75rem;

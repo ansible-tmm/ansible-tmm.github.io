@@ -4,6 +4,7 @@
   const listView = document.getElementById('team-list');
   const profileView = document.getElementById('team-profile');
   const ASSET_BASE = '../assets/team/';
+  let anshulDemoSound;
 
   const SOCIAL_ICONS = {
     linkedin:
@@ -200,6 +201,32 @@
         e.preventDefault();
         goToTeamList();
       });
+    }
+
+    if (member.slug === 'anshul-behl') {
+      const photoWrap = profileView.querySelector('.team-profile__photo-wrap');
+      if (photoWrap) {
+        photoWrap.classList.add('team-profile__photo-wrap--interactive');
+        photoWrap.setAttribute('role', 'button');
+        photoWrap.setAttribute('tabindex', '0');
+        photoWrap.setAttribute('aria-label', 'Play demo sound');
+
+        const playDemoSound = () => {
+          if (!anshulDemoSound) {
+            anshulDemoSound = new Audio('../assets/demo-demo-demo.m4a');
+          }
+          anshulDemoSound.currentTime = 0;
+          anshulDemoSound.play().catch(() => {});
+        };
+
+        photoWrap.addEventListener('click', playDemoSound);
+        photoWrap.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            playDemoSound();
+          }
+        });
+      }
     }
   }
 
