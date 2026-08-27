@@ -5,14 +5,6 @@
   const profileView = document.getElementById('team-profile');
   const ASSET_BASE = '../assets/team/';
 
-  const LEADERSHIP_ORDER = [
-    'andrius-benokraitis',
-    'sean-cavanaugh',
-    'roger-lopez',
-    'nuno-martins',
-    'anshul-behl',
-  ];
-
   function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;
@@ -27,10 +19,6 @@
     const hash = window.location.hash.replace(/^#/, '');
     if (!hash || typeof TEAM === 'undefined') return null;
     return TEAM.find((m) => m.slug === hash) || null;
-  }
-
-  function sortBySlugOrder(members, order) {
-    return members.slice().sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
   }
 
   function socialLinks(member, { compact = false } = {}) {
@@ -73,10 +61,9 @@
       '<article class="team-card">' +
         '<a href="#' + escapeAttr(member.slug) + '" class="team-card__link" aria-label="' + escapeAttr('View profile for ' + member.name) + '">' +
           '<div class="team-card__photo-wrap">' +
-            '<img src="' + escapeAttr(ASSET_BASE + member.photo) + '" alt="" class="team-card__photo" width="320" height="320" loading="lazy" decoding="async">' +
+            '<img src="' + escapeAttr(ASSET_BASE + member.photo) + '" alt="" class="team-card__photo" width="240" height="240" loading="lazy" decoding="async">' +
           '</div>' +
           '<div class="team-card__body">' +
-            (member.manager ? '<span class="team-card__badge">Manager</span>' : '') +
             '<h3 class="team-card__name">' + escapeHtml(member.name) + '</h3>' +
             '<p class="team-card__title">' + escapeHtml(member.title) + '</p>' +
             '<p class="team-card__location">' + escapeHtml(member.location) + '</p>' +
@@ -90,30 +77,15 @@
     );
   }
 
-  function renderSection(title, id, members) {
-    if (members.length === 0) return '';
-    let html =
-      '<section class="team-section" aria-labelledby="' + id + '">' +
-        '<h2 class="team-section__title" id="' + id + '">' + escapeHtml(title) + '</h2>' +
-        '<div class="team-grid team-grid--3">';
-    members.forEach((m) => { html += renderCard(m); });
-    html += '</div></section>';
-    return html;
-  }
-
   function renderList() {
     if (!listView || typeof TEAM === 'undefined') return;
 
-    const leadership = sortBySlugOrder(
-      TEAM.filter((m) => m.group === 'leadership'),
-      LEADERSHIP_ORDER
-    );
-    const team = TEAM.filter((m) => m.group === 'team').sort((a, b) => a.name.localeCompare(b.name));
+    const members = TEAM.slice().sort((a, b) => a.name.localeCompare(b.name));
+    let html = '<div class="team-grid">';
+    members.forEach((m) => { html += renderCard(m); });
+    html += '</div>';
 
-    listView.innerHTML =
-      renderSection('Leadership', 'team-leadership', leadership) +
-      renderSection('Team', 'team-members', team);
-
+    listView.innerHTML = html;
     listView.hidden = false;
     if (profileView) profileView.hidden = true;
     document.title = 'Meet the Team — Ansible TMM';
@@ -127,10 +99,9 @@
       '<article class="team-profile">' +
         '<div class="team-profile__header">' +
           '<div class="team-profile__photo-wrap">' +
-            '<img src="' + escapeAttr(ASSET_BASE + member.photo) + '" alt="" class="team-profile__photo" width="220" height="220" loading="lazy" decoding="async">' +
+            '<img src="' + escapeAttr(ASSET_BASE + member.photo) + '" alt="" class="team-profile__photo" width="160" height="160" loading="lazy" decoding="async">' +
           '</div>' +
           '<div class="team-profile__meta">' +
-            (member.manager ? '<span class="team-card__badge">Manager</span>' : '') +
             '<h2 class="team-profile__name">' + escapeHtml(member.name) + '</h2>' +
             '<p class="team-profile__title">' + escapeHtml(member.title) + '</p>' +
             '<p class="team-profile__location">' + escapeHtml(member.location) + '</p>' +
