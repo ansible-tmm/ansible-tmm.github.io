@@ -6,9 +6,7 @@
   const ASSET_BASE = '../assets/team/';
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let anshulDemoSound;
-  let gifPopupTimeout;
-  let gifPopupRemoveTimeout;
-  let gifPopupKeydownHandler;
+  let anshulSoundUnregister;
 
   const PROFILE_GIFS = {
     'leonardo-gallego': {
@@ -29,6 +27,11 @@
       src: '../assets/roger-skeptical.gif',
       durationMs: 4200,
       label: 'Roger at the bar',
+    },
+    'alex-walczyk': {
+      src: '../assets/alex-emoji.gif',
+      durationMs: 5000,
+      label: 'Alex emoji',
     },
   };
 
@@ -269,63 +272,31 @@
     });
   }
 
-  function dismissGifPopup(popup) {
-    if (!popup || !popup.isConnected) return;
-    clearTimeout(gifPopupTimeout);
-    clearTimeout(gifPopupRemoveTimeout);
-    if (gifPopupKeydownHandler) {
-      document.removeEventListener('keydown', gifPopupKeydownHandler);
-      gifPopupKeydownHandler = null;
-    }
-    popup.classList.remove('sticker-popup--visible');
-    gifPopupRemoveTimeout = setTimeout(
-      () => popup.remove(),
-      prefersReducedMotion ? 0 : 250
-    );
+  function showGifPopup(gifSrc, durationMs, ariaLabel) {
+    if (typeof EasterEggs === 'undefined') return;
+
+    EasterEggs.showDismissiblePopup({
+      imageSrc: gifSrc,
+      ariaLabel: ariaLabel,
+      durationMs: durationMs,
+      extraClass: 'team-gif-popup',
+    });
   }
 
-  function showGifPopup(gifSrc, durationMs, ariaLabel) {
-    const existing = document.querySelector('.team-gif-popup');
-    if (existing) dismissGifPopup(existing);
-    clearTimeout(gifPopupTimeout);
-    clearTimeout(gifPopupRemoveTimeout);
-
-    const popup = document.createElement('div');
-    popup.className = 'sticker-popup sticker-popup--dismissible team-gif-popup';
-    popup.setAttribute('role', 'dialog');
-    popup.setAttribute('aria-label', ariaLabel);
-    popup.innerHTML =
-      '<div class="sticker-popup__content">' +
-        '<button type="button" class="sticker-popup__close" aria-label="Close">' +
-          '<span aria-hidden="true">&times;</span>' +
-        '</button>' +
-        '<img src="' + escapeAttr(gifSrc) + '" alt="" aria-hidden="true">' +
-      '</div>';
-    document.body.appendChild(popup);
-
-    const closeBtn = popup.querySelector('.sticker-popup__close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dismissGifPopup(popup);
-      });
-    }
-
-    popup.addEventListener('click', (e) => {
-      if (e.target === popup) dismissGifPopup(popup);
+  function attachFireworksEasterEgg(photoWrap) {
+    attachInteractivePhoto(photoWrap, () => {
+      EasterEggs.startFireworks(3000);
     });
+    photoWrap.setAttribute('aria-label', 'Launch fireworks');
+    photoWrap.setAttribute('title', 'Launch fireworks');
+  }
 
-    gifPopupKeydownHandler = (e) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        dismissGifPopup(popup);
-      }
-    };
-    document.addEventListener('keydown', gifPopupKeydownHandler);
-
-    requestAnimationFrame(() => popup.classList.add('sticker-popup--visible'));
-
-    gifPopupTimeout = setTimeout(() => dismissGifPopup(popup), durationMs);
+  function attachDiscoEasterEgg(photoWrap) {
+    attachInteractivePhoto(photoWrap, () => {
+      EasterEggs.startDiscoParty('../assets/stardust-sounds-better.mp3', 3000);
+    });
+    photoWrap.setAttribute('aria-label', 'Music sounds better with you');
+    photoWrap.setAttribute('title', 'Music sounds better with you');
   }
 
   function attachGifEasterEgg(photoWrap, gifConfig) {
@@ -394,13 +365,34 @@
           if (!anshulDemoSound) {
             anshulDemoSound = new Audio('../assets/demo-demo-demo.mp3');
           }
+          if (anshulSoundUnregister) anshulSoundUnregister();
           anshulDemoSound.currentTime = 0;
           anshulDemoSound.play().catch(() => {});
+          if (typeof EasterEggs !== 'undefined') {
+            anshulSoundUnregister = EasterEggs.registerDismiss(() => {
+              anshulDemoSound.pause();
+              anshulDemoSound.currentTime = 0;
+            });
+          }
         };
 
         attachInteractivePhoto(photoWrap, playDemoSound);
         photoWrap.setAttribute('aria-label', 'Play demo demo demo sound');
         photoWrap.setAttribute('title', 'Demo demo demo');
+      }
+    }
+
+    if (member.slug === 'aubrey-trotter') {
+      const photoWrap = profileView.querySelector('.team-profile__photo-wrap');
+      if (photoWrap && typeof EasterEggs !== 'undefined') {
+        attachFireworksEasterEgg(photoWrap);
+      }
+    }
+
+    if (member.slug === 'sean-cavanaugh') {
+      const photoWrap = profileView.querySelector('.team-profile__photo-wrap');
+      if (photoWrap && typeof EasterEggs !== 'undefined') {
+        attachDiscoEasterEgg(photoWrap);
       }
     }
 

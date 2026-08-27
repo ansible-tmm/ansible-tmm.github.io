@@ -882,6 +882,124 @@ a:hover {
   }
 }
 
+.fireworks-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.disco-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  overflow: hidden;
+  background: radial-gradient(circle at center, rgba(8, 0, 24, 0.35), rgba(0, 0, 0, 0.55));
+}
+
+.disco-overlay--visible {
+  opacity: 1;
+}
+
+.disco-overlay__lights,
+.disco-overlay__balls {
+  position: absolute;
+  inset: 0;
+}
+
+.disco-light {
+  position: absolute;
+  width: 40vmax;
+  height: 40vmax;
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: 0.45;
+  mix-blend-mode: screen;
+  animation: disco-light-pulse 1.2s ease-in-out infinite alternate;
+}
+
+.disco-light--1 {
+  top: -10%;
+  left: -5%;
+  background: #ff2d95;
+  animation-delay: 0s;
+}
+
+.disco-light--2 {
+  top: 10%;
+  right: -8%;
+  background: #00d4ff;
+  animation-delay: 0.3s;
+}
+
+.disco-light--3 {
+  bottom: -12%;
+  left: 20%;
+  background: #ffe600;
+  animation-delay: 0.6s;
+}
+
+.disco-light--4 {
+  bottom: 5%;
+  right: 15%;
+  background: #7b61ff;
+  animation-delay: 0.9s;
+}
+
+.disco-ball {
+  position: absolute;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.2) 18%, transparent 36%),
+    repeating-conic-gradient(
+      from 0deg,
+      #d8d8d8 0deg 8deg,
+      #8a8a8a 8deg 16deg
+    );
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.45),
+    inset 0 0 18px rgba(255, 255, 255, 0.35);
+  animation: disco-ball-spin 2.4s linear infinite;
+}
+
+.disco-ball__shine {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.85), transparent 55%);
+  animation: disco-ball-shine 1.1s ease-in-out infinite alternate;
+}
+
+@keyframes disco-ball-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes disco-ball-shine {
+  from { opacity: 0.35; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes disco-light-pulse {
+  from { opacity: 0.25; transform: scale(0.92); }
+  to { opacity: 0.55; transform: scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disco-overlay,
+  .disco-ball,
+  .disco-ball__shine,
+  .disco-light {
+    animation: none !important;
+    transition: none;
+  }
+}
+
 /* ── 404 page ── */
 .page-404 {
   display: flex;
