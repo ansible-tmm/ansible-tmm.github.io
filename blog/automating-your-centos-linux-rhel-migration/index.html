@@ -77,21 +77,31 @@
 <p>Now, what about the actual process of converting our systems? With our Ansible Automation Platform subscription, we have access to <a href="https://www.redhat.com/en/technologies/management/ansible/content-collections">Ansible validated content</a> which provides expert, opinionated automation content all sitting in <a href="https://www.redhat.com/en/technologies/management/ansible/automation-hub">Ansible automation hub</a> on <a href="http://console.redhat.com">console.redhat.com</a>.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img4.png"><img src="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img4.png" alt="Ansible Automation Platform content collections"></a></p>
 <p>We will use the <a href="https://console.redhat.com/ansible/automation-hub/repo/validated/infra/convert2rhel/">infra.convert2rhel</a> collection to get started. This collection provides roles that we can use to perform the conversion using the <a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/migration-process/convert2rhel">Convert2RHEL</a> framework. Using the sample playbook provided in the Ansible validated content, I can simply add this to my workflow and have it start the migration once the pre-work tasks have been completed.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: Convert CentOS Linux to RHEL</span></span>
-<span class="line"><span>hosts: centos</span></span>
-<span class="line"><span>strategy: free</span></span>
-<span class="line"><span>become: true</span></span>
-<span class="line"><span>force_handlers: true</span></span>
-<span class="line"><span>vars:</span></span>
-<span class="line"><span>  rhsm_username: "{{ rhsm_username }}"</span></span>
-<span class="line"><span>  rhsm_password: "{{ rhsm_password }}"</span></span>
-<span class="line"><span>  rhsm_org: "{{ rhsm_org }}"</span></span>
-<span class="line"><span>  rhsm_activation_key: "{{ rhsm_activation_key }}"</span></span>
-<span class="line"><span>tasks:</span></span>
-<span class="line"><span>  - name: Perform OS conversion</span></span>
-<span class="line"><span>    ansible.builtin.import_role:</span></span>
-<span class="line"><span>      name: infra.convert2rhel.convert</span></span></code></pre><p>If you look at the sample playbook, it&#39;s important to note the use of a strategy. If you are not familiar with this, this enables us to control <a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html">how tasks are executed across</a> the hosts. In our example, we use strategy: free -  which allows tasks to be executed as soon as possible without waiting for other hosts, and it runs each host independently. This is ideal for upgrading multiple machines at scale.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Convert CentOS Linux to RHEL</span></span>
+<span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">centos</span></span>
+<span class="line"><span style="color:#85E89D">strategy</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">free</span></span>
+<span class="line"><span style="color:#85E89D">become</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#85E89D">force_handlers</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#85E89D">vars</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    rhsm_username</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ rhsm_username }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    rhsm_password</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ rhsm_password }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    rhsm_org</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ rhsm_org }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    rhsm_activation_key</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ rhsm_activation_key }}"</span></span>
+<span class="line"><span style="color:#85E89D">tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Perform OS conversion</span></span>
+<span class="line"><span style="color:#85E89D">    ansible.builtin.import_role</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">infra.convert2rhel.convert</span></span></code></pre>
+</div><p>If you look at the sample playbook, it&#39;s important to note the use of a strategy. If you are not familiar with this, this enables us to control <a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html">how tasks are executed across</a> the hosts. In our example, we use strategy: free -  which allows tasks to be executed as soon as possible without waiting for other hosts, and it runs each host independently. This is ideal for upgrading multiple machines at scale.</p>
 <p>As soon as we migrate our systems, we can utilize Ansible Automation Platform to automate testing and check ports and configurations as the last step in your migration to RHEL workflow.</p>
 <h3>“RHEL-come” to Enterprise Linux!</h3>
 <p>Once our CentOS Linux systems have been migrated, we will now be on RHEL 7.  It is recommended to then upgrade to RHEL 8 with a similar process—we use the LEAPP upgrading tool framework to assist us. Red Hat also offers an Extended Life Cycle Support (ELS) add-on subscription for RHEL 7 systems, for more information, refer to <a href="https://www.redhat.com/en/blog/announcing-4-years-extended-life-cycle-support-els-red-hat-enterprise-linux-7">Announcing up to 4 years of Extended Life Cycle Support (ELS) for Red Hat Enterprise Linux 7</a>.</p>
@@ -104,44 +114,68 @@
 <h4>Step 2: Trigger the upgrade:</h4>
 <p>We can deploy our playbooks with a workflow at scale, even around the globe, with the use of technologies like <a href="https://www.redhat.com/en/technologies/management/ansible/automation-mesh">automation mesh</a>, which is part of the Ansible Automation Platform.</p>
 <p>Using our Ansible validated content, we can create snapshots of our LVM’s so we can revert back should something fail during the next upgrade step.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: Create/revert/remove/check LVM snapshots of node</span></span>
-<span class="line"><span>hosts: "{{ rhel_inventory_group | default(omit) }}"</span></span>
-<span class="line"><span>become: yes</span></span>
-<span class="line"><span>environment:</span></span>
-<span class="line"><span>  LANG: en_US.UTF-8</span></span>
-<span class="line"><span>  LC_ALL: en_US.UTF-8</span></span>
-<span class="line"><span>  TERM: linux</span></span>
-<span class="line"><span>tasks:</span></span>
-<span class="line"><span>  - ansible.builtin.set_fact:</span></span>
-<span class="line"><span>      snapshot_create_set_name: "{{ snapshot_set_name }}"</span></span>
-<span class="line"><span>      snapshot_remove_set_name: "{{ snapshot_set_name }}"</span></span>
-<span class="line"><span>      snapshot_revert_set_name: "{{ snapshot_set_name }}"</span></span>
-<span class="line"><span>  - name: "Execute snapshot check"</span></span>
-<span class="line"><span>    ansible.builtin.include_role:</span></span>
-<span class="line"><span>      name: "infra.lvm_snapshots.snapshot_create"</span></span>
-<span class="line"><span>    vars:</span></span>
-<span class="line"><span>      snapshot_create_check_only: true</span></span>
-<span class="line"><span>      # Additional snapshot_* vars provided via AAP2 job template and associated surveys</span></span>
-<span class="line"><span>    when: lvm_snapshots_action == "check"</span></span>
-<span class="line"><span>  - name: "Execute snapshot {{ lvm_snapshots_action }}"</span></span>
-<span class="line"><span>    ansible.builtin.include_role:</span></span>
-<span class="line"><span>      name: "infra.lvm_snapshots.snapshot_{{ lvm_snapshots_action }}"</span></span>
-<span class="line"><span>      # Additional snapshot_* vars provided via AAP2 job template and associated surveys</span></span>
-<span class="line"><span>    when: (lvm_snapshots_action == "create") or (lvm_snapshots_action == "remove") or (lvm_snapshots_action == "revert")</span></span></code></pre><p>Once we have our snapshots, we can upgrade our RHEL system using content from our Ansible collections.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: Upgrade</span></span>
-<span class="line"><span>hosts: "{{ rhel_inventory_group | default(omit) }}"</span></span>
-<span class="line"><span>strategy: free</span></span>
-<span class="line"><span>become: true</span></span>
-<span class="line"><span>force_handlers: true</span></span>
-<span class="line"><span># vars:</span></span>
-<span class="line"><span>#   ansible_python_interpreter: /usr/libexec/platform-python</span></span>
-<span class="line"><span>tasks:</span></span>
-<span class="line"><span>  - name: Perform OS upgrade</span></span>
-<span class="line"><span>    ansible.builtin.import_role:</span></span>
-<span class="line"><span>      name: infra.leapp.upgrade</span></span>
-<span class="line"><span>...</span></span></code></pre><p>As soon as a system has been upgraded, we can use Ansible Automation Platform to check the state of the system. If everything is good, we can also use automation to bring the systems back into production.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Create/revert/remove/check LVM snapshots of node</span></span>
+<span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ rhel_inventory_group | default(omit) }}"</span></span>
+<span class="line"><span style="color:#85E89D">become</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
+<span class="line"><span style="color:#85E89D">environment</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    LANG</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">en_US.UTF-8</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    LC_ALL</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">en_US.UTF-8</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    TERM</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">linux</span></span>
+<span class="line"><span style="color:#85E89D">tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">ansible.builtin.set_fact</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        snapshot_create_set_name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ snapshot_set_name }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        snapshot_remove_set_name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ snapshot_set_name }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        snapshot_revert_set_name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ snapshot_set_name }}"</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Execute snapshot check"</span></span>
+<span class="line"><span style="color:#85E89D">    ansible.builtin.include_role</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"infra.lvm_snapshots.snapshot_create"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      vars</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        snapshot_create_check_only</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#6A737D">      # Additional snapshot_* vars provided via AAP2 job template and associated surveys</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      when</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">lvm_snapshots_action == "check"</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Execute snapshot {{ lvm_snapshots_action }}"</span></span>
+<span class="line"><span style="color:#85E89D">    ansible.builtin.include_role</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"infra.lvm_snapshots.snapshot_{{ lvm_snapshots_action }}"</span></span>
+<span class="line"><span style="color:#6A737D">      # Additional snapshot_* vars provided via AAP2 job template and associated surveys</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      when</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">(lvm_snapshots_action == "create") or (lvm_snapshots_action == "remove") or (lvm_snapshots_action == "revert")</span></span></code></pre>
+</div><p>Once we have our snapshots, we can upgrade our RHEL system using content from our Ansible collections.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Upgrade</span></span>
+<span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ rhel_inventory_group | default(omit) }}"</span></span>
+<span class="line"><span style="color:#85E89D">strategy</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">free</span></span>
+<span class="line"><span style="color:#85E89D">become</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#85E89D">force_handlers</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#6A737D"># vars:</span></span>
+<span class="line"><span style="color:#6A737D">#</span></span>
+<span class="line"><span style="color:#85E89D">  ansible_python_interpreter</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">/usr/libexec/platform-python</span></span>
+<span class="line"><span style="color:#85E89D">tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Perform OS upgrade</span></span>
+<span class="line"><span style="color:#85E89D">    ansible.builtin.import_role</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">infra.leapp.upgrade</span></span>
+<span class="line"><span style="color:#B392F0">...</span></span></code></pre>
+</div><p>As soon as a system has been upgraded, we can use Ansible Automation Platform to check the state of the system. If everything is good, we can also use automation to bring the systems back into production.</p>
 <h4>Step 3: Post-upgrade add-ons</h4>
 <p>Our upgrades are done, but we can still do more with Ansible Automation Platform. Post-upgrade configuration and integration can take place as part of our automation workflows, streamlining all the additional tasks we often forget about when upgrading systems. Ansible Automation Platform allows you to integrate your new RHEL system into <a href="https://www.redhat.com/en/technologies/management/insights">Red Hat Insights</a>, simplifying compliance checks and enforcement. We can also configure <a href="https://www.redhat.com/en/blog/automate-performance-management-performance-co-pilot">Performance Co-Pilot</a> to report system metrics to <a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">Event-Driven Ansible</a> and just about every other Day 2 task you could think of!</p>
 <p><a href="https://console.redhat.com/ansible/ansible-dashboard">Automation analytics</a>can help provide clarity on the automated process or help us identify possible anomalies in the hosts during the process, which we can then address later.</p>
@@ -221,6 +255,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

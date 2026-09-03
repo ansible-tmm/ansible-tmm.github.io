@@ -60,48 +60,98 @@
 <p>With the release of <code>kubernetes.core</code> 2.3, we introduce the <code>k8s_taint</code> module. This module provides the ability for a Kuberentes node to repel a pod or set of pods from being scheduled unless they have a matching toleration. This establishes that with taints and tolerations in place, pods are not scheduled onto inappropriate nodes.</p>
 <p>This feature is quite useful when you are trying to ensure exclusivity of a particular set of nodes (only allow a particular group of users access) or you want to provide particular nodes with special hardware (such as GPUs) to only run pods that require the use of the specialized hardware and keep out the pods that don’t require it.</p>
 <p>An example of using the <code>k8s_taint</code> module where the toleration key has a value of <code>key1</code> and its effect is to not execute <code>NoExecute</code>. This means that no pod will be able to execute onto node <code>foo</code> unless it has a matching toleration.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: Taint node "foo"</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Taint node "foo"</span></span>
 <span class="line"><span>  kubernetes.core.k8s_taint:</span></span>
-<span class="line"><span>    state: present</span></span>
-<span class="line"><span>    name: foo</span></span>
-<span class="line"><span>    taints:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      state: present</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      name: foo</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      taints:</span></span>
 <span class="line"><span>    - effect: NoExecute</span></span>
-<span class="line"><span>      key: "key1"</span></span></code></pre><p>Additionally, more than one effect can be provided to apply additional effects:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: Taint node "foo"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        key: "key1"</span></span></code></pre>
+</div><p>Additionally, more than one effect can be provided to apply additional effects:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Taint node "foo"</span></span>
 <span class="line"><span>  kubernetes.core.k8s_taint:</span></span>
-<span class="line"><span>    state: present</span></span>
-<span class="line"><span>    name: foo</span></span>
-<span class="line"><span>    taints:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      state: present</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      name: foo</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      taints:</span></span>
 <span class="line"><span>    - effect: NoExecute</span></span>
-<span class="line"><span>      key: "key1"</span></span>
-<span class="line"><span>      value: "value1"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        key: "key1"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        value: "value1"</span></span>
 <span class="line"><span>    - effect: NoSchedule</span></span>
-<span class="line"><span>      key: "key1"</span></span>
-<span class="line"><span>      value: "value1"</span></span></code></pre><p>This means that no pod will be able to execute nor schedule onto node <code>foo</code> unless it has a matching toleration.  </p>
+<span class="line"><span></span></span>
+<span class="line"><span>        key: "key1"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        value: "value1"</span></span></code></pre>
+</div><p>This means that no pod will be able to execute nor schedule onto node <code>foo</code> unless it has a matching toleration.  </p>
 <p><strong>NOTE</strong>: The available effects of the taint on pods are: <code>NoSchedule</code>, <code>NoExecute</code> and <code>PreferNoSchedule</code>.</p>
 <p>Lastly, a taint can be removed by changing the state from present to absent:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: Remove taint from "foo".</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Remove taint from "foo".</span></span>
 <span class="line"><span>  kubernetes.core.k8s_taint:</span></span>
-<span class="line"><span>    state: absent</span></span>
-<span class="line"><span>    name: foo</span></span>
-<span class="line"><span>    taints:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      state: absent</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      name: foo</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      taints:</span></span>
 <span class="line"><span>    - effect: NoExecute</span></span>
-<span class="line"><span>      key: "key1"</span></span>
-<span class="line"><span>      value: "value1"</span></span>
-<span class="line"><span>      value: "value1"</span></span></code></pre><h2>Enablement of Server-Side Apply</h2>
+<span class="line"><span></span></span>
+<span class="line"><span>        key: "key1"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        value: "value1"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        value: "value1"</span></span></code></pre>
+</div><h2>Enablement of Server-Side Apply</h2>
 <p>Server Side Apply assists users and controllers in managing their resources via declarative configurations. One of the goals of Server Side Apply is to provide more robust handling of conflicts that might arise when a resource is modified by multiple agents concurrently. Client Side Apply works by first fetching the existing resource, then determining the difference between the existing state of resource and the desired state of the resource. If they differ, a patch is applied to the resource for the difference. When resources are modified concurrently, this can lead to race conditions where the same fields are being changed. Server Side Apply assigns ownership of individual fields, preventing unintended changes from being applied in situations where there is contention.</p>
 <p>To take advantage of Server Side Apply within <code>kubernetes.core.k8s</code>, a user can use the <code>server_side_apply</code> field that declare a <code>field_manager</code> as follows:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: Create configmap using server side apply</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Create configmap using server side apply</span></span>
 <span class="line"><span>  kubernetes.core.k8s:</span></span>
-<span class="line"><span>    namespace: testing</span></span>
-<span class="line"><span>    definition:</span></span>
-<span class="line"><span>      apiVersion: v1</span></span>
-<span class="line"><span>      kind: ConfigMap</span></span>
-<span class="line"><span>      metadata:</span></span>
-<span class="line"><span>        name: my-configmap</span></span>
-<span class="line"><span>    apply: yes</span></span>
-<span class="line"><span>    server_side_apply:</span></span>
-<span class="line"><span>      field_manager: ansible</span></span></code></pre><p><strong>NOTE</strong>: This option requires Kubernetes Python Client 19.15.0 or higher.</p>
+<span class="line"><span></span></span>
+<span class="line"><span>      namespace: testing</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      definition:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        apiVersion: v1</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        kind: ConfigMap</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        metadata:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: my-configmap</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      apply: yes</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      server_side_apply:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        field_manager: ansible</span></span></code></pre>
+</div><p><strong>NOTE</strong>: This option requires Kubernetes Python Client 19.15.0 or higher.</p>
 <h2>Incremental Improvements</h2>
 <p>In this release, we have replaced the client side implementation of dry run with server side dry run. With this switch, we can make sure that admission controllers are run and schema validation occurs, providing a more accurate representation of the changes. This feature requires a Kubernetes Python Client version &gt;= 18.20.0, and is used automatically when running the <code>kubernetes.core.k8s</code> module in <code>check</code> mode.</p>
 <p>We have also added the ability to impersonate users and groups through the new <code>impersonate_user</code> and <code>impersonate_groups</code> parameters in the <code>kubernetes.core.k8s</code> module. To use this feature, the authenticating user must have the ability to perform the <code>impersonate</code> verb. This can be configured using Kubernetes RBAC.</p>
@@ -185,6 +235,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

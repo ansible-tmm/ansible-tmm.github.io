@@ -89,60 +89,114 @@
 <p>The configuration of resources on a network device can be retrieved and converted to structured data in two different ways. Both allow for a specific list of resources to collect and convert using the new gather_network_resources keyword. The resource names conveniently map to their corresponding resource module name.</p>
 <p><strong>During fact gathering:</strong></p>
 <p>Using gather_facts is a convenient way to retrieve the current device configuration at the beginning of a playbook for use throughout the playbook. Specify the individual resources that should be retrieved from the device.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- hosts: arista  </span></span>
-<span class="line"><span>  module_defaults:  </span></span>
-<span class="line"><span>    eos_facts:  </span></span>
-<span class="line"><span>      gather_subset: min  </span></span>
-<span class="line"><span>      gather_network_resources:  </span></span>
-<span class="line"><span>      - interfaces  </span></span>
-<span class="line"><span>  gather_facts: True</span></span></code></pre><p>You might have noticed something a bit different in the above examples, namely that gather_facts: True is now available for native fact gathering for network devices.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    module_defaults</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      eos_facts</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        gather_subset</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">min</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        gather_network_resources</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">interfaces</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">True</span></span></code></pre>
+</div><p>You might have noticed something a bit different in the above examples, namely that gather_facts: True is now available for native fact gathering for network devices.</p>
 <p><strong>Using the network facts module directly:</strong></p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: collect interface configuration facts  </span></span>
-<span class="line"><span>  eos_facts:  </span></span>
-<span class="line"><span>    gather_subset: min  </span></span>
-<span class="line"><span>    gather_network_resources:  </span></span>
-<span class="line"><span>    - interfaces</span></span></code></pre><p><strong>The playbook returns the following interface facts:</strong></p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible_facts:  </span></span>
-<span class="line"><span>   ansible_network_resources:  </span></span>
-<span class="line"><span>      interfaces:  </span></span>
-<span class="line"><span>      - enabled: true  </span></span>
-<span class="line"><span>        name: Ethernet1  </span></span>
-<span class="line"><span>        mtu: '1476'  </span></span>
-<span class="line"><span>      - enabled: true  </span></span>
-<span class="line"><span>        name: Loopback0  </span></span>
-<span class="line"><span>      - enabled: true  </span></span>
-<span class="line"><span>        name: Loopback1  </span></span>
-<span class="line"><span>      - enabled: true  </span></span>
-<span class="line"><span>        mtu: '1476'  </span></span>
-<span class="line"><span>        name: Tunnel0  </span></span>
-<span class="line"><span>      - enabled: true  </span></span>
-<span class="line"><span>        name: Ethernet1  </span></span>
-<span class="line"><span>      - enabled: true  </span></span>
-<span class="line"><span>        name: Tunnel1  </span></span>
-<span class="line"><span>      - enabled: true  </span></span>
-<span class="line"><span>        name: Ethernet1</span></span></code></pre><p>Notice how Ansible pulled the native configuration from the Arista device and converted it into structured data for use as standard key/value pairs for additional follow-on tasks and activities.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: collect interface configuration facts</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    eos_facts:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      gather_subset: min</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      gather_network_resources:</span></span>
+<span class="line"><span>    - interfaces</span></span></code></pre>
+</div><p><strong>The playbook returns the following interface facts:</strong></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible_facts:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>     ansible_network_resources:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        interfaces:</span></span>
+<span class="line"><span>      - enabled: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: Ethernet1</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          mtu: '1476'</span></span>
+<span class="line"><span>      - enabled: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: Loopback0</span></span>
+<span class="line"><span>      - enabled: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: Loopback1</span></span>
+<span class="line"><span>      - enabled: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          mtu: '1476'</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: Tunnel0</span></span>
+<span class="line"><span>      - enabled: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: Ethernet1</span></span>
+<span class="line"><span>      - enabled: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: Tunnel1</span></span>
+<span class="line"><span>      - enabled: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: Ethernet1</span></span></code></pre>
+</div><p>Notice how Ansible pulled the native configuration from the Arista device and converted it into structured data for use as standard key/value pairs for additional follow-on tasks and activities.</p>
 <p>The interface facts can be added to your stored Ansible variables and immediately or used later as the input for the eos_interfaces resource module without being manipulated or transformed.</p>
 <h2>Introducing resource modules</h2>
 <p>Now that we’ve pulled facts, normalized the data, and put them into a standardized internal data structure schema, we now have an “off box” source of truth. Hooray! This is indeed great, but the problem now is that you still need a method to take key/value pairs as source and convert them back into the specific configuration that the specific device platform is expecting. Platform-specific modules now need to be developed to satisfy these new requirements of the fact gathering and normalizing activities.</p>
 <p>So what exactly is a “resource module?” Sections of a device’s configuration can be thought of as a resources provided by that device. Network resource modules are intentionally scoped to configure a single resource and can be combined as building blocks to configure complex network services. As a result, there is an inherent simplicity in the requirements and specification for a resource module, since a resource module can read and configure a specific network service on a network device.</p>
 <p>To better explain what a resource module can do, let’s take a look at the following example playbook that demonstrates an idempotent operation using the new network resource facts and eos_l3_interface module.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: example of facts being pushed right back to device.  </span></span>
-<span class="line"><span>  hosts: arista  </span></span>
-<span class="line"><span>  gather_facts: false  </span></span>
-<span class="line"><span>  tasks:  </span></span>
-<span class="line"><span>  - name: grab arista eos facts  </span></span>
-<span class="line"><span>    eos_facts:  </span></span>
-<span class="line"><span>      gather_subset: min  </span></span>
-<span class="line"><span>      gather_network_resources: l3_interfaces  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>  - name: ensure that the IP address information is accurate  </span></span>
-<span class="line"><span>    eos_l3_interfaces:  </span></span>
-<span class="line"><span>      config: "{{ ansible_network_resources['l3_interfaces'] }}"  </span></span>
-<span class="line"><span>      register: result  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>  - name: ensure config did not change  </span></span>
-<span class="line"><span>    assert:  </span></span>
-<span class="line"><span>      that: not result.changed</span></span></code></pre><p>As you can see, the facts gathered from the device were passed directly to the corresponding resource module without transformation. Running this playbook pulls the values from the device and compares them to what’s expected. In this example the value fetched matches what is expected (that is, checking for configuration drift), and reports back if the configuration has changed or not.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">example of facts being pushed right back to device.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">grab arista eos facts</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      eos_facts</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        gather_subset</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">min</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        gather_network_resources</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">l3_interfaces</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ensure that the IP address information is accurate</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      eos_l3_interfaces</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        config</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ ansible_network_resources['l3_interfaces'] }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">result</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ensure config did not change</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      assert</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        that</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">not result.changed</span></span></code></pre>
+</div><p>As you can see, the facts gathered from the device were passed directly to the corresponding resource module without transformation. Running this playbook pulls the values from the device and compares them to what’s expected. In this example the value fetched matches what is expected (that is, checking for configuration drift), and reports back if the configuration has changed or not.</p>
 <p>Saving the facts to stored Ansible Variables and using them in conjunction with resource module in check mode periodically is an ideal way to detect configuration drift. This approach provides a simple way to see if anyone has manually changed specific values. In most cases enterprises are still allowing for manual updates and configuration even though many of the operations are done via Ansible Automation.</p>
 <h2>How do the new resource modules differ from previous modules?</h2>
 <p>For the network automation engineer there are three major differences between the new network resource modules released with Ansible 2.9 and previous modules.</p>
@@ -284,6 +338,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

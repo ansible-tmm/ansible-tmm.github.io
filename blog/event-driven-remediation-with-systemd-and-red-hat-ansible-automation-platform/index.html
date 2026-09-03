@@ -68,7 +68,12 @@
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/mHNmloF0gLRhgJ7vEz0oFVMBHXD_JxE7-VRzO2f0Aq03HKiohIv3OVO2hKaG0to_b_yniY7YhbzNJ_4FqsFTu7fH3KQhWyFjOgjayPvPojwrP06kj_Vr2nXYI1xtDtmmhH5h_4Rl.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/mHNmloF0gLRhgJ7vEz0oFVMBHXD_JxE7-VRzO2f0Aq03HKiohIv3OVO2hKaG0to_b_yniY7YhbzNJ_4FqsFTu7fH3KQhWyFjOgjayPvPojwrP06kj_Vr2nXYI1xtDtmmhH5h_4Rl.png" alt=""></a></p>
 <p>The host config key allows the callback to be validated with Automation controller and triggers the template for the host. We will use the callback URL as an API call in conjunction with the host config key.</p>
 <p>Now, we need to configure our systemd units. We will create a path unit and service unit and place both in /etc/systemd/system on our hosts. These systemd <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/assembly_working-with-systemd-unit-files_configuring-basic-system-settings">path units</a> are what we will use to monitor file changes.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>accounts-mon.path</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>accounts-mon.path</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>[Unit]</span></span>
 <span class="line"><span>Description=Monitor the file for changes</span></span>
@@ -78,7 +83,13 @@
 <span class="line"><span>Unit=accounts-mon.service</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>[Install]</span></span>
-<span class="line"><span>WantedBy=multi-user.target</span></span></code></pre><pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>accounts-mon.service</span></span>
+<span class="line"><span>WantedBy=multi-user.target</span></span></code></pre>
+</div><div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>accounts-mon.service</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>[Unit]</span></span>
 <span class="line"><span>Description="Call back to Ansible Controller for Rescue"</span></span>
@@ -87,17 +98,26 @@
 <span class="line"><span>ExecStart=/usr/bin/curl -v -k -s -i -X POST -H 'Content-Type:application/json' --data '{"host_config_key": "{{ host_config_key }}"}' {{ callback_url }}</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>[Install]</span></span>
-<span class="line"><span>WantedBy=multi-user.target</span></span></code></pre><p>Once you have created these you can enable them and start your path unit.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>sudo systemctl enable accounts-mon.{path,service}</span></span>
-<span class="line"><span>sudo systemctl start accounts-mon.path</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>sudo systemctl status accounts-mon.path</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>accounts-mon.path - Monitor the file for changes</span></span>
-<span class="line"><span>   Loaded: loaded (/etc/systemd/system/accounts-mon.path; enabled; vendor preset: disabled)</span></span>
-<span class="line"><span>   Active: active (waiting) since Fri 2022-03-25 13:41:35 UTC; 47min ago</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>systemd[1]: Started Monitor the file for changes.</span></span></code></pre><p>If any changes are attempted now on the files that systemd is watching it will trigger the service unit which will issue the callback.</p>
+<span class="line"><span>WantedBy=multi-user.target</span></span></code></pre>
+</div><p>Once you have created these you can enable them and start your path unit.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Bash</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> enable</span><span style="color:#9ECBFF"> accounts-mon.{path,service}</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> start</span><span style="color:#9ECBFF"> accounts-mon.path</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> status</span><span style="color:#9ECBFF"> accounts-mon.path</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">accounts-mon.path</span><span style="color:#9ECBFF"> -</span><span style="color:#9ECBFF"> Monitor</span><span style="color:#9ECBFF"> the</span><span style="color:#9ECBFF"> file</span><span style="color:#9ECBFF"> for</span><span style="color:#9ECBFF"> changes</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">     Loaded:</span><span style="color:#9ECBFF"> loaded</span><span style="color:#E1E4E8"> (/etc/systemd/system/accounts-mon.path; </span><span style="color:#B392F0">enabled</span><span style="color:#E1E4E8">; </span><span style="color:#B392F0">vendor</span><span style="color:#9ECBFF"> preset:</span><span style="color:#9ECBFF"> disabled</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">     Active:</span><span style="color:#9ECBFF"> active</span><span style="color:#E1E4E8"> (waiting) since Fri 2022-03-25 13:41:35 UTC; </span><span style="color:#B392F0">47min</span><span style="color:#9ECBFF"> ago</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">systemd[1]:</span><span style="color:#9ECBFF"> Started</span><span style="color:#9ECBFF"> Monitor</span><span style="color:#9ECBFF"> the</span><span style="color:#9ECBFF"> file</span><span style="color:#9ECBFF"> for</span><span style="color:#9ECBFF"> changes.</span></span></code></pre>
+</div><p>If any changes are attempted now on the files that systemd is watching it will trigger the service unit which will issue the callback.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/mzxLqD9ONGqu8IY-6KkB4N_STPumq7aJHYztPhsGizxgTY8E_zPRm22fxtpQIQkgDwjwCtkQ6P4_0Na7kJK_az24q1JrY4cioev6M3saSZAU78GRTXeyS5UkAFesBYAs0hi2OCwR.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/mzxLqD9ONGqu8IY-6KkB4N_STPumq7aJHYztPhsGizxgTY8E_zPRm22fxtpQIQkgDwjwCtkQ6P4_0Na7kJK_az24q1JrY4cioev6M3saSZAU78GRTXeyS5UkAFesBYAs0hi2OCwR.png" alt=""></a></p>
 <h2></h2>
 <h2>Taking it to another level</h2>
@@ -105,26 +125,51 @@
 <p>We can use the API on the automation controller to retrieve a job summary for the host and sum up the number of remediation tasks that have taken place over the last day. Based on this we use conditionals to trigger additional tasks.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/mW88s2tCwtHRamPoNqD1tXNbvRY8wksXAdnq2sZ30nM0Ubb-hTynZfc--QuzrVh8CBwC-Lr-pSGtY3wqDETgiexqFp8CnWfpNgygOQCOtaEGTAEv3TvAnYPYLMEf0hFFx9TlzCJ1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/mW88s2tCwtHRamPoNqD1tXNbvRY8wksXAdnq2sZ30nM0Ubb-hTynZfc--QuzrVh8CBwC-Lr-pSGtY3wqDETgiexqFp8CnWfpNgygOQCOtaEGTAEv3TvAnYPYLMEf0hFFx9TlzCJ1.png" alt=""></a></p>
 <p>Using the browsable API on the Automation controller we can filter out what we are looking for. In this example, I am looking at a specific host which is host 3 and the job template 20.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>https://controller/api/v2/hosts/3/job_host_summaries/?job__job_template_id=20</span></span></code></pre><p>Furthermore, I would like to find out how many times this job ran today. To do so,  I can add a regex search to this API call and include it in my Ansible Playbook. This way I can count the number of remediations that have run today, and use this information to drive further automation based on conditionals. In the following example, you can see that I am calling the API for the job summary on a host for that day, and then filtering that to see how many times the template has been processed. This will be the basis of my counter.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>  - name: Ansible fact - ansible_date_time</span></span>
-<span class="line"><span>     set_fact:</span></span>
-<span class="line"><span>      todays_date: "{{ ansible_date_time.date }}"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>   - name: Retrieve Job Summaries</span></span>
-<span class="line"><span>     uri:</span></span>
-<span class="line"><span>      url:</span></span>
-<span class="line"><span>https://controller/api/v2/hosts/3/job_host_summaries/?job__job_template_id=20&#x26;created__regex={{ todays_date }}</span></span>
-<span class="line"><span>       user: "{{ myuser }}"</span></span>
-<span class="line"><span>       password: "{{ mypass }}"</span></span>
-<span class="line"><span>       force_basic_auth: true</span></span>
-<span class="line"><span>       method: "GET"</span></span>
-<span class="line"><span>       status_code: "200"</span></span>
-<span class="line"><span>       validate_certs: no</span></span>
-<span class="line"><span>     register: "job_details"  </span></span>
-<span class="line"><span>       </span></span>
-<span class="line"><span>   - name: Counter value</span></span>
-<span class="line"><span>      set_fact:</span></span>
-<span class="line"><span>       counter: "{{ job_details | regex_findall('processed') | length }}"</span></span></code></pre><p>Now that I can get an idea on how many times my system has had to be remediated I can start to expand possible outcomes based on the accumulated remediation count.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>https://controller/api/v2/hosts/3/job_host_summaries/?job__job_template_id=20</span></span></code></pre>
+</div><p>Furthermore, I would like to find out how many times this job ran today. To do so,  I can add a regex search to this API call and include it in my Ansible Playbook. This way I can count the number of remediations that have run today, and use this information to drive further automation based on conditionals. In the following example, you can see that I am calling the API for the job summary on a host for that day, and then filtering that to see how many times the template has been processed. This will be the basis of my counter.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Ansible fact - ansible_date_time</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       set_fact</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        todays_date</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ ansible_date_time.date }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Retrieve Job Summaries</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       uri</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        url</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#9ECBFF">https://controller/api/v2/hosts/3/job_host_summaries/?job__job_template_id=20&#x26;created__regex={{ todays_date }}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         user</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ myuser }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         password</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ mypass }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         force_basic_auth</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         method</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"GET"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         status_code</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"200"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         validate_certs</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">no</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"job_details"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Counter value</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        set_fact</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         counter</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ job_details | regex_findall('processed') | length }}"</span></span></code></pre>
+</div><p>Now that I can get an idea on how many times my system has had to be remediated I can start to expand possible outcomes based on the accumulated remediation count.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/6b6c8QG6UJjibTyt6U0rzgwPdVTyasuwHqFYTbtyy_CxcvLQLIpbs5H2hb_-5vjWi2IVVUFg62kCukQTqLa3Sug51NtSNXgZVB05MgZuyeT9vJn-Sxu32YbDVRamLLSLGEpSPLeJ.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/6b6c8QG6UJjibTyt6U0rzgwPdVTyasuwHqFYTbtyy_CxcvLQLIpbs5H2hb_-5vjWi2IVVUFg62kCukQTqLa3Sug51NtSNXgZVB05MgZuyeT9vJn-Sxu32YbDVRamLLSLGEpSPLeJ.png" alt=""></a></p>
 <p>Possible actions based on the number of remediation attempts could include the following:</p>
 <table>
@@ -148,19 +193,33 @@
 </tr>
 </tbody></table>
 <p>It is important to note that this example is fairly simple, however, you could have multiple files and folders being monitored by systemd, with each of them having their own remediation callbacks and ultimately you can accumulate the total number of remediation jobs that have taken place on a host. With Ansible the options are endless, we could automate network changes and responses to possible compromised systems, redeploy infrastructure or applications or just drive event-driven notifications.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>   - name: count number of remediation attempts</span></span>
-<span class="line"><span>     set_fact:</span></span>
-<span class="line"><span>      counter: "{{ job_details | regex_findall('processed') | length }}"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>   - name: run compliance checks on host and check AIDE</span></span>
-<span class="line"><span>     include_role:</span></span>
-<span class="line"><span>       name: ../roles/compliance_check</span></span>
-<span class="line"><span>     when: counter|int == 3</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>   - name: run AIDE check and log support ticket for escalation</span></span>
-<span class="line"><span>     include_role:</span></span>
-<span class="line"><span>      name: ../roles/raise_ticket</span></span>
-<span class="line"><span>     when: counter|int >= 4</span></span></code></pre><p>With this example, once a host has had  three attempts at remediation from Automation controller, it will run a compliance check on the system to ensure SElinux, the firewall settings and any other service configurations have not changed from the organization’s configuration profile. If another remediation attempt is triggered then we will generate an AIDE  report to check for possible intrusion and system changes, which we attach to a support ticket that is logged on ServiceNow for human intervention.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">count number of remediation attempts</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       set_fact</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        counter</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ job_details | regex_findall('processed') | length }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">run compliance checks on host and check AIDE</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       include_role</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">../roles/compliance_check</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       when</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">counter|int == 3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">run AIDE check and log support ticket for escalation</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       include_role</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">../roles/raise_ticket</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       when</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">counter|int >= 4</span></span></code></pre>
+</div><p>With this example, once a host has had  three attempts at remediation from Automation controller, it will run a compliance check on the system to ensure SElinux, the firewall settings and any other service configurations have not changed from the organization’s configuration profile. If another remediation attempt is triggered then we will generate an AIDE  report to check for possible intrusion and system changes, which we attach to a support ticket that is logged on ServiceNow for human intervention.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ho8zKEzq-pbPxGD78YcQBuRxGUkT18ZGT2REywI8Jgd2TU3giLVKF3HlOdAC1F9fzG13KSSoSy9VDPzdvo1Y4GMKqsUAVDYqr0plKWB8eDbWh8uzGXtbF_UIrnobhIVaqDIVLyHX.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ho8zKEzq-pbPxGD78YcQBuRxGUkT18ZGT2REywI8Jgd2TU3giLVKF3HlOdAC1F9fzG13KSSoSy9VDPzdvo1Y4GMKqsUAVDYqr0plKWB8eDbWh8uzGXtbF_UIrnobhIVaqDIVLyHX.png" alt=""></a></p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Uc-vK5KnhflalTtYhShCS51XjCcwE6upR_HzEoCvEVVX_HDulytfz8KHEmpLp6UzvjZ2InTL-ataPg54acwHCuICxYcnufoV4Il9Vx67WygboGe3xoMrxJ5SdVygmMimtAe2CePQ.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Uc-vK5KnhflalTtYhShCS51XjCcwE6upR_HzEoCvEVVX_HDulytfz8KHEmpLp6UzvjZ2InTL-ataPg54acwHCuICxYcnufoV4Il9Vx67WygboGe3xoMrxJ5SdVygmMimtAe2CePQ.png" alt=""></a></p>
 <p>In this blog post, I intended to show that with the use of an event trigger we are able to take  remediation actions in a proactive manner allowing systems to repair configuration mistakes or from possible early malicious attack attempts.</p>
@@ -238,6 +297,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

@@ -62,7 +62,13 @@
 <p>There is an example of using curl to talk to the Ansible Tower API located in the documentation: <a href="https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#launching-jobs-with-curl">https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#launching-jobs-with-curl</a></p>
 <h2>HTTPie</h2>
 <p>There is another popular open source command line HTTP client called HTTPie. Its goal is to make CLI interaction with web services as human-friendly as possible. For example, this is what an API request to Ansible Tower could look like using HTTPie:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>~ http POST https://ansible.io/api/v2/job_templates/84/launch/ --auth seanc:password123!</span></span></code></pre><p>The above HTTPie command will launch job 84, which is a unique identifier for my workflow job template. You can see what job id represents your job by using the browsable API and listing the jobs out or using the Web UI and looking at the browser window address bar.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>~ http POST https://ansible.io/api/v2/job_templates/84/launch/ --auth seanc:password123!</span></span></code></pre>
+</div><p>The above HTTPie command will launch job 84, which is a unique identifier for my workflow job template. You can see what job id represents your job by using the browsable API and listing the jobs out or using the Web UI and looking at the browser window address bar.</p>
 <blockquote>
 <p><strong>Quick note on authentication:</strong> HTTPie supports a variety of authentication plugins including OAuth. In the simple example, we are showing a fake password in plain text. More details on authentication can be found here: <a href="https://github.com/jakubroztocil/httpie#11authentication">https://github.com/jakubroztocil/httpie#11authentication</a></p>
 </blockquote>
@@ -73,16 +79,22 @@
 <p>Click the green button and name your workflow file (I just used the default). Then click on the blue text “create a new workflow”. This will default you into the Visual editor. You can name the workflow here. For this blog post I am not going to use the Visual editor any further, and preferred to use the &lt;&gt; Edit file tab at the top.</p>
 <p>When creating a Github Action you create a workflow file, if using the Visual editor it will be creating this workflow file for you. For my use case I only want to trigger something on a Pull Request. A Pull Request is how someone from the community will try to merge a change into the Github repository. As soon as this Github Pull Request comes in I want it to kick off an API request to Ansible Tower, and then launch the workflow job template.</p>
 <p>After reading the Github Actions documents and going through the available Actions and deciding to use the HTTPie Github Action (<a href="https://github.com/swinton/httpie.action">that can be found here</a>) I came up with the following Github Action workflow file:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>workflow "Linklight Test Workflow" {  </span></span>
-<span class="line"><span> on = "pull_request"  </span></span>
-<span class="line"><span> resolves = ["Call httpbin"]  </span></span>
-<span class="line"><span>}  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>action "Call httpbin" {  </span></span>
-<span class="line"><span> uses = "swinton/httpie.action@master"  </span></span>
-<span class="line"><span> args = ["POST", "https://ansible.io/api/v2/job_templates/84/launch/", "--auth=$USER_PASSWORD"]  </span></span>
-<span class="line"><span> secrets = ["USER_PASSWORD"]  </span></span>
-<span class="line"><span>}</span></span></code></pre><p>As you can see my Github Action workflow file is pretty simple. If I receive a Pull Request on any branch I will initiate a HTTPie request to my Red Hat Ansible Tower job for the workflow template. The only major ‘gotcha’ I had with the process was storing my credentials. This seemed very simple in the Visual Editor, you can click on the Action and add secrets. In my case I create a variable (as seen above) called USER_PASSWORD and put my username and password in there. The SECRET_KEY is USER_PASSWORD and the Secret value is simply my password (e.g. seanc:password123!)</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">workflow </span><span style="color:#9ECBFF">"Linklight Test Workflow"</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8"> on </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "pull_request"</span></span>
+<span class="line"><span style="color:#E1E4E8"> resolves </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">"Call httpbin"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">action </span><span style="color:#9ECBFF">"Call httpbin"</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8"> uses </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "swinton/httpie.action@master"</span></span>
+<span class="line"><span style="color:#E1E4E8"> args </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">"POST"</span><span style="color:#F97583">,</span><span style="color:#9ECBFF"> "https://ansible.io/api/v2/job_templates/84/launch/"</span><span style="color:#F97583">,</span><span style="color:#9ECBFF"> "--auth=</span><span style="color:#E1E4E8">$USER_PASSWORD</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8"> secrets </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">"USER_PASSWORD"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</div><p>As you can see my Github Action workflow file is pretty simple. If I receive a Pull Request on any branch I will initiate a HTTPie request to my Red Hat Ansible Tower job for the workflow template. The only major ‘gotcha’ I had with the process was storing my credentials. This seemed very simple in the Visual Editor, you can click on the Action and add secrets. In my case I create a variable (as seen above) called USER_PASSWORD and put my username and password in there. The SECRET_KEY is USER_PASSWORD and the Secret value is simply my password (e.g. seanc:password123!)</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image1-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image1-1.png" alt="image1-1"></a></p>
 <p>Now I simply created a test repo in my organization to play around with my new Github Action workflow. I submitted a test PR from one test branch to another one and it shows up after only 4-5 seconds!</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image2-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image2-2.png" alt="image2-2"></a></p>
@@ -152,6 +164,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

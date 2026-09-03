@@ -80,53 +80,86 @@
 <p><a href="https://docs.ansible.com/ansible/latest/plugins/connection.html">Connection plugins</a> allow Ansible to connect to target hosts so it can execute tasks on them. With the Ansible 2.5 release the network_cli connection plugin was introduced, removing the requirement for the provider parameter and standardizing network modules to allow playbooks to look, feel and operate just like they do on Linux hosts. This also allowed Red Hat Ansible Tower to treat network devices like other devices and utilize “machine credentials,” no longer needing “network credentials.” This was covered in a <a href="https://www.ansible.com/blog/coming-soon-networking-features-in-ansible-2.5">previous blog post</a>, but login information like username and password could be used and stored similarly for a Linux server and for an Arista EOS switch or Cisco router.</p>
 <p>However, connecting via eAPI and NX-API methods were previously only supported using the legacy provider method. With Ansible 2.6 this is no longer a restriction and the top level httpapi connection method can be used instead. Let’s demonstrate what this looks like.</p>
 <p>First, eAPI or NX-API must be enabled on the networking platform for the httpapi method to be usable. Luckily this is super simple with Ansible! An ad-hoc command can quickly turn on eAPI on my Arista EOS switch. </p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[user@rhel7]$ ansible -m eos_eapi -c network_cli leaf01  </span></span>
-<span class="line"><span>leaf01 | SUCCESS => {   </span></span>
-<span class="line"><span>   "ansible_facts": {   </span></span>
-<span class="line"><span>     "eos_eapi_urls": {   </span></span>
-<span class="line"><span>       "Ethernet1": [   </span></span>
-<span class="line"><span>            "https://192.168.0.14:443"   </span></span>
-<span class="line"><span>        ],   </span></span>
-<span class="line"><span>        "Management1": [   </span></span>
-<span class="line"><span>             "https://10.0.2.15:443"   </span></span>
-<span class="line"><span>        ]   </span></span>
-<span class="line"><span>     }   </span></span>
-<span class="line"><span>    },   </span></span>
-<span class="line"><span>    "changed": false,   </span></span>
-<span class="line"><span>    "commands": []  </span></span>
-<span class="line"><span>}</span></span></code></pre><p>When connecting to the actual Arista EOS switch, a show management api http-commands command shows us the API is turned on:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>leaf01# show management api http-commands  </span></span>
-<span class="line"><span>Enabled:      Yes  </span></span>
-<span class="line"><span>HTTPS server: running, set to use port 443  </span></span>
-<span class="line"><span>&#x3C;&#x3C;&#x3C;rest of output removed for brevity>>></span></span></code></pre><p>The following Ansible Playbook performs a simple “show version” and then a debug statement will return just the version from the JSON output provided from the task.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---  </span></span>
-<span class="line"><span>- hosts: leaf01   </span></span>
-<span class="line"><span>  connection: httpapi   </span></span>
-<span class="line"><span>  gather_facts: false   </span></span>
-<span class="line"><span>  tasks:   </span></span>
-<span class="line"><span>    - name: type a simple arista command   </span></span>
-<span class="line"><span>      eos_command:   </span></span>
-<span class="line"><span>      commands:   </span></span>
-<span class="line"><span>        - show version | json   </span></span>
-<span class="line"><span>      register: command_output   </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>    - name: print command output to terminal window   </span></span>
-<span class="line"><span>      debug:   </span></span>
-<span class="line"><span>        var: command_output.stdout[0]["version"]</span></span></code></pre><p>Running the playbook will result in the following:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[user@rhel7]$ ansible-playbook playbook.yml  </span></span>
-<span class="line"><span>PLAY [leaf01]********************************************************  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>TASK [type a simple arista command] *********************************  </span></span>
-<span class="line"><span>ok: [leaf01]  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>TASK [print command output to terminal window] **********************  </span></span>
-<span class="line"><span>ok: [leaf01] => {   </span></span>
-<span class="line"><span>     "command_output.stdout[0][\"version\"]": "4.20.1F"   </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>}   </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>PLAY RECAP***********************************************************  </span></span>
-<span class="line"><span>leaf01 : ok=2 changed=0 unreachable=0 failed=0</span></span></code></pre><p>As a side note, the short versions of commands (e.g. “show ver” vs “show version”) don’t work on Arista eAPI, you must use the full command. For more information on the httpapi connection plugin refer to the <a href="https://docs.ansible.com/ansible/latest/plugins/connection/httpapi.html">relevant documentation</a>.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">user</span><span style="color:#E1E4E8">@rhel7]$ ansible </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">m eos_eapi </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">c network_cli leaf01</span></span>
+<span class="line"><span style="color:#E1E4E8">leaf01 </span><span style="color:#F97583">|</span><span style="color:#E1E4E8"> SUCCESS </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">   "ansible_facts"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">     "eos_eapi_urls"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#9ECBFF">       "Ethernet1"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">              "https://192.168.0.14:443"</span></span>
+<span class="line"><span style="color:#E1E4E8">        ]</span><span style="color:#F97583">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        "Management1"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">               "https://10.0.2.15:443"</span></span>
+<span class="line"><span style="color:#E1E4E8">        ]</span></span>
+<span class="line"><span style="color:#E1E4E8">     }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span><span style="color:#F97583">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "changed"</span><span style="color:#E1E4E8">: false</span><span style="color:#F97583">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "commands"</span><span style="color:#E1E4E8">: []</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</div><p>When connecting to the actual Arista EOS switch, a show management api http-commands command shows us the API is turned on:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>leaf01# show management api http-commands</span></span>
+<span class="line"><span>Enabled:      Yes</span></span>
+<span class="line"><span>HTTPS server: running, set to use port 443</span></span>
+<span class="line"><span>&#x3C;&#x3C;&#x3C;rest of output removed for brevity>>></span></span></code></pre>
+</div><p>The following Ansible Playbook performs a simple “show version” and then a debug statement will return just the version from the JSON output provided from the task.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">leaf01</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">httpapi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">type a simple arista command</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        eos_command</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        commands</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#9ECBFF">show version | json</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">command_output</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">print command output to terminal window</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        debug</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          var</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">command_output.stdout[0]["version"]</span></span></code></pre>
+</div><p>Running the playbook will result in the following:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">user</span><span style="color:#E1E4E8">@rhel7]$ ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">playbook playbook.yml</span></span>
+<span class="line"><span style="color:#E1E4E8">PLAY [</span><span style="color:#F97583">leaf01</span><span style="color:#E1E4E8">]</span><span style="color:#F97583">********************************************************</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">TASK [</span><span style="color:#F97583">type</span><span style="color:#F97583"> a</span><span style="color:#F97583"> simple</span><span style="color:#F97583"> arista</span><span style="color:#F97583"> command</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*********************************</span></span>
+<span class="line"><span style="color:#E1E4E8">ok: [</span><span style="color:#F97583">leaf01</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">TASK [</span><span style="color:#F97583">print</span><span style="color:#F97583"> command</span><span style="color:#F97583"> output</span><span style="color:#F97583"> to</span><span style="color:#F97583"> terminal</span><span style="color:#F97583"> window</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">**********************</span></span>
+<span class="line"><span style="color:#E1E4E8">ok: [</span><span style="color:#F97583">leaf01</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">     "command_output.stdout[0][\"</span><span style="color:#E1E4E8">version\</span><span style="color:#9ECBFF">"]"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"4.20.1F"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">PLAY RECAP</span><span style="color:#F97583">***********************************************************</span></span>
+<span class="line"><span style="color:#E1E4E8">leaf01 : ok</span><span style="color:#F97583">=</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8"> changed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8"> unreachable</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8"> failed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span></span></code></pre>
+</div><p>As a side note, the short versions of commands (e.g. “show ver” vs “show version”) don’t work on Arista eAPI, you must use the full command. For more information on the httpapi connection plugin refer to the <a href="https://docs.ansible.com/ansible/latest/plugins/connection/httpapi.html">relevant documentation</a>.</p>
 <p>New network automation modules</p>
 <p>The Ansible 2.6 release and upcoming 2.7 release have seven new modules.</p>
 <h4><strong>net_get and net_put</strong></h4>
@@ -141,21 +174,39 @@
 </ul>
 <p>The net_get and net_put modules are agnostic modules that use standard SCP or SFTP transfer protocols (chosen by the protocol parameter) to copy files to and from network devices. Both modules require use of the network_cli connection method, and that scp is installed (pip install scp) on the controller, and that SCP (or SFTP) is enabled on the network device. </p>
 <p>For this playbook to work we will assume we already performed the following on Leaf01:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>leaf01#copy running-config flash:running_cfg_eos1.txt  </span></span>
-<span class="line"><span>Copy completed successfully.</span></span></code></pre><p>Here is a look at a playbook with two tasks. The first task copies a file from Leaf01 and the second task copies a file to Leaf01</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---  </span></span>
-<span class="line"><span>- hosts: leaf01   </span></span>
-<span class="line"><span>  connection: network_cli   </span></span>
-<span class="line"><span>  gather_facts: false   </span></span>
-<span class="line"><span>  tasks:   </span></span>
-<span class="line"><span>     </span></span>
-<span class="line"><span>   - name: COPY FILE FROM THE NETWORK DEVICE TO ANSIBLE CONTROLLER   </span></span>
-<span class="line"><span>     net_get:   </span></span>
-<span class="line"><span>       src: running_cfg_eos1.txt   </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>  - name: COPY FILE FROM THE ANSIBLE CONTROLLER TO THE NETWORK DEVICE   </span></span>
-<span class="line"><span>    net_put:   </span></span>
-<span class="line"><span>      src: temp.txt</span></span></code></pre><p>netconf_get, netconf_rpc and netconf_config</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>leaf01#copy running-config flash:running_cfg_eos1.txt</span></span>
+<span class="line"><span>Copy completed successfully.</span></span></code></pre>
+</div><p>Here is a look at a playbook with two tasks. The first task copies a file from Leaf01 and the second task copies a file to Leaf01</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">leaf01</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network_cli</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">COPY FILE FROM THE NETWORK DEVICE TO ANSIBLE CONTROLLER</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       net_get</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         src</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">running_cfg_eos1.txt</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">COPY FILE FROM THE ANSIBLE CONTROLLER TO THE NETWORK DEVICE</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      net_put</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        src</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">temp.txt</span></span></code></pre>
+</div><p>netconf_get, netconf_rpc and netconf_config</p>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/modules/netconf_get_module.html#netconf-get-module">netconf_get</a> - fetch configuration/state data from NETCONF enabled network devices</li>
 <li><a href="https://docs.ansible.com/ansible/latest/modules/netconf_rpc_module.html#netconf-rpc-module">netconf_rpc</a> - execute operations on NETCONF enabled network devices</li>
@@ -163,69 +214,104 @@
 </ul>
 <p>The Network Configuration Protocol (NETCONF) is a network management protocol developed and standardized by the IETF. As defined in RFC 6241, NETCONF can be used to install, manipulate, and delete the configuration of network devices. NETCONF is an alternative to SSH command line (network_cli) and device APIs like Cisco NX-API and Arista eAPI (httpapi).  </p>
 <p>To showcase the new netconf modules, I will first enable netconf on some Juniper routers using the <a href="https://docs.ansible.com/ansible/latest/modules/junos_netconf_module.html">junos_netconf</a> module. Not all networking devices support netconf so please check your vendor’s documentation for which specific platforms support it.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[user@rhel7 ~]$ ansible -m junos_netconf juniper -c network_cli  </span></span>
-<span class="line"><span>rtr4 | CHANGED => {   </span></span>
-<span class="line"><span>    "changed": true,   </span></span>
-<span class="line"><span>    "commands": [   </span></span>
-<span class="line"><span>         "set system services netconf ssh port 830"   </span></span>
-<span class="line"><span>    ]  </span></span>
-<span class="line"><span>}  </span></span>
-<span class="line"><span>rtr3 | CHANGED => {   </span></span>
-<span class="line"><span>    "changed": true,   </span></span>
-<span class="line"><span>    "commands": [   </span></span>
-<span class="line"><span>         "set system services netconf ssh port 830"   </span></span>
-<span class="line"><span>    ]  </span></span>
-<span class="line"><span>}</span></span></code></pre><p>Juniper Networks has a Junos XML API Explorer for <a href="https://apps.juniper.net/xmlapi/operTags.jsp">Operational Tags</a> as well as <a href="https://apps.juniper.net/xmlapi/">Configuration Tags</a>. Lets look at an operational requests example Juniper Networks <a href="https://www.juniper.net/documentation/en_US/junos/topics/task/operational/netconf-session-request-sending.html">uses in their example documentation</a> for an RPC request for a specific interface:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>&#x3C;rpc>  </span></span>
-<span class="line"><span>  &#x3C;get-interface-information>  </span></span>
-<span class="line"><span>   &#x3C;interface-name>ge-2/3/0&#x3C;/interface-name>  </span></span>
-<span class="line"><span>    &#x3C;detail/>  </span></span>
-<span class="line"><span> &#x3C;/get-interface-information>  </span></span>
-<span class="line"><span>&#x3C;/rpc>  </span></span>
-<span class="line"><span>]]>]]></span></span></code></pre><p>This will translate elegantly to an Ansible Playbook. The get-interface-information is the RPC call, and additional parameters are defined under the content parameter as key, value pairs. In this case there is one option, the interface-name, and on our network device we just want to look at em1.0. We use the register task level parameter simply to save the results so we can use the debug module and print the output to the terminal window. The netconf_rpc module also allows us to translate the XML return values directly into JSON.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---  </span></span>
-<span class="line"><span>- name: RUN A NETCONF COMMAND   </span></span>
-<span class="line"><span>  hosts: juniper   </span></span>
-<span class="line"><span>  gather_facts: no   </span></span>
-<span class="line"><span>  connection: netconf   </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>  tasks:   </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>    - name: GET INTERFACE INFO   </span></span>
-<span class="line"><span>      netconf_rpc:   </span></span>
-<span class="line"><span>        display: json   </span></span>
-<span class="line"><span>        rpc: get-interface-information   </span></span>
-<span class="line"><span>        content:   </span></span>
-<span class="line"><span>          interface-name: "em1.0"   </span></span>
-<span class="line"><span>      register: netconf_info   </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>    - name: PRINT OUTPUT TO TERMINAL WINDOW   </span></span>
-<span class="line"><span>      debug:   </span></span>
-<span class="line"><span>        var: netconf_info</span></span></code></pre><p>Running the playbook will return the following:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ok: [rtr4] => {  </span></span>
-<span class="line"><span>   "netconf_info": {  </span></span>
-<span class="line"><span>   "changed": false,  </span></span>
-<span class="line"><span>   "failed": false,  </span></span>
-<span class="line"><span>   "output": {  </span></span>
-<span class="line"><span>      "rpc-reply": {  </span></span>
-<span class="line"><span>        "interface-information": {  </span></span>
-<span class="line"><span>         "logical-interface": {  </span></span>
-<span class="line"><span>          "address-family": [  </span></span>
-<span class="line"><span>           {  </span></span>
-<span class="line"><span>              "address-family-flags": {  </span></span>
-<span class="line"><span>                 "ifff-is-primary": ""  </span></span>
-<span class="line"><span>               },  </span></span>
-<span class="line"><span>               "address-family-name": "inet",  </span></span>
-<span class="line"><span>               "interface-address": [  </span></span>
-<span class="line"><span>               {  </span></span>
-<span class="line"><span>                  "ifa-broadcast": "10.255.255.255",  </span></span>
-<span class="line"><span>                  "ifa-destination": "10/8",  </span></span>
-<span class="line"><span>                  "ifa-flags": {  </span></span>
-<span class="line"><span>                      "ifaf-current-preferred": ""  </span></span>
-<span class="line"><span>                  },  </span></span>
-<span class="line"><span>                  "ifa-local": "10.0.0.4"  </span></span>
-<span class="line"><span>                },  </span></span>
-<span class="line"><span>&#x3C;&#x3C;&#x3C;rest of output removed for brevity>>></span></span></code></pre><p>For more information on the Juniper platform refer to the <a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">Juniper P</a><a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">latform</a> <a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">G</a><a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">uide</a>. For more information on the NETCONF connection plugin refer to <a href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">the</a> <a href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">NETCONF</a> <a href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">documentation</a>.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">user</span><span style="color:#E1E4E8">@rhel7 ~]$ ansible </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">m junos_netconf juniper </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">c network_cli</span></span>
+<span class="line"><span style="color:#E1E4E8">rtr4 </span><span style="color:#F97583">|</span><span style="color:#E1E4E8"> CHANGED </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "changed"</span><span style="color:#E1E4E8">: true</span><span style="color:#F97583">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "commands"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#9ECBFF">         "set system services netconf ssh port 830"</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">rtr3 </span><span style="color:#F97583">|</span><span style="color:#E1E4E8"> CHANGED </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "changed"</span><span style="color:#E1E4E8">: true</span><span style="color:#F97583">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "commands"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#9ECBFF">         "set system services netconf ssh port 830"</span></span>
+<span class="line"><span style="color:#E1E4E8">    ]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</div><p>Juniper Networks has a Junos XML API Explorer for <a href="https://apps.juniper.net/xmlapi/operTags.jsp">Operational Tags</a> as well as <a href="https://apps.juniper.net/xmlapi/">Configuration Tags</a>. Lets look at an operational requests example Juniper Networks <a href="https://www.juniper.net/documentation/en_US/junos/topics/task/operational/netconf-session-request-sending.html">uses in their example documentation</a> for an RPC request for a specific interface:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>&#x3C;rpc></span></span>
+<span class="line"><span>  &#x3C;get-interface-information></span></span>
+<span class="line"><span>   &#x3C;interface-name>ge-2/3/0&#x3C;/interface-name></span></span>
+<span class="line"><span>    &#x3C;detail/></span></span>
+<span class="line"><span> &#x3C;/get-interface-information></span></span>
+<span class="line"><span>&#x3C;/rpc></span></span>
+<span class="line"><span>]]>]]></span></span></code></pre>
+</div><p>This will translate elegantly to an Ansible Playbook. The get-interface-information is the RPC call, and additional parameters are defined under the content parameter as key, value pairs. In this case there is one option, the interface-name, and on our network device we just want to look at em1.0. We use the register task level parameter simply to save the results so we can use the debug module and print the output to the terminal window. The netconf_rpc module also allows us to translate the XML return values directly into JSON.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">RUN A NETCONF COMMAND</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">juniper</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">no</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">netconf</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">GET INTERFACE INFO</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        netconf_rpc</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          display</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">json</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          rpc</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">get-interface-information</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          content</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">            interface-name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"em1.0"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">netconf_info</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">PRINT OUTPUT TO TERMINAL WINDOW</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        debug</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          var</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">netconf_info</span></span></code></pre>
+</div><p>Running the playbook will return the following:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ok: [rtr4] => {</span></span>
+<span class="line"><span>   "netconf_info": {</span></span>
+<span class="line"><span>   "changed": false,</span></span>
+<span class="line"><span>   "failed": false,</span></span>
+<span class="line"><span>   "output": {</span></span>
+<span class="line"><span>      "rpc-reply": {</span></span>
+<span class="line"><span>        "interface-information": {</span></span>
+<span class="line"><span>         "logical-interface": {</span></span>
+<span class="line"><span>          "address-family": [</span></span>
+<span class="line"><span>           {</span></span>
+<span class="line"><span>              "address-family-flags": {</span></span>
+<span class="line"><span>                 "ifff-is-primary": ""</span></span>
+<span class="line"><span>               },</span></span>
+<span class="line"><span>               "address-family-name": "inet",</span></span>
+<span class="line"><span>               "interface-address": [</span></span>
+<span class="line"><span>               {</span></span>
+<span class="line"><span>                  "ifa-broadcast": "10.255.255.255",</span></span>
+<span class="line"><span>                  "ifa-destination": "10/8",</span></span>
+<span class="line"><span>                  "ifa-flags": {</span></span>
+<span class="line"><span>                      "ifaf-current-preferred": ""</span></span>
+<span class="line"><span>                  },</span></span>
+<span class="line"><span>                  "ifa-local": "10.0.0.4"</span></span>
+<span class="line"><span>                },</span></span>
+<span class="line"><span>&#x3C;&#x3C;&#x3C;rest of output removed for brevity>>></span></span></code></pre>
+</div><p>For more information on the Juniper platform refer to the <a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">Juniper P</a><a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">latform</a> <a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">G</a><a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">uide</a>. For more information on the NETCONF connection plugin refer to <a href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">the</a> <a href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">NETCONF</a> <a href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">documentation</a>.</p>
 <h3>cli_command and cli_config</h3>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/devel/modules/cli_command_module.html#cli-command-module">cli_command</a> - run a cli command on cli-based network devices</li>
@@ -234,57 +320,85 @@
 <p>Available in the Ansible Engine 2.7 release, the cli_command and cli_config modules are vendor agnostic modules for automating against network platforms. These modules key off of the ansible_network_os variable (defined in the inventory file or group_vars directory) to use the correct cliconf plugin. This results in a more vendor neutral approach to network automation playbooks. For a list of all the ansible_network_os values please <a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_index.html#settings-by-platform">refer to the documentation</a>. The platform modules are not being deprecated in this release, so there is no rush to update existing playbooks! Please refer to the <a href="https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html">official porting guides</a> for more information.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Network-Automation-Module-Deprecation.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Network-Automation-Module-Deprecation.png" alt="Network-Automation-Module-Deprecation"></a></p>
 <p>Let&#39;s look at what an Ansible Playbook would look like. This playbook will be run against two Cisco Cloud Services Routers (CSR) running IOS-XE. We set ansible_network_os to ios in our inventory.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>&#x3C;config snippet from inventory>  </span></span>
-<span class="line"><span>[cisco]  </span></span>
-<span class="line"><span>rtr1 ansible_host=34.203.197.120   </span></span>
-<span class="line"><span>rtr2 ansible_host=34.224.60.230  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>[cisco:vars]  </span></span>
-<span class="line"><span>ansible_ssh_user=ec2-user  </span></span>
-<span class="line"><span>ansible_network_os=ios</span></span></code></pre><p>Here is a playbook using cli_config and cli_command:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---  </span></span>
-<span class="line"><span>- name: AGNOSTIC PLAYBOOK   </span></span>
-<span class="line"><span>  hosts: cisco   </span></span>
-<span class="line"><span>  gather_facts: no   </span></span>
-<span class="line"><span>  connection: network_cli   </span></span>
-<span class="line"><span>    </span></span>
-<span class="line"><span>  tasks:   </span></span>
-<span class="line"><span>     - name: CONFIGURE DNS   </span></span>
-<span class="line"><span>       cli_config:   </span></span>
-<span class="line"><span>         config: ip name-server 8.8.8.8   </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>     - name: CHECK CONFIGURATION   </span></span>
-<span class="line"><span>         cli_command:   </span></span>
-<span class="line"><span>           command: show run | i ip name-server   </span></span>
-<span class="line"><span>       register: cisco_output   </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>     - name: PRINT OUTPUT TO SCREEN   </span></span>
-<span class="line"><span>       debug:   </span></span>
-<span class="line"><span>         var: cisco_output.stdout</span></span></code></pre><p>Finally, the output of the Ansible Playbook:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[user@rhel7 ~]$ ansible-playbook cli.yml  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>PLAY [AGNOSTIC PLAYBOOK] *********************************************  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>TASK [CONFIGURE DNS] *************************************************  </span></span>
-<span class="line"><span>ok: [rtr1]  </span></span>
-<span class="line"><span>ok: [rtr2]  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>TASK [CHECK CONFIGURATION] *******************************************  </span></span>
-<span class="line"><span>ok: [rtr1]  </span></span>
-<span class="line"><span>ok: [rtr2]  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>TASK [PRINT OUTPUT TO SCREEN] ****************************************  </span></span>
-<span class="line"><span>ok: [rtr1] => {   </span></span>
-<span class="line"><span>    "cisco_output.stdout": "ip name-server 8.8.8.8"  </span></span>
-<span class="line"><span>}  </span></span>
-<span class="line"><span>ok:   </span></span>
-<span class="line"><span>    [rtr2] => {   </span></span>
-<span class="line"><span>    "cisco_output.stdout": "ip name-server 8.8.8.8"  </span></span>
-<span class="line"><span>}  </span></span>
-<span class="line"><span>  </span></span>
-<span class="line"><span>PLAY RECAP **********************************************************  </span></span>
-<span class="line"><span>rtr1 : ok=3 changed=0 unreachable=0 failed=0  </span></span>
-<span class="line"><span>rtr2 : ok=3 changed=0 unreachable=0 failed=0</span></span></code></pre><p>Looking at the output above you will also notice that the modules are <a href="https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html">idempotent</a> as long as you use the matching syntax for the appropriate network device.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>&#x3C;config snippet from inventory></span></span>
+<span class="line"><span>[cisco]</span></span>
+<span class="line"><span>rtr1 ansible_host=34.203.197.120</span></span>
+<span class="line"><span>rtr2 ansible_host=34.224.60.230</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[cisco:vars]</span></span>
+<span class="line"><span>ansible_ssh_user=ec2-user</span></span>
+<span class="line"><span>ansible_network_os=ios</span></span></code></pre>
+</div><p>Here is a playbook using cli_config and cli_command:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">AGNOSTIC PLAYBOOK</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">cisco</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">no</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network_cli</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">     - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">CONFIGURE DNS</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         cli_config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">           config</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ip name-server 8.8.8.8</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">     - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">CHECK CONFIGURATION</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">           cli_command</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">             command</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">show run | i ip name-server</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">cisco_output</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">     - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">PRINT OUTPUT TO SCREEN</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         debug</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">           var</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">cisco_output.stdout</span></span></code></pre>
+</div><p>Finally, the output of the Ansible Playbook:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">user</span><span style="color:#E1E4E8">@rhel7 ~]$ ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">playbook cli.yml</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">PLAY [</span><span style="color:#F97583">AGNOSTIC</span><span style="color:#F97583"> PLAYBOOK</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*********************************************</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">TASK [</span><span style="color:#F97583">CONFIGURE</span><span style="color:#F97583"> DNS</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*************************************************</span></span>
+<span class="line"><span style="color:#E1E4E8">ok: [</span><span style="color:#F97583">rtr1</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">ok: [</span><span style="color:#F97583">rtr2</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">TASK [</span><span style="color:#F97583">CHECK</span><span style="color:#F97583"> CONFIGURATION</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*******************************************</span></span>
+<span class="line"><span style="color:#E1E4E8">ok: [</span><span style="color:#F97583">rtr1</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">ok: [</span><span style="color:#F97583">rtr2</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">TASK [</span><span style="color:#F97583">PRINT</span><span style="color:#F97583"> OUTPUT</span><span style="color:#F97583"> TO</span><span style="color:#F97583"> SCREEN</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">****************************************</span></span>
+<span class="line"><span style="color:#E1E4E8">ok: [</span><span style="color:#F97583">rtr1</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "cisco_output.stdout"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"ip name-server 8.8.8.8"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">ok:</span></span>
+<span class="line"><span style="color:#E1E4E8">    [</span><span style="color:#F97583">rtr2</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "cisco_output.stdout"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"ip name-server 8.8.8.8"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">PLAY RECAP </span><span style="color:#F97583">**********************************************************</span></span>
+<span class="line"><span style="color:#E1E4E8">rtr1 : ok</span><span style="color:#F97583">=</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8"> changed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8"> unreachable</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8"> failed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span></span>
+<span class="line"><span style="color:#E1E4E8">rtr2 : ok</span><span style="color:#F97583">=</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8"> changed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8"> unreachable</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8"> failed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span></span></code></pre>
+</div><p>Looking at the output above you will also notice that the modules are <a href="https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html">idempotent</a> as long as you use the matching syntax for the appropriate network device.</p>
 <h2>Improved Ansible Tower User Experience</h2>
 <p>With the release of Red Hat Ansible Tower 3.3, the web user interface has been improved to be more functional and to get more things done with less clicks. When you login to your upgraded Ansible Tower 3.3 you will be greeted with the new refreshed UX. </p>
 <p>Credential management, job scheduling , inventory scripts, role based access control (RBAC), notifications and more are now one click away on the left menu. When looking under the Jobs View more information is provided at the top level, such as the start time, user who launched the job, inventory the job was run against and the project the playbook was retrieved from.</p>
@@ -362,6 +476,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

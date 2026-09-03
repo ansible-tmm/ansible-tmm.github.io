@@ -62,25 +62,44 @@
 <p>Let’s get cooking and build our mouthwatering automating platform!</p>
 <p>To deploy the “magic in the middle,” we are going to use the Ansible Automation Platform installer from our automation controller node. Since we are installing a private automation hub, we should remove the controller hostname from the inventory file.</p>
 <p>Our inventory file should contain the relevant information for the private automation hub node.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…</span></span>
 <span class="line"><span>[automationhub]</span></span>
 <span class="line"><span>private-hub.demoredhat.com</span></span>
 <span class="line"><span>automationhub_admin_password='my-hub-password'</span></span>
 <span class="line"><span>automationhub_pg_host=''</span></span>
 <span class="line"><span>automationhub_pg_port=''</span></span>
-<span class="line"><span>automationhub_pg_database='automationhub' </span></span>
+<span class="line"><span>automationhub_pg_database='automationhub'</span></span>
 <span class="line"><span>automationhub_pg_username='automationhub'</span></span>
-<span class="line"><span>automationhub_pg_password='hub-postgres-password' </span></span>
+<span class="line"><span>automationhub_pg_password='hub-postgres-password'</span></span>
 <span class="line"><span>automationhub_pg_sslmode='prefer'</span></span>
-<span class="line"><span>…</span></span></code></pre><p>With these details in place we can now trigger the setup script for Ansible Automation Platform and watch the wizardry.</p>
+<span class="line"><span>…</span></span></code></pre>
+</div><p>With these details in place we can now trigger the setup script for Ansible Automation Platform and watch the wizardry.</p>
 <p>If we have run the installer from the hub node itself, we might find that the private automation hub is not connected to our automation controller. If this is the case, we correct this by editing the following file:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>/etc/pulp/settings.py</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>/etc/pulp/settings.py</span></span>
 <span class="line"><span>…</span></span>
 <span class="line"><span>CONNECTED_ANSIBLE_CONTROLLERS = [</span></span>
-<span class="line"><span>            "https://controller.demoredhat.com/",     </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>              "https://controller.demoredhat.com/",</span></span>
 <span class="line"><span>        ]</span></span>
-<span class="line"><span>…</span></span></code></pre><p>Once we have edited the settings.py configuration we can restart the pulpcore services.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>systemctl restart pulpcore*</span></span></code></pre><h2>Connecting to Ansible automation hub</h2>
+<span class="line"><span>…</span></span></code></pre>
+</div><p>Once we have edited the settings.py configuration we can restart the pulpcore services.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>systemctl restart pulpcore*</span></span></code></pre>
+</div><h2>Connecting to Ansible automation hub</h2>
 <p>With the automation controller and private automation hub now deployed, we can start configuring our content for our automation platform.</p>
 <p>For us to synchronize our Red Hat Ansible Certified Content, we need to go to <a href="https://console.redhat.com">console.redhat.com</a> and login with our Red Hat account. Under Ansible Automation Platform we will have access to the Ansible automation hub. Under “Automation Hub”, select “Connect to Hub”, where we are presented with the information we need to put into our private automation hub so we can synchronize the collections we want to curate for our organization.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/i8OvtoG7SPx-txFVZO6jOMVY3PNns7pTNekCSLzhPsyM-AODA9k5YRdNFcyvzKSIaJi4X9h3qjYMDrWC-sYNhKUaYUlpggRxODDVJD1_NcjqsMzf4Lg6qyWlmieW7vkjmlQ6UxAi.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/i8OvtoG7SPx-txFVZO6jOMVY3PNns7pTNekCSLzhPsyM-AODA9k5YRdNFcyvzKSIaJi4X9h3qjYMDrWC-sYNhKUaYUlpggRxODDVJD1_NcjqsMzf4Lg6qyWlmieW7vkjmlQ6UxAi.png" alt=""></a></p>
@@ -203,6 +222,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

@@ -96,16 +96,33 @@
 <li>Provide a <strong>Name</strong>, e.g. Kubeconfig.</li>
 <li>Within the input configuration, input the following YAML:</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>fields:</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>fields:</span></span>
 <span class="line"><span>  - id: kube_config</span></span>
-<span class="line"><span>    type: string</span></span>
-<span class="line"><span>    label: kubeconfig</span></span>
-<span class="line"><span>    secret: true</span></span>
-<span class="line"><span>    multiline: true</span></span></code></pre><p>                       4. Within the injector configuration, input the following YAML:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>env:</span></span>
-<span class="line"><span>  K8S_AUTH_KUBECONFIG: '{{ tower.filename.kubeconfig }}'</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      type: string</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      label: kubeconfig</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      secret: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      multiline: true</span></span></code></pre>
+</div><p>                       4. Within the injector configuration, input the following YAML:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>env:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    K8S_AUTH_KUBECONFIG: '{{ tower.filename.kubeconfig }}'</span></span>
 <span class="line"><span>file:</span></span>
-<span class="line"><span>  template.kubeconfig: '{{ kube_config }}'</span></span></code></pre><p>                      5. Click <strong>Save</strong>.</p>
+<span class="line"><span>  template.kubeconfig: '{{ kube_config }}'</span></span></code></pre>
+</div><p>                      5. Click <strong>Save</strong>.</p>
 <h3></h3>
 <h3>Create a kubeconfig credential</h3>
 <p>Within your Ansible Automation Platform dashboard,</p>
@@ -196,10 +213,22 @@
 <ol>
 <li>Via a terminal, login to your OpenShift environment.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc login</span></span></code></pre><ol start="2">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc login</span></span></code></pre>
+</div><ol start="2">
 <li>Create a new namespace for our Prometheus Operator deployment.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc new-project prometheus-operator</span></span></code></pre><ol start="3">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc new-project prometheus-operator</span></span></code></pre>
+</div><ol start="3">
 <li>Via the OpenShift Container Platform web console, Click on Operators →  OperatorHub. Search for <em>prometheus</em> and install the operator within the newly    created namespace, <em>prometheus-operator</em>.</li>
 </ol>
 <p> </p>
@@ -207,61 +236,137 @@
 <ol start="4">
 <li>Create a generic secret labeled <strong>bearertoken</strong> with the bearer token that will reside within the prometheus-operator namespace.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc create secret generic bearertoken --from-literal=secret=2lnh5HIWeLx5aBbxngaCz3rr3c0Aob -n prometheus-operator</span></span></code></pre><p><strong>NOTE:</strong> Replace the literal-secret value with your Ansible Automation Platform bearer token.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc create secret generic bearertoken --from-literal=secret=2lnh5HIWeLx5aBbxngaCz3rr3c0Aob -n prometheus-operator</span></span></code></pre>
+</div><p><strong>NOTE:</strong> Replace the literal-secret value with your Ansible Automation Platform bearer token.</p>
 <ol start="5">
 <li>Create a label for the automation controller service that will be used for monitoring the API metrics. The name of the service will vary based upon what you named your automation controller during installation. For this blog post, the service is called <strong>my-automation-controller-service.</strong></li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc label svc my-automation-controller-service -n ansible-automation-platform monitor=metrics</span></span></code></pre><p><strong>NOTE:</strong> You can find your service name via:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get svc -n ansible-automation-platform</span></span></code></pre><p><strong>NOTE:</strong> Feel free to change the label to something more specific based on your needs than <strong>monitor=metrics.</strong></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc label svc my-automation-controller-service -n ansible-automation-platform monitor=metrics</span></span></code></pre>
+</div><p><strong>NOTE:</strong> You can find your service name via:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get svc -n ansible-automation-platform</span></span></code></pre>
+</div><p><strong>NOTE:</strong> Feel free to change the label to something more specific based on your needs than <strong>monitor=metrics.</strong></p>
 <ol start="6">
 <li>Create a <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/service-monitor.yaml">service-monitor.yaml</a> file that defines a ServiceMonitor. The ServiceMonitor defines a service endpoint that needs to be monitored by the Prometheus instance.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>&#x3C;Snippet of service-monitor.yaml></span></span>
-<span class="line"><span>  selector:</span></span>
-<span class="line"><span>    matchLabels:</span></span>
-<span class="line"><span>      monitor: metrics</span></span>
-<span class="line"><span>  endpoints:</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>&#x3C;Snippet of service-monitor.yaml></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    selector:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      matchLabels:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        monitor: metrics</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    endpoints:</span></span>
 <span class="line"><span>    - interval: 5s</span></span>
-<span class="line"><span>      path: /api/v2/metrics</span></span>
-<span class="line"><span>      scheme: http</span></span>
-<span class="line"><span>      bearerTokenSecret:</span></span>
-<span class="line"><span>        name: bearertoken</span></span>
-<span class="line"><span>        key: secret</span></span></code></pre><p><strong>NOTE:</strong> Notice how the endpoint contains the appropriate path, scheme and the bearer token to allow Prometheus access to capture the metrics from Ansible Automation Platform. Also, the selector uses the match label <strong>monitor: metrics</strong> which is the label we previously created that we wanted to track against.</p>
+<span class="line"><span></span></span>
+<span class="line"><span>        path: /api/v2/metrics</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        scheme: http</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        bearerTokenSecret:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: bearertoken</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          key: secret</span></span></code></pre>
+</div><p><strong>NOTE:</strong> Notice how the endpoint contains the appropriate path, scheme and the bearer token to allow Prometheus access to capture the metrics from Ansible Automation Platform. Also, the selector uses the match label <strong>monitor: metrics</strong> which is the label we previously created that we wanted to track against.</p>
 <ol start="7">
 <li>Apply the service-monitor.yaml file:</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f service-monitor.yaml</span></span></code></pre><ol start="8">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f service-monitor.yaml</span></span></code></pre>
+</div><ol start="8">
 <li><p>Create a <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/service-account.yaml">service-account.yaml</a> file, which creates a service account with cluster role and cluster role bindings to ensure you have permissions to list nodes and pods in other namespaces at the cluster scope.</p>
 </li>
 <li><p>Apply the service-account.yaml file:</p>
 </li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f service-account.yaml</span></span></code></pre><ol start="10">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f service-account.yaml</span></span></code></pre>
+</div><ol start="10">
 <li><p>Install Prometheus using the <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/prometheus.yaml">prometheus.yaml</a> file, where <em><strong>metadata.namespace</strong></em> is the prometheus-operator and <em><strong>spec.serviceAccountName</strong></em> is the service account’s name you applied (Prometheus).</p>
 </li>
 <li><p>Apply the prometheus.yaml file:</p>
 </li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f prometheus.yaml</span></span></code></pre><ol start="12">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f prometheus.yaml</span></span></code></pre>
+</div><ol start="12">
 <li>Verify the Prometheus service started successfully.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get svc -n prometheus-operator</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get svc -n prometheus-operator</span></span>
 <span class="line"><span>NAME                  TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE</span></span>
-<span class="line"><span>prometheus            NodePort    10.217.4.5   &#x3C;none>        9090:31093/TCP   2m7s</span></span>
-<span class="line"><span>prometheus-operated   ClusterIP   None         &#x3C;none>        9090/TCP         34s</span></span></code></pre><ol start="13">
+<span class="line"><span>prometheus            NodePort    10.217.4.5   &#x3C;none></span></span>
+<span class="line"><span>  9090:31093/TCP   2m7s</span></span>
+<span class="line"><span>prometheus-operated   ClusterIP   None         &#x3C;none>        9090/TCP         34s</span></span></code></pre>
+</div><ol start="13">
 <li>Check all the Pods are running.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get pods -n  prometheus-operator</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get pods -n  prometheus-operator</span></span>
 <span class="line"><span>NAME                                  READY   STATUS    RESTARTS   AGE</span></span>
 <span class="line"><span>prometheus-operator-6dd6645fc-q9cbj   1/1     Running   0          24m</span></span>
 <span class="line"><span>prometheus-prometheus-0               2/2     Running   0          63s</span></span>
-<span class="line"><span>prometheus-prometheus-1               2/2     Running   0          62s</span></span></code></pre><ol start="14">
+<span class="line"><span>prometheus-prometheus-1               2/2     Running   0          62s</span></span></code></pre>
+</div><ol start="14">
 <li>Expose the prometheus-operated service to use Prometheus console externally on your web browser.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc expose svc/prometheus-operated -n prometheus-operator</span></span></code></pre><ol start="15">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc expose svc/prometheus-operated -n prometheus-operator</span></span></code></pre>
+</div><ol start="15">
 <li>Get the route to access via browser.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get routes -n prometheus-operator</span></span></code></pre><ol start="16">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get routes -n prometheus-operator</span></span></code></pre>
+</div><ol start="16">
 <li>Visit the URL from the provided route command and check the <strong>Target</strong> page of Prometheus (Status →Target). The /api/v2/metrics target should be UP.</li>
 </ol>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/V3IVj6xa1-wEl5VjTSxLaIALGa2l-lawF3lz316E6wBmV-JzfQGXvSsjfbbk8D8Y_glz1rarlvYKS3hyOGYSJ_4lXID2wSKsPX0kMKmCppjN3-Nk26ZvhG5IkUrfHbMGSxkMJq9PnWYiM2tB-1Ha184.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/V3IVj6xa1-wEl5VjTSxLaIALGa2l-lawF3lz316E6wBmV-JzfQGXvSsjfbbk8D8Y_glz1rarlvYKS3hyOGYSJ_4lXID2wSKsPX0kMKmCppjN3-Nk26ZvhG5IkUrfHbMGSxkMJq9PnWYiM2tB-1Ha184.png" alt=""></a></p>
@@ -276,26 +381,56 @@
 <li><p>Apply the <em>grafana-datasources.yaml</em> file:</p>
 </li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f grafana-datasources.yaml -n prometheus-operator</span></span></code></pre><ol start="4">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f grafana-datasources.yaml -n prometheus-operator</span></span></code></pre>
+</div><ol start="4">
 <li><p>With the datasource in place, install the Grafana instance using the <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/grafana.yaml">grafana.yaml</a>.</p>
 </li>
 <li><p>Apply the <em>grafana.yaml</em> file:</p>
 </li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f grafana-instance.yaml -n prometheus-operator</span></span></code></pre><ol start="6">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f grafana-instance.yaml -n prometheus-operator</span></span></code></pre>
+</div><ol start="6">
 <li>Use the pre-built Grafana dashboard, <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/grafana-dashboard.yaml">grafana-dashboard.yaml</a>, that displays the different automation controller metrics.</li>
 </ol>
 <p><strong>NOTE:</strong> This Grafana dashboard may be customized to better fit your needs on the metrics you wish to capture.</p>
 <ol start="7">
 <li>Apply the <em>grafana-dashboard.yaml</em> file:</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f grafana-dashboard.yaml -n prometheus-operator</span></span></code></pre><ol start="8">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f grafana-dashboard.yaml -n prometheus-operator</span></span></code></pre>
+</div><ol start="8">
 <li>Get the Grafana route to access the dashboard.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get route grafana-route -n prometheus-operator</span></span></code></pre><ol start="9">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get route grafana-route -n prometheus-operator</span></span></code></pre>
+</div><ol start="9">
 <li>Get the password to login to the Grafana dashboard as the admin user.</li>
 </ol>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get secret grafana-admin-credentials -o custom-columns=PASSWORD:.data.GF_SECURITY_ADMIN_PASSWORD --no-headers | base64 -D</span></span></code></pre><ol start="10">
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get secret grafana-admin-credentials -o custom-columns=PASSWORD:.data.GF_SECURITY_ADMIN_PASSWORD --no-headers | base64 -D</span></span></code></pre>
+</div><ol start="10">
 <li>Once logged into Grafana, access the dashboards and select the pre-populated Ansible Automation Platform dashboard, which will provide a display as shown below.</li>
 </ol>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/fd-QcNPXxbAx-olwWSjz51kfJ6wcX0Oefm6sGgkRXNEWA86YlEJ__zMBXX9oZAy6vmXRko3QQuOdO6TAPXiQyFe7qPvx1Y6j93j9Nk85nS_N_dqqdpweGejL1XXsHe0iXk_cRL_JIlUhu9Mpq6M3R7M.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/fd-QcNPXxbAx-olwWSjz51kfJ6wcX0Oefm6sGgkRXNEWA86YlEJ__zMBXX9oZAy6vmXRko3QQuOdO6TAPXiQyFe7qPvx1Y6j93j9Nk85nS_N_dqqdpweGejL1XXsHe0iXk_cRL_JIlUhu9Mpq6M3R7M.png" alt=""></a></p>
@@ -368,6 +503,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

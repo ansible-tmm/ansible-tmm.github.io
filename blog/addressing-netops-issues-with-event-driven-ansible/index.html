@@ -58,7 +58,12 @@
 <p>Since the announcement of <a href="https://www.ansible.com/use-cases/event-driven-automation">Event-Driven Ansible</a>, I cannot stop thinking about potential use cases. Can I get events to automate scaling? Could I use a filesystem event to trigger filesystem integrity checks? Could I get a slackbot to trigger my choice of heavy metal playlist based on a “mood” event? It&#39;s all possible! But let’s not go too crazy, not yet.</p>
 <p>I started having a look at the fantastic work that one of our engineers, <a href="https://www.linkedin.com/in/nilashishchakraborty/">Nilashish Chakraborty</a> has been doing around network telemetry and Ansible. This led me down the path to explore network events and what I could potentially do with something like Event-Driven Ansible. So let’s start with a super simple interface example.</p>
 <p>Reaching out to the team at <a href="https://www.arista.com/en/">Arista</a>, we started discussing and looking at the mechanisms they are using to get telemetry data. With Arista we are able to use gNMI, gNMI is an open source protocol <a href="https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md">specification</a> created by the OpenConfig working group that is used to stream data to and from network devices. The OpenConfig working group operates as an open source project with contributions from network operators, equipment vendors in providing vendor-neutral software to manage network devices. I configured gNMI on my Arista switches and queried the interface with the gNMI client on my machine to make sure I was able to get what I needed.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…</span></span>
 <span class="line"><span>! Command: show running-config</span></span>
 <span class="line"><span>! device: arista01 (vEOS-lab, EOS-4.29.0.2F)</span></span>
 <span class="line"><span>…</span></span>
@@ -70,35 +75,59 @@
 <span class="line"><span>   transport grpc eos</span></span>
 <span class="line"><span>   provider eos-native</span></span>
 <span class="line"><span>!</span></span>
-<span class="line"><span>…</span></span></code></pre><p>Running configuration on Arista EOS</p>
+<span class="line"><span>…</span></span></code></pre>
+</div><p>Running configuration on Arista EOS</p>
 <p>With my switches configured to allow gNMI, I used my <a href="https://gnmic.kmrd.dev/">gNMIc client</a> on my machine to test a subscription for events.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>Term> gnmic -a 192.168.11.5:6030 -u admin -p ansibleIScool --insecure subscribe --path \</span></span>
-<span class="line"><span>  "/interfaces/interface[name=Ethernet1]/state/admin-status"</span></span></code></pre><p>This allows us to connect and view the telemetry data that&#39;s being streamed. I subscribed just to the admin-status of the ethernet port; however, you could subscribe to whatever data is relevant to you.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>{</span></span>
-<span class="line"><span>  "source": "192.168.11.5:6030",</span></span>
-<span class="line"><span>  "subscription-name": "default-1670407121",</span></span>
-<span class="line"><span>  "timestamp": 1670402814238747205,</span></span>
-<span class="line"><span>  "time": "2022-12-07T10:46:54.238747205+02:00",</span></span>
-<span class="line"><span>  "updates": [</span></span>
-<span class="line"><span>    {</span></span>
-<span class="line"><span>      "Path": "interfaces/interface[name=Ethernet1]/state/admin-status",</span></span>
-<span class="line"><span>      "values": {</span></span>
-<span class="line"><span>        "interfaces/interface/state/admin-status": "UP"</span></span>
-<span class="line"><span>      }</span></span>
-<span class="line"><span>    }</span></span>
-<span class="line"><span>  ]</span></span>
-<span class="line"><span>}</span></span></code></pre><p>Output from gnmic command</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>Term> gnmic -a 192.168.11.5:6030 -u admin -p ansibleIScool --insecure subscribe --path \</span></span>
+<span class="line"><span>  "/interfaces/interface[name=Ethernet1]/state/admin-status"</span></span></code></pre>
+</div><p>This allows us to connect and view the telemetry data that&#39;s being streamed. I subscribed just to the admin-status of the ethernet port; however, you could subscribe to whatever data is relevant to you.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">JSON</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "source"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"192.168.11.5:6030"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "subscription-name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"default-1670407121"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "timestamp"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">1670402814238747205</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "time"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"2022-12-07T10:46:54.238747205+02:00"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "updates"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#79B8FF">      "Path"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"interfaces/interface[name=Ethernet1]/state/admin-status"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      "values"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">        "interfaces/interface/state/admin-status"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"UP"</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  ]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+</div><p>Output from gnmic command</p>
 <p><strong>Note:</strong> If you are not aware of what capabilities are available for you on your chosen platform, you can also use the gNMIc client to check this:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>Term> gnmic -a 192.168.11.5:6030 -u admin -p ansibleIScool --insecure capabilities</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>Term> gnmic -a 192.168.11.5:6030 -u admin -p ansibleIScool --insecure capabilities</span></span>
 <span class="line"><span>gNMI version: 0.7.0</span></span>
 <span class="line"><span>supported models:</span></span>
 <span class="line"><span>  - openconfig-keychain-types, OpenConfig working group, 0.2.0</span></span>
 <span class="line"><span>  - arista-sampling-notsupported-deviations, Arista Networks, Inc.,</span></span>
 <span class="line"><span>  - openconfig-openflow-types, OpenConfig working group, 0.2.0</span></span>
-<span class="line"><span>…</span></span></code></pre><p>Now that we have this streaming, we need to get this data to some kind of event source that we can use with Event-Driven Ansible. I decided I would like to use Kafka for this and I would use Telegraf to consume the telemetry data and send it to Kafka as an output.</p>
+<span class="line"><span>…</span></span></code></pre>
+</div><p>Now that we have this streaming, we need to get this data to some kind of event source that we can use with Event-Driven Ansible. I decided I would like to use Kafka for this and I would use Telegraf to consume the telemetry data and send it to Kafka as an output.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/j3d1ImIprurQ0B1zNvEwdJPzbF9IjQXpShmeVFkK9alwmItjGz0tcPB7mnwUuQ4GWVg9lHp5_WiGSTUtcJ4DwX9dx3N-FMIAQLriEqJywL8QHI1vHuJZHxEsM3KH6jn2gbff-fkV474tBUAI26_Bg8spJlhx2PHY50z55zpEx2qh0AwPYhbTdfuJd2Sj_Q.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/j3d1ImIprurQ0B1zNvEwdJPzbF9IjQXpShmeVFkK9alwmItjGz0tcPB7mnwUuQ4GWVg9lHp5_WiGSTUtcJ4DwX9dx3N-FMIAQLriEqJywL8QHI1vHuJZHxEsM3KH6jn2gbff-fkV474tBUAI26_Bg8spJlhx2PHY50z55zpEx2qh0AwPYhbTdfuJd2Sj_Q.png" alt=""></a></p>
 <p>I configured Telegraf to connect to the gNMI and forward the telemetry to my Kafka topic:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…</span></span>
 <span class="line"><span>  [[inputs.gnmi.subscription]]</span></span>
 <span class="line"><span>    name = "Ethernet1"</span></span>
 <span class="line"><span>    origin = "openconfig"</span></span>
@@ -109,10 +138,16 @@
 <span class="line"><span>[outputs.kafka]</span></span>
 <span class="line"><span>    brokers = ["192.168.11.49:9092"]</span></span>
 <span class="line"><span>    topic = "network"</span></span>
-<span class="line"><span>…</span></span></code></pre><p>If we have a look at my Kafka topic, and see what messages are coming in we can see that we are receiving the desired information:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>… &#x3C;on my Kafka System> </span></span>
+<span class="line"><span>…</span></span></code></pre>
+</div><p>If we have a look at my Kafka topic, and see what messages are coming in we can see that we are receiving the desired information:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>… &#x3C;on my Kafka System></span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>[kafka ~]# /opt/kafka/bin/kafka-console-consumer.sh --topic network --from-beginning --bootstrap-server localhost:9092 </span></span>
+<span class="line"><span>[kafka ~]# /opt/kafka/bin/kafka-console-consumer.sh --topic network --from-beginning --bootstrap-server localhost:9092</span></span>
 <span class="line"><span>…</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>{"fields":{"admin_status":"UP"},"name":"Ethernet1","tags":{"host":"influx.prometheus.io","name":"Ethernet1","path":"","source":"192.168.11.5"},"timestamp":1670440660}</span></span>
@@ -121,26 +156,47 @@
 <span class="line"><span></span></span>
 <span class="line"><span>{"fields":{"admin_status":"UP"},"name":"Ethernet1","tags":{"host":"influx.prometheus.io","name":"Ethernet1","path":"","source":"192.168.11.5"},"timestamp":1670440660}</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>…</span></span></code></pre><p>With these events in Kafka, I can now create my Ansible Rulebook and trigger remediation for the desired steps to respond to this. I can run ansible-rulebook and we can see how it triggers based on the admin_status of the port.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>- name: Port State Event from Arista</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>  hosts: all</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>  sources:</span></span>
-<span class="line"><span>   - ansible.eda.kafka:</span></span>
-<span class="line"><span>       host: 192.168.11.49</span></span>
-<span class="line"><span>       port: 9092</span></span>
-<span class="line"><span>       topic: network</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>  rules:</span></span>
-<span class="line"><span>   - name: Test</span></span>
-<span class="line"><span>     condition: event.fields.admin_status == "DOWN"</span></span>
-<span class="line"><span>     action:</span></span>
-<span class="line"><span>       run_playbook:</span></span>
-<span class="line"><span>        name: bring-her-up.yml</span></span></code></pre><p>Port-Status Rulebook</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[localhost]$ ansible-rulebook --rulebook port_status.yml -i inventory.yaml --verbose</span></span></code></pre><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/gqkCCh7-w0jMvK1u3mn2NuUCWPmq76gxMOLzrWsocmb_o9ulLCESRGslozZAC7CM_LXskbWu-AodUqyrMySHqj9jAb7VdPJCdM5zYkLMCKkM3CMxTmaUskwgxjD13KoG100Bpn3cpFXX6rR5Dt6nrxswOHaqrbKYCiCPzN9VqGLJRuSFRW4gZ_SiD2cy6Q.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/gqkCCh7-w0jMvK1u3mn2NuUCWPmq76gxMOLzrWsocmb_o9ulLCESRGslozZAC7CM_LXskbWu-AodUqyrMySHqj9jAb7VdPJCdM5zYkLMCKkM3CMxTmaUskwgxjD13KoG100Bpn3cpFXX6rR5Dt6nrxswOHaqrbKYCiCPzN9VqGLJRuSFRW4gZ_SiD2cy6Q.png" alt=""></a></p>
+<span class="line"><span>…</span></span></code></pre>
+</div><p>With these events in Kafka, I can now create my Ansible Rulebook and trigger remediation for the desired steps to respond to this. I can run ansible-rulebook and we can see how it triggers based on the admin_status of the port.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Port State Event from Arista</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">all</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    sources</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">ansible.eda.kafka</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         host</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">192.168.11.49</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         port</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">9092</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         topic</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    rules</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Test</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.fields.admin_status == "DOWN"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         run_playbook</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">bring-her-up.yml</span></span></code></pre>
+</div><p>Port-Status Rulebook</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">localhost</span><span style="color:#E1E4E8">]$ ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">rulebook </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">rulebook port_status.yml </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">i inventory.yaml </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">verbose</span></span></code></pre>
+</div><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/gqkCCh7-w0jMvK1u3mn2NuUCWPmq76gxMOLzrWsocmb_o9ulLCESRGslozZAC7CM_LXskbWu-AodUqyrMySHqj9jAb7VdPJCdM5zYkLMCKkM3CMxTmaUskwgxjD13KoG100Bpn3cpFXX6rR5Dt6nrxswOHaqrbKYCiCPzN9VqGLJRuSFRW4gZ_SiD2cy6Q.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/gqkCCh7-w0jMvK1u3mn2NuUCWPmq76gxMOLzrWsocmb_o9ulLCESRGslozZAC7CM_LXskbWu-AodUqyrMySHqj9jAb7VdPJCdM5zYkLMCKkM3CMxTmaUskwgxjD13KoG100Bpn3cpFXX6rR5Dt6nrxswOHaqrbKYCiCPzN9VqGLJRuSFRW4gZ_SiD2cy6Q.png" alt=""></a></p>
 <p>So, with Event-Driven Ansible we are able to respond to events we gather from things like network telemetry. Not only could we use this for simple remediation tasks but we could expand this further with adding ITSM integration or perhaps automated troubleshooting and awareness to events on the network. I think that is pretty slick! </p>
 <p>Arista has created an awesome <a href="https://github.com/arista-netdevops-community/Ansible-Event-Driven-Automation-Examples/tree/main/nats">source plugin</a> that we can use instead of Telegraf and Kafka. <a href="https://www.linkedin.com/in/dhertzberg/">Daniel Hertzberg</a> and <a href="https://www.linkedin.com/in/julioperez-pdx/">Julio Perez</a> really grasped Event-Driven Ansible concepts and created this magical source plugin in a week. This plugin utilizes <a href="https://nats.io/">NATS</a>, and if you are like me and haven&#39;t heard of NATS, It is similar to Kafka in the sense that it is a messaging queue, but there are some differences and you can read up a bit more about them <a href="https://docs.nats.io/nats-concepts/overview/compare-nats">here</a>. This plugin simplifies and reduces the toolset needed to get all-important telemetry data to ansible-rulebook. </p>
 <p>Watch for another blog that is coming soon around using the Arista source plugin and a juicy network automation use case. </p>
@@ -213,6 +269,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

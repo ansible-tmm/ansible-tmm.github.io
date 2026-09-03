@@ -95,55 +95,103 @@
 <h2>A practical example</h2>
 <p>Let&#39;s look at a practical example using the Arista <a href="https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_l2_interfaces_module.html">eos_l2_interfaces module</a> from the Arista Network Collection. The quick summary for those that don’t know what a Collection is: it’s how content is packaged, including Ansible Modules. The modules that you know and love still work exactly the same way you are used to but packaged in a more portable and flexible format.</p>
 <p>The l2_interfaces resource modules configure layer 2 access and trunk ports on network devices.  Lets look at an Ansible Playbook example:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: l2_interfaces example for blog</span></span>
-<span class="line"><span>  hosts: arista</span></span>
-<span class="line"><span>  gather_facts: false</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    - name: merge configuration</span></span>
-<span class="line"><span>      arista.eos.eos_l2_interfaces:</span></span>
-<span class="line"><span>       config:</span></span>
-<span class="line"><span>       - name: Ethernet1</span></span>
-<span class="line"><span>         mode: trunk</span></span></code></pre><p>This Ansible Playbook turns network port Ethernet1 into a 802.1q trunk port.  We can run this with verbosity turned on using the -v option to see the return values quickly in our terminal window:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@RHEL8 ~]$ ansible-playbook arista_example.yml -v -l rtr2</span></span></code></pre><p>The -v refers to <a href="https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-v">verbosity</a> while the -l refers to a <a href="https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-l">limit</a> where the Ansible Playbook will only run on the specified node rtr2 (which is a Arista vEOS device I have running 4.22.1FX-VEOSRouter-cloud on AWS for demonstration purposes).</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">l2_interfaces example for blog</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">merge configuration</span></span>
+<span class="line"><span style="color:#85E89D">      arista.eos.eos_l2_interfaces</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">       - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Ethernet1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">           mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">trunk</span></span></code></pre>
+</div><p>This Ansible Playbook turns network port Ethernet1 into a 802.1q trunk port.  We can run this with verbosity turned on using the -v option to see the return values quickly in our terminal window:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">sean</span><span style="color:#E1E4E8">@RHEL8 ~]$ ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">playbook arista_example.yml </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">v </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">l rtr2</span></span></code></pre>
+</div><p>The -v refers to <a href="https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-v">verbosity</a> while the -l refers to a <a href="https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-l">limit</a> where the Ansible Playbook will only run on the specified node rtr2 (which is a Arista vEOS device I have running 4.22.1FX-VEOSRouter-cloud on AWS for demonstration purposes).</p>
 <p>Here is output from the task:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%201.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%201.png" alt="sean module blog 1"></a></p>
 <p>(Output is also provided in <a href="https://gist.github.com/IPvSean/93490212e528e7607c4e6e76da52d9b6">Public Gist</a>)</p>
 <p>Let&#39;s break this down, but only for Ethernet1, to simplify this a bit for blog purposes!</p>
 <p>The before return value shows us the data model before we modify (execute any commands) on the Arista network switch.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>  before:</span></span>
-<span class="line"><span>  - name: Ethernet1</span></span></code></pre><p>The commands return value shows us the actual command that Ansible executes to enforce the configuration we specified in our Ansible Playbook.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>  commands:</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">before</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Ethernet1</span></span></code></pre>
+</div><p>The commands return value shows us the actual command that Ansible executes to enforce the configuration we specified in our Ansible Playbook.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>commands:</span></span>
 <span class="line"><span>  - interface Ethernet1</span></span>
-<span class="line"><span>  - switchport mode trunk</span></span></code></pre><p>Finally, we can look at the after return value, which will show us the new data model on the network device, after we ran the commands specified above.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>  after:</span></span>
-<span class="line"><span>  - name: Ethernet1</span></span>
-<span class="line"><span>    mode: trunk</span></span></code></pre><h2>Using return values</h2>
+<span class="line"><span>  - switchport mode trunk</span></span></code></pre>
+</div><p>Finally, we can look at the after return value, which will show us the new data model on the network device, after we ran the commands specified above.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">after</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Ethernet1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">trunk</span></span></code></pre>
+</div><h2>Using return values</h2>
 <p>The above example only shows verbosity of return values to the terminal window.  The return values can also be stored and used in subsequent tasks.  Let&#39;s look at the following example playbook:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: l2_interfaces example for blog</span></span>
-<span class="line"><span>  hosts: arista</span></span>
-<span class="line"><span>  gather_facts: false</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    - name: merge configuration</span></span>
-<span class="line"><span>      arista.eos.eos_l2_interfaces:</span></span>
-<span class="line"><span>       config:</span></span>
-<span class="line"><span>       - name: Ethernet1</span></span>
-<span class="line"><span>         mode: trunk</span></span>
-<span class="line"><span>      register: example</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    - name: display output</span></span>
-<span class="line"><span>      debug:</span></span>
-<span class="line"><span>        msg:</span></span>
-<span class="line"><span>          - "before:"</span></span>
-<span class="line"><span>          - "{{ example.before | to_nice_yaml }}"</span></span>
-<span class="line"><span>          - ""</span></span>
-<span class="line"><span>          - "commands:"</span></span>
-<span class="line"><span>          - "{{ example.commands | to_nice_yaml }}"</span></span>
-<span class="line"><span>          - ""</span></span>
-<span class="line"><span>          - "{{ example.after | to_nice_yaml }}"</span></span></code></pre><p>We have added a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#registering-variables">register</a> to the first task.  This saves all return values to the variable example.  I also added one <a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html">debug</a> task where I broke out each of the three return values.  The debug task allows us to return output to the terminal window.  In an example for production, we would save this information into a SoT (source of truth) or create some dynamic documentation into markdown or a website.  For an example of a source of truth, check out our previous blog on <a href="https://www.ansible.com/blog/using-netbox-for-ansible-source-of-truth">Using NetBox for Ansible Source of Truth</a>.  I also added a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#formatting-data-yaml-and-json">filter</a> to_nice_yamlto convert the structured data to human readable YAML:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">l2_interfaces example for blog</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">merge configuration</span></span>
+<span class="line"><span style="color:#85E89D">      arista.eos.eos_l2_interfaces</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">       - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Ethernet1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">           mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">trunk</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">example</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">display output</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        debug</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          msg</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">"before:"</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">"{{ example.before | to_nice_yaml }}"</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">""</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">"commands:"</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">"{{ example.commands | to_nice_yaml }}"</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">""</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">"{{ example.after | to_nice_yaml }}"</span></span></code></pre>
+</div><p>We have added a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#registering-variables">register</a> to the first task.  This saves all return values to the variable example.  I also added one <a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html">debug</a> task where I broke out each of the three return values.  The debug task allows us to return output to the terminal window.  In an example for production, we would save this information into a SoT (source of truth) or create some dynamic documentation into markdown or a website.  For an example of a source of truth, check out our previous blog on <a href="https://www.ansible.com/blog/using-netbox-for-ansible-source-of-truth">Using NetBox for Ansible Source of Truth</a>.  I also added a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#formatting-data-yaml-and-json">filter</a> to_nice_yamlto convert the structured data to human readable YAML:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%202.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%202.png" alt="sean module blog 2"></a></p>
 <p>(output is also provided in <a href="https://gist.github.com/IPvSean/93490212e528e7607c4e6e76da52d9b6">Public Gist</a>)</p>
 <p>In summary, the return values can be stored and used for auditing, logging or simply helping network engineers understand what has changed, what commands were used to make the change, and what the final configuration looks like post execution.  The most important takeaway from these return values are that they are the same across all platforms and all network resource modules, making the experience predictable and stable for folks using Ansible Network Automation.</p>
@@ -219,6 +267,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

@@ -70,22 +70,39 @@
 <p>In the following sections, we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.</p>
 <h2>Ansible Automation Platform installer configuration</h2>
 <p>To successfully sign and publish Ansible Content Collections, private automation hub needs to be configured for signing. The inventory configuration for the installer with signing enabled requires extra key-value pairs in the <code>[all:vars]</code> section like below:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[all:vars]</span></span>
-<span class="line"><span>.</span></span>
-<span class="line"><span>.</span></span>
-<span class="line"><span>.</span></span>
-<span class="line"><span>automationhub_create_default_collection_signing_service = True</span></span>
-<span class="line"><span>automationhub_auto_sign_collections = True</span></span>
-<span class="line"><span>automationhub_require_content_approval = True</span></span>
-<span class="line"><span>automationhub_collection_signing_service_key = /abs/path/to/galaxy_signing_service.gpg</span></span>
-<span class="line"><span>automationhub_collection_signing_service_script =  /abs/path/to/collection_signing.sh</span></span></code></pre><p>Notice the two keys called <code>automationhub_collection_signing_service_key</code> and <code>automationhub_collection_signing_service_script</code></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">JSON</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#FDAEB7;font-style:italic">all:vars</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">.</span></span>
+<span class="line"><span style="color:#E1E4E8">.</span></span>
+<span class="line"><span style="color:#E1E4E8">.</span></span>
+<span class="line"><span style="color:#E1E4E8">automationhub_create_default_collection_signing_service = True</span></span>
+<span class="line"><span style="color:#E1E4E8">automationhub_auto_sign_collections = True</span></span>
+<span class="line"><span style="color:#E1E4E8">automationhub_require_content_approval = True</span></span>
+<span class="line"><span style="color:#E1E4E8">automationhub_collection_signing_service_key = /abs/path/to/galaxy_signing_service.gpg</span></span>
+<span class="line"><span style="color:#E1E4E8">automationhub_collection_signing_service_script =  /abs/path/to/collection_signing.sh</span></span></code></pre>
+</div><p>Notice the two keys called <code>automationhub_collection_signing_service_key</code> and <code>automationhub_collection_signing_service_script</code></p>
 <ul>
 <li><code>automationhub_collection_signing_service_key</code>- This represents the absolute path to the  private key file from the GPG keypair.</li>
 <li><code>automationhub_collection_signing_service_script</code>- This represents the absolute path to the signing script that accepts a filename as the only argument. The script needs to generate an ascii-armored detached GPG signature for that file, using the key specified via the <code>PULP_SIGNING_KEY_FINGERPRINT</code> environment variable. The script should then print out a JSON structure with the following format.</li>
 </ul>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>{"file": "filename", "signature": "filename.asc"}</span></span></code></pre><h3>How to generate the GnuPG keypair</h3>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">JSON</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">"file"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"filename"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"signature"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"filename.asc"</span><span style="color:#E1E4E8">}</span></span></code></pre>
+</div><h3>How to generate the GnuPG keypair</h3>
 <p>Below is a sample set of bash commands to set up a key pair and export the associated public and private keys. You can use these directly or change the individual parameters based on your requirements.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>cat >gpg.txt &#x3C;&#x3C;EOF</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>cat >gpg.txt &#x3C;&#x3C;EOF</span></span>
 <span class="line"><span>%echo Generating a basic OpenPGP key</span></span>
 <span class="line"><span>Key-Type: default</span></span>
 <span class="line"><span>Key-Length: 4096</span></span>
@@ -104,32 +121,45 @@
 <span class="line"><span>gpg --batch --gen-key gpg.txt</span></span>
 <span class="line"><span>gpg --output ~/galaxy_signing_service.gpg --armor --export-secret-key</span></span>
 <span class="line"><span>gpg --output ~/galaxy_signing_service.asc --armor --export</span></span>
-<span class="line"><span>rm -rf ~/.gnupg</span></span></code></pre><h3>Sample digital content signing script</h3>
+<span class="line"><span>rm -rf ~/.gnupg</span></span></code></pre>
+</div><h3>Sample digital content signing script</h3>
 <p>Below is a signing script that adheres to the requirements, which you can use as the same script in your setup.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>#!/usr/bin/env bash</span></span>
-<span class="line"><span>FILE_PATH=$1</span></span>
-<span class="line"><span>SIGNATURE_PATH="$1.asc"</span></span>
-<span class="line"><span>          </span></span>
-<span class="line"><span>ADMIN_ID="$PULP_SIGNING_KEY_FINGERPRINT"</span></span>
-<span class="line"><span>PASSWORD="password"</span></span>
-<span class="line"><span>          </span></span>
-<span class="line"><span># Create a detached signature</span></span>
-<span class="line"><span>gpg --quiet --batch --yes --passphrase \</span></span>
-<span class="line"><span>   $PASSWORD --homedir ~/.gnupg/ --detach-sign --default-key $ADMIN_ID \</span></span>
-<span class="line"><span>   --armor --output $SIGNATURE_PATH $FILE_PATH</span></span>
-<span class="line"><span>          </span></span>
-<span class="line"><span># Check the exit status</span></span>
-<span class="line"><span>STATUS=$?</span></span>
-<span class="line"><span>if [ $STATUS -eq 0 ]; then</span></span>
-<span class="line"><span>   echo {\"file\": \"$FILE_PATH\", \"signature\": \"$SIGNATURE_PATH\"}</span></span>
-<span class="line"><span>else</span></span>
-<span class="line"><span>   exit $STATUS</span></span>
-<span class="line"><span>fi</span></span></code></pre><p>You can create the above signing script and key-value pair on the installer node for your Ansible Automation Platform and provide the absolute path of the script and private key to the installer as mentioned in the above section. The public key can be used to verify the downloaded collections to initiate a secure chain of custody from the private automation hub.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">#!/usr/bin/env bash</span></span>
+<span class="line"><span style="color:#E1E4E8">FILE_PATH</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$1</span></span>
+<span class="line"><span style="color:#E1E4E8">SIGNATURE_PATH</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$1</span><span style="color:#9ECBFF">.asc"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">ADMIN_ID</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$PULP_SIGNING_KEY_FINGERPRINT</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#E1E4E8">PASSWORD</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"password"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Create a detached signature</span></span>
+<span class="line"><span style="color:#E1E4E8">gpg </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">quiet </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">batch </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">yes </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">passphrase \</span></span>
+<span class="line"><span style="color:#E1E4E8">   $PASSWORD </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">homedir ~</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">.gnupg</span><span style="color:#F97583">/</span><span style="color:#F97583"> --</span><span style="color:#E1E4E8">detach</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">sign </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">default</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">key $ADMIN_ID \</span></span>
+<span class="line"><span style="color:#F97583">   --</span><span style="color:#E1E4E8">armor </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">output $SIGNATURE_PATH $FILE_PATH</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Check the exit status</span></span>
+<span class="line"><span style="color:#E1E4E8">STATUS</span><span style="color:#F97583">=</span><span style="color:#79B8FF">$?</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> [ $STATUS </span><span style="color:#F97583">-eq</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8"> ]; then</span></span>
+<span class="line"><span style="color:#E1E4E8">   echo {\</span><span style="color:#9ECBFF">"file\"</span><span style="color:#E1E4E8">: \</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$FILE_PATH</span><span style="color:#9ECBFF">\"</span><span style="color:#F97583">,</span><span style="color:#E1E4E8"> \</span><span style="color:#9ECBFF">"signature\"</span><span style="color:#E1E4E8">: \</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">$SIGNATURE_PATH</span><span style="color:#9ECBFF">\"</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#F97583">else</span></span>
+<span class="line"><span style="color:#F97583">   exit</span><span style="color:#E1E4E8"> $STATUS</span></span>
+<span class="line"><span style="color:#E1E4E8">fi</span></span></code></pre>
+</div><p>You can create the above signing script and key-value pair on the installer node for your Ansible Automation Platform and provide the absolute path of the script and private key to the installer as mentioned in the above section. The public key can be used to verify the downloaded collections to initiate a secure chain of custody from the private automation hub.</p>
 <p>With the above changes complete,  you can now run the Ansible Automation Platform installer to install your Ansible Automation Platform cluster with private automation hub and digital content signing enabled.</p>
 <h3>Private automation hub UI/UX changes</h3>
 <p>Once you deploy a private automation hub with signing enabled to your Ansible Automation Platform cluster, you will see some new UI additions when you interact with Collections. We used two new keys in the deployment configuration as explained in the above sections.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>automationhub_auto_sign_collections = True</span></span>
-<span class="line"><span>automationhub_require_content_approval = True</span></span></code></pre><p>These two configuration parameters solidify that the Collections will get signed and will require approval once they get uploaded to a private automation hub. So, as you upload Collections through the private automation hub UI or via the <code>ansible-galaxy</code> CLI, you will see the Collections gettings queued for approval under the “Approval” tab and the button will now say “Sign and Approve”. Below are some screenshots from the UI.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>automationhub_auto_sign_collections = True</span></span>
+<span class="line"><span>automationhub_require_content_approval = True</span></span></code></pre>
+</div><p>These two configuration parameters solidify that the Collections will get signed and will require approval once they get uploaded to a private automation hub. So, as you upload Collections through the private automation hub UI or via the <code>ansible-galaxy</code> CLI, you will see the Collections gettings queued for approval under the “Approval” tab and the button will now say “Sign and Approve”. Below are some screenshots from the UI.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/cDq7bDSaevapq2FGf-damnajVFZ9b0Cx7DTT-cdyuyO-f-cu3BA7E_W7NWeMCD1XZjuJrmPQ9JV4eHYSuI6mG0O1tbEvtPqwUfBN-iMjjZGDWgxNtkyX2DYUHU9Qgtgo5WyLCldF7Jpu8_1Spw.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/cDq7bDSaevapq2FGf-damnajVFZ9b0Cx7DTT-cdyuyO-f-cu3BA7E_W7NWeMCD1XZjuJrmPQ9JV4eHYSuI6mG0O1tbEvtPqwUfBN-iMjjZGDWgxNtkyX2DYUHU9Qgtgo5WyLCldF7Jpu8_1Spw.png" alt=""></a></p>
 <p>Once you click the button, you can see the Collection show up with a signed flag on the UI.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/krmwujrU3vSPrb48tpFJ1JkjvaTM_UehOXyYKb7TcuxcOHyA2yxWYgd_S7NGYj2NPn8ifDnOmLv5R8GAnMQfFusFVVUmcLdyqV5rpH_AW3e8NF5nirY8Mdan1c5M1B1d_RWMl-nzhLAffTw6-Q.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/krmwujrU3vSPrb48tpFJ1JkjvaTM_UehOXyYKb7TcuxcOHyA2yxWYgd_S7NGYj2NPn8ifDnOmLv5R8GAnMQfFusFVVUmcLdyqV5rpH_AW3e8NF5nirY8Mdan1c5M1B1d_RWMl-nzhLAffTw6-Q.png" alt=""></a></p>
@@ -142,12 +172,30 @@
 <p>Using the <code>ansible-galaxy</code> CLI (available with <code>ansible-core</code> v2.13), installed with Ansible Automation Platform 2.2, can now download and verify signed Collections from the private automation hub. You can check the <a href="https://docs.ansible.com/ansible/devel/user_guide/collections_using.html#signature-verification">upstream documentation</a> for more information on how to use signatures with <code>ansible-galaxy</code> CLI.</p>
 <p>Using our example above, we will explain how you can use the public key to verify signed Collections from private automation hub.</p>
 <p>To add the public key to a local non-default keyring:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>gpg --import --no-default-keyring --keyring ~/keyring.kbx galaxy_signing_service.asc</span></span></code></pre><p>Use the keyring created in the last step with <code>ansible-galaxy</code> CLI to install and verify the signed Collections.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible-galaxy collection install community.lab_collection --keyring ~/keyring.kbx -c -vvvv</span></span></code></pre><p>You will see the signature verification happening to validate the source of this Collection. Verification can also be done on the installed Collections to check if they have been tampered with. All these features enable a secure content supply chain for Collections from private automation hub to a user’s system. We have also created a <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">self-paced lab</a> that explains the digital content signing and verification workflow in more detail.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>gpg --import --no-default-keyring --keyring ~/keyring.kbx galaxy_signing_service.asc</span></span></code></pre>
+</div><p>Use the keyring created in the last step with <code>ansible-galaxy</code> CLI to install and verify the signed Collections.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible-galaxy collection install community.lab_collection --keyring ~/keyring.kbx -c -vvvv</span></span></code></pre>
+</div><p>You will see the signature verification happening to validate the source of this Collection. Verification can also be done on the installed Collections to check if they have been tampered with. All these features enable a secure content supply chain for Collections from private automation hub to a user’s system. We have also created a <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">self-paced lab</a> that explains the digital content signing and verification workflow in more detail.</p>
 <h2>Create automation execution environments with signed Collections</h2>
 <p>With <code>ansible-builder</code> version 1.1.0 that comes with Ansible Automation Platform 2.2, it is possible to supply the keyring as explained in the previous section. If this option is not provided, no signature verification will be performed. If it is provided, and the version of Ansible in the base execution environment is not recent enough (<code>ansible-core</code> &lt; 2.13), an error will occur in the image build process.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible-builder create --galaxy-keyring=/path/to/pubring.kbx</span></span>
-<span class="line"><span>ansible-builder build --galaxy-keyring=/path/to/pubring.kbx</span></span></code></pre><h2>Conclusion</h2>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible-builder create --galaxy-keyring=/path/to/pubring.kbx</span></span>
+<span class="line"><span>ansible-builder build --galaxy-keyring=/path/to/pubring.kbx</span></span></code></pre>
+</div><h2>Conclusion</h2>
 <ul>
 <li>Digital content signing is a technology preview feature in private automation hub in Ansible Automation Platform 2.2</li>
 <li>The <code>ansible-galaxy</code> CLI performs Collection signature verification from private automation hub, which helps build a chain-of-custody for automation consumers in your organization.</li>
@@ -233,6 +281,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

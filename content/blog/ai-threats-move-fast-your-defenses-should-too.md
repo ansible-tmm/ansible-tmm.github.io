@@ -68,9 +68,18 @@ Ansible Automation Platform can implement this through a dual-ring enforcement m
 
 OPA evaluates the request against policy and returns an allow or deny. The playbook never executes if the outer ring says no. The OPA policy maps team membership to permitted template categories.
 
-|  |
-| --- |
-| ``` package aap.gateway import rego.v1 default decision := {"allowed": true, "violations": []} patching_teams := {"Infrastructure", "Security"} network_teams := {"Infrastructure"} app_teams := {"Applications", "DevOps"} user_teams := {name | name := input.created_by.teams[_].name} decision := {     "allowed": false,     "violations": [sprintf(         "user '%s' is not in an authorised team for patching templates (requires: %v, has: %v)",         [input.created_by.username, patching_teams, user_teams],     )], } if {     not input.created_by.is_superuser     is_patching_template     not team_match(patching_teams) } ``` |
+```rego
+package aap.gateway
+import rego.v1
+default
+decision := {"allowed": true, "violations": []}
+patching_teams := {"Infrastructure", "Security"}
+network_teams := {"Infrastructure"}
+app_teams := {"Applications", "DevOps"}
+user_teams := {name | name := input.created_by.teams[_].name}
+decision := {     "allowed": false,     "violations": [sprintf(         "user '%s' is not in an authorised team for patching templates (requires: %v, has: %v)",         [input.created_by.username, patching_teams, user_teams],     )],
+} if {     not input.created_by.is_superuser     is_patching_template     not team_match(patching_teams) }
+```
 
 *Fig.2 Example Rego policy for Policy as Code check*
 
@@ -106,9 +115,16 @@ If AI agents can generate exploits and chain them, then having an analyst in the
 
 Event-Driven Ansible helps close that gap. A SIEM such as Splunk detects a brute-force pattern against an application's authentication endpoint. Splunk can trigger an alert to Event-Driven Ansible via event stream, and Event-Driven Ansible evaluates the event and launches an automation job to take action. This job calls the HashiCorp Vault's API to revoke every active dynamic database lease the application holds. The application loses database connectivity immediately.
 
-|  |
-| --- |
-| ``` —     name: Splunk Brute-Force credential revocation   hosts: all   sources:     - ansible.eda.webhook:         host: 0.0.0.0         port: 5000   rules:     - name: Revoke credentials on SSH brute-force detection       condition: event.payload.search_name is search("SSH Brute Force Detected")       action:         run_job_template:           name: "Emergency: Revoke App Credentials"           organization: Default ``` |
+```yaml
+name: Splunk Brute-Force credential revocation
+hosts: all
+sources:
+- ansible.eda.webhook:         host: 0.0.0.0         port: 5000
+rules:
+- name: Revoke credentials on SSH brute-force detection
+condition: event.payload.search_name is search("SSH Brute Force Detected")
+action:         run_job_template:           name: "Emergency: Revoke App Credentials"           organization: Default
+```
 
 *Fig.4 Example Event-Driven Ansible Rulebook for brute force events from Splunk*
 

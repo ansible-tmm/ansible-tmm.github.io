@@ -65,23 +65,44 @@
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Y1yOg8eYtFg6vm91S-_zKuJOQXTPC6v0AhnI1IAFAPWBByrVYl10WT01XUBtWUypFlcAYVKWexUx1jw2MT4bh-i6GEwUCCft3MiGhGVqluVjvxuDMsymClU5uxlESEi-EqtuS9S6bLApgrW00UGhp_Y_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Y1yOg8eYtFg6vm91S-_zKuJOQXTPC6v0AhnI1IAFAPWBByrVYl10WT01XUBtWUypFlcAYVKWexUx1jw2MT4bh-i6GEwUCCft3MiGhGVqluVjvxuDMsymClU5uxlESEi-EqtuS9S6bLApgrW00UGhp_Y_0.png" alt=""></a></p>
 <p>When you launch the hybrid cloud automation: AWS infrastructure visibility lab, you are launching this pre-built automation controller image onto Google Cloud.</p>
 <p>In the second tab we have access to an ephemeral AWS public cloud account. Instruqt will set environment variables for automation controller for us to use how we see fit. As soon as a lab launches, we launch an Ansible Playbook to further customize the lab. Let’s see an example of how we can immediately take advantage of these environment variables:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: add aws credential to automation controller</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: add aws credential to automation controller</span></span>
 <span class="line"><span>  awx.awx.credential:</span></span>
-<span class="line"><span>    name: aws_credential</span></span>
-<span class="line"><span>    description: Amazon Web Services</span></span>
-<span class="line"><span>    organization: "Default"</span></span>
-<span class="line"><span>    state: present</span></span>
-<span class="line"><span>    credential_type: "Amazon Web Services"</span></span>
-<span class="line"><span>    controller_username: "{{ username }}"</span></span>
-<span class="line"><span>    controller_password: "{{ admin_password }}"</span></span>
-<span class="line"><span>    controller_host: "https://{{ ansible_host }}"</span></span>
-<span class="line"><span>    validate_certs: false  </span></span>
-<span class="line"><span>    inputs:</span></span>
-<span class="line"><span>      username: "{{ lookup('env','INSTRUQT_AWS_ACCOUNT_AWSACCOUNT_AWS_ACCESS_KEY_ID') }}"</span></span>
-<span class="line"><span>      password: "{{ lookup('env','INSTRUQT_AWS_ACCOUNT_AWSACCOUNT_AWS_SECRET_ACCESS_KEY') }}"</span></span>
-<span class="line"><span>  register: controller_try</span></span>
-<span class="line"><span>  retries: 5</span></span>
-<span class="line"><span>  until: controller_try is not failed</span></span></code></pre><p>When a student goes through the lab, they can see the credential is already pre-setup for them in automation controller:</p>
+<span class="line"><span></span></span>
+<span class="line"><span>      name: aws_credential</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      description: Amazon Web Services</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      organization: "Default"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      state: present</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      credential_type: "Amazon Web Services"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      controller_username: "{{ username }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      controller_password: "{{ admin_password }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      controller_host: "https://{{ ansible_host }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      validate_certs: false</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      inputs:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        username: "{{ lookup('env','INSTRUQT_AWS_ACCOUNT_AWSACCOUNT_AWS_ACCESS_KEY_ID') }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        password: "{{ lookup('env','INSTRUQT_AWS_ACCOUNT_AWSACCOUNT_AWS_SECRET_ACCESS_KEY') }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    register: controller_try</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    retries: 5</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    until: controller_try is not failed</span></span></code></pre>
+</div><p>When a student goes through the lab, they can see the credential is already pre-setup for them in automation controller:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ctPqsW_31t0NfZbirSq4H9B6xPkDlU_fzKJg5eZj-NPKb1i-DVf8pXctBdXGeJFwCYfHA9baXPuXZXlDwj074GOpy2LdHxWJyPDz5r5Wvs1TTUDXGXdl4-QXAz1gERhNhFdnEsCumidts910WWp4s5A_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ctPqsW_31t0NfZbirSq4H9B6xPkDlU_fzKJg5eZj-NPKb1i-DVf8pXctBdXGeJFwCYfHA9baXPuXZXlDwj074GOpy2LdHxWJyPDz5r5Wvs1TTUDXGXdl4-QXAz1gERhNhFdnEsCumidts910WWp4s5A_0.png" alt=""></a></p>
 <p>In addition, Ansible Automation Platform will auto-provision two RHEL instances into AWS cloud. This effectively means, although we don’t advertise it, you are performing multi-cloud automation every time one of our hybrid cloud demos is performed. Automation controller is running on RHEL 9 on Google Cloud, but the virtual machines we are automating, as well as some operational cloud automation, are all on AWS. Here is a look at a simple diagram illustrating this point:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/d6ePOz5z6FF0bD780TdvsjQYdVj7i6li-QhD411ShfxriX-unmLpc4Vm6B4RaB2LZQoLho78RffhS23TfbWG5YYV77WmIUbmbZhOhNP4BGpljbDZpn1Fq3AECMAz2CaPDDAc4ijyR384Pl-Lalj5C0o_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/d6ePOz5z6FF0bD780TdvsjQYdVj7i6li-QhD411ShfxriX-unmLpc4Vm6B4RaB2LZQoLho78RffhS23TfbWG5YYV77WmIUbmbZhOhNP4BGpljbDZpn1Fq3AECMAz2CaPDDAc4ijyR384Pl-Lalj5C0o_0.png" alt=""></a></p>
@@ -154,6 +175,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

@@ -89,7 +89,12 @@
 <li>List from step 2 can be fed to an Ansible Role that can automate the execution environment creation, keeping the base as the one we did the comparison with in step 2.</li>
 </ol>
 <p>Let&#39;s take an existing Ansible Automation Platform 1.2 setup that has two custom virtual environments, called custom-venv1 and custom-venv2, which both have their own list of Python packages:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span># awx-manage export_custom_venv /opt/my-envs/custom-venv1/ -q</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span># awx-manage export_custom_venv /opt/my-envs/custom-venv1/ -q</span></span>
 <span class="line"><span>certifi==2021.10.8</span></span>
 <span class="line"><span>charset-normalizer==2.0.10</span></span>
 <span class="line"><span>enum34==1.1.10</span></span>
@@ -100,28 +105,51 @@
 <span class="line"><span>urllib3==1.26.8</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span># awx-manage export_custom_venv /opt/my-envs/custom-venv2/ -q</span></span>
-<span class="line"><span>zabbix-api==0.5.4</span></span></code></pre><p>We will use a role packaged in the <a href="https://galaxy.ansible.com/redhat_cop/ee_utilities">redhat_cop.ee_utilities Collection</a> called <code>virtualenv_migrate</code>, that is designed for this specific purpose and run that against the Ansible Tower node. Below is a sample playbook and inventory file respectively:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: Review custom virtualenvs and diff packages from base EE</span></span>
-<span class="line"><span>  hosts: tower</span></span>
-<span class="line"><span>  become: true</span></span>
-<span class="line"><span>  vars:</span></span>
-<span class="line"><span>    - venv_migrate_ee_python_list: []</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span>    - name: Include venv_migrate role</span></span>
-<span class="line"><span>      include_role:</span></span>
-<span class="line"><span>        name: redhat_cop.ee_utilities.virtualenv_migrate</span></span></code></pre><pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[tower]</span></span>
-<span class="line"><span>ansibletower.demoredhat.com</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>[local]</span></span>
-<span class="line"><span>localhost</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>[all:vars]</span></span>
-<span class="line"><span>venv_migrate_default_ee_url="registry.redhat.io/ansible-automation-platform-21/ee-29-rhel8:latest"</span></span>
-<span class="line"><span>registry_username=myRedHatID</span></span>
-<span class="line"><span>registry_password=mypassword</span></span></code></pre><p>The output of the playbook is shown below. It did the comparison as expected and gave us the list of packages from custom Python virtual environments that were not present in the base automation execution environment.</p>
+<span class="line"><span>zabbix-api==0.5.4</span></span></code></pre>
+</div><p>We will use a role packaged in the <a href="https://galaxy.ansible.com/redhat_cop/ee_utilities">redhat_cop.ee_utilities Collection</a> called <code>virtualenv_migrate</code>, that is designed for this specific purpose and run that against the Ansible Tower node. Below is a sample playbook and inventory file respectively:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Review custom virtualenvs and diff packages from base EE</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">tower</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    become</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    vars</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">venv_migrate_ee_python_list</span><span style="color:#E1E4E8">: []</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Include venv_migrate role</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        include_role</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">redhat_cop.ee_utilities.virtualenv_migrate</span></span></code></pre>
+</div><div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">JSON</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#FDAEB7;font-style:italic">tower</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">ansibletower.demoredhat.com</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#FDAEB7;font-style:italic">local</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">localhost</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#FDAEB7;font-style:italic">all:vars</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">venv_migrate_default_ee_url=</span><span style="color:#9ECBFF">"registry.redhat.io/ansible-automation-platform-21/ee-29-rhel8:latest"</span></span>
+<span class="line"><span style="color:#E1E4E8">registry_username=myRedHatID</span></span>
+<span class="line"><span style="color:#E1E4E8">registry_password=mypassword</span></span></code></pre>
+</div><p>The output of the playbook is shown below. It did the comparison as expected and gave us the list of packages from custom Python virtual environments that were not present in the base automation execution environment.</p>
 <p>NOTE: The version based comparison for PIP packages is not included at this moment.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>TASK [redhat_cop.tower_utilities.virtualenv_migrate : diff | Show the packages that are extra from default EEs in custom venvs.] ******************************************************************************</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>TASK [redhat_cop.tower_utilities.virtualenv_migrate : diff | Show the packages that are extra from default EEs in custom venvs.] ******************************************************************************</span></span>
 <span class="line"><span>ok: [3.228.23.40 -> localhost] => {</span></span>
 <span class="line"><span>    "msg": [</span></span>
 <span class="line"><span>        {</span></span>
@@ -139,7 +167,8 @@
 <span class="line"><span>            ]</span></span>
 <span class="line"><span>        }</span></span>
 <span class="line"><span>    ]</span></span>
-<span class="line"><span>}</span></span></code></pre><p>The above output can be directly passed to another Ansible Role in the same <a href="https://galaxy.ansible.com/redhat_cop/ee_utilities">redhat_cop.ee_utilities Collection</a> called <a href="https://github.com/redhat-cop/ee_utilities/tree/main/roles/ee_builder">ee_builder</a>; its use case is to automate the execution environment creation process.</p>
+<span class="line"><span>}</span></span></code></pre>
+</div><p>The above output can be directly passed to another Ansible Role in the same <a href="https://galaxy.ansible.com/redhat_cop/ee_utilities">redhat_cop.ee_utilities Collection</a> called <a href="https://github.com/redhat-cop/ee_utilities/tree/main/roles/ee_builder">ee_builder</a>; its use case is to automate the execution environment creation process.</p>
 <p>Briefly summing things up:</p>
 <ul>
 <li>We ran a playbook against the Ansible Tower node to gather Python packages (from custom Python virtual environments) that are not in the base automation execution environment.</li>
@@ -213,6 +242,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

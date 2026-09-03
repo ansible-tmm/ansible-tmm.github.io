@@ -78,9 +78,16 @@
 <p>To configure the source details for the dynamic inventory, we need to supply the credentials we had previously configured in the automation controller.</p>
 <p>We may also want to specify update options for the inventory and additional variables to assist in filtering the results the controller will retrieve with source variables.</p>
 <p>If we want to group instances based on regions, we can use something like the following under source variables:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>keyed_groups:</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>keyed_groups:</span></span>
 <span class="line"><span> - key: placement.region</span></span>
-<span class="line"><span>    prefix: aws_region</span></span></code></pre><p>This will tell the automation controller to create groups in the inventory based on the AWS regions.</p>
+<span class="line"><span></span></span>
+<span class="line"><span>      prefix: aws_region</span></span></code></pre>
+</div><p>This will tell the automation controller to create groups in the inventory based on the AWS regions.</p>
 <p>There are additional settings here that are pretty powerful should you wish to use them:</p>
 <p><strong>Host Filter</strong>: Specifies matching hostnames to be imported.</p>
 <p><strong>Enabled Variable</strong>: Specifies the automation controller to retrieve the enabled state from the given dictionary of host variables.</p>
@@ -160,6 +167,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

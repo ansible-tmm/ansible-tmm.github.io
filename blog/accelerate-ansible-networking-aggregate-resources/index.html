@@ -82,35 +82,74 @@
 <p>For this scenario we assume a network operator wants to configure 500 VLANs on a Arista EOS device. We can use the <a href="https://docs.ansible.com/ansible/2.4/net_vlan_module.html">eos_vlan</a> Ansible module to easily accomplish this. Refer to the following Ansible Playbook snippet.</p>
 <h3>Ansible 2.3 and older</h3>
 <p>The <strong>vlan_id</strong> parameter is where the actual 802.1q VLAN number is specified. The <strong>name</strong> parameter is a description that helps identify what this VLAN is for (i.e. printers, laptops, etc). Finally, the <strong>state</strong> parameter describes what the intended or expected state should be, which can be present, absent, active or suspend.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>    - eos_vlan:</span></span>
-<span class="line"><span>        vlan_id: "{{ item.vlan_id }}"</span></span>
-<span class="line"><span>        name: "{{ item.name | default('VLAN' + item.vlan_id|string) }}"</span></span>
-<span class="line"><span>        state: "{{ item.state | default('active') }}"</span></span>
-<span class="line"><span>      with_items:</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>eos_vlan:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          vlan_id: "{{ item.vlan_id }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          name: "{{ item.name | default('VLAN' + item.vlan_id|string) }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          state: "{{ item.state | default('active') }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        with_items:</span></span>
 <span class="line"><span>        - { vlan_id: 1, name: default }</span></span>
 <span class="line"><span>        - { vlan_id: 2, name: Vl2 }</span></span>
-<span class="line"><span>        - { vlan_id: 3, state: suspend }</span></span></code></pre><p><a href="https://github.com/network-automation/aggregate_resources/blob/master/oldway.yml">View the full playbook: oldway.yml</a></p>
+<span class="line"><span>        - { vlan_id: 3, state: suspend }</span></span></code></pre>
+</div><p><a href="https://github.com/network-automation/aggregate_resources/blob/master/oldway.yml">View the full playbook: oldway.yml</a></p>
 <p>Prior to integrating the aggregate resources feature, <strong>with_items</strong> was used <a href="http://docs.ansible.com/ansible/latest/playbooks_loops.html">as a loop</a> and passed this criteria for multiple VLANs. Loops are very useful within Ansible, however in this particular example loops can have serious performance impacts. To highlight the execution time differences, we can use the Linux <strong>time</strong> command.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>sean@rhel7 ~]$ time ansible-playbook oldway.yml</span></span></code></pre><p>This particular playbook with just the one task took 18 minutes and 52 seconds to run over 500 VLANs. Ansible still provides parallelism across many different network switches, but this is far too slow for many large scale production environments!</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">sean@rhel7 ~]$ time ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">playbook oldway.yml</span></span></code></pre>
+</div><p>This particular playbook with just the one task took 18 minutes and 52 seconds to run over 500 VLANs. Ansible still provides parallelism across many different network switches, but this is far too slow for many large scale production environments!</p>
 <h3>Red Hat Ansible Engine 2.4 and newer</h3>
 <p>The new aggregate method allows us to pass the entire list of VLAN information without looping. The exact same list of VLANs shown in oldway.yml can be reused easily. Simply moving every line of the VLAN data from the task level to the module level (two spaces in) under the <strong>aggregate</strong> section (replacing <strong>with_items</strong> previously). Instead of looping each VLAN one at a time, we can send all the information at once. Keep in mind this example is only showing the first three VLANs, the full example contains 500 VLANs. This is what the updated task in the playbook looks like:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>   - eos_vlan:</span></span>
-<span class="line"><span>        state: active</span></span>
-<span class="line"><span>        aggregate:</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>eos_vlan:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          state: active</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          aggregate:</span></span>
 <span class="line"><span>          - { vlan_id: 1, name: default }</span></span>
 <span class="line"><span>          - { vlan_id: 2, name: Vl2 }</span></span>
-<span class="line"><span>          - { vlan_id: 3, state: suspend }</span></span></code></pre><p>The modified task with aggregate resources is also timed to compare:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>sean@rhel7 ~]$ time ansible-playbook newway.yml</span></span></code></pre><p><a href="https://github.com/network-automation/aggregate_resources/blob/master/newway.yml">View the full playbook: newway.yml</a></p>
+<span class="line"><span>          - { vlan_id: 3, state: suspend }</span></span></code></pre>
+</div><p>The modified task with aggregate resources is also timed to compare:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">sean@rhel7 ~]$ time ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">playbook newway.yml</span></span></code></pre>
+</div><p><a href="https://github.com/network-automation/aggregate_resources/blob/master/newway.yml">View the full playbook: newway.yml</a></p>
 <p>This took 10 seconds to complete, which is significantly faster than the previous ~19 minute method. Another advantage is that you will also see all VLANs as either changed or OK at the task level (referring to Ansible’s ability to keep track of state) rather than VLAN by VLAN as with the loop method.</p>
 <h3>The Purge Ability</h3>
 <p>In conjunction with the aggregate feature, there is a purge parameter. The purge knob is defined as “Purge VLANs not defined in the aggregate parameter.” This means that VLANs not defined in the aggregate will be removed from the switch. So when the aggregate in this example is used all other VLANs will be deleted.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span> - eos_vlan:</span></span>
-<span class="line"><span>        state: active</span></span>
-<span class="line"><span>        purge: yes</span></span>
-<span class="line"><span>        aggregate:</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>eos_vlan:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          state: active</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          purge: yes</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>          aggregate:</span></span>
 <span class="line"><span>          - { vlan_id: 1, name: default }</span></span>
 <span class="line"><span>          - { vlan_id: 2, name: Vl2 }</span></span>
-<span class="line"><span>          - { vlan_id: 3, state: suspend }</span></span></code></pre><p><a href="https://github.com/network-automation/aggregate_resources/blob/master/purge.yml">View the full playbook: purge.yml</a></p>
+<span class="line"><span>          - { vlan_id: 3, state: suspend }</span></span></code></pre>
+</div><p><a href="https://github.com/network-automation/aggregate_resources/blob/master/purge.yml">View the full playbook: purge.yml</a></p>
 <p>When it is not used, it only enforced that the VLANs exist in the state the aggregate sends them. What are potential use-cases for each?</p>
 <table>
 <thead>
@@ -202,6 +241,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

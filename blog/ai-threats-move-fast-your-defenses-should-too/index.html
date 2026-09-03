@@ -79,17 +79,22 @@
 <p><a href="https://www.redhat.com/rhdc/managed-files/image1_343.png"><img src="https://www.redhat.com/rhdc/managed-files/image1_343.png" alt="<alt> Policy enforcement for security and authorization access "></a></p>
 <p><em>Fig.1 Outer-Inner ring policy enforcement with Ansible Automation Platform</em></p>
 <p>OPA evaluates the request against policy and returns an allow or deny. The playbook never executes if the outer ring says no. The OPA policy maps team membership to permitted template categories.</p>
-<table>
-<thead>
-<tr>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>``` package aap.gateway import rego.v1 default decision := {&quot;allowed&quot;: true, &quot;violations&quot;: []} patching_teams := {&quot;Infrastructure&quot;, &quot;Security&quot;} network_teams := {&quot;Infrastructure&quot;} app_teams := {&quot;Applications&quot;, &quot;DevOps&quot;} user_teams := {name</td>
-</tr>
-</tbody></table>
-<p><em>Fig.2 Example Rego policy for Policy as Code check</em></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Rego</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>package aap.gateway</span></span>
+<span class="line"><span>import rego.v1</span></span>
+<span class="line"><span>default</span></span>
+<span class="line"><span>decision := {"allowed": true, "violations": []}</span></span>
+<span class="line"><span>patching_teams := {"Infrastructure", "Security"}</span></span>
+<span class="line"><span>network_teams := {"Infrastructure"}</span></span>
+<span class="line"><span>app_teams := {"Applications", "DevOps"}</span></span>
+<span class="line"><span>user_teams := {name | name := input.created_by.teams[_].name}</span></span>
+<span class="line"><span>decision := {     "allowed": false,     "violations": [sprintf(         "user '%s' is not in an authorised team for patching templates (requires: %v, has: %v)",         [input.created_by.username, patching_teams, user_teams],     )],</span></span>
+<span class="line"><span>} if {     not input.created_by.is_superuser     is_patching_template     not team_match(patching_teams) }</span></span></code></pre>
+</div><p><em>Fig.2 Example Rego policy for Policy as Code check</em></p>
 <p>The inner ring operates inside the template/workflow itself. For potentially high impact operations like VLAN changes, the playbook fetches a <a href="https://www.redhat.com/en/topics/security/spiffe-and-spire">SPIFFE identity</a> (a cryptographic workload identity) and sends it to OPA. OPA evaluates 3 conditions:</p>
 <ul>
 <li>The human is authorized via team membership</li>
@@ -109,17 +114,25 @@
 <h2>Incident response at machine speed</h2>
 <p>If AI agents can generate exploits and chain them, then having an analyst in the Security Operations Center (SOC) who is notified, logs in, reads the alert, investigates, and manually revokes credentials is operating on a human-scale timeline against a digital threat.</p>
 <p>Event-Driven Ansible helps close that gap. A SIEM such as Splunk detects a brute-force pattern against an application&#39;s authentication endpoint. Splunk can trigger an alert to Event-Driven Ansible via event stream, and Event-Driven Ansible evaluates the event and launches an automation job to take action. This job calls the HashiCorp Vault&#39;s API to revoke every active dynamic database lease the application holds. The application loses database connectivity immediately.</p>
-<table>
-<thead>
-<tr>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>—     name: Splunk Brute-Force credential revocation   hosts: all   sources:     - ansible.eda.webhook:         host: 0.0.0.0         port: 5000   rules:     - name: Revoke credentials on SSH brute-force detection       condition: event.payload.search_name is search(&quot;SSH Brute Force Detected&quot;)       action:         run_job_template:           name: &quot;Emergency: Revoke App Credentials&quot;           organization: Default</code></td>
-</tr>
-</tbody></table>
-<p><em>Fig.4 Example Event-Driven Ansible Rulebook for brute force events from Splunk</em></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Splunk Brute-Force credential revocation</span></span>
+<span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">all</span></span>
+<span class="line"><span style="color:#85E89D">sources</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">ansible.eda.webhook</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  host</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0.0.0.0</span></span>
+<span class="line"><span style="color:#85E89D">  port</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5000</span></span>
+<span class="line"><span style="color:#85E89D">rules</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Revoke credentials on SSH brute-force detection</span></span>
+<span class="line"><span style="color:#85E89D">condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.payload.search_name is search("SSH Brute Force Detected")</span></span>
+<span class="line"><span style="color:#85E89D">action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  run_job_template</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Emergency: Revoke App Credentials"</span></span>
+<span class="line"><span style="color:#85E89D">  organization</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Default</span></span></code></pre>
+</div><p><em>Fig.4 Example Event-Driven Ansible Rulebook for brute force events from Splunk</em></p>
 <p>The detection-to-containment loop completes in seconds, reducing mean ime to resolution from hours to seconds. The potential impact shrinks from &quot;attacker may have database access&quot; to &quot;attacker has access to an application that can no longer reach its data.&quot;</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/image3_157.png"><img src="https://www.redhat.com/rhdc/managed-files/image3_157.png" alt="<alt> Zero trust incident response with Event-Driven Ansible"></a></p>
 <p><em>Fig.5 Example attack incident response for zero trust architecture with Event-Driven Ansible</em></p>
@@ -211,6 +224,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

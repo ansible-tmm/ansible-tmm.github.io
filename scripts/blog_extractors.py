@@ -140,6 +140,75 @@ def _absolutize_urls(element: Tag, base_url: str) -> None:
             element[attr] = urljoin(base_url, value)
 
 
+def _detect_code_language(text: str) -> str:
+    sample = text.strip()[:500]
+    if re.search(r"\bpackage\s+\w+", sample) or "rego.v1" in sample:
+        return "rego"
+    if re.search(r"\b(Enable-|New-|Get-|Set-)\w+", sample) or "$" in sample[:80]:
+        return "powershell"
+    if re.search(r"^(---|\s*-\s+name:|\s*hosts:|\s*tasks:|\s*sources:|\s*rules:)", sample, re.M):
+        return "yaml"
+    if sample.lstrip().startswith(("{", "[")):
+        return "json"
+    if re.search(r"^#!|^\s*(sudo |apt |yum |dnf )", sample, re.M):
+        return "bash"
+    return ""
+
+
+def _normalize_code_text(text: str) -> str:
+    text = text.replace("\u00a0", " ")
+    text = re.sub(r"^[\s—–-]+", "", text.strip())
+    if "\n" not in text.strip():
+        text = _reflow_flat_code(text)
+    else:
+        text = _reflow_nested_keys(text)
+    lines = [line.rstrip() for line in text.splitlines()]
+    return "\n".join(lines).strip()
+
+
+def _reflow_flat_code(text: str) -> str:
+    split_before = [
+        r"---\s+collections:",
+        r"---\s+name:",
+        r"\bhosts:",
+        r"\bsources:",
+        r"\brules:",
+        r"\bcondition:",
+        r"\baction:",
+        r"\bpackage\s+",
+        r"\bimport\s+rego",
+        r"\bpatching_teams\s*:=",
+        r"\bnetwork_teams\s*:=",
+        r"\bapp_teams\s*:=",
+        r"\buser_teams\s*:=",
+        r"\}\s+if\s+\{",
+        r"##\s+",
+        r"\$[A-Za-z_]\w*\s*=",
+        r"\bEnable-[A-Za-z]+",
+        r"\bNew-[A-Za-z]+",
+    ]
+    for pattern in split_before:
+        text = re.sub(rf"\s+(?={pattern})", "\n", text)
+    text = re.sub(r"\s+(- )", r"\n\1", text)
+    return _reflow_nested_keys(text)
+
+
+def _reflow_nested_keys(text: str) -> str:
+    lines: list[str] = []
+    for line in text.splitlines():
+        if re.search(r" {2,}\S[\w-]*\s*:", line):
+            parts = re.split(r" {2,}(?=\S[\w-]*\s*:)", line)
+            if len(parts) > 1:
+                base_indent = len(line) - len(line.lstrip())
+                sub_indent = base_indent + 2
+                lines.append(parts[0].rstrip())
+                for part in parts[1:]:
+                    lines.append(f"{' ' * sub_indent}{part.lstrip()}")
+                continue
+        lines.append(line.rstrip())
+    return "\n".join(lines)
+
+
 def _preserve_code_blocks(element: Tag) -> None:
     for pre in element.find_all("pre"):
         code = pre.find("code")
@@ -150,10 +219,105 @@ def _preserve_code_blocks(element: Tag) -> None:
         for cls in classes:
             if cls.startswith("language-"):
                 lang = cls.replace("language-", "")
-            elif cls in {"hljs", "yaml", "bash", "python", "json"}:
+            elif cls in {"hljs", "yaml", "bash", "python", "json", "rego", "powershell"}:
                 lang = lang or cls
+        if not lang:
+            lang = _detect_code_language(code.get_text())
         if lang:
             pre["data-language"] = lang
+
+
+def _unwrap_code_tables(element: Tag) -> None:
+    """Red Hat often wraps syntax-highlighted snippets in layout tables."""
+    for table in list(element.find_all("table")):
+        if table.find("img") or table.find("a", href=True):
+            continue
+        pres = table.find_all("pre")
+        if not pres:
+            continue
+        non_code_text = ""
+        for node in table.descendants:
+            if isinstance(node, NavigableString) and not isinstance(node, Comment):
+                parent = node.parent
+                if parent and parent.name not in {"pre", "code", "span"} and str(node).strip():
+                    non_code_text += str(node).strip()
+        if non_code_text:
+            continue
+        if len(pres) == 1:
+            table.replace_with(pres[0])
+            continue
+        for pre in pres:
+            table.insert_before(pre.extract())
+        table.decompose()
+
+
+def _code_fence(lang: str, text: str) -> str:
+    fence_lang = lang or "text"
+    return f"\n\n```{fence_lang}\n{text}\n```\n\n"
+
+
+def _extract_pre_blocks_to_placeholders(html: str) -> tuple[str, dict[str, str]]:
+    soup = BeautifulSoup(html, "html.parser")
+    placeholders: dict[str, str] = {}
+    counter = 0
+    for pre in list(soup.find_all("pre")):
+        code = pre.find("code")
+        if not code:
+            continue
+        text = _normalize_code_text(code.get_text("\n"))
+        lang = pre.get("data-language") or _detect_code_language(text)
+        key = f"BLOGCODEBLOCK{counter}"
+        placeholders[key] = _code_fence(lang, text)
+        counter += 1
+        pre.replace_with(NavigableString(f"\n\n{key}\n\n"))
+    return str(soup), placeholders
+
+
+def normalize_markdown_code_blocks(markdown: str) -> str:
+    """Repair table-wrapped inline code fences produced by markdownify."""
+
+    def table_to_fences(table_block: str) -> str:
+        matches = list(re.finditer(r"```\s*([\s\S]*?)```", table_block))
+        if not matches:
+            return table_block
+        fences = []
+        for match in matches:
+            text = _normalize_code_text(match.group(1))
+            lang = _detect_code_language(text)
+            fences.append(_code_fence(lang, text).strip())
+        return "\n\n".join(fences) + "\n\n"
+
+    lines = markdown.splitlines()
+    output: list[str] = []
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        if line.strip().startswith("|") and "```" in line:
+            table_lines = [line]
+            index += 1
+            while index < len(lines) and lines[index].strip().startswith("|"):
+                table_lines.append(lines[index])
+                index += 1
+            output.append(table_to_fences("\n".join(table_lines)).rstrip())
+            output.append("")
+            continue
+        if (
+            line.strip() == "|  |"
+            and index + 2 < len(lines)
+            and lines[index + 1].strip().startswith("| ---")
+        ):
+            table_lines = [line, lines[index + 1]]
+            index += 2
+            while index < len(lines) and lines[index].strip().startswith("|"):
+                table_lines.append(lines[index])
+                index += 1
+            output.append(table_to_fences("\n".join(table_lines)).rstrip())
+            output.append("")
+            continue
+        output.append(line)
+        index += 1
+    normalized = "\n".join(output)
+    return re.sub(r"\n{3,}", "\n\n", normalized).strip() + "\n"
 
 
 def extract_body_html(html: str, source_url: str) -> str:
@@ -169,6 +333,8 @@ def extract_body_html(html: str, source_url: str) -> str:
     for comment in body.find_all(string=lambda text: isinstance(text, Comment)):
         comment.extract()
 
+    _unwrap_code_tables(body)
+
     for tag in body.find_all(["pre"]):
         _preserve_code_blocks(tag)
 
@@ -181,10 +347,14 @@ def extract_body_html(html: str, source_url: str) -> str:
 def html_to_markdown(html: str) -> str:
     from markdownify import markdownify as md
 
+    html, placeholders = _extract_pre_blocks_to_placeholders(html)
     markdown = md(
         html,
         heading_style="ATX",
         bullets="-",
         strip=["script", "style"],
     )
+    for key, fence in placeholders.items():
+        markdown = markdown.replace(key, fence.strip())
+    markdown = normalize_markdown_code_blocks(markdown)
     return re.sub(r"\n{3,}", "\n\n", markdown).strip() + "\n"

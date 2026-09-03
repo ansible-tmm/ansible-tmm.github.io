@@ -64,13 +64,19 @@
 <p>While this is fast, it might take a few minutes to load, and web users are unlikely to be patient.  The Netflix era means that people want instant gratification!  Installing automation controller might take five to 10 minutes, so I need a faster method to deploy.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible-packer-blog-one.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible-packer-blog-one.png" alt="Cloud automation pipeline diagram"></a></p>
 <p>What I can do is combine our normal Ansible automation pipeline with Packer and pre-build the cloud instances so they already have the application installed, and are configured and ready to go as soon as it boots.  Packer will provision a specific machine image on my public cloud (Azure, AWS, GCP), run the commands and changes I need, and then publish a new image with all the changes I made to the base image.  In my case I use Ansible the same way.  In my packer <a href="https://www.packer.io/docs/templates/hcl_templates">HCL</a> (HashiCorp Configuration Language ) file I have an Ansible provisioner:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>provisioner "ansible" {</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>provisioner "ansible" {</span></span>
 <span class="line"><span>      command = "ansible-playbook"</span></span>
 <span class="line"><span>      playbook_file = "pre_build_controller.yml"</span></span>
 <span class="line"><span>      user = "ec2-user"</span></span>
 <span class="line"><span>      inventory_file_template = "controller ansible_host={{ .Host }} ansible_user={{ .User }} ansible_port={{ .Port }}"</span></span>
 <span class="line"><span>      extra_arguments = local.extra_args</span></span>
-<span class="line"><span>    }</span></span></code></pre><p>Red Hat Ansible Tech Marketing Example can be found on <a href="https://github.com/ansible/workshops/blob/devel/provisioner/packer/automation-controller.pkr.hcl">Github</a></p>
+<span class="line"><span>    }</span></span></code></pre>
+</div><p>Red Hat Ansible Tech Marketing Example can be found on <a href="https://github.com/ansible/workshops/blob/devel/provisioner/packer/automation-controller.pkr.hcl">Github</a></p>
 <p>This simple provisioner plugin is executing the Ansible Playbook pre_build_controller.yml.  I can also use Ansible Automation Platform to orchestrate the whole process by kicking off Packer and then continuing on.  Anything that I can do ahead of time, I can pre-build into the image.  This means there is less automation I need to do at boot time (or what is sometimes referred to as &quot;automation just in time&quot;).  The new process looks like this diagram:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible-packer-blog-two.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible-packer-blog-two.png" alt="Create pre-built image diagram"></a></p>
 <p>These two processes, building images and serving a demo environment, are actually independent of each other.  Depending on how often a pre-built image needs to be executed, we can schedule that in automation controller, or even generate them on-demand via <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/webhooks.html">webhooks</a>. On-demand generation means as soon as someone changes an Ansible Playbook relevant to anything pre_build, we can have Ansible Automation Platform create the new image immediately, and even test it!</p>
@@ -79,41 +85,90 @@
 <p>This Collection currently has two roles available that will assist cloud administrators, copy and share.</p>
 <h3>Copy</h3>
 <p>This role will copy an AMI from one region, to any other specified regions.  This means you can use Packer to create it just once, and have Ansible take care of copying it to any other regions and return you with a list of new AMIs per region.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: copy ami</span></span>
-<span class="line"><span>    include_role:</span></span>
-<span class="line"><span>      name: ansible_cloud.share_ami.copy</span></span>
-<span class="line"><span>    vars:</span></span>
-<span class="line"><span>      ami_list: "{{ my_ami_list }}"</span></span>
-<span class="line"><span>      copy_to_regions: "{{ my_copy_to_regions }}"</span></span></code></pre><p>Where your variable file looks like this:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>my_ami_list:</span></span>
-<span class="line"><span>  ap-northeast-1: ami-01334example</span></span>
-<span class="line"><span>  ap-southeast-1: ami-0b3f3example</span></span>
-<span class="line"><span>  eu-central-1: ami-03a5732example</span></span>
-<span class="line"><span>  us-east-1: ami-01da94de9cexample</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: copy ami</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      include_role:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        name: ansible_cloud.share_ami.copy</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      vars:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        ami_list: "{{ my_ami_list }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        copy_to_regions: "{{ my_copy_to_regions }}"</span></span></code></pre>
+</div><p>Where your variable file looks like this:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>my_ami_list:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    ap-northeast-1: ami-01334example</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    ap-southeast-1: ami-0b3f3example</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    eu-central-1: ami-03a5732example</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    us-east-1: ami-01da94de9cexample</span></span>
 <span class="line"><span>my_copy_to_regions:</span></span>
 <span class="line"><span>  - us-west-1</span></span>
-<span class="line"><span>  - us-east-2</span></span></code></pre><p>In this case, there will be four AMIs copied to us-west-1 and us-east-2 with a new AMI identifier returned to your terminal window or the automation controller console.</p>
+<span class="line"><span>  - us-east-2</span></span></code></pre>
+</div><p>In this case, there will be four AMIs copied to us-west-1 and us-east-2 with a new AMI identifier returned to your terminal window or the automation controller console.</p>
 <h3>Share</h3>
 <p>This role will share an AMI from one account and region to another account (in the same region).  This allows you to share your pre_built AMIs to as many accounts as you want really quickly.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: share ami</span></span>
-<span class="line"><span>  include_role:</span></span>
-<span class="line"><span>    name: ansible_cloud.share_ami.share</span></span>
-<span class="line"><span>  vars:</span></span>
-<span class="line"><span>    user_id_list: "{{ account_list }}"</span></span>
-<span class="line"><span>    ami_list: "{{ my_ami_list }}"</span></span></code></pre><p>Where your variable file looks like this:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>my_ami_list:</span></span>
-<span class="line"><span>  ap-northeast-1: ami-01334example</span></span>
-<span class="line"><span>  ap-southeast-1: ami-0b3f3example</span></span>
-<span class="line"><span>  eu-central-1: ami-03a5732example</span></span>
-<span class="line"><span>  us-east-1: ami-01da94de9cexample</span></span>
-<span class="line"><span>  us-east-2: ami-009f8b2c6dexample</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: share ami</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    include_role:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      name: ansible_cloud.share_ami.share</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    vars:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      user_id_list: "{{ account_list }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      ami_list: "{{ my_ami_list }}"</span></span></code></pre>
+</div><p>Where your variable file looks like this:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>my_ami_list:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    ap-northeast-1: ami-01334example</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    ap-southeast-1: ami-0b3f3example</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    eu-central-1: ami-03a5732example</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    us-east-1: ami-01da94de9cexample</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    us-east-2: ami-009f8b2c6dexample</span></span>
 <span class="line"><span>account_list:</span></span>
 <span class="line"><span>  - "11463example"</span></span>
 <span class="line"><span>  - "90073example"</span></span>
 <span class="line"><span>  - "71963example"</span></span>
-<span class="line"><span>  - "07923example"</span></span></code></pre><p>This would share these five AMIs to the four accounts listed.  There are also two optional variables for share AMI, new_ami_name and new_tag which will name (e.g. add the tag name: &quot;whatever you put&quot;) and add a hard coded ansiblecloud tag (e.g. add the tag ansiblecloud: &quot;whatever you put&quot;).  This could be further customized to add as many tags as you want to your AMIs to help keep track of them.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>new_ami_name: "RHEL 8.6 with automation controller"</span></span>
-<span class="line"><span>new_tag: "my test"</span></span></code></pre><p>Now you can see one of the many ways that Ansible Automation Platform and Packer can easily and seamlessly work together to accomplish cloud automation tasks.  If you want more blogs on Ansible and Packer or Ansible and Terraform, please let us know!</p>
+<span class="line"><span>  - "07923example"</span></span></code></pre>
+</div><p>This would share these five AMIs to the four accounts listed.  There are also two optional variables for share AMI, new_ami_name and new_tag which will name (e.g. add the tag name: &quot;whatever you put&quot;) and add a hard coded ansiblecloud tag (e.g. add the tag ansiblecloud: &quot;whatever you put&quot;).  This could be further customized to add as many tags as you want to your AMIs to help keep track of them.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>new_ami_name: "RHEL 8.6 with automation controller"</span></span>
+<span class="line"><span>new_tag: "my test"</span></span></code></pre>
+</div><p>Now you can see one of the many ways that Ansible Automation Platform and Packer can easily and seamlessly work together to accomplish cloud automation tasks.  If you want more blogs on Ansible and Packer or Ansible and Terraform, please let us know!</p>
 <hr>
 <h3>About the author</h3>
 <p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
@@ -183,6 +238,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

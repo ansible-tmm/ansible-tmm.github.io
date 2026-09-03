@@ -71,26 +71,51 @@
 <th></th>
 </tr>
 </thead>
-<tbody><tr>
-<td><code>requirements.yml  --- collections:  - ansible.windows  - community.windows  - community.general  - ansible.utils  - ansible.posix  - chocolatey.chocolatey  - microsoft.ad</code></td>
-<td><code>requirements.txt    requests-credssp &gt; 2.2.0</code></td>
-</tr>
-</tbody></table>
-<p>Once the execution environment ready, you can push it into a container registry like Quay.io or to your private automation hub which is part of Ansible Automation Platform. Next, I can add it to my automation controller and use it for all my Windows related automation templates.</p>
+</table>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#9ECBFF">requirements.yml</span></span>
+<span class="line"><span style="color:#B392F0">---</span><span style="color:#85E89D"> collections</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#9ECBFF">ansible.windows</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#9ECBFF">community.windows</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#9ECBFF">community.general</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#9ECBFF">ansible.utils</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#9ECBFF">ansible.posix</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#9ECBFF">chocolatey.chocolatey</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#9ECBFF">microsoft.ad</span></span></code></pre>
+</div><div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>requirements.txt    requests-credssp > 2.2.0</span></span></code></pre>
+</div><p>Once the execution environment ready, you can push it into a container registry like Quay.io or to your private automation hub which is part of Ansible Automation Platform. Next, I can add it to my automation controller and use it for all my Windows related automation templates.</p>
 <p><img src="https://lh7-us.googleusercontent.com/fiqI0Cs1ACy-dcIe0eJbFOBqmcdY2DcB435IFPVmVtGtxcN7zXkPHxAka9UPlrxSB4ZTP_d8pCjuDrnumYmylsVm1KQFAe8hRJiYtwYvVQZY-2BIbl6qOBOPq0yjHnDucYpC3nLX2F8JQQhtsbxfZ0A" alt=""></p>
 <p>To prepare your Windows systems for Ansible assimilation, you can grab the latest copy of the <a href="https://github.com/ansible/ansible-documentation/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1">ConfigureRemotingForAnsible</a> PowerShell script and run it on your hosts. This is a quick baseline that you can use to customize and configure your host.</p>
 <p>In my example, I will be using the following script to configure my hosts. I have a https listener configured, and I&#39;m planning to use NTLM authentication since I am not running Kerberos. It is always recommended to run at least NTLM authentication. I am also enabling PowerShell remote protocol to give me a slight speed improvement.</p>
-<table>
-<thead>
-<tr>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>## Enable PowerShell Remote protocol Enable-PSRemoting -Force $certParams = @{    DnsName           = $env:COMPUTERNAME    CertStoreLocation = &quot;Cert:\LocalMachine\My&quot; } $cert = New-SelfSignedCertificate @certParams  ## Configure HTTPS transport $wsmanParams = @{    ResourceURI = &quot;winrm/config/Listener&quot;    SelectorSet = @{        Transport = &quot;HTTPS&quot;        Address = &quot;*&quot;    }    ValueSet    = @{        CertificateThumbprint = $cert.Thumbprint        Enabled               = $true    } } New-WSManInstance @wsmanParams  ## Configure Firewall Rules $firewallParams = @{    DisplayName = &quot;Windows Remote Management (HTTPS-In)&quot;    Direction   = &quot;Inbound&quot;    LocalPort   = 5986    Protocol    = &quot;TCP&quot;    Action      = &quot;Allow&quot; } New-NetFirewallRule @firewallParams  ## Regedit to filter access tokens $regInfo = @{    Path         = &quot;HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&quot;    Name         = &quot;LocalAccountTokenFilterPolicy&quot;    Value        = 1    PropertyType = &quot;DWord&quot;    Force        = $true } New-ItemProperty @regInfo</code></td>
-</tr>
-</tbody></table>
-<h2>Windows: Engage!</h2>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">## Enable PowerShell Remote protocol</span></span>
+<span class="line"><span style="color:#79B8FF">Enable-PSRemoting</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8">Force</span></span>
+<span class="line"><span style="color:#E1E4E8">$certParams </span><span style="color:#F97583">=</span><span style="color:#F97583"> @</span><span style="color:#E1E4E8">{    DnsName           </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> $</span><span style="color:#79B8FF">env:</span><span style="color:#E1E4E8">COMPUTERNAME    CertStoreLocation </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Cert:\LocalMachine\My"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#E1E4E8">$cert </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#79B8FF">New-SelfSignedCertificate</span><span style="color:#E1E4E8"> @certParams</span></span>
+<span class="line"><span style="color:#6A737D">## Configure HTTPS transport</span></span>
+<span class="line"><span style="color:#E1E4E8">$wsmanParams </span><span style="color:#F97583">=</span><span style="color:#F97583"> @</span><span style="color:#E1E4E8">{    ResourceURI </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "winrm/config/Listener"</span><span style="color:#E1E4E8">    SelectorSet </span><span style="color:#F97583">=</span><span style="color:#F97583"> @</span><span style="color:#E1E4E8">{        Transport </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "HTTPS"</span><span style="color:#E1E4E8">        Address </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "*"</span><span style="color:#E1E4E8">    }    ValueSet    </span><span style="color:#F97583">=</span><span style="color:#F97583"> @</span><span style="color:#E1E4E8">{        CertificateThumbprint </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> $cert.Thumbprint        Enabled               </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> $true</span><span style="color:#E1E4E8">    } }</span></span>
+<span class="line"><span style="color:#79B8FF">New-WSManInstance</span><span style="color:#E1E4E8"> @wsmanParams</span></span>
+<span class="line"><span style="color:#6A737D">## Configure Firewall Rules</span></span>
+<span class="line"><span style="color:#E1E4E8">$firewallParams </span><span style="color:#F97583">=</span><span style="color:#F97583"> @</span><span style="color:#E1E4E8">{    DisplayName </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Windows Remote Management (HTTPS-In)"</span><span style="color:#E1E4E8">    Direction   </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Inbound"</span><span style="color:#E1E4E8">    LocalPort   </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 5986</span><span style="color:#E1E4E8">    Protocol    </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "TCP"</span><span style="color:#E1E4E8">    Action      </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Allow"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#79B8FF">New-NetFirewallRule</span><span style="color:#E1E4E8"> @firewallParams</span></span>
+<span class="line"><span style="color:#6A737D">## Regedit to filter access tokens</span></span>
+<span class="line"><span style="color:#E1E4E8">$regInfo </span><span style="color:#F97583">=</span><span style="color:#F97583"> @</span><span style="color:#E1E4E8">{    Path         </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"</span><span style="color:#E1E4E8">    Name         </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "LocalAccountTokenFilterPolicy"</span><span style="color:#E1E4E8">    Value        </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">    PropertyType </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "DWord"</span><span style="color:#E1E4E8">    Force        </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> $true</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#79B8FF">New-ItemProperty</span><span style="color:#E1E4E8"> @regInfo</span></span></code></pre>
+</div><h2>Windows: Engage!</h2>
 <p>We have our execution environment with our Windows collections and we have our hosts configured with WinRM. Now We need to configure these hosts in our inventory on Ansible Automation Platform and, since it&#39;s Windows, a bit more information around these hosts is needed. In my inventory, I have Windows hosts managed within a group and I have used group variables to define some of the details.</p>
 <p><img src="https://lh7-us.googleusercontent.com/zXNoRpQtZZlt2DETgf8E8iXFksOz1SDdAM4UsOrIGYSMmL7MfkZXFb6mrnQPnhKuEK1KVg_7JbCxbWXGGWwZNQG8D7C7HObyFO_y_sHvw1_dgI2CWFLlqXQUYjV6nsk_TioLYKI2HpQP36jOgIW8U34" alt=""></p>
 <p>We will use these details when we attempt to connect to the Windows systems. We can now add our hosts to this group so they inherit the inventory variables we have defined at the group level. In my example, just like a totally logical Vulcan, my host is called windows.</p>
@@ -179,6 +204,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

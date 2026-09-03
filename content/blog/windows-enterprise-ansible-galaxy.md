@@ -42,7 +42,21 @@ The execution environment I'm using for my Windows automation has the following 
 
 |  |  |
 | --- | --- |
-| ``` requirements.yml  --- collections:  - ansible.windows  - community.windows  - community.general  - ansible.utils  - ansible.posix  - chocolatey.chocolatey  - microsoft.ad ``` | ``` requirements.txt    requests-credssp > 2.2.0 ``` |
+```yaml
+requirements.yml
+--- collections:
+- ansible.windows
+- community.windows
+- community.general
+- ansible.utils
+- ansible.posix
+- chocolatey.chocolatey
+- microsoft.ad
+```
+
+```text
+requirements.txt    requests-credssp > 2.2.0
+```
 
 Once the execution environment ready, you can push it into a container registry like Quay.io or to your private automation hub which is part of Ansible Automation Platform. Next, I can add it to my automation controller and use it for all my Windows related automation templates.
 
@@ -52,9 +66,22 @@ To prepare your Windows systems for Ansible assimilation, you can grab the lates
 
 In my example, I will be using the following script to configure my hosts. I have a https listener configured, and I'm planning to use NTLM authentication since I am not running Kerberos. It is always recommended to run at least NTLM authentication. I am also enabling PowerShell remote protocol to give me a slight speed improvement.
 
-|  |
-| --- |
-| ``` ## Enable PowerShell Remote protocol Enable-PSRemoting -Force $certParams = @{    DnsName           = $env:COMPUTERNAME    CertStoreLocation = "Cert:\LocalMachine\My" } $cert = New-SelfSignedCertificate @certParams  ## Configure HTTPS transport $wsmanParams = @{    ResourceURI = "winrm/config/Listener"    SelectorSet = @{        Transport = "HTTPS"        Address = "*"    }    ValueSet    = @{        CertificateThumbprint = $cert.Thumbprint        Enabled               = $true    } } New-WSManInstance @wsmanParams  ## Configure Firewall Rules $firewallParams = @{    DisplayName = "Windows Remote Management (HTTPS-In)"    Direction   = "Inbound"    LocalPort   = 5986    Protocol    = "TCP"    Action      = "Allow" } New-NetFirewallRule @firewallParams  ## Regedit to filter access tokens $regInfo = @{    Path         = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"    Name         = "LocalAccountTokenFilterPolicy"    Value        = 1    PropertyType = "DWord"    Force        = $true } New-ItemProperty @regInfo ``` |
+```powershell
+## Enable PowerShell Remote protocol
+Enable-PSRemoting -Force
+$certParams = @{    DnsName           = $env:COMPUTERNAME    CertStoreLocation = "Cert:\LocalMachine\My" }
+$cert =
+New-SelfSignedCertificate @certParams
+## Configure HTTPS transport
+$wsmanParams = @{    ResourceURI = "winrm/config/Listener"    SelectorSet = @{        Transport = "HTTPS"        Address = "*"    }    ValueSet    = @{        CertificateThumbprint = $cert.Thumbprint        Enabled               = $true    } }
+New-WSManInstance @wsmanParams
+## Configure Firewall Rules
+$firewallParams = @{    DisplayName = "Windows Remote Management (HTTPS-In)"    Direction   = "Inbound"    LocalPort   = 5986    Protocol    = "TCP"    Action      = "Allow" }
+New-NetFirewallRule @firewallParams
+## Regedit to filter access tokens
+$regInfo = @{    Path         = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"    Name         = "LocalAccountTokenFilterPolicy"    Value        = 1    PropertyType = "DWord"    Force        = $true }
+New-ItemProperty @regInfo
+```
 
 ## Windows: Engage!
 

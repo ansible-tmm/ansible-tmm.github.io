@@ -60,18 +60,36 @@
 <p>To demonstrate, let’s use an existing GitHub repository with working playbooks using the legacy connection local method. NOTE: The connection local method will continue to be supported for quite some time, and has not been announced as deprecated yet. This repository has several examples using Ansible and NAPALM but we are highlighting the Ansible Playbooks in this post.  The GitHub repository can be <a href="https://github.com/network-automation/ansible-napalm-samples">found here</a>.</p>
 <h3><a href="https://github.com/network-automation/ansible-napalm-samples#example-1---backing-up-a-config">Example 1 - Backing Up a Configuration</a></h3>
 <p>Networking platforms use their specific <code>*_config</code> platform module for easy backups within Ansible. For this playbook we are running the Ansible Playbook against a Cisco NX-OS platform, so we are using the nxos_config module. Using this module, set the <code>backup</code> parameter to <code>yes</code>.  This is how the playbook looked using the <code>connection: local</code> and <code>provider</code> method in Ansible 2.4:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- hosts: cisco</span></span>
-<span class="line"><span>  connection: local</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span>    - nxos_config:</span></span>
-<span class="line"><span>        backup: yes</span></span>
-<span class="line"><span>        provider: "{{login_info}}"</span></span></code></pre><p>For all of the Ansible samples the provider variables such as <code>login_info</code> are located in <code>group_vars/all</code>:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ cat group_vars/all.yml                                                                                               ---</span></span>
-<span class="line"><span>login_info:</span></span>
-<span class="line"><span>  username: admin</span></span>
-<span class="line"><span>  password: Bullf00d!</span></span>
-<span class="line"><span>  authorize: True</span></span></code></pre><p><strong>How do we take advantage of the network_cli connection method in Ansible 2.5?</strong></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">cisco</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">local</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">nxos_config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          backup</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          provider</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{login_info}}"</span></span></code></pre>
+</div><p>For all of the Ansible samples the provider variables such as <code>login_info</code> are located in <code>group_vars/all</code>:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">sean</span><span style="color:#E1E4E8">@centos]$ cat group_vars</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">all.yml                                                                                               </span><span style="color:#F97583">---</span></span>
+<span class="line"><span style="color:#E1E4E8">login_info:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    username: admin</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    password: Bullf00d</span><span style="color:#F97583">!</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    authorize: True</span></span></code></pre>
+</div><p><strong>How do we take advantage of the network_cli connection method in Ansible 2.5?</strong></p>
 <ol>
 <li>Change the <code>connection: local</code> to <code>connection: network_cli</code></li>
 <li>Remove the <code>provider</code> parameter from the task</li>
@@ -116,22 +134,45 @@
 </tbody></table>
 <p><strong>Convert the playbook for steps 1 and 2:</strong></p>
 <p>Local Connection (2.4):</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- hosts: cisco</span></span>
-<span class="line"><span>  connection: local</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span>    - nxos_config:</span></span>
-<span class="line"><span>       backup: yes</span></span>
-<span class="line"><span>       provider: "{{login_info}}"</span></span></code></pre><p>Network_cli Connection (2.5):</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- hosts: cisco</span></span>
-<span class="line"><span>  connection: network_cli</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span>   - nxos_config:</span></span>
-<span class="line"><span>      backup: yes</span></span></code></pre><p><strong>Modify the inventory for steps 3 and 4:</strong></p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ cat hosts</span></span>
-<span class="line"><span>[cisco]</span></span>
-<span class="line"><span>n9k ansible_host=192.168.2.3</span></span></code></pre><p><strong>Next, add three fields for the n9k host:</strong></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">cisco</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">local</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">nxos_config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         backup</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         provider</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{login_info}}"</span></span></code></pre>
+</div><p>Network_cli Connection (2.5):</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">cisco</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network_cli</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">nxos_config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        backup</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span></code></pre>
+</div><p><strong>Modify the inventory for steps 3 and 4:</strong></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">sean</span><span style="color:#E1E4E8">@centos]$ cat hosts</span></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">cisco</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">n9k ansible_host</span><span style="color:#F97583">=</span><span style="color:#79B8FF">192.168</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">2.3</span></span></code></pre>
+</div><p><strong>Next, add three fields for the n9k host:</strong></p>
 <ul>
 <li><code>ansible_user</code></li>
 <li><code>ansible_password</code></li>
@@ -142,30 +183,52 @@
 <li>The username and password is specific for a particular host (in other words, n9k’s username and password is different from n9k-2’s username and password).</li>
 <li>All the devices in the <code>[cisco]</code> group are Cisco Nexus devices.</li>
 </ul>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ cat hosts</span></span>
-<span class="line"><span>[cisco]</span></span>
-<span class="line"><span>n9k ansible_host=192.168.2.3 ansible_user=admin ansible_password=Bullf00d</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>[cisco:vars]</span></span>
-<span class="line"><span>ansible_network_os=nxos</span></span></code></pre><p>As you can see above we can tie inventory parameters to a particular host, or to the entire group. The old playbook is named <code>backup-oldmethod.yml</code>, and the new playbook is named <code>backup.yml</code>. The playbook now runs with the <code>ansible-playbook</code> command:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ ansible-playbook backup.yml</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>PLAY [cisco] *******************************************************************************************</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>TASK [nxos_config] ***********************************************************************************</span></span>
-<span class="line"><span>ok: [n9k]</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>PLAY RECAP ******************************************************************************************</span></span>
-<span class="line"><span>n9k                        : ok=1    changed=0    unreachable=0    failed=0</span></span></code></pre><h3><a href="https://github.com/network-automation/ansible-napalm-samples#example-2---adding-an-ip-address-to-an-interface">Example 2 - Adding an IP address to an Interface</a></h3>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">sean</span><span style="color:#E1E4E8">@centos]$ cat hosts</span></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">cisco</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">n9k ansible_host</span><span style="color:#F97583">=</span><span style="color:#79B8FF">192.168</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">2.3</span><span style="color:#E1E4E8"> ansible_user</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">admin ansible_password</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">Bullf00d</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">cisco</span><span style="color:#E1E4E8">:</span><span style="color:#F97583">vars</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">ansible_network_os</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">nxos</span></span></code></pre>
+</div><p>As you can see above we can tie inventory parameters to a particular host, or to the entire group. The old playbook is named <code>backup-oldmethod.yml</code>, and the new playbook is named <code>backup.yml</code>. The playbook now runs with the <code>ansible-playbook</code> command:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">sean</span><span style="color:#E1E4E8">@centos]$ ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">playbook backup.yml</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">PLAY [</span><span style="color:#F97583">cisco</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*******************************************************************************************</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">TASK [</span><span style="color:#F97583">nxos</span><span style="color:#E1E4E8">_</span><span style="color:#F97583">config</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">***********************************************************************************</span></span>
+<span class="line"><span style="color:#E1E4E8">ok: [</span><span style="color:#F97583">n9k</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">PLAY RECAP </span><span style="color:#F97583">******************************************************************************************</span></span>
+<span class="line"><span style="color:#E1E4E8">n9k                        : ok</span><span style="color:#F97583">=</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">    changed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">    unreachable</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">    failed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span></span></code></pre>
+</div><h3><a href="https://github.com/network-automation/ansible-napalm-samples#example-2---adding-an-ip-address-to-an-interface">Example 2 - Adding an IP address to an Interface</a></h3>
 <p>In the second Ansible Playbook example we are running against an Arista EOS platform, so we are using the eos_config module.  </p>
 <p>The login information for the Arista EOS device for this example is different from the Cisco NX-OS device, and requires an enable password for privileged commands:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ cat group_vars/all.yml   </span></span>
-<span class="line"><span>---</span></span>
-<span class="line"><span>login_info_eos:</span></span>
-<span class="line"><span>  username: admin</span></span>
-<span class="line"><span>  password: Bullf00d!</span></span>
-<span class="line"><span>  authorize: True</span></span>
-<span class="line"><span>  auth_pass: DURHAM!</span></span></code></pre><p>Just like in the first example, we need to perform the following activities:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">sean</span><span style="color:#E1E4E8">@centos]$ cat group_vars</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">all.yml</span></span>
+<span class="line"><span style="color:#F97583">---</span></span>
+<span class="line"><span style="color:#E1E4E8">login_info_eos:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    username: admin</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    password: Bullf00d</span><span style="color:#F97583">!</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    authorize: True</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    auth_pass: DURHAM</span><span style="color:#F97583">!</span></span></code></pre>
+</div><p>Just like in the first example, we need to perform the following activities:</p>
 <ol>
 <li>Convert the provider dictionary into our inventory</li>
 <li>Set <code>ansible_network_os</code> to <code>eos</code></li>
@@ -197,45 +260,76 @@
 </tr>
 </tbody></table>
 <p>For our particular example, we assume all Arista devices (devices within the group named <code>[arista]</code>) use the same username, password and enable password. This means we can set those parameters under the group <code>[arista:vars]</code>. This is what the inventory for it looks like:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[arista]</span></span>
-<span class="line"><span>eos ansible_host=192.168.2.10</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>[arista:vars]</span></span>
-<span class="line"><span>ansible_network_os=eos</span></span>
-<span class="line"><span>ansible_become=yes</span></span>
-<span class="line"><span>ansible_become_method=enable</span></span>
-<span class="line"><span>ansible_user=admin</span></span>
-<span class="line"><span>ansible_password=Bullf00d!</span></span>
-<span class="line"><span>ansible_become_pass=DURHAM!</span></span></code></pre><p><strong>Now let’s convert the Ansible Playbook:</strong></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">JSON</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#FDAEB7;font-style:italic">arista</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">eos ansible_host=</span><span style="color:#79B8FF">192.168</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">2.10</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">[</span><span style="color:#FDAEB7;font-style:italic">arista:vars</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">ansible_network_os=eos</span></span>
+<span class="line"><span style="color:#E1E4E8">ansible_become=yes</span></span>
+<span class="line"><span style="color:#E1E4E8">ansible_become_method=enable</span></span>
+<span class="line"><span style="color:#E1E4E8">ansible_user=admin</span></span>
+<span class="line"><span style="color:#E1E4E8">ansible_password=Bullf</span><span style="color:#79B8FF">00</span><span style="color:#E1E4E8">d!</span></span>
+<span class="line"><span style="color:#E1E4E8">ansible_become_pass=DURHAM!</span></span></code></pre>
+</div><p><strong>Now let’s convert the Ansible Playbook:</strong></p>
 <p>Local Connection (2.4):</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- hosts: arista</span></span>
-<span class="line"><span>  connection: local</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span>    - eos_config:</span></span>
-<span class="line"><span>        lines:</span></span>
-<span class="line"><span>          - no switchport</span></span>
-<span class="line"><span>          - ip address 172.16.1.1/24</span></span>
-<span class="line"><span>        parents: interface Ethernet1</span></span>
-<span class="line"><span>        provider: "{{login_info_eos}}"</span></span></code></pre><p>Network_cli Connection (2.5):</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- hosts: arista</span></span>
-<span class="line"><span>  connection: network_cli</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span>    - eos_config:</span></span>
-<span class="line"><span>        lines:</span></span>
-<span class="line"><span>          - no switchport</span></span>
-<span class="line"><span>          - ip address 172.16.1.1/24</span></span>
-<span class="line"><span>        parents: interface Ethernet1</span></span></code></pre><p>The old playbook is called <code>ipaddress-oldmethod.yml</code>, and the new playbook is called <code>ipaddress.yml</code>. The playbook now runs the <code>ansible-playbook</code> command:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ ansible-playbook backup.yml</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>PLAY [cisco] *******************************************************************************************</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>TASK [nxos_config] ***********************************************************************************</span></span>
-<span class="line"><span>ok: [n9k]</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>PLAY RECAP ******************************************************************************************</span></span>
-<span class="line"><span>n9k                        : ok=1    changed=0    unreachable=0    failed=0</span></span></code></pre><p>There are also two more examples on the GitHub repo:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">local</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">eos_config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          lines</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">no switchport</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">ip address 172.16.1.1/24</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          parents</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">interface Ethernet1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          provider</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{login_info_eos}}"</span></span></code></pre>
+</div><p>Network_cli Connection (2.5):</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network_cli</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">eos_config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          lines</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">no switchport</span></span>
+<span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">ip address 172.16.1.1/24</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          parents</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">interface Ethernet1</span></span></code></pre>
+</div><p>The old playbook is called <code>ipaddress-oldmethod.yml</code>, and the new playbook is called <code>ipaddress.yml</code>. The playbook now runs the <code>ansible-playbook</code> command:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">sean</span><span style="color:#E1E4E8">@centos]$ ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">playbook backup.yml</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">PLAY [</span><span style="color:#F97583">cisco</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*******************************************************************************************</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">TASK [</span><span style="color:#F97583">nxos</span><span style="color:#E1E4E8">_</span><span style="color:#F97583">config</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">***********************************************************************************</span></span>
+<span class="line"><span style="color:#E1E4E8">ok: [</span><span style="color:#F97583">n9k</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">PLAY RECAP </span><span style="color:#F97583">******************************************************************************************</span></span>
+<span class="line"><span style="color:#E1E4E8">n9k                        : ok</span><span style="color:#F97583">=</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">    changed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">    unreachable</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">    failed</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span></span></code></pre>
+</div><p>There are also two more examples on the GitHub repo:</p>
 <ul>
 <li><a href="https://github.com/network-automation/ansible-napalm-samples#example-3---adding-a-new-vlan">Adding a new VLAN</a></li>
 <li><a href="https://github.com/network-automation/ansible-napalm-samples#example-4---change-the-snmp-password">Changing an SNMP Password</a></li>
@@ -254,24 +348,40 @@
 <p>A:  Not yet. In Ansible 2.5, you still need to use the <code>connection: local</code> and <code>provider</code> method for eapi or nxapi. The eapi and nxapi connections are on the radar for the Ansible Networking team and we will update the roadmap for Ansible Networking after Ansible 2.5 officially launches. Please bookmark the <a href="https://github.com/ansible/community/wiki/Network">Ansible Networking wiki</a>, which contains the roadmap.</p>
 <hr>
 <p><strong>Q: What if I have a playbook using a non-networking module (e.g., template module)?</strong><br>A: Modules (or rather, tasks that use modules) that are not networking modules will run locally. Let’s look at an example:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- hosts: cisco</span></span>
-<span class="line"><span>  connection: network_cli</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span>    - name: backup device configurations</span></span>
-<span class="line"><span>      nxos_config:</span></span>
-<span class="line"><span>        backup: yes</span></span>
-<span class="line"><span>      register: nxos_config_backup</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    - name: copy the backup to the desired location</span></span>
-<span class="line"><span>      copy:</span></span>
-<span class="line"><span>        src: "{{ nxos_config_backup['backup_path'] }}"</span></span>
-<span class="line"><span>        dest: "nxos/{{ inventory_hostname }}"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    - name: delete the original file</span></span>
-<span class="line"><span>      file:</span></span>
-<span class="line"><span>        path: "{{ nxos_config_backup['backup_path'] }}"</span></span>
-<span class="line"><span>        state: absent</span></span></code></pre><p>This playbook has three tasks:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">cisco</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network_cli</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">backup device configurations</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        nxos_config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          backup</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">nxos_config_backup</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">copy the backup to the desired location</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        copy</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          src</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ nxos_config_backup['backup_path'] }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          dest</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"nxos/{{ inventory_hostname }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">delete the original file</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        file</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ nxos_config_backup['backup_path'] }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          state</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">absent</span></span></code></pre>
+</div><p>This playbook has three tasks:</p>
 <ol>
 <li>Create a backup file, under the backup directory</li>
 <li>Copy this backup file to the desired location (we want to save it under the directory nxos/n9k (n9k is the hostname we have setup in our inventory, we can call this using the <code>inventory_hostname</code> variable).</li>
@@ -279,17 +389,36 @@
 </ol>
 <p>The first task uses a network-specific module (<code>nxos_config</code>), while the other two tasks use generic Linux modules (<code>copy</code> and <code>file</code>).  This playbook executes the nxos_config against the specified hosts (the Ansible group <code>[cisco]</code>, specified by <code>hosts: cisco</code>).  When using the <strong>netconf</strong> or <strong>network_cli</strong> connection plugin, the copy and file modules run locally (from the machine Ansible was executed from).  </p>
 <p>As a side note: it’s very common to see Ansible Networking Playbooks where someone might template a file, then push it to the device like this:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: render a jinja2 template</span></span>
-<span class="line"><span>  template:</span></span>
-<span class="line"><span>    src: network_config.j2</span></span>
-<span class="line"><span>    dest: network_config</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">render a jinja2 template</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    template</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      src</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network_config.j2</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      dest</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network_config</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">push device configurations</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    nxos_config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      src</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network_config</span></span></code></pre>
+</div><p>The above works with <strong>network_cli</strong> and <strong>netconf</strong> connection plugins.  The template module runs locally while the nxos_config module runs against the specified hosts. However, the *os_config modules, including <code>nxos_config</code>, can take jinja2 files directly, without the need to use the template module.  Below is an example of what the playbook would look like:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: template AND push device configurations</span></span>
 <span class="line"><span></span></span>
-<span class="line"><span>- name: push device configurations</span></span>
-<span class="line"><span>  nxos_config:</span></span>
-<span class="line"><span>    src: network_config</span></span></code></pre><p>The above works with <strong>network_cli</strong> and <strong>netconf</strong> connection plugins.  The template module runs locally while the nxos_config module runs against the specified hosts. However, the *os_config modules, including <code>nxos_config</code>, can take jinja2 files directly, without the need to use the template module.  Below is an example of what the playbook would look like:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: template AND push device configurations</span></span>
-<span class="line"><span>  nxos_config:</span></span>
-<span class="line"><span>    src: network_config.j2</span></span></code></pre><hr>
+<span class="line"><span>    nxos_config:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>      src: network_config.j2</span></span></code></pre>
+</div><hr>
 <p><strong>Q: Where can I get more info?</strong></p>
 <p>A: Check out the offical Ansible 2.5 porting guide and <br>the new Ansible Networking documentation</p>
 <hr>
@@ -353,6 +482,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

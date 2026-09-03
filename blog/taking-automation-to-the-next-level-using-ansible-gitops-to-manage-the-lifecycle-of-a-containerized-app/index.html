@@ -100,30 +100,58 @@
 </ul>
 <p>The container_playbook.yml is a simple playbook that creates a color container, starts it on a specific port and sets two environment variables, <code>APP_COLOR</code> and <code>tree</code>.</p>
 <p>A sample of that <code>container_playbook.yml</code>:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: Playbook to setup prereqs</span></span>
-<span class="line"><span>  hosts: all</span></span>
-<span class="line"><span>  become: true</span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span>    - name: Create a color container</span></span>
-<span class="line"><span>      containers.podman.podman_container:</span></span>
-<span class="line"><span>        name: colors</span></span>
-<span class="line"><span>        image: docker.io/mmumshad/simple-webapp-color:latest</span></span>
-<span class="line"><span>        state: started</span></span>
-<span class="line"><span>        network: host</span></span>
-<span class="line"><span>        ports:</span></span>
-<span class="line"><span>            - "{{ host_port }}:{{ container_port }}"</span></span>
-<span class="line"><span>        env:</span></span>
-<span class="line"><span>            APP_COLOR: "{{ color }}"</span></span>
-<span class="line"><span>            tree: "{{ tree }}"</span></span></code></pre><p>The <code>group_vars/all.yml</code> is where I&#39;ll be making modifications to my Podman container that will trigger changes to the container.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Playbook to setup prereqs</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">all</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    become</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Create a color container</span></span>
+<span class="line"><span style="color:#85E89D">      containers.podman.podman_container</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">colors</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          image</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">docker.io/mmumshad/simple-webapp-color:latest</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          state</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">started</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          network</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">host</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          ports</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">            - </span><span style="color:#9ECBFF">"{{ host_port }}:{{ container_port }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          env</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">              APP_COLOR</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ color }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">              tree</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ tree }}"</span></span></code></pre>
+</div><p>The <code>group_vars/all.yml</code> is where I&#39;ll be making modifications to my Podman container that will trigger changes to the container.</p>
 <p>A sample of that <code>group_vars/all.yml</code> file:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>color: "BLUE"</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>color: "BLUE"</span></span>
 <span class="line"><span>tree: "trunk"</span></span>
 <span class="line"><span>host_port: 8080</span></span>
-<span class="line"><span>container_port: 8080</span></span></code></pre><p>Finally, we have the <code>requirements.yml</code> file that ensures we have the containers.podman collection available to use within the playbook.</p>
+<span class="line"><span>container_port: 8080</span></span></code></pre>
+</div><p>Finally, we have the <code>requirements.yml</code> file that ensures we have the containers.podman collection available to use within the playbook.</p>
 <p>A sample of the <code>requirements.yml</code>:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>collections:</span></span>
-<span class="line"><span>- name: containers.podman</span></span></code></pre><p>With our repository in place and our GitHub PAT set, the next steps involve creating our Red Hat Ansible Automation Platform resources that will be triggered when GitHub push events happen in the App Demo Repository.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">collections</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">containers.podman</span></span></code></pre>
+</div><p>With our repository in place and our GitHub PAT set, the next steps involve creating our Red Hat Ansible Automation Platform resources that will be triggered when GitHub push events happen in the App Demo Repository.</p>
 <h2>Creating our Ansible Automation Platform Resources</h2>
 <p>Within my automation controller dashboard, I first need to create my credential resources to ensure that when I create my new project, workflow and job template -- they can all easily attach my App Demo PAT credential.</p>
 <p>Within the automation controller dashboard:</p>
@@ -154,9 +182,14 @@
 <li>Provide a <strong>Name</strong>, e.g. App Demo Host.</li>
 </ol>
 <p>Within <strong>Variables</strong>, provide the following YAML:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>ansible_host:</span></span>
-<span class="line"><span>ansible_user: ec2-user</span></span></code></pre><p>With the credentials and inventory resources set, I will create my App Demo project. The purpose of this project is to create a workflow that contains a job template that automatically runs every time an update to the App Demo repository takes place.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible_host:</span></span>
+<span class="line"><span>ansible_user: ec2-user</span></span></code></pre>
+</div><p>With the credentials and inventory resources set, I will create my App Demo project. The purpose of this project is to create a workflow that contains a job template that automatically runs every time an update to the App Demo repository takes place.</p>
 <p>This ensures that as I make changes to my Podman container settings within my Git repository, the container_playbook.yml runs to make the appropriate changes.</p>
 <p>Within the automation controller dashboard:</p>
 <ol>
@@ -222,40 +255,58 @@
 </ol>
 <h2>Verify App Demo Setup</h2>
 <p>To test if all is working correctly, head to your host that is running the Podman container. Once there, the following podman ps command can be run:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>$ sudo podman ps</span></span>
-<span class="line"><span>CONTAINER ID  IMAGE  COMMAND     CREATED   STATUS    PORTS      NAMES</span></span></code></pre><p>NOTE: The first time you run podman ps, you should have no containers running as you haven&#39;t run the App Demo workflow.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">$ sudo podman ps</span></span>
+<span class="line"><span style="color:#E1E4E8">CONTAINER ID  IMAGE  COMMAND     CREATED   STATUS    PORTS      NAMES</span></span></code></pre>
+</div><p>NOTE: The first time you run podman ps, you should have no containers running as you haven&#39;t run the App Demo workflow.</p>
 <p>Head over to your App Demo GitHub repository and modify the <code>app_demo/group_vars/all.yml</code> file where you change the color: &quot;BLUE&quot; to color: &quot;YELLOW&quot; and  git push your changes.</p>
 <p>Head over to your automation controller dashboard and you should see the App Demo workflow running. Once complete, within your host, verify the container has the changes made:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>$ ssh -i &#x3C;/path/to/private-key.pem> ec2-user@&#x3C;IP></span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>$ sudo podman exec -it colors env</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span></span>
-<span class="line"><span>TERM=xterm</span></span>
-<span class="line"><span>container=podman</span></span>
-<span class="line"><span>PYTHON_VERSION=3.7.0</span></span>
-<span class="line"><span>PYTHON_PIP_VERSION=18.0</span></span>
-<span class="line"><span>LANG=C.UTF-8</span></span>
-<span class="line"><span>GPG_KEY=0D96DF4D4110E5C43FBFB17A2A347FA6AA65421D</span></span>
-<span class="line"><span>APP_COLOR=YELLOW</span></span>
-<span class="line"><span>tree=trunk</span></span>
-<span class="line"><span>HOME=/root</span></span></code></pre><p>Notice how the Podman container is now running and has the color YELLOW.</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">$ ssh </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">i </span><span style="color:#F97583">&#x3C;/</span><span style="color:#E1E4E8">path</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">to</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">private</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">key.pem</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> ec2</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">user@</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">IP</span><span style="color:#F97583">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">$ sudo podman exec </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">it colors env</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">PATH</span><span style="color:#F97583">=/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">local</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">bin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">local</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">sbin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">local</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">bin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">sbin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">bin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">sbin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">bin</span></span>
+<span class="line"><span style="color:#E1E4E8">TERM</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">xterm</span></span>
+<span class="line"><span style="color:#E1E4E8">container</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">podman</span></span>
+<span class="line"><span style="color:#E1E4E8">PYTHON_VERSION</span><span style="color:#F97583">=</span><span style="color:#79B8FF">3.7</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">0</span></span>
+<span class="line"><span style="color:#E1E4E8">PYTHON_PIP_VERSION</span><span style="color:#F97583">=</span><span style="color:#79B8FF">18.0</span></span>
+<span class="line"><span style="color:#E1E4E8">LANG</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">C.UTF</span><span style="color:#F97583">-</span><span style="color:#79B8FF">8</span></span>
+<span class="line"><span style="color:#E1E4E8">GPG_KEY</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">0D96DF4D4110E5C43FBFB17A2A347FA6AA65421D</span></span>
+<span class="line"><span style="color:#E1E4E8">APP_COLOR</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">YELLOW</span></span>
+<span class="line"><span style="color:#E1E4E8">tree</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">trunk</span></span>
+<span class="line"><span style="color:#E1E4E8">HOME</span><span style="color:#F97583">=/</span><span style="color:#E1E4E8">root</span></span></code></pre>
+</div><p>Notice how the Podman container is now running and has the color YELLOW.</p>
 <p>Going back to the App Demo repository, change the color from YELLOW to GREEN and git push your changes.</p>
 <p>The automation controller dashboard will run the App Demo workflow and once complete, you can re-run the same exec command from your host and see the color has now changed to GREEN.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>$ ssh -i &#x3C;/path/to/private-key.pem> ec2-user@&#x3C;IP></span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>$ sudo podman exec -it colors env</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span></span>
-<span class="line"><span>TERM=xterm</span></span>
-<span class="line"><span>container=podman</span></span>
-<span class="line"><span>PYTHON_VERSION=3.7.0</span></span>
-<span class="line"><span>PYTHON_PIP_VERSION=18.0</span></span>
-<span class="line"><span>LANG=C.UTF-8</span></span>
-<span class="line"><span>GPG_KEY=0D96DF4D4110E5C43FBFB17A2A347FA6AA65421D</span></span>
-<span class="line"><span>APP_COLOR=GREEN</span></span>
-<span class="line"><span>tree=trunk</span></span>
-<span class="line"><span>HOME=/root</span></span></code></pre><h2>Conclusion</h2>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">PowerShell</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">$ ssh </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">i </span><span style="color:#F97583">&#x3C;/</span><span style="color:#E1E4E8">path</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">to</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">private</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">key.pem</span><span style="color:#F97583">></span><span style="color:#E1E4E8"> ec2</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">user@</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">IP</span><span style="color:#F97583">></span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">$ sudo podman exec </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">it colors env</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">PATH</span><span style="color:#F97583">=/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">local</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">bin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">local</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">sbin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">local</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">bin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">sbin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">usr</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">bin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">sbin:</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">bin</span></span>
+<span class="line"><span style="color:#E1E4E8">TERM</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">xterm</span></span>
+<span class="line"><span style="color:#E1E4E8">container</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">podman</span></span>
+<span class="line"><span style="color:#E1E4E8">PYTHON_VERSION</span><span style="color:#F97583">=</span><span style="color:#79B8FF">3.7</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">0</span></span>
+<span class="line"><span style="color:#E1E4E8">PYTHON_PIP_VERSION</span><span style="color:#F97583">=</span><span style="color:#79B8FF">18.0</span></span>
+<span class="line"><span style="color:#E1E4E8">LANG</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">C.UTF</span><span style="color:#F97583">-</span><span style="color:#79B8FF">8</span></span>
+<span class="line"><span style="color:#E1E4E8">GPG_KEY</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">0D96DF4D4110E5C43FBFB17A2A347FA6AA65421D</span></span>
+<span class="line"><span style="color:#E1E4E8">APP_COLOR</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">GREEN</span></span>
+<span class="line"><span style="color:#E1E4E8">tree</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">trunk</span></span>
+<span class="line"><span style="color:#E1E4E8">HOME</span><span style="color:#F97583">=/</span><span style="color:#E1E4E8">root</span></span></code></pre>
+</div><h2>Conclusion</h2>
 <p>The goal of this exercise was to show the power of Ansible and GitOps. Together, they can provide key automation to your containerized applications.</p>
 <p>While in the demo we made a simplistic color value change of our application, but imagine we applied this for:</p>
 <ul>
@@ -337,6 +388,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>

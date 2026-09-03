@@ -24,7 +24,155 @@ const LANG_ALIASES = {
   sh: 'bash',
   shell: 'bash',
   console: 'bash',
+  ps1: 'powershell',
 };
+
+const LANG_LABELS = {
+  yaml: 'YAML',
+  bash: 'Bash',
+  shell: 'Shell',
+  python: 'Python',
+  json: 'JSON',
+  text: 'Text',
+  xml: 'XML',
+  html: 'HTML',
+  javascript: 'JavaScript',
+  typescript: 'TypeScript',
+  rego: 'Rego',
+  powershell: 'PowerShell',
+};
+
+function reflowNestedKeys(text) {
+  const lines = [];
+  for (const line of text.split('\n')) {
+    if (/ {2,}\S[\w-]*\s*:/.test(line)) {
+      const parts = line.split(/ {2,}(?=\S[\w-]*\s*:)/);
+      if (parts.length > 1) {
+        const baseIndent = line.length - line.trimStart().length;
+        const subIndent = baseIndent + 2;
+        lines.push(parts[0].trimEnd());
+        for (const part of parts.slice(1)) {
+          lines.push(`${' '.repeat(subIndent)}${part.trimStart()}`);
+        }
+        continue;
+      }
+    }
+    lines.push(line.replace(/\s+$/, ''));
+  }
+  return lines.join('\n');
+}
+
+function normalizeCodeText(text) {
+  let normalized = String(text).replace(/\u00a0/g, ' ').replace(/^[\s—–-]+/, '').trim();
+  if (!normalized.includes('\n')) {
+    const splitBefore = [
+      /---\s+collections:/,
+      /---\s+name:/,
+      /\bhosts:/,
+      /\bsources:/,
+      /\brules:/,
+      /\bcondition:/,
+      /\baction:/,
+      /\bpackage\s+/,
+      /\bimport\s+rego/,
+      /\bpatching_teams\s*:=/,
+      /\bnetwork_teams\s*:=/,
+      /\bapp_teams\s*:=/,
+      /\buser_teams\s*:=/,
+      /\}\s+if\s+\{/,
+      /##\s+/,
+      /\$[A-Za-z_]\w*\s*=/,
+      /\bEnable-[A-Za-z]+/,
+      /\bNew-[A-Za-z]+/,
+    ];
+    for (const pattern of splitBefore) {
+      normalized = normalized.replace(new RegExp(`\\s+(?=${pattern.source})`, 'g'), '\n');
+    }
+    normalized = normalized.replace(/\s+(- )/g, '\n$1');
+    normalized = reflowNestedKeys(normalized);
+  } else {
+    normalized = reflowNestedKeys(normalized);
+  }
+  return normalized
+    .split('\n')
+    .map((line) => line.replace(/\s+$/, ''))
+    .join('\n')
+    .trim();
+}
+
+function detectLang(text, explicitLang) {
+  if (explicitLang) return normalizeLang(explicitLang);
+  const sample = String(text).trim().slice(0, 500);
+  if (/\bpackage\s+\w+/.test(sample) || sample.includes('rego.v1')) return 'rego';
+  if (/\b(Enable-|New-|Get-|Set-)\w+/.test(sample) || sample.includes('$')) return 'powershell';
+  if (/^(---|\s*-\s+name:|\s*hosts:|\s*tasks:|\s*sources:|\s*rules:)/m.test(sample)) return 'yaml';
+  if (/^\s*[{[]/.test(sample)) return 'json';
+  if (/^#!|^\s*(sudo |apt |yum |dnf )/m.test(sample)) return 'bash';
+  return 'text';
+}
+
+function normalizeMarkdownCodeBlocks(markdown) {
+  const lines = markdown.split('\n');
+  const output = [];
+  let index = 0;
+
+  const tableToFences = (tableBlock) => {
+    const matches = [...tableBlock.matchAll(/```\s*([\s\S]*?)```/g)];
+    if (!matches.length) return tableBlock;
+    return matches
+      .map((match) => {
+        const text = normalizeCodeText(match[1]);
+        const lang = detectLang(text);
+        return `\n\n\`\`\`${lang}\n${text}\n\`\`\`\n`;
+      })
+      .join('\n');
+  };
+
+  while (index < lines.length) {
+    const line = lines[index];
+    if (line.trim().startsWith('|') && line.includes('```')) {
+      const tableLines = [line];
+      index += 1;
+      while (index < lines.length && lines[index].trim().startsWith('|')) {
+        tableLines.push(lines[index]);
+        index += 1;
+      }
+      output.push(tableToFences(tableLines.join('\n')).trim());
+      output.push('');
+      continue;
+    }
+    if (
+      line.trim() === '|  |' &&
+      index + 2 < lines.length &&
+      lines[index + 1].trim().startsWith('| ---')
+    ) {
+      const tableLines = [line, lines[index + 1]];
+      index += 2;
+      while (index < lines.length && lines[index].trim().startsWith('|')) {
+        tableLines.push(lines[index]);
+        index += 1;
+      }
+      output.push(tableToFences(tableLines.join('\n')).trim());
+      output.push('');
+      continue;
+    }
+    output.push(line);
+    index += 1;
+  }
+
+  return output.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+}
+
+function wrapCodeBlock(html, lang) {
+  const label = LANG_LABELS[lang] || lang.toUpperCase();
+  return `<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">${escapeHtml(label)}</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  ${html}
+</div>`;
+}
 
 const SOURCE_LABELS = {
   redhat: 'Red Hat Blog',
@@ -162,6 +310,30 @@ function pageShell({ title, description, canonical, bodyHtml, attributionHtml, m
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>
@@ -172,17 +344,19 @@ function pageShell({ title, description, canonical, bodyHtml, attributionHtml, m
 }
 
 async function renderMarkdown(markdown, highlighter) {
+  const normalizedMarkdown = normalizeMarkdownCodeBlocks(markdown);
   const renderer = new marked.Renderer();
 
   renderer.code = function ({ text, lang }) {
-    const language = normalizeLang(lang);
+    const normalizedText = normalizeCodeText(text);
+    const displayLang = detectLang(normalizedText, lang);
     const loaded = highlighter.getLoadedLanguages();
-    const effectiveLang = loaded.includes(language) ? language : 'text';
-    const html = highlighter.codeToHtml(text, {
-      lang: effectiveLang,
+    const highlightLang = loaded.includes(displayLang) ? displayLang : 'text';
+    const html = highlighter.codeToHtml(normalizedText, {
+      lang: highlightLang,
       theme: 'github-dark',
-    });
-    return html.replace('<pre class="shiki', '<pre class="shiki blog-code');
+    }).replace('<pre class="shiki', '<pre class="shiki blog-code');
+    return wrapCodeBlock(html, displayLang);
   };
 
   marked.setOptions({
@@ -191,13 +365,25 @@ async function renderMarkdown(markdown, highlighter) {
     renderer,
   });
 
-  return marked.parse(markdown);
+  return marked.parse(normalizedMarkdown);
 }
 
 async function main() {
   const highlighter = await createHighlighter({
     themes: ['github-dark'],
-    langs: ['yaml', 'bash', 'python', 'json', 'text', 'xml', 'html', 'javascript', 'typescript', 'shell'],
+    langs: [
+      'yaml',
+      'bash',
+      'python',
+      'json',
+      'text',
+      'xml',
+      'html',
+      'javascript',
+      'typescript',
+      'shell',
+      'powershell',
+    ],
   });
 
   let files;

@@ -74,59 +74,101 @@
 <p>If you have read one of the previous <a href="https://www.ansible.com/blog/addressing-netops-issues-with-event-driven-ansible">blogs</a> about using network telemetry with Event-Driven Ansible, you would see that we are streaming telemetry from the network into Kafka and from there using Event-Driven Ansible to process events. In a large-scale environment, we would typically use a centralized tool like CloudVision from Arista, or Cisco ThousandEyes to gather the telemetry and forward them to Event-Driven Ansible.</p>
 <h3>&gt; Ding ding, incoming message!</h3>
 <p>For our first example, we will simulate a BGP failure and take all the steps we would typically perform to troubleshoot by codifying  them in an Ansible Playbook that we can use as an action. Below is an example of a failure in BGP, followed by my rulebook:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ceos3(config-if-Et3)#show ip bgp summary vrf all</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ceos3(config-if-Et3)#show ip bgp summary vrf all</span></span>
 <span class="line"><span></span></span>
 <span class="line"><span>BGP summary information for VRF default</span></span>
 <span class="line"><span>Router identifier 3.3.3.3, local AS number 65003</span></span>
 <span class="line"><span>Neighbor Status Codes: m - Under maintenance</span></span>
 <span class="line"><span>  Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc</span></span>
 <span class="line"><span>  10.0.1.2         4  65002             24        24    0    0 00:17:24 Estab 4  4</span></span>
-<span class="line"><span>  10.0.1.1         4  65001             22        23    0    0 00:01:20 Idle(NoIf)</span></span></code></pre><p><em>BGP failure output from Leaf02</em></p>
+<span class="line"><span>  10.0.1.1         4  65001             22        23    0    0 00:01:20 Idle(NoIf)</span></span></code></pre>
+</div><p><em>BGP failure output from Leaf02</em></p>
 <p>The below rulebook is allowing us to listen to our Kafka topic for messages from our switches.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: Switch State Event from Arista</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>  hosts: all</span></span>
-<span class="line"><span>  sources:</span></span>
-<span class="line"><span>   - ansible.eda.kafka:</span></span>
-<span class="line"><span>       host: broker</span></span>
-<span class="line"><span>       port: 9092</span></span>
-<span class="line"><span>       topic: network</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>  rules:</span></span>
-<span class="line"><span>   - name: BGP change detected</span></span>
-<span class="line"><span>     condition: event.fields.session_state == "IDLE"</span></span>
-<span class="line"><span>     action:</span></span>
-<span class="line"><span>       run_playbook:</span></span>
-<span class="line"><span>        name: bgp_troubleshooting.yml</span></span>
-<span class="line"><span>        post_events: true</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>   - name: Notify Chat</span></span>
-<span class="line"><span>     condition: event.status is defined</span></span>
-<span class="line"><span>     action:</span></span>
-<span class="line"><span>        run_playbook:</span></span>
-<span class="line"><span>          name: notify_chat.yml</span></span></code></pre><p><a href="https://gist.github.com/nmartins0611/3bae5c44a77eb7d1b850c1bd8d0d80c7"><em>rulebook/switch_status.yml</em></a><em>Ansible Rulebook</em></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Switch State Event from Arista</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">all</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    sources</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">ansible.eda.kafka</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         host</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">broker</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         port</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">9092</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         topic</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">network</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    rules</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">BGP change detected</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.fields.session_state == "IDLE"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         run_playbook</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">bgp_troubleshooting.yml</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          post_events</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Notify Chat</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.status is defined</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          run_playbook</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">            name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">notify_chat.yml</span></span></code></pre>
+</div><p><a href="https://gist.github.com/nmartins0611/3bae5c44a77eb7d1b850c1bd8d0d80c7"><em>rulebook/switch_status.yml</em></a><em>Ansible Rulebook</em></p>
 <p>Our first condition evaluates the event payloads coming from our Kafka topic and we are looking for an “<em>IDLE”</em> state in the BGP status. Once this condition has been met, we will run a troubleshooting playbook. What I want to point out is the <strong>post_events: true</strong> in the action.</p>
 <h3>Posting events with Event-Driven Ansible</h3>
 <p><a href="https://ansible.readthedocs.io/projects/rulebook/en/stable/actions.html#post-event"><strong>Post_events</strong></a> allows us to provide feedback from the playbook back into the rulebook. If you are running troubleshooting on an event, we would perhaps want to know what the outcome is of specific tasks, so we could decide on the next course of action or gather all the relevant information to create an incident ticket.</p>
 <p>In my example, I have a second condition which is looking for a fact that gets set whenever this troubleshooting is done. Once it is done, the notify_chat.yml playbook will trigger and my company chat will be notified of the issue and the results of the first phase of troubleshooting.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span> - name: Send notification message via Mattermost</span></span>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Send notification message via Mattermost</span></span>
 <span class="line"><span>      community.general.mattermost:</span></span>
-<span class="line"><span>       url: http://chat.mydomain.com:8065</span></span>
-<span class="line"><span>       api_key: 6xyqnbqdpfg89eneqg13146azc </span></span>
-<span class="line"><span>       attachments:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>         url: http://chat.mydomain.com:8065</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>         api_key: 6xyqnbqdpfg89eneqg13146azc</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>         attachments:</span></span>
 <span class="line"><span>         - text: "!!!!!! ALERT !!!!!!"</span></span>
-<span class="line"><span>           color: '#ff00dd'</span></span>
-<span class="line"><span>           title: BGP ERROR</span></span>
-<span class="line"><span>           fields:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>             color: '#ff00dd'</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>             title: BGP ERROR</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>             fields:</span></span>
 <span class="line"><span>            - title: Issue</span></span>
-<span class="line"><span>              value: "BGP {{ ansible_eda.event.fields.session_state }} Error!"</span></span>
-<span class="line"><span>              short: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>                value: "BGP {{ ansible_eda.event.fields.session_state }} Error!"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>                short: true</span></span>
 <span class="line"><span>            - title: Details</span></span>
-<span class="line"><span>              value: "Neighbor Address: {{ ansible_eda.event.tags.neighbor_address }} from switch {{ ansible_eda.event.name }}"</span></span>
-<span class="line"><span>              short: true</span></span>
-<span class="line"><span>      delegate_to: localhost</span></span></code></pre><p><a href="https://gist.github.com/nmartins0611/0d355fcff2b6bea316f14e7e06b28664"><em>playbooks/notify_chat.yml</em></a><em>Ansible Playbook</em></p>
+<span class="line"><span></span></span>
+<span class="line"><span>                value: "Neighbor Address: {{ ansible_eda.event.tags.neighbor_address }} from switch {{ ansible_eda.event.name }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>                short: true</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        delegate_to: localhost</span></span></code></pre>
+</div><p><a href="https://gist.github.com/nmartins0611/0d355fcff2b6bea316f14e7e06b28664"><em>playbooks/notify_chat.yml</em></a><em>Ansible Playbook</em></p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/jn-gWcjOw4-WeqsaVz9MskAB-e23rkd4TkvWRBma-MIIIti5dvbM9e6axYmb-1tC_RKCobAv4hKjgwsKoLJsLO2HrLXMSE_RewVD6_KrXg2DcRkmdF6xqFYYZYcBcs94iH90ZGJWo_0J4__p5YQ5_tI_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/jn-gWcjOw4-WeqsaVz9MskAB-e23rkd4TkvWRBma-MIIIti5dvbM9e6axYmb-1tC_RKCobAv4hKjgwsKoLJsLO2HrLXMSE_RewVD6_KrXg2DcRkmdF6xqFYYZYcBcs94iH90ZGJWo_0J4__p5YQ5_tI_0.png" alt=""></a></p>
 <p><em>Mattermost chat output</em></p>
 <h3>&gt; BRB, got to automate!</h3>
@@ -134,63 +176,114 @@
 <p>But what if I want to whisper sweet nothings to Event-Driven Ansible and have it do some work for me?</p>
 <p>Let’s use the chat to initiate a configuration backup of one or more of our switches. We will configure an outgoing webhook based on a trigger word and point it to my Event-Driven Ansible endpoint.</p>
 <p>We’ll use a trigger word in the chat like “backup” that will be used in the event condition, but what I want is to be able to say **“**<em><strong>backup leaf02.mydomain.com”</strong></em> and have Event-Driven Ansible backup the correct switch. So, in my rulebook I will define a condition looking for that “backup” trigger, and I will then action a playbook that will process the text payload so I can get the hostname of the switch.</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: Listen for events on a webhook</span></span>
-<span class="line"><span>  hosts: all</span></span>
-<span class="line"><span>  sources:</span></span>
-<span class="line"><span>    - ansible.eda.webhook:</span></span>
-<span class="line"><span>        host: 0.0.0.0</span></span>
-<span class="line"><span>        port: 5000</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>  rules:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>   - name: Filter payload for hostnames</span></span>
-<span class="line"><span>      condition: event.payload.text is match("backup")</span></span>
-<span class="line"><span>      action:</span></span>
-<span class="line"><span>      run_playbook:</span></span>
-<span class="line"><span>       name: filter_regex.yml</span></span>
-<span class="line"><span>       post_events: true</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    - name: Backup specified switch</span></span>
-<span class="line"><span>      condition: event.switch_devices is defined</span></span>
-<span class="line"><span>      action:  </span></span>
-<span class="line"><span>      run_playbook:</span></span>
-<span class="line"><span>       Name: switch_backup.yml</span></span></code></pre><p><a href="https://gist.github.com/nmartins0611/4a680e32382c0f811c5240223247b291"><em>rulebook/chatops.yml</em></a> <em>rulebook</em></p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: Regex Processing for hostnames</span></span>
-<span class="line"><span>  hosts: localhost</span></span>
-<span class="line"><span>  connection: local</span></span>
-<span class="line"><span>  gather_facts: false</span></span>
-<span class="line"><span>  vars:</span></span>
-<span class="line"><span>    eda_input: "{{ ansible_eda.event.payload.text }}"  # access event payload</span></span>
-<span class="line"><span>    regex_pattern: '\b(\w+\.mydomain\.com)\b'          # can supply via vars.yml</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    - name: Extract switch name from text</span></span>
-<span class="line"><span>      set_fact:</span></span>
-<span class="line"><span>       cacheable: yes</span></span>
-<span class="line"><span>       switch_devices: "{{ eda_input | regex_findall(regex_pattern) }}"</span></span>
-<span class="line"><span>       regex_proc: done</span></span></code></pre><p><a href="https://gist.github.com/nmartins0611/6554b586bdbd780ff7dd9002ebf215f9">playbook/filter_regex.yml</a> playbook</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Listen for events on a webhook</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">all</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    sources</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">ansible.eda.webhook</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          host</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0.0.0.0</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">          port</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5000</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    rules</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Filter payload for hostnames</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.payload.text is match("backup")</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        run_playbook</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">filter_regex.yml</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         post_events</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Backup specified switch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.switch_devices is defined</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        run_playbook</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         Name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">switch_backup.yml</span></span></code></pre>
+</div><p><a href="https://gist.github.com/nmartins0611/4a680e32382c0f811c5240223247b291"><em>rulebook/chatops.yml</em></a> <em>rulebook</em></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Regex Processing for hostnames</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">localhost</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">local</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    vars</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      eda_input</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ ansible_eda.event.payload.text }}"</span><span style="color:#6A737D">  # access event payload</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">      regex_pattern</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'\b(\w+\.mydomain\.com)\b'</span><span style="color:#6A737D">          # can supply via vars.yml</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Extract switch name from text</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">        set_fact</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         cacheable</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         switch_devices</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ eda_input | regex_findall(regex_pattern) }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">         regex_proc</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">done</span></span></code></pre>
+</div><p><a href="https://gist.github.com/nmartins0611/6554b586bdbd780ff7dd9002ebf215f9">playbook/filter_regex.yml</a> playbook</p>
 <p>This “filter_regex.yml” playbook will process the event payload and look for the hostname of the switch. We then set it as a fact so it is persistent. What is super cool is that Event-Driven Ansible can access facts that have been set in playbooks, and in conjunction with <strong>post_events,</strong> we are able to feed this back into the rulebook for processing. To access this fact, we can simply use event.switch_devices.</p>
 <p>The below playbook is triggered to backup the desired switch when the event.switch_devices is defined:</p>
-<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
-<span class="line"><span>- name: Backup Switch</span></span>
-<span class="line"><span>  hosts: "{{ ansible_eda.event.switch_devices }}"</span></span>
-<span class="line"><span>  gather_facts: false</span></span>
-<span class="line"><span>  connection: httpapi</span></span>
-<span class="line"><span>  vars:</span></span>
-<span class="line"><span>   ansible_httpapi_port: 443</span></span>
-<span class="line"><span>   ansible_httpapi_use_ssl: true</span></span>
-<span class="line"><span>   ansible_httpapi_validate_certs: false</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>  tasks:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>  - name: configurable backup path</span></span>
-<span class="line"><span>    arista.eos.eos_config:</span></span>
-<span class="line"><span>     backup: yes</span></span>
-<span class="line"><span>     backup_options:</span></span>
-<span class="line"><span>     filename: "{{ ansible_eda.event.switch_devices }}.cfg"</span></span></code></pre><p><a href="https://gist.github.com/nmartins0611/b4e8824851b5007d3a8a1ccf398cac4b"><em>playbook/switch_backup.yml</em></a> <em>playbook</em></p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">YAML</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Backup Switch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ ansible_eda.event.switch_devices }}"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    connection</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">httpapi</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    vars</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">     ansible_httpapi_port</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">443</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">     ansible_httpapi_use_ssl</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">     ansible_httpapi_validate_certs</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">configurable backup path</span></span>
+<span class="line"><span style="color:#85E89D">    arista.eos.eos_config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       backup</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       backup_options</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">       filename</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ ansible_eda.event.switch_devices }}.cfg"</span></span></code></pre>
+</div><p><a href="https://gist.github.com/nmartins0611/b4e8824851b5007d3a8a1ccf398cac4b"><em>playbook/switch_backup.yml</em></a> <em>playbook</em></p>
 <p>There you have it! We have been able to use incoming and outgoing webhooks as sources for Event-Driven Ansible in a ChatOps environment, allowing us to drive automation with the power of the typed word!</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ZHAHMibWfVGsjuTVpOvENzjWGdMmawSyjej-AsR-Jp7v3_kZJo3mES5isnssETjKUmeLsptH16DTqY4DCH1VDtTLP6c0QbDp3tPDpDH5MFJU-kTtd4_hRw-RPGGA70toXLAQTFnbFyx22ul7doJXlY8_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ZHAHMibWfVGsjuTVpOvENzjWGdMmawSyjej-AsR-Jp7v3_kZJo3mES5isnssETjKUmeLsptH16DTqY4DCH1VDtTLP6c0QbDp3tPDpDH5MFJU-kTtd4_hRw-RPGGA70toXLAQTFnbFyx22ul7doJXlY8_0.png" alt=""></a></p>
 <h3>Call to Action</h3>
@@ -264,6 +357,30 @@
       }
       const yearEl = document.getElementById('footer-year');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
     })();
   </script>
   <noscript>
