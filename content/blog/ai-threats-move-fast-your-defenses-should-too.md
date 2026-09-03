@@ -20,7 +20,7 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:21:34Z'
 ---
 
-- [Back to all posts](https://www.redhat.com/en/blog)
+- [Back to all posts](/blog/)
 
 ---
 

@@ -111,6 +111,13 @@ function detectLang(text, explicitLang) {
   return 'text';
 }
 
+function normalizeSyncedMarkdown(markdown) {
+  return markdown.replace(
+    /\[Back to all posts\]\([^)]+\)/gi,
+    '[Back to all posts](/blog/)',
+  );
+}
+
 function normalizeMarkdownCodeBlocks(markdown) {
   const lines = markdown.split('\n');
   const output = [];
@@ -344,7 +351,7 @@ function pageShell({ title, description, canonical, bodyHtml, attributionHtml, m
 }
 
 async function renderMarkdown(markdown, highlighter) {
-  const normalizedMarkdown = normalizeMarkdownCodeBlocks(markdown);
+  const normalizedMarkdown = normalizeSyncedMarkdown(normalizeMarkdownCodeBlocks(markdown));
   const renderer = new marked.Renderer();
 
   renderer.code = function ({ text, lang }) {

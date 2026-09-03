@@ -273,6 +273,17 @@ def _extract_pre_blocks_to_placeholders(html: str) -> tuple[str, dict[str, str]]
     return str(soup), placeholders
 
 
+def normalize_synced_markdown(markdown: str) -> str:
+    """Rewrite Red Hat navigation links for our mirrored blog."""
+    markdown = re.sub(
+        r"\[Back to all posts\]\([^)]+\)",
+        "[Back to all posts](/blog/)",
+        markdown,
+        flags=re.IGNORECASE,
+    )
+    return markdown
+
+
 def normalize_markdown_code_blocks(markdown: str) -> str:
     """Repair table-wrapped inline code fences produced by markdownify."""
 
@@ -357,4 +368,5 @@ def html_to_markdown(html: str) -> str:
     for key, fence in placeholders.items():
         markdown = markdown.replace(key, fence.strip())
     markdown = normalize_markdown_code_blocks(markdown)
+    markdown = normalize_synced_markdown(markdown)
     return re.sub(r"\n{3,}", "\n\n", markdown).strip() + "\n"
