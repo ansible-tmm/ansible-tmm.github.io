@@ -23,7 +23,6 @@
   const loadMoreBtn = document.getElementById('blog-load-more');
 
   let allPosts = [];
-  let indexMeta = { updated_at: null };
   let visibleCount = PAGE_SIZE;
 
   function escapeHtml(str) {
@@ -55,13 +54,6 @@
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 
-  function formatSyncDate(isoDate) {
-    if (!isoDate) return '';
-    const date = new Date(isoDate);
-    if (Number.isNaN(date.getTime())) return '';
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  }
-
   function getAuthorFilter() {
     return new URLSearchParams(window.location.search).get('author') || '';
   }
@@ -89,13 +81,21 @@
     return SOURCE_LABELS[source] || 'Original publisher';
   }
 
-  function sourceBadge(post) {
+  function sourceLink(post, className) {
     const label = sourceLabel(post.source);
+    const classes = className || 'blog-card__source';
+    const icon =
+      '<svg class="icon icon--sm blog-card__source-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-external"></use></svg>';
+
+    if (!post.source_url) {
+      return '<span class="' + classes + '">' + icon + escapeHtml(label) + '</span>';
+    }
+
     return (
-      '<span class="blog-card__source">' +
-      '<svg class="icon icon--sm blog-card__source-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-external"></use></svg>' +
+      '<a href="' + escapeAttr(post.source_url) + '" class="' + classes + '" target="_blank" rel="noopener noreferrer">' +
+      icon +
       escapeHtml(label) +
-      '</span>'
+      '</a>'
     );
   }
 
@@ -120,14 +120,16 @@
 
   function topicsHtml(post) {
     const topics = (post.topics || []).slice(0, 3);
-    if (!topics.length) {
-      return '<span class="blog-card__topic blog-card__topic--muted">General</span>';
-    }
-    return topics
-      .map(function (topic) {
-        return '<span class="blog-card__topic">' + escapeHtml(topic) + '</span>';
-      })
-      .join('');
+    if (!topics.length) return '';
+    return (
+      '<div class="blog-card__topics">' +
+      topics
+        .map(function (topic) {
+          return '<span class="blog-card__topic">' + escapeHtml(topic) + '</span>';
+        })
+        .join('') +
+      '</div>'
+    );
   }
 
   function postMetaLine(post) {
@@ -144,26 +146,48 @@
     );
   }
 
-  function renderCard(post, options) {
-    const opts = options || {};
-    const featuredClass = opts.featured ? ' blog-card--featured' : '';
+  function cardFooter(post) {
+    const topics = topicsHtml(post);
+    const footerClass = topics ? 'blog-card__footer blog-card__footer--with-topics' : 'blog-card__footer';
+    return '<div class="' + footerClass + '">' + sourceLink(post) + topics + '</div>';
+  }
 
+  function renderCard(post) {
     return (
-      '<article class="blog-card' + featuredClass + '">' +
+      '<article class="blog-card">' +
       '<a href="/blog/' + escapeAttr(post.slug) + '/" class="blog-card__link">' +
-      authorAvatar(post.authors, opts.featured ? 'blog-card__avatar--featured' : '') +
+      authorAvatar(post.authors) +
       '<div class="blog-card__body">' +
-      '<div class="blog-card__header">' +
       '<h2 class="blog-card__title">' + escapeHtml(post.title) + '</h2>' +
-      '</div>' +
       postMetaLine(post) +
       (post.description ? '<p class="blog-card__excerpt">' + escapeHtml(post.description) + '</p>' : '') +
-      '<div class="blog-card__footer">' +
-      sourceBadge(post) +
-      '<div class="blog-card__topics">' + topicsHtml(post) + '</div>' +
-      '</div>' +
+      cardFooter(post) +
       '</div>' +
       '</a>' +
+      '</article>'
+    );
+  }
+
+  function renderFeaturedCard(post) {
+    const topics = topicsHtml(post);
+    return (
+      '<article class="blog-featured-card">' +
+      '<div class="blog-featured-card__layout">' +
+      authorAvatar(post.authors, 'blog-card__avatar--featured') +
+      '<div class="blog-featured-card__content">' +
+      '<p class="blog-featured__label">Latest post</p>' +
+      '<h2 class="blog-featured-card__title">' + escapeHtml(post.title) + '</h2>' +
+      postMetaLine(post) +
+      (post.description ? '<p class="blog-featured-card__excerpt">' + escapeHtml(post.description) + '</p>' : '') +
+      (topics ? '<div class="blog-featured-card__topics">' + topics + '</div>' : '') +
+      '<div class="blog-featured-card__actions">' +
+      '<a href="/blog/' + escapeAttr(post.slug) + '/" class="btn">Read here</a>' +
+      (post.source_url
+        ? '<a href="' + escapeAttr(post.source_url) + '" class="btn btn--secondary" target="_blank" rel="noopener noreferrer">Read on ' + escapeHtml(sourceLabel(post.source)) + '</a>'
+        : '') +
+      '</div>' +
+      '</div>' +
+      '</div>' +
       '</article>'
     );
   }
@@ -194,14 +218,15 @@
 
     const allActive = !activeFilter ? ' blog-author-chip--active' : '';
     let html =
-      '<a href="/blog/" class="blog-author-chip' + allActive + '">All authors <span class="blog-author-chip__count">' + posts.length + '</span></a>';
+      '<a href="/blog/" class="blog-author-chip' + allActive + '">All <span class="blog-author-chip__count">' + posts.length + '</span></a>';
 
     authorsWithPosts.forEach(function (member) {
       const active = activeFilter === member.slug ? ' blog-author-chip--active' : '';
+      const shortName = member.name.split(' ')[0];
       html +=
-        '<a href="/blog/?author=' + escapeAttr(member.slug) + '" class="blog-author-chip' + active + '">' +
+        '<a href="/blog/?author=' + escapeAttr(member.slug) + '" class="blog-author-chip' + active + '" title="' + escapeAttr(member.name) + '">' +
         '<img src="' + escapeAttr(ASSET_BASE + member.photo) + '" alt="" class="blog-author-chip__photo" width="24" height="24" loading="lazy">' +
-        '<span>' + escapeHtml(member.name) + '</span>' +
+        '<span>' + escapeHtml(shortName) + '</span>' +
         '<span class="blog-author-chip__count">' + counts[member.slug] + '</span>' +
         '</a>';
     });
@@ -212,13 +237,16 @@
 
   function updateStats(totalPosts, filteredCount) {
     if (!statsEl) return;
-    const synced = indexMeta.updated_at ? formatSyncDate(indexMeta.updated_at) : '';
-    const syncLine = synced ? ' · Last synced ' + synced : ' · Updated daily';
+
     if (filteredCount !== totalPosts) {
-      statsEl.textContent = filteredCount + ' of ' + totalPosts + ' posts' + syncLine;
+      statsEl.textContent =
+        filteredCount + ' of ' + totalPosts + ' posts from the Ansible TMM team · Mirrored from Red Hat with attribution';
       return;
     }
-    statsEl.textContent = totalPosts + ' posts' + syncLine;
+
+    const postLabel = totalPosts === 1 ? 'post' : 'posts';
+    statsEl.textContent =
+      totalPosts + ' ' + postLabel + ' from the Ansible TMM team · Mirrored from Red Hat with attribution';
   }
 
   function applySearch(posts, query) {
@@ -251,21 +279,14 @@
 
   function updateFilterBanner(authorFilter) {
     if (!filterEl || !filterAuthorEl) return;
+    filterEl.hidden = true;
 
-    if (!authorFilter || typeof TEAM === 'undefined') {
-      filterEl.hidden = true;
-      return;
+    if (authorFilter && typeof TEAM !== 'undefined') {
+      const member = getTeamMember(authorFilter);
+      if (member) {
+        document.title = member.name + ' — Blog — Ansible TMM';
+      }
     }
-
-    const member = getTeamMember(authorFilter);
-    if (!member) {
-      filterEl.hidden = true;
-      return;
-    }
-
-    filterAuthorEl.textContent = member.name;
-    filterEl.hidden = false;
-    document.title = member.name + ' — Blog — Ansible TMM';
   }
 
   function renderView() {
@@ -284,8 +305,7 @@
 
     if (featuredEl) {
       if (featuredPost) {
-        featuredEl.innerHTML =
-          '<h2 class="blog-featured__label">Latest post</h2>' + renderCard(featuredPost, { featured: true });
+        featuredEl.innerHTML = renderFeaturedCard(featuredPost);
         featuredEl.hidden = false;
       } else {
         featuredEl.innerHTML = '';
@@ -329,7 +349,6 @@
       })
       .then(function (data) {
         allPosts = data.posts || [];
-        indexMeta.updated_at = data.updated_at || null;
         visibleCount = PAGE_SIZE;
         renderView();
       })
