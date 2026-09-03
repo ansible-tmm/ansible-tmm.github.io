@@ -2107,7 +2107,7 @@ a:hover {
   line-height: 1.7;
 }
 
-.blog-post-content > p:first-of-type {
+.blog-post-content:not(:has(.blog-callout--summary)) > p:first-of-type {
   margin-bottom: 1.35rem;
   font-size: 1.12rem;
   line-height: 1.65;
