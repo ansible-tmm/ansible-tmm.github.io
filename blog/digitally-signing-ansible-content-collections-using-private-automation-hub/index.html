@@ -50,9 +50,15 @@
         <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2022-06-22">June 21, 2022</time> · 6-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.</aside><aside class="blog-toc">
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> In this blog we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.</div>
+</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#ansible-automation-platform-installer-configuration">Ansible Automation Platform installer configuration</a></li><li><a href="#installing-signed-collections-from-private-automation-hub">Installing signed Collections from private automation hub</a></li><li><a href="#create-automation-execution-environments-with-signed-collections">Create automation execution environments with signed Collections</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#next-steps">Next Steps</a></li></ul>
+  </div>
 </aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png" alt="Digitally signing content in Private Automation Hub"></a></p>
 <p>Red Hat Ansible Automation Platform can manage and execute automation made from many different origins, coming from Red Hat product teams, ISV partners, community and private contributors.</p>
 <p>Here is a typical makeup of an automation play that is launched from automation controller:</p>
@@ -67,11 +73,14 @@
 <p>Previously, there was no way to verify that a Collection downloaded from either Ansible automation hub (<a href="http://console.redhat.com/">console.redhat.com</a>) or private automation hub was developed and released by its original Collection maintainer. This is a potential security issue and breaks the supply chain from creator to consumer.</p>
 <p>Providing security-focused features in Ansible Automation Platform 2 continues to be a priority, to enable the execution of certified and supported automation anywhere in your hybrid cloud environment. New in Ansible Automation Platform 2.2  is digital content signing in <a href="https://access.redhat.com/support/offerings/techpreview">technology preview</a>, which is the genesis of a more holistic chain-of-custody security feature going forward. It establishes a new framework for a chain of custody for Ansible Content Collections, with a goal for end-to-end digital content signing and distribution. This feature helps ensure that automation being executed in your enterprise is certified and compliant, even if it originates from varied content sources. While this is starting with digitally signing Collections, similar signing capabilities may be available for execution environments in future releases.</p>
 <p>In the following sections, we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+  </div>
 </aside><h2 id="ansible-automation-platform-installer-configuration">Ansible Automation Platform installer configuration</h2><p>To successfully sign and publish Ansible Content Collections, private automation hub needs to be configured for signing. The inventory configuration for the installer with signing enabled requires extra key-value pairs in the <code>[all:vars]</code> section like below:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -168,11 +177,14 @@
 <a href="https://www.redhat.com/rhdc/managed-files/ansible/3JcNShnRnK1bG803UxSEIgmJ7qDc-ynYxwF3KkLqxk4Tm13Hk4dwpNSEDcFynIlTbKmwaimNL6J4gf0fTZEDG9MyUjfhNBSwRh7AxS0q4uSkXbq4C69rrjeRpn7RgCuv-5gmQ0tkTVtUXZ96Pw.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/3JcNShnRnK1bG803UxSEIgmJ7qDc-ynYxwF3KkLqxk4Tm13Hk4dwpNSEDcFynIlTbKmwaimNL6J4gf0fTZEDG9MyUjfhNBSwRh7AxS0q4uSkXbq4C69rrjeRpn7RgCuv-5gmQ0tkTVtUXZ96Pw.png" alt=""></a>
 <a href="https://www.redhat.com/rhdc/managed-files/ansible/L_N97kCBIK_mVB3-VETnFTl_2wEhAU5eL_5I_BrWEGO7jKL02bDTCeLj9_MVnrTcwXPGRrAm6BTmQ3jMmDNzaOgrKzcgN3ZABao6Lc2u9NaJge0cGvP6NsoPi3zQcwuzxD6_UnDYWuUO46UaQQ.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/L_N97kCBIK_mVB3-VETnFTl_2wEhAU5eL_5I_BrWEGO7jKL02bDTCeLj9_MVnrTcwXPGRrAm6BTmQ3jMmDNzaOgrKzcgN3ZABao6Lc2u9NaJge0cGvP6NsoPi3zQcwuzxD6_UnDYWuUO46UaQQ.png" alt=""></a></p>
 <p>Note: Sign community Collections from <a href="http://galaxy.ansible.com/">galaxy.ansible.com</a> using a similar method.</p>
-<aside class="blog-callout blog-callout--redhat">
+<aside class="blog-hub-addition blog-callout blog-callout--redhat" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Red Hat</span>
   <p class="blog-callout__title">Ansible Automation Platform documentation</p>
   <p class="blog-callout__body">Official product documentation from Red Hat.</p>
   <a class="blog-callout__cta" href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/">Read the docs →</a>
+  </div>
 </aside><h2 id="installing-signed-collections-from-private-automation-hub">Installing signed Collections from private automation hub</h2><p>Using the <code>ansible-galaxy</code> CLI (available with <code>ansible-core</code> v2.13), installed with Ansible Automation Platform 2.2, can now download and verify signed Collections from the private automation hub. You can check the <a href="https://docs.ansible.com/ansible/devel/user_guide/collections_using.html#signature-verification">upstream documentation</a> for more information on how to use signatures with <code>ansible-galaxy</code> CLI.</p>
 <p>Using our example above, we will explain how you can use the public key to verify signed Collections from private automation hub.</p>
 <p>To add the public key to a local non-default keyring:</p>
@@ -214,9 +226,12 @@
 <li>Get started with this checklist, “5 ways to prepare for migration to Ansible Automation Platform 2.”</li>
 <li>Register for a free webinar, “Migrating to the next generation IT automation platform.”</li>
 </ul>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/the-anatomy-of-automation-execution-environments/">The anatomy of automation execution environments</a></li><li><a href="/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/">Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</a></li><li><a href="/blog/new-red-hat-ansible-development-tools/">Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#anshul-behl">Anshul Behl</a></p></footer>

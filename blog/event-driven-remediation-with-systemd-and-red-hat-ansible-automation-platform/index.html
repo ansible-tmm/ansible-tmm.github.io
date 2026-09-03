@@ -50,18 +50,27 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2022-04-25">April 24, 2022</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Red Hat Ansible Automation Platform can assist you here with not only keeping your infrastructure in check, but also giving your teams the peace of mind that systems are running as they should.</aside><aside class="blog-toc">
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> Red Hat Ansible Automation Platform can assist you here with not only keeping your infrastructure in check, but also giving your teams the peace of mind that systems are running as they should.</div>
+</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#event-driven-automation-with-systemd">Event-driven automation with systemd</a></li><li><a href="#starting-with-a-simple-use-case">Starting with a simple use case</a></li><li><a href="#taking-it-to-another-level">Taking it to another level</a></li><li><a href="#what-can-i-do-next">What can I do next?</a></li></ul>
+  </div>
 </aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/6irqaHobfUU02G7Z8V0DiCYPGub92sK6UeKSl-Wep_teiIjeAwJ4Ip8ekLzzoGUNrusx0eU1nFtXfs2v6HiC5_KCL1O4_knpTAzdwzK3xiyRGLGFpwISmvUaNZKJ1OQaNKEz_WXv.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/6irqaHobfUU02G7Z8V0DiCYPGub92sK6UeKSl-Wep_teiIjeAwJ4Ip8ekLzzoGUNrusx0eU1nFtXfs2v6HiC5_KCL1O4_knpTAzdwzK3xiyRGLGFpwISmvUaNZKJ1OQaNKEz_WXv.png" alt=""></a></p>
 <p>Over the many years of working as an engineer and architect with a particular interest in storage, I have learned that donuts and energy drinks can really bring you some joy in trying situations. When it seems that your infrastructure is on fire and you need an exorcist to help you find the ghost in the machine, a humble box of glazed donuts can give you and your team a much-needed break and allow you to refocus.</p>
 <p>Now, the issue with this habit is that it might help you in the moment, but over time this can become a real health issue. Configuration drift, technical issues, and technical debt can all have similar effects on your health, increasing your heart rate and causing sleepless nights. Red Hat Ansible Automation Platform can assist you here with not only keeping your infrastructure in check, but also giving your teams the peace of mind that systems are running as they should.</p>
 <p>Being able to schedule compliance checks on your systems with Ansible Automation Platform enables you to preserve configuration and system states, and keep them running the way you prefer. But sometimes this is not proactive enough. What if you have a security breach? Or if your application data is removed in error? In some instances, you cannot afford to wait for the regular maintenance schedule to trigger remediation. Enabling your systems to self-remediate or trigger self-compliance is an awesome way of keeping you cozy in your bed dreaming about the next Ansible Automation Platform release with all its magic and wizardry.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
   <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
+  </div>
 </aside><h2 id="event-driven-automation-with-systemd">Event-driven automation with systemd</h2><p>Systemd is the service and system manager for Red Hat Enterprise Linux, and it uses unit files to read the configuration of daemons. With the use of systemd path units, you are able to monitor files and directories for events. Leveraging path units enables us to trigger a service to execute an action.</p>
 <p>Automation controller uses callback provisioning on templates. This allows hosts to trigger an API request back to the automation controller, and the controller runs the specified template on that host. Using systemd and the callback provisioning features, we can build an event-driven trigger for automation.</p>
 <h2 id="starting-with-a-simple-use-case">Starting with a simple use case</h2><p>Say I would like to prevent changes to my user accounts on my Linux systems. We are going to watch the /etc/passwd and /etc/shadow files respectively. To do this, we need to create a system path unit and service to configure a remediation template with a callback.</p>
@@ -202,11 +211,14 @@
 <p>In this blog post, I intended to show that with the use of an event trigger we are able to take  remediation actions in a proactive manner allowing systems to repair configuration mistakes or from possible early malicious attack attempts.</p>
 <p>Ansible can take over the nightshift and offer your support teams a break until your teams are really needed!  They can now train for that decathlon with all this free time - No more energy drinks, no more high blood pressure and heart palpitations, and perhaps just one or two donuts.</p>
 <p>The following demo video will be monitoring components with systemd and use the automation controller to configure and build these systemd units.</p>
-<h2 id="section-2"></h2><aside class="blog-callout blog-callout--tmm">
+<h2 id="section-2"></h2><aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM tool</span>
   <p class="blog-callout__title">AAP CVE Report</p>
   <p class="blog-callout__body">Explore CVE information relevant to Ansible Automation Platform.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/aap_cve_report/">Open tool →</a>
+  </div>
 </aside><h2 id="what-can-i-do-next">What can I do next?</h2><p>Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
 <ul>
 <li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - We have interactive, in-browser exercises to learn and dive into Ansible Automation Platform.</li>
@@ -214,9 +226,12 @@
 <li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our new web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
 <li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
 </ul>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li><li><a href="/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/">Navigating AI vulnerability discovery and achieving operational resilience with automation</a></li><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>

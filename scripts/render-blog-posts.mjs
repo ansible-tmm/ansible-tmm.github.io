@@ -238,23 +238,35 @@ function parseCalloutAttrs(line) {
   return attrs;
 }
 
+const HUB_ADDITION_BADGE = 'Added on the Ansible TMM hub';
+
+function hubAdditionBadgeHtml() {
+  return `<p class="blog-hub-addition__badge">${escapeHtml(HUB_ADDITION_BADGE)}</p>`;
+}
+
 function renderCalloutBlock(firstLine, bodyText) {
   const attrs = parseCalloutAttrs(firstLine);
   const type = attrs.type || 'tmm';
   if (type === 'summary') {
     const summaryHtml = marked.parseInline(bodyText);
-    return `<aside class="blog-callout blog-callout--summary">${summaryHtml}</aside>`;
+    return `<aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="${escapeHtml(HUB_ADDITION_BADGE)}">
+  ${hubAdditionBadgeHtml()}
+  <div class="blog-hub-addition__content">${summaryHtml}</div>
+</aside>`;
   }
   const label = attrs.label || 'Resource';
   const title = attrs.title || '';
   const url = attrs.url || '#';
   const cta = attrs.cta || 'Learn more';
   const body = bodyText || '';
-  return `<aside class="blog-callout blog-callout--${escapeHtml(type)}">
+  return `<aside class="blog-hub-addition blog-callout blog-callout--${escapeHtml(type)}" aria-label="${escapeHtml(HUB_ADDITION_BADGE)}">
+  ${hubAdditionBadgeHtml()}
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">${escapeHtml(label)}</span>
   <p class="blog-callout__title">${escapeHtml(title)}</p>
   ${body ? `<p class="blog-callout__body">${escapeHtml(body)}</p>` : ''}
   <a class="blog-callout__cta" href="${escapeHtml(url)}">${escapeHtml(cta)} →</a>
+  </div>
 </aside>`;
 }
 
@@ -305,9 +317,12 @@ function renderListAside(lines, className, title) {
     index = childIndex;
   }
 
-  return `<aside class="${className}">
+  return `<aside class="blog-hub-addition ${className}" aria-label="${escapeHtml(HUB_ADDITION_BADGE)}">
+  ${hubAdditionBadgeHtml()}
+  <div class="blog-hub-addition__content">
   <p class="${className}__title">${escapeHtml(title)}</p>
   <ul>${items}</ul>
+  </div>
 </aside>`;
 }
 

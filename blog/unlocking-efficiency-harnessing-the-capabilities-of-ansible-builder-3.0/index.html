@@ -50,9 +50,15 @@
         <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2023-07-19">July 18, 2023</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with Red Hat Ansible Automation Platform 2.4.</aside><aside class="blog-toc">
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with Red Hat Ansible Automation Platform 2.4.</div>
+</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#ansible-builder-30-enhancements">Ansible-builder 3.0 enhancements</a></li><li><a href="#how-to-install-ansible-builder-version-3">How to install ansible-builder version 3</a></li><li><a href="#changes-to-the-definition-schema">Changes to the definition schema</a></li><li><a href="#using-collections-in-ansible-automation-hub">Using collections in Ansible automation hub</a></li><li><a href="#conclusion">Conclusion</a></li></ul>
+  </div>
 </aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image%20%281%29.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image%20%281%29.png" alt="image (1)"></a></p>
 <p>We recently announced the general availability of <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.4">Red Hat Ansible Automation Platform 2.4</a>, This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with this latest release.</p>
 <p>With the introduction of Ansible Automation Platform 2, we introduced the concept of <a href="https://www.ansible.com/blog/the-anatomy-of-automation-execution-environments">automation execution environments</a>. A key part of enabling our customers to create, manage, and scale their automation, they are portable Ansible runtime environments which enable us to truly decouple the control and execution planes in Ansible Automation Platform. Automation execution environments replace the traditional virtual environments in Ansible Tower by providing a powerful dependency management solution. Customers can also improve their automation run efficiency, as they are lightweight Ansible runtime environments.</p>
@@ -65,11 +71,14 @@
 <li>Ansible Content Collections (optional)</li>
 </ul>
 <p>The execution environment builder tool was built to aid in the creation of execution environments for Ansible customers and users. It provides a definition schema that is based on the above execution environment requirements.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+  </div>
 </aside><h2 id="ansible-builder-30-enhancements">Ansible-builder 3.0 enhancements</h2><p>ansible-builder version 3.0 introduces some major changes in the definition schema to help customers create execution environments with more efficiency. There were a few design principles that were kept in mind while working on this latest release, some of which came through feedback from users and customers who worked with ansible-builder v1 (included with the initial release of Ansible Automation Platform 2.)</p>
 <p>Let’s talk about these design principles:</p>
 <ul>
@@ -77,11 +86,14 @@
 <li><strong>Single-file definition</strong> - We offer optional file definition. You can still refer to the other files such as requirements.yml or requirements.txt if you have them or need them, but you should be able to define everything inline as well.</li>
 <li><strong>Consolidate ansible-builder components</strong> - ansible-builder 1.x required two sets of images in combination with matching Python and Ansible versions to complete an execution environment build, so we consolidated all the build steps starting from a single base image. This will simplify the builds and result in fewer images to maintain as a side-effect.</li>
 </ul>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Kubernetes automation content</p>
   <p class="blog-callout__body">Collections, inventories, and patterns from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/">Read the guide →</a>
+  </div>
 </aside><h2 id="how-to-install-ansible-builder-version-3">How to install ansible-builder version 3</h2><p>As with all projects at Red Hat, ansible-builder follows an open development model and an upstream-first approach. The upstream project for <a href="https://github.com/ansible/ansible-builder">ansible-builder</a> is distributed as a Python package, then packaged into an RPM for Ansible Automation Platform downstream. This also means that there are different ways to install the upstream package and the downstream ansible-builder.</p>
 <p><strong>NOTE:</strong> To get the downstream package for ansible-builder v3, you must subscribe to Ansible Automation Platform 2.4 repos from Red Hat.</p>
 <p>Upstream Community:</p>
@@ -215,9 +227,12 @@
 <p>You can run the build command again as mentioned above to create your execution environment which will pull the ansible.netcommon collection from Ansible automation hub.</p>
 <h2 id="conclusion">Conclusion</h2><p>Ansible-builder v3 provides you with a rich API to create custom execution environments with improved efficiency. The feature now provides options to cover any and all scenarios so you should never need to hack the Containerfile in the build context.</p>
 <p>You can find detailed information on ansible-builder v3 in the <a href="https://ansible.readthedocs.io/projects/builder/en/stable/">latest builder documentation</a>. We also have a hands-on, self-paced lab, &quot;Get started with ansible-builder&quot;, which you can find on the <a href="https://www.redhat.com/en/interactive-labs/ansible">Red Hat interactive labs page for Ansible Automation Platform</a>.</p>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/the-anatomy-of-automation-execution-environments/">The anatomy of automation execution environments</a></li><li><a href="/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/">Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</a></li><li><a href="/blog/new-red-hat-ansible-development-tools/">Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#anshul-behl">Anshul Behl</a></p></footer>

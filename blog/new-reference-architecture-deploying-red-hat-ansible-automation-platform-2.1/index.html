@@ -50,7 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2021-12-14">December 13, 2021</time> · 3-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> The latest reference architecture on the best practices for deploying a highly available Ansible Automation Platform 2.1 environment.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/RA%202.1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/RA%202.1.png" alt="RA 2.1"></a></p>
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> The latest reference architecture on the best practices for deploying a highly available Ansible Automation Platform 2.1 environment.</div>
+</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/RA%202.1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/RA%202.1.png" alt="RA 2.1"></a></p>
 <p>With the release of <a href="https://www.ansible.com/blog/introducing-red-hat-ansible-automation-platform-2.1">Red Hat Ansible Automation Platform 2.1</a>, we are proud to deliver the latest reference architecture on the best practices for <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html-single/deploying_ansible_automation_platform_2.1/index">deploying a highly available Ansible Automation Platform environment</a>. </p>
 <p>Why are you going to love it?</p>
 <p>This reference architecture focuses on providing a step-by-step deployment procedure to install and configure a highly available Ansible Automation Platform environment from start to finish.   </p>
@@ -62,11 +65,14 @@
 <li>Using a combination of GitOps practices (configuration as code capabilities) and Git webhooks to streamline the automation and delivery of configurations to multiple Ansible Automation Platform sites automatically, immediately and consistently.</li>
 </ul>
 <h4 id="what-are-the-foundational-pieces-to-this-reference-architecture">What are the foundational pieces to this reference architecture?</h4><p>The reference architecture consists of two environments of Ansible Automation Platform: <em>Ansible Site 1</em> and <em>Ansible Site 2</em> for high availability. Site 1 is an active environment while Site 2 is a passive environment. Each site consists of the following:</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+  </div>
 </aside><ul>
 <li>A three node automation controller cluster with one PostgreSQL database.</li>
 <li>A three node automation hub cluster with one PostgreSQL database.</li>
@@ -82,11 +88,14 @@
 <li>Easily track changes of the configuration settings, which helps fix issues easier.</li>
 </ul>
 <p>Combining GitOps with Git webhooks, you can set up an Ansible Automation Platform workflow that immediately updates all of our Ansible Automation Platform sites simultaneously with the exact configurations across all the platforms.  </p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+  </div>
 </aside><p>In effect, it removes the overhead of having to maintain database backups or enable an expensive database replication solution, while still achieving the strengths of those solutions.</p>
 <p>Finally, for logging consistency, a highly available centralized logging environment was installed on both Ansible Automation Platform environments.</p>
 <h4 id="why-was-enabling-centralized-logging-a-key-part-of-this-reference-architecture">Why was enabling centralized logging a key part of this reference architecture?</h4><p>When we think about logging, the first thought that comes to mind is often its ability to troubleshoot a particular issue. As technology continues to evolve and there is an enormous amount of data that applications must capture, logs play a vital role in capturing this data and allowing for operational intelligence methods.</p>
@@ -101,9 +110,12 @@
 <li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our new web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
 <li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
 </ul>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/">Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application</a></li><li><a href="/blog/ansible-automation-platform-youre-using-it-wrong/">Ansible Automation Platform … You’re using it wrong.</a></li><li><a href="/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/">New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#roger-lopez">Roger Lopez</a></p></footer>

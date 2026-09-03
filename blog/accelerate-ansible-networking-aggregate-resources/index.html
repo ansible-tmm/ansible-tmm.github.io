@@ -50,7 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2018-01-09">January 8, 2018</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Accelerate Network Automation with aggregate resources as a better way to iterate without the need to execute each task one by one.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png" alt=""></a></p>
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> Accelerate Network Automation with aggregate resources as a better way to iterate without the need to execute each task one by one.</div>
+</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png" alt=""></a></p>
 <p>One of the major networking features in Red Hat Ansible Engine 2.4 was the addition of <strong>aggregate resources</strong> to the networking modules. The Ansible networking team recently talked about this at the Ask an Expert webinar in November.</p>
 <h3 id="what-are-aggregate-resources">What are Aggregate Resources?</h3><p>Simply put, aggregate resources are a better way to iterate (or loop) without the need to execute each task one by one. That is, you can now “aggregate” a collection as a single task instead of a collection of discrete loops.</p>
 <p><strong>Loop Method</strong></p>
@@ -73,11 +76,14 @@
 <td><strong>4 steps</strong></td>
 </tr>
 </tbody></table>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+  </div>
 </aside><p>Based on feedback from customers, partners and community members, this post provides more examples and more detail of this important new feature. The simplest way to showcase this is to compare the old way and the new way, and highlight the differences between each.</p>
 <p>For this scenario we assume a network operator wants to configure 500 VLANs on a Arista EOS device. We can use the <a href="https://docs.ansible.com/ansible/2.4/net_vlan_module.html">eos_vlan</a> Ansible module to easily accomplish this. Refer to the following Ansible Playbook snippet.</p>
 <h3 id="ansible-23-and-older">Ansible 2.3 and older</h3><p>The <strong>vlan_id</strong> parameter is where the actual 802.1q VLAN number is specified. The <strong>name</strong> parameter is a description that helps identify what this VLAN is for (i.e. printers, laptops, etc). Finally, the <strong>state</strong> parameter describes what the intended or expected state should be, which can be present, absent, active or suspend.</p>
@@ -152,11 +158,14 @@
 </tr>
 </tbody></table>
 <h3 id="going-further">Going Further</h3><p>Where else can I use <strong>aggregate</strong>? Other Arista examples include those such as the <a href="http://docs.ansible.com/ansible/latest/eos_user_module.html">eos_user</a> module and the <a href="http://docs.ansible.com/ansible/latest/eos_vrf_module.html">eos_vrf</a> module. Users and VRFs can be handled in a single aggregate rather than a collection of looped tasks. Instead of sending configuration user by user, or VRF by VRF with a loop it is now possible to use the aggregate. This will speed up configurations and give an alternative to using os_config modules with Jinja templating.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Network automation on the TMM blog</p>
   <p class="blog-callout__body">More posts on network automation from the Ansible Technical Marketing team.</p>
   <a class="blog-callout__cta" href="/blog/?author=sean-cavanaugh">Browse posts →</a>
+  </div>
 </aside><table>
 <thead>
 <tr>
@@ -172,9 +181,12 @@
 <p>Follow the aggregate resources repository <a href="https://github.com/network-automation/aggregate_resources">here</a>.</p>
 <p>To become a member of the growing community <a href="mailto:ansible-network@redhat.com">email us</a> with your GitHub ID.</p>
 <p>Have more questions? Join our next regularly scheduled Ask an Expert: <a href="https://www.ansible.com/resources/webinars-training/ask-an-expert-ansible-networks">Networking Webinar.</a></p>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li><li><a href="/blog/ansible-network-resource-modules-deep-dive-on-return-values/">Ansible Network Resource Modules: Deep Dive on Return Values</a></li><li><a href="/blog/red-hat-ansible-network-automation-updates/">Red Hat Ansible Network Automation Updates</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

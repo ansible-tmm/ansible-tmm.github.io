@@ -50,15 +50,21 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2023-09-01">August 31, 2023</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Implement Automated ChatOps: Learn how to use event-driven automation to take action from chat information.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/pszGMvKzusRlBORTiEl3U2nfqYiLB-CnvtSqfV0pRJLcMAZs3UuJJDM7xTZB5owVZ_wlUawLqid-WJpYfaL__-MB3KX5VynTDwv5Nn2BpT2OBIc9Cb0eUL44kGnpSrWJo3Hi1CSldqrL06ZcyiW--YQ_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/pszGMvKzusRlBORTiEl3U2nfqYiLB-CnvtSqfV0pRJLcMAZs3UuJJDM7xTZB5owVZ_wlUawLqid-WJpYfaL__-MB3KX5VynTDwv5Nn2BpT2OBIc9Cb0eUL44kGnpSrWJo3Hi1CSldqrL06ZcyiW--YQ_0.png" alt=""></a></p>
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> Implement Automated ChatOps: Learn how to use event-driven automation to take action from chat information.</div>
+</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/pszGMvKzusRlBORTiEl3U2nfqYiLB-CnvtSqfV0pRJLcMAZs3UuJJDM7xTZB5owVZ_wlUawLqid-WJpYfaL__-MB3KX5VynTDwv5Nn2BpT2OBIc9Cb0eUL44kGnpSrWJo3Hi1CSldqrL06ZcyiW--YQ_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/pszGMvKzusRlBORTiEl3U2nfqYiLB-CnvtSqfV0pRJLcMAZs3UuJJDM7xTZB5owVZ_wlUawLqid-WJpYfaL__-MB3KX5VynTDwv5Nn2BpT2OBIc9Cb0eUL44kGnpSrWJo3Hi1CSldqrL06ZcyiW--YQ_0.png" alt=""></a></p>
 <p>Like any well-rounded individual, in times of intense concentration, you will find me talking to myself in search of some hidden knowledge that I might have received in a dream, or perhaps quoting something from a fantasy novel about wizards and creatures in an attempt to fix a problem. Unfortunately, wearing a robe and shouting “Repairo Network!” while pointing my pen toward the device has yet to help in any situation.</p>
 <p>At the 2023 AnsibleFest, as part of the main stage demonstration, I used the magic of Event-Driven Ansible to integrate ChatOps in our fictional infrastructure drama. ChatOps is not new, but I think it&#39;s a pretty cool way to make changes or interact with your infrastructure.</p>
 <p>We know that Event-Driven Ansible requires a source for events, a list of conditions which we call rulesets, and ultimately an action to match those conditions, which makes it perfect to use as a chatbot-type system.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
   <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
+  </div>
 </aside><p>For me to have a heart-to-heart with my beloved network, I will need to configure my chat as a source of events for Event-Driven Ansible, and to do this, I will use the webhook source plugin, which is part of the <a href="https://galaxy.ansible.com/ansible/eda">ansible.eda</a> collection. Many enterprise chat platforms provide a method to send and receive webhooks to trigger words in the chat, which is perfect for what we want to do.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/dPscoFKsfE0mcimaWcs4UTWfzvCTYxw55s-EhFLeFqthlKCaqz9Qo_JKDV0P9HBvAwjcb0pAD0YWVRv6Qvi-ddRUf9Mj-w9kNpqMgKohky2JUheAYYuAMm9EzXubm0Vox4R2Tlyeae2R6Via1IDZLhQ_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/dPscoFKsfE0mcimaWcs4UTWfzvCTYxw55s-EhFLeFqthlKCaqz9Qo_JKDV0P9HBvAwjcb0pAD0YWVRv6Qvi-ddRUf9Mj-w9kNpqMgKohky2JUheAYYuAMm9EzXubm0Vox4R2Tlyeae2R6Via1IDZLhQ_0.png" alt="Event-Driven Ansible ChatOps mechanism"></a></p>
 <p><em>Event-Driven Ansible ChatOps mechanism</em></p>
@@ -69,11 +75,14 @@
 <li>Feedback notification will be sent from the action as an incoming webhook to the chat.</li>
 </ul>
 <p>Now that the fundamentals are done, let&#39;s look at how we could use this.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Event-Driven Ansible ChatOps</p>
   <p class="blog-callout__body">From chat message to automated action with the TMM team walkthrough.</p>
   <a class="blog-callout__cta" href="/blog/event-driven-ansible-chatops-from-chat-to-action/">Read the guide →</a>
+  </div>
 </aside><p>I have a network configured with three interconnected switches, got my chat system up and have Event-Driven Ansible listening with my rulebooks activated!</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/XtINx-95ksqmiODvIJcdq5fZsojimzIlKgslR6CZuu23GcheEejZl_pllPi9HQ7Iu4fMoN6SWBykFICtO2w7-tl1PKRiaUT_VMU5tB3s9mj_9nVXRDRQBI6gP-p7OgiFG6EQ_fYjgOpf0Nq_HDwIuK0_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/XtINx-95ksqmiODvIJcdq5fZsojimzIlKgslR6CZuu23GcheEejZl_pllPi9HQ7Iu4fMoN6SWBykFICtO2w7-tl1PKRiaUT_VMU5tB3s9mj_9nVXRDRQBI6gP-p7OgiFG6EQ_fYjgOpf0Nq_HDwIuK0_0.png" alt=""></a></p>
 <p><em>Event-Driven Ansible NetOps - ChatOps use case</em></p>
@@ -241,9 +250,12 @@
 <li>Learn more about <a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">Event-Driven Ansible</a></li>
 <li>Join the <a href="https://forum.ansible.com/">Ansible Community Forum</a> to discuss this <a href="https://forum.ansible.com/t/event-driven-ansible-chatops-from-chat-to-action/279">blog post</a></li>
 </ul>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/addressing-netops-issues-with-event-driven-ansible/">Addressing NetOps issues with Event-Driven Ansible</a></li><li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li><li><a href="/blog/ansible-network-resource-modules-deep-dive-on-return-values/">Ansible Network Resource Modules: Deep Dive on Return Values</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>

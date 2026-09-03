@@ -50,9 +50,15 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2018-10-10">October 9, 2018</time> · 11-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Red Hat Ansible Networking product updates featuring new network automation modules, improved Ansible Tower user experience, Ansible Tower credential management for network devices, custom Ansible environment support for Ansible Tower and more.</aside><aside class="blog-toc">
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> Red Hat Ansible Networking product updates featuring new network automation modules, improved Ansible Tower user experience, Ansible Tower credential management for network devices, custom Ansible environment support for Ansible Tower and more.</div>
+</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#the-httpapi-connection-plugin">The HTTPAPI connection plugin</a></li><li><a href="#improved-ansible-tower-user-experience">Improved Ansible Tower User Experience</a></li><li><a href="#ansible-tower-credential-management-for-network-devices">Ansible Tower Credential Management for Network Devices</a></li><li><a href="#thank-you">Thank You</a></li></ul>
+  </div>
 </aside><p>With the recent success of the largest AnsibleFest to date I wanted to take a minute to reflect with a network automation perspective on the colossal enhancements the engineering team at Red Hat has done for the Ansible Engine 2.6 release, the Ansible Tower 3.3 release and the recent Ansible Engine 2.7 release. As a reminder for all Ansible lovers there is a <a href="https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html">porting guide</a> for every release to make upgrades as easy as possible!</p>
 <p>For this blog post I am going to cover the following topics:</p>
 <ul>
@@ -371,15 +377,21 @@
 <p>As soon as two or more virtual environments are configured on Ansible Tower, an <strong>Ansible Environment</strong> drop down menu will appear in the Web UI. This makes it incredibly easy to choose which version of Ansible a particular Job is run with.</p>
 <p>If,you have a mix of network automation playbooks that were written using the provider method (pre Ansible 2.4 and earlier) and newer playbooks using httpapi or network_cli connection plugins (2.5 and later) you could now easily assign different versions of Ansible to each particular Job. Other possible use-cases include having different versions of Ansible for your dev environment vs your production environment. To think about this another way, upgrading Tower does not mean your organization is locked to one particular version of Ansible Engine. This allows a lot more flexibility for automating different types of networking gear, environments and use cases.</p>
 <p>For more information on using virtualenv with Ansible Tower refer to the <a href="https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#using-virtualenv-with-at">re</a><a href="https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#using-virtualenv-with-at">levant</a> <a href="https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#using-virtualenv-with-at">documentation</a>.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+  </div>
 </aside><h2 id="thank-you">Thank You</h2><p>The Ansible Networking team is excited about the forthcoming Ansible 2.7 release, and would like to extend a warm thank you to all networking partners and community members who helped make it possible. We love to hear your feedback, thoughts and ideas, and we welcome you to participate in the<a href="https://github.com/ansible/community/tree/master/group-network">Ansible networking community</a>.</p>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li><li><a href="/blog/ansible-network-resource-modules-deep-dive-on-return-values/">Ansible Network Resource Modules: Deep Dive on Return Values</a></li><li><a href="/blog/porting-ansible-network-playbooks-with-new-connection-plugins/">Porting Ansible Network Playbooks with New Connection Plugins</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

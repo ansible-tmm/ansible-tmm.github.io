@@ -50,9 +50,15 @@
         <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2024-12-05">December 4, 2024</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> One of the great advantages of combining GitOps with Ansible is that you get to streamline the automation delivery and the lifecycle of a containerized application.</aside><aside class="blog-toc">
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> One of the great advantages of combining GitOps with Ansible is that you get to streamline the automation delivery and the lifecycle of a containerized application.</div>
+</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#create-a-github-personal-access-token">Create a GitHub personal access token</a></li><li><a href="#familiarizing-ourselves-with-the-app-demo-repository">Familiarizing ourselves with the App Demo Repository</a></li><li><a href="#creating-our-ansible-automation-platform-resources">Creating our Ansible Automation Platform Resources</a></li><li><a href="#enabling-github-webhooks-for-the-app-demo-repository">Enabling GitHub Webhooks for the App Demo Repository</a></li><li><a href="#creating-the-app-demo-job-template">Creating the App Demo job template</a></li><li><a href="#updating-the-created-app-demo-workflow">Updating the created App Demo Workflow</a></li><li><a href="#verify-app-demo-setup">Verify App Demo Setup</a></li><li><a href="#conclusion">Conclusion</a></li></ul>
+  </div>
 </aside><p>One of the great advantages of combining GitOps with Ansible is that you get to streamline the automation delivery and the lifecycle of a containerized application.</p>
 <p>With the abilities of GitOps we get to:</p>
 <ul>
@@ -73,11 +79,14 @@
 <li>Setup your Git webhook (using GitHub).</li>
 <li>Setting up an Ansible workflow that triggers via push events from your GitHub repository.</li>
 </ul>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+  </div>
 </aside><h2 id="create-a-github-personal-access-token">Create a GitHub personal access token</h2><p>The GitHub personal access token (PAT) is one of the credentials needed to associate the Ansible workflow with your Git repository.</p>
 <p>Generate a personal access token (PAT) for use with automation controller.</p>
 <ol>
@@ -94,11 +103,14 @@
 <p>Click the <strong>Generate Token</strong> button at the bottom of the page.</p>
 <p>Once we have our PAT in place, the next step is to create a Git repository that will be triggered by our GitHub webhooks when changes are made to the repository.</p>
 <p>For the purposes of this blog, I&#39;ll be using my <a href="https://github.com/rlopez133/app_demo">App Demo Repository</a>. Feel free to use your own or fork this repository to follow along.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+  </div>
 </aside><h2 id="familiarizing-ourselves-with-the-app-demo-repository">Familiarizing ourselves with the App Demo Repository</h2><p>The App Demo Repository is fairly simplistic, as it contains:</p>
 <ul>
 <li><code>container_playbook.yml</code></li>
@@ -314,9 +326,12 @@
 <li>Have one source of truth for our applications.</li>
 </ul>
 <p>The use cases and abilities that both tools provide together are endless.</p>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/ansible-automation-platform-youre-using-it-wrong/">Ansible Automation Platform … You’re using it wrong.</a></li><li><a href="/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/">New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift</a></li><li><a href="/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way/">Monitoring Red Hat Ansible Automation Platform on Red Hat OpenShift - The Easy Way</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#roger-lopez">Roger Lopez</a></p></footer>

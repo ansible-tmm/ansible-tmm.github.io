@@ -50,9 +50,15 @@
         <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2022-03-21">March 20, 2022</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog post, we’ll go over what’s new and what’s different in this release of our Kubernetes Collection.</aside><aside class="blog-toc">
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> In this blog post, we’ll go over what’s new and what’s different in this release of our Kubernetes Collection.</div>
+</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#new-module-k8s-taint">New Module - k8s\_taint</a></li><li><a href="#enablement-of-server-side-apply">Enablement of Server-Side Apply</a></li><li><a href="#incremental-improvements">Incremental Improvements</a></li><li><a href="#summary">Summary</a></li></ul>
+  </div>
 </aside><p>With increased adoption of container automation, IT organizations continue to expand their requirements when it comes to deploying and managing their Kubernetes clusters. As such, we at Red Hat continue to add new features and capabilities to meet those demands by announcing the availability of <code>kubernetes.core</code> version 2.3, our Red Hat Ansible Certified Content Collection for Kubernetes and Helm.</p>
 <p>In this blog post, we’ll go over what’s new and what’s different in this release of our Kubernetes Collection.</p>
 <h2 id="new-module-k8s-taint">New Module - k8s\_taint</h2><p>With the release of <code>kubernetes.core</code> 2.3, we introduce the <code>k8s_taint</code> module. This module provides the ability for a Kuberentes node to repel a pod or set of pods from being scheduled unless they have a matching toleration. This establishes that with taints and tolerations in place, pods are not scheduled onto inappropriate nodes.</p>
@@ -128,11 +134,14 @@
 <p>There have been a number of small improvements to our Helm modules. The <code>kubernetes.core.helm_info</code> module now has a <code>release_state</code> parameter that gives you expanded control over filtering releases. The default behavior of returning only releases in the failed or deployed state remains the same. Additional release states are now supported, as well.</p>
 <p>A new <code>plugin_version</code> parameter has been added to the <code>kubernetes.core.helm_plugin</code> module. In addition to being able to install a specific version of Helm plugin, a new latest state was added. This state verifies that the requested plugin is always at the latest version. This differs from the default present state in that with <code>state: present</code>, the latest version will only be installed if the plugin is not currently installed.</p>
 <p>Finally, the <code>wait</code> parameter on the <code>kubernetes.core.helm</code> module will now work when deleting releases. Previously, this only worked when installing or upgrading a release due to limitations in helm itself. This functionality requires a helm version &gt;= 3.7.0.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Kubernetes automation content</p>
   <p class="blog-callout__body">Collections, inventories, and patterns from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/">Read the guide →</a>
+  </div>
 </aside><h2 id="summary">Summary</h2><p>With the newest release of Ansible Content Collection for <code>kubernetes.core</code>, users now have:</p>
 <ul>
 <li>the flexibility to set taints and tolerations to repel a pod or set of pods from being scheduled unless they have a matching toleration.</li>
@@ -149,9 +158,12 @@
 <li><a href="https://www.ansible.com/blog/introducing-the-ansible-content-collection-for-red-hat-openshift">Introducing the Ansible Content Collection for Red Hat OpenShift</a></li>
 <li><a href="https://www.ansible.com/resources/ebooks">Ansible e-books</a> with topic-specific insights</li>
 </ul>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/">Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application</a></li><li><a href="/blog/ansible-automation-platform-youre-using-it-wrong/">Ansible Automation Platform … You’re using it wrong.</a></li><li><a href="/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/">New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#roger-lopez">Roger Lopez</a></p></footer>

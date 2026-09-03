@@ -50,25 +50,34 @@
         <p class="blog-post-meta"><a href="/team/#andrius-benokraitis">Andrius Benokraitis</a> · <time datetime="2021-09-29">September 28, 2021</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Introducing Red Hat Ansible Automation Platform 2 and changes to how automation is developed, managed, and operated in large, complex environments.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png" alt="aap 2-1"></a></p>
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> Introducing Red Hat Ansible Automation Platform 2 and changes to how automation is developed, managed, and operated in large, complex environments.</div>
+</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png" alt="aap 2-1"></a></p>
 <p>For the last two years, the Red Hat Ansible Automation Platform product team has been hard at work developing the next major release. We are incredibly excited to introduce Red Hat Ansible Automation Platform 2, which was <a href="https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators">just announced</a> at <a href="http://ansiblefest.com">AnsibleFest 2021</a>.</p>
 <p><strong>What’s new in Ansible Automation Platform 2?</strong></p>
 <p>The main focus was to enhance the foundational pieces of the Ansible Automation Platform and to enable automators to automate at enterprise scale more easily and flexibly. This means everything you know and love about writing Ansible Playbooks is largely unchanged, but what is evolving is the underlying implementation of how automation is developed, managed, and operated in large complex environments. In the end, enterprise automation platforms must be designed, packaged, and supported with container native and hybrid cloud environments in mind.</p>
 <p>So how did we get here? It’s been years in the making, which included the following changes:</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+  </div>
 </aside><p><em>1.</em> <a href="https://www.ansible.com/blog/the-future-of-ansible-content-delivery"><em>Ansible content was separated from the Ansible executable</em></a> <em>in the Ansible Project, creating a new construct called an</em> <a href="https://www.ansible.com/blog/getting-started-with-ansible-collections"><em>Ansible Content Collection</em></a><em>s to house Ansible modules, plugins, roles and more in a discrete and atomic form.</em></p>
 <p>The vast majority of time recently has been spent relocating the majority of Ansible content (modules, plugins) into standalone Ansible Collections developed and maintained separately from the <a href="https://github.com/ansible/ansible/">Ansible open source project</a>. The main benefit is that the updating of Ansible content is no longer dependent on updating the Ansible project itself, allowing for continuous and asynchronous releases of content while maintaining stable releases of the Ansible executable.</p>
 <p><em>2. The control plane was separated from the execution plane in Ansible Tower, and renamed these components to automation controller and automation execution environments.</em></p>
 <p>Ansible Tower was split into two components: automation controller (control plane) and automation execution environments (execution plane) in order to better scale and provide more predictable automation for enterprises. By splitting Tower into two components, you can now have execution running outside of the control node and is more conducive to running your automation in hybrid cloud and container native environments such as Red Hat OpenShift. You’ll also see additional features in the upcoming 2.1 release with a new component called automation mesh (think: a service mesh for Ansible), which replaces isolated nodes in Ansible Tower. This becomes more interesting by enabling new use cases such as automating at or to the edge as well as cloud automation.  </p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+  </div>
 </aside><p><em>3. New tools were created to better enable enterprise automation developers.</em>  </p>
 <p>Developing Ansible content has largely been up to the individual for building and curating content. New tools such as automation content navigator (ansible-navigator) and execution environment builder (ansible-builder) allow for a more consistent experience for content developed on a workstation that’s destined for an enterprise automation controller instance. This is made possible with  automation execution environments, which are now much more predictable, portable, and scalable compared to traditional Python virtual environments previously.</p>
 <p>Ansible Automation Platform 2 introduces an improved architecture and a variety of new tools to scale your automation while still providing a familiar Ansible experience to your teams.  We want to provide you with all the information you need to get your automation teams up to speed on the new features and start developing your migration strategy (if applicable) to best prepare for the forthcoming 2.1 general availability anticipated for later this year. Over the next month, keep an eye on the <a href="https://red.ht/AAP-20">Knowledgebase on Red Hat Customer Portal</a> for all the latest on documentation, installation, migration and component deep dives.</p>
@@ -84,9 +93,12 @@
 <p><strong>How do I get more help?</strong></p>
 <p>If you are interested in hearing more about Ansible Automation Platform 2, please reach out to your Red Hat sales representative. In the meantime, you can log into the <a href="https://red.ht/AAP-20">Red Hat Customer Portal</a> for official resources around the launch, including migration considerations, getting started blogs, and official documentation which can be found at <a href="https://red.ht/AAP-20">the Early Access page</a><em>. (Note: a Red Hat subscription is required for access)</em></p>
 <p>Still need assistance? Can’t find your Red Hat Sales representative? Contact <a href="https://access.redhat.com/support/contact/technicalSupport/">Red Hat Technical support</a> for additional information. Please refer to the <a href="https://red.ht/AAP-20">official resources</a> that will help you on your automation journey.</p>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave/">A Deeper Look, Red Hat Named a Leader in the Forrester Wave</a></li><li><a href="/blog/whats-new-in-ansible-automation-platform-2.2/">What's new in Ansible Automation Platform 2.2</a></li><li><a href="/blog/team-automation-numbers/">By the numbers: Getting your team on board with IT automation</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#andrius-benokraitis">Andrius Benokraitis</a></p></footer>

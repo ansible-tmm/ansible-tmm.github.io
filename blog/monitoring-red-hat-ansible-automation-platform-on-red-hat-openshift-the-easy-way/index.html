@@ -50,9 +50,15 @@
         <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2022-08-29">August 28, 2022</time> · 8-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> This blog post demonstrates how to monitor the API metrics provided by an Ansible Automation Platform environment when deployed within Red Hat OpenShift.</aside><aside class="blog-toc">
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> This blog post demonstrates how to monitor the API metrics provided by an Ansible Automation Platform environment when deployed within Red Hat OpenShift.</div>
+</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#what-will-we-use-to-monitor-the-api-metrics">What will we use to monitor the API metrics?</a></li><li><a href="#what-can-we-expect">What can we expect?</a></li><li><a href="#what-metrics-can-i-expect-to-see-in-the-pre-built-dashboard">What metrics can I expect to see in the pre-built dashboard?</a></li><li><a href="#automating-with-an-ansible-playbook">Automating with an Ansible Playbook</a></li><li><a href="#prerequisites">Prerequisites</a></li><li><a href="#prerequisites-2">Prerequisites</a></li><li><a href="#installing-configuring-grafana">Installing &amp; configuring Grafana</a></li><li><a href="#what-can-i-do-next">What can I do next?</a></li></ul>
+  </div>
 </aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/monitoring%20ansible%20on%20ocp%20blog.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/monitoring%20ansible%20on%20ocp%20blog.png" alt="monitoring ansible on ocp blog"></a></p>
 <p>As Red Hat Ansible Automation Platform enables teams and organizations to drive their automation from across the cloud and on-premise, keeping Ansible Automation Platform healthy with the ability to monitor key metrics becomes paramount.</p>
 <p>This blog post demonstrates how to monitor the API metrics provided by an Ansible Automation Platform environment when deployed within Red Hat OpenShift.</p>
@@ -173,11 +179,14 @@
 </li>
 </ol>
 <p>For completeness and understanding of the entire process, the manual steps are captured in the following sections.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+  </div>
 </aside><h2 id="prerequisites-2">Prerequisites</h2><p>The steps performed in this blog require access to an OpenShift cluster that has deployed the Ansible Automation Platform Operator and you can access your automation controller dashboard.</p>
 <h3 id="create-bearer-token-to-capture-metrics">Create Bearer Token to capture metrics</h3><p>In order to capture the /api/v2/metrics from an Ansible Automation Platform install, you need credentials to access them. An OAuth2 token allows us to authenticate Prometheus with Ansible Automation Platform.</p>
 <ol>
@@ -413,9 +422,12 @@
 <li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
 <li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
 </ul>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/">Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application</a></li><li><a href="/blog/ansible-automation-platform-youre-using-it-wrong/">Ansible Automation Platform … You’re using it wrong.</a></li><li><a href="/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/">New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#roger-lopez">Roger Lopez</a></p></footer>

@@ -50,15 +50,21 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2023-11-02">November 1, 2023</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Event-Driven Ansible is changing the automation landscape and AI is changing how we work with technology. What happens when we use both for fact gathering ?</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png" alt=""></a></p>
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> Event-Driven Ansible is changing the automation landscape and AI is changing how we work with technology. What happens when we use both for fact gathering ?</div>
+</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png" alt=""></a></p>
 <p>The use of Event-Driven Ansible to enable fact gathering from events is considered a “Getting Started” type of use case, but it can be extremely powerful. This use case is simple and it is what we consider a “Read Only” type of action, meaning that we are not making any changes, but we are using the event to trigger a fact gathering process which we can later publish to the IT Service Management system.</p>
 <p>The benefit with this is we are able to provide consistent automated troubleshooting and fact gathering which is used to enrich the ticketing systems, so when our engineers have a look at the incident, they have all the information they need to decide on the next steps to resolve the issue or situation. This can potentially save many hours of toil and ultimately save an organization money from reduced down time and faster resolutions. But, we are assuming that our technical teams will know what to do with this event data.</p>
 <p>What if we could assist with filling the gap when an incident takes place, and we could receive information or even options on how to resolve the issues? This is where we could use Event-Driven Ansible with the power of AI to enhance our team&#39;s approach to an incident.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
   <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
+  </div>
 </aside><h2 id="event-condition-action">Event - Condition - Action!</h2><p>My environment is simple: I have a few Windows systems, an Event-Driven Ansible controller listening to events from these Windows systems and an automation controller. Windows has a verbose event logging system and this is beneficial for this type of use case. Working with Active Directory, a common task is to create and remove users or manage users in general. In my first example of fact gathering, I create a new user on the Active Directory and the event payload I receive in my Event-Driven Ansible controller looks like this: (Formatted Json)</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ebvZyDMBMN-UZuxwH420GXEDowhitLKDNRU1J_ZxdvGQg8bLJpIwee2UVoIIiaHRZjZZnldbzdvezK1ogpkTLZQv006OYYGBwfBaAbSyVOGKaNmqFOA-mY4DM03zEtFv5wjsLHewPl0XmhRmYnbcWp8_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ebvZyDMBMN-UZuxwH420GXEDowhitLKDNRU1J_ZxdvGQg8bLJpIwee2UVoIIiaHRZjZZnldbzdvezK1ogpkTLZQv006OYYGBwfBaAbSyVOGKaNmqFOA-mY4DM03zEtFv5wjsLHewPl0XmhRmYnbcWp8_0.png" alt=""></a></p>
 <p>The payload provides a wealth of information, and for a task like adding a user account to the Active Directory, this event-id can be used in a condition since I already know what the course of action should be when new users are added in my organization. I want to gather the information and post the account data into a ServiceNow ticket.</p>
@@ -189,11 +195,14 @@
 <ul>
 <li>Demo: <a href="https://youtu.be/0vQACe3shW0?si=yzQF84YWSbakFLjj">Windows and Event-Driven Ansible w/ ServiceNow</a></li>
 </ul>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Event-Driven Ansible ChatOps</p>
   <p class="blog-callout__body">From chat message to automated action with the TMM team walkthrough.</p>
   <a class="blog-callout__cta" href="/blog/event-driven-ansible-chatops-from-chat-to-action/">Read the guide →</a>
+  </div>
 </aside><h2 id="additional-resources-and-next-steps">Additional resources and next steps</h2><p><strong>Want to learn more about Event-Driven Ansible?</strong></p>
 <ul>
 <li>Self-paced labs: <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Hands-on experience with ServiceNow, Event-Driven Ansible and more</a></li>
@@ -201,9 +210,12 @@
 <li>Event-Driven Ansible <a href="http://ansible.com/event-driven">web page</a></li>
 <li>Follow Nuno @<a href="https://twitter.com/NunoMart11">https://twitter.com/NunoMart11</a></li>
 </ul>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li><li><a href="/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/">Navigating AI vulnerability discovery and achieving operational resilience with automation</a></li><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>

@@ -50,9 +50,15 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2023-06-27">June 26, 2023</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> An overview of new features found in the Ansible Automation Platform 2.4 release</aside><aside class="blog-toc">
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> An overview of new features found in the Ansible Automation Platform 2.4 release</div>
+</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#event-driven-ansible">Event-Driven Ansible</a></li><li><a href="#collection-repository-management">Collection repository management</a></li><li><a href="#validated-content-integration">Validated content integration</a></li><li><a href="#ansible-builder-30">Ansible Builder 3.0</a></li><li><a href="#platform-install-support-for-arm">Platform install support for ARM</a></li><li><a href="#platform-install-support-for-linux-on-power-and-z-are-in-technology-preview-support">Platform install support for Linux on Power and Z are in Technology Preview support</a></li><li><a href="#updated-user-interface-in-technology-preview-support">Updated user interface in Technology Preview support</a></li><li><a href="#the-ansible-lightspeed-with-ibm-watson-code-assistant-technical-preview-is-now-available">The Ansible Lightspeed with IBM Watson Code Assistant Technical Preview is now available</a></li><li><a href="#wrap-up-next-steps-and-resources">Wrap-up, next steps and resources</a></li></ul>
+  </div>
 </aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png" alt="2.4 banner"></a></p>
 <p>We are excited to announce the general availability of Red Hat Ansible Automation Platform 2.4, which continues to build on our core promise to help customers “Create, Manage, and Scale” their automation.</p>
 <p>This blog post outlines a number of new features and capabilities found in the 2.4 release, including the long-anticipated general availability of <a href="https://www.redhat.com/en/about/press-releases/red-hat-accelerates-it-automation-event-driven-ansible">Event-Driven Ansible</a>. Ansible Automation Platform 2.4 is going to greatly expand the scope of both <em>what</em> and <em>how</em> organizations are able to automate with Ansible—so let’s dive right in.</p>
@@ -144,22 +150,28 @@
 <li><a href="https://www.youtube.com/watch?v=emHLD4_YcLw&t=5s">Demo: Using Event-Driven Ansible with Elasticsearch logs!</a></li>
 <li><a href="https://www.youtube.com/watch?v=RBKKgawZiqI&t=1s">Demo: Respond to DNS events with Event-Driven Ansible!</a></li>
 </ul>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
   <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
+  </div>
 </aside><h2 id="collection-repository-management">Collection repository management</h2><p>The goal of the private automation hub in Ansible Automation Platform is to help organizations better control and manage their automation content (and by automation content, we specifically mean <a href="https://www.ansible.com/products/content-collections">Ansible Content Collections</a> and <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html">Automation execution environments</a>). Whether you are producing private content, need to access trusted and fully supported content, or want to integrate community content, the private automation hub can allow an on-premises solution to help manage what teams get access to what content.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-15-1543-PM.4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-15-1543-PM.4.png" alt=""></a></p>
 <p>The new collection repository management feature found in Ansible Automation Platform 2.4 provides customers and partners much more control over <em>who</em> gets access to <em>what</em> automation content. Prior to this feature, platform users were only able to access the built-in repositories of content for Ansible Content Collections. This meant that everyone within an organization had access to these built-in repositories such as rh-certified content or community content, but there was no ability for more repositories to subdivide who had access to what.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-3871-PM.4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-3871-PM.4.png" alt=""></a></p>
 <p>Repositories view in private automation hub</p>
 <p>This new capability will make it much easier for customers and partners to securely distribute the automation content to the correct teams, which in turn will help them get even more value out of Ansible Automation Platform. Click <a href="https://www.redhat.com/products/automation-hub">here</a> for more info about Ansible automation hub and private automation hub. </p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+  </div>
 </aside><h2 id="validated-content-integration">Validated content integration</h2><p>At AnsibleFest 2022, we introduced Ansible <a href="https://www.redhat.com/en/blog/automate-expert-ansible-validated-content">validated content</a>. Ansible validated content is a new set of collections containing pre-built YAML content to address the most common automation use cases. You can use Ansible validated content out-of-the-box or as a learning opportunity to develop your skills. It&#39;s a trusted starting point to bootstrap your automation: use it, customize it and learn from it.</p>
 <p>With Ansible Automation Platform 2.4, even more Ansible validated content is now fully integrated into private automation hub. This includes the following new collections:</p>
 <table>
@@ -241,9 +253,12 @@
 <p><strong>Ansible Builder v3</strong> will help developers create execution environments more efficiently.</p>
 <p>And <strong>platform support on an expanded set of CPU architectures</strong> will ensure more flexibility - and more possibilities.</p>
 <p>That’s all for now. Thanks for reading and stay tuned for additional blogs going deeper on some of the new features outlined here today. And as always - happy automating.</p>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-and-packer-why-they-are-better-together/">Using Ansible and Packer, From Provisioning to Orchestration</a></li><li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

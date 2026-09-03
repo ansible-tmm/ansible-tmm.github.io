@@ -50,9 +50,15 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2025-03-20">March 19, 2025</time> · 3-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections.</aside><aside class="blog-toc">
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections.</div>
+</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#openssh-support">OpenSSH support</a></li><li><a href="#why-automate-windows-with-ansible-automation-platform">Why automate Windows with Ansible Automation Platform?</a></li><li><a href="#expanding-the-ansiblewindows-collection">Expanding the ansible.windows collection</a></li><li><a href="#azure-additions">Azure additions</a></li></ul>
+  </div>
 </aside><p>The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections. Additionally, the new <code>Microsoft.iis</code> collection includes comprehensive support for configuring Internet Information Services (IIS), and the <code>ansible.windows</code> collection has been updated with additional modules to support Windows server management. Furthermore, Ansible Automation Platform extends its reach to cloud and hybrid environments with new support for managing Azure Arc resources, enabling consistent and unified management across on-premises, multi-cloud and edge environments.</p>
 <h2 id="openssh-support">OpenSSH support</h2><p>When automating Windows, you may have used WinRM in the past. However, OpenSSH has long been a request from customers, and at the end of 2024 <a href="https://docs.ansible.com/ansible/devel//os_guide/windows_ssh.html#">OpenSSH is supported in Windows Server 2022</a>+ and Ansible core 2.18+.</p>
 <h2 id="why-automate-windows-with-ansible-automation-platform">Why automate Windows with Ansible Automation Platform?</h2><p>Traditional Windows management often requires GUI-based configurations, manual patching and repetitive administrative tasks. With Ansible Automation Platform, you can:</p>
@@ -163,19 +169,25 @@
 </tr>
 </tbody></table>
 <p>This collection focuses on management of IIS and allows you to create and manage virtual directories, web applications, web application pools and IIS websites. The collection also provides modules to gather information on each of these components.</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+  </div>
 </aside><h2 id="azure-additions">Azure additions</h2><p>Azure Arc allows Azure to monitor infrastructure in or outside of the cloud, and Ansible Automation Platform can automate deployment and configuration of that infrastructure.  Azure Arc supports virtual machine (VM) management over SSH, and Ansible Automation Platform now enables connectivity and automation of connected VMs through Arc as if the nodes were directly routable. Read <a href="https://www.redhat.com/en/blog/migrate-to-azure-monitor-agent-on-azure-arc-using-red-hat-ansible-automation-platform">this article</a> for information about deploying the Azure Arc monitoring agent using Ansible Automation Platform.</p>
 <p>New additions to <a href="https://catalog.redhat.com/software/collection/azure/azcollection">azure.azcollection</a> support using Arc through the Azure_RM_arcssh module, which allows you to configure an SSH proxy for Arc hosts to connect to Azure.</p>
 <p>The recent updates to the Azure and Microsoft Windows and IIS Certified Collections for Ansible Automation Platform represent a significant step forward in enhancing automation capabilities for enterprises. These updates not only streamline the integration of Azure services with Ansible Automation Platform, but also ensure that organizations can leverage the latest features and connection types. By continuously evolving and expanding the certified collections, Red Hat and Microsoft are empowering IT teams to automate complex workflows with greater efficiency and confidence.</p>
-<aside class="blog-callout blog-callout--redhat">
+<aside class="blog-hub-addition blog-callout blog-callout--redhat" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Red Hat</span>
   <p class="blog-callout__title">Ansible Automation Platform documentation</p>
   <p class="blog-callout__body">Official product documentation from Red Hat.</p>
   <a class="blog-callout__cta" href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/">Read the docs →</a>
+  </div>
 </aside><h3 id="where-to-go-next">Where to go next</h3><ul>
 <li>Attend Red Hat’s premier event <a href="https://www.redhat.com/en/summit">Red Hat Summit 2025</a></li>
 <li>Volvo Cars reveal how they use <a href="https://youtu.be/8KunwQQynV8?si=cuJBS_3gPcVjO1xj">Ansible Automation Platform on Microsoft Azure to accelerate time-to-automation</a></li>
@@ -183,9 +195,12 @@
 <li>Watch a video on <a href="https://youtu.be/nmW49G-5-p0?si=NHkXu02oMCzP8W1C">Windows automation: Speed and scale</a> to understand how you can scale your automation of Windows servers</li>
 <li>Want to learn Ansible? Check out our<a href="https://developers.redhat.com/products/ansible/getting-started">getting started guide</a> on<a href="http://developers.redhat.com/">developers.redhat.com</a></li>
 </ul>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/importing-ansible-validated-content-into-private-automation-hub/">Importing Ansible Validated Content into Private Automation Hub</a></li><li><a href="/blog/unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform/">Unleashing the Potential of Multi-Cloud Automation with Ansible and Terraform</a></li><li><a href="/blog/red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace/">Red Hat Ansible Automation Platform on Google Cloud Marketplace</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>

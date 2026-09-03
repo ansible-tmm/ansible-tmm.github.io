@@ -50,7 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2022-03-09">March 8, 2022</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Private automation hub provides organizations with a central location for their automation resources.</aside><p>If Ansible Automation Platform was compared to the crunchy goodness of a cookie, private automation hub would be the sweet center bringing it all together and making your mouth water!</p>
+        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content"><strong>Summary:</strong> Private automation hub provides organizations with a central location for their automation resources.</div>
+</aside><p>If Ansible Automation Platform was compared to the crunchy goodness of a cookie, private automation hub would be the sweet center bringing it all together and making your mouth water!</p>
 <p>Private automation hub provides organizations with a central location for their automation resources. Ansible automation hub is part of the hosted services from <a href="https://console.redhat.com">console.redhat.com</a>. This hosted offering provides automation adepts access to Red Hat Ansible Certified Content Collections for several industry-leading technologies and partners.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/HVO-iLb2a4n1vdP6YI7oebxvh5hUbUArl__OuIVQ3AnUSQRbGuJlEi03AEyRGUpjZZ2FmDFxGV2ubIlZU3dtS2FA2Ys63lCo3A63boEbBHdnbCBzE8nY1BadVfJB5FJz0TchdYAO.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/HVO-iLb2a4n1vdP6YI7oebxvh5hUbUArl__OuIVQ3AnUSQRbGuJlEi03AEyRGUpjZZ2FmDFxGV2ubIlZU3dtS2FA2Ys63lCo3A63boEbBHdnbCBzE8nY1BadVfJB5FJz0TchdYAO.png" alt=""></a></p>
 <p>Private automation hub brings this functionality on-premises and allows for users to curate their custom automation content with not only Red Hat Ansible Certified Content but with community content from Ansible Galaxy. Private automation hub also acts as a container registry where we can store and distribute the automation execution environments needed for Ansible Automation Platform 2.</p>
@@ -127,11 +130,14 @@
 <p>The community remote repository allows us to configure Ansible Galaxy using a curated <code>requirements.yml</code> file as well as our credentials for Ansible Galaxy. We will now be able to synchronize the collections and content from our requirement file from Ansible Galaxy.</p>
 <p>We are now able to see the synchronized collections in our private automation hub.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/h39undJ84Lw7AiaACIcRmmxyzJ2r6ZiVT1RIAUXPemoKGFYeabxN9aX4cMDsdIFMYzAz6IoFxP8g9D-8NOJEATT6ImziqBB_riQj-AzMoIfwEJYG1ZXpJXtoJM1zpnk9y7-I83eL.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/h39undJ84Lw7AiaACIcRmmxyzJ2r6ZiVT1RIAUXPemoKGFYeabxN9aX4cMDsdIFMYzAz6IoFxP8g9D-8NOJEATT6ImziqBB_riQj-AzMoIfwEJYG1ZXpJXtoJM1zpnk9y7-I83eL.png" alt=""></a></p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+  </div>
 </aside><h2 id="centralizing-and-managing-automation-execution-environments">Centralizing and managing automation execution environments</h2><p>Private automation hub allows us to store, manage and push our automation execution environments to our automation controller. We can connect to external container registries and pull the execution environments we want on our platform.</p>
 <p>Private automation hub should have the default execution environments, which are deployed in the automation controller when it is installed. If we want to add execution environments from remote repositories, we need to configure the repository first. To configure a remote repository, navigate to “Remote Registries” found under the execution environments menu and select “add remote registry”.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/3m_LWx6Auww4hxWaUbVIBkCX0BKIb6r1t1bsouVmuAxvJUNMIQEAAwNXQsHWqrR6eXyRo04uTFH345TzaZM6pjL4nc8rWurzSmHZWZj2eIgIvtC4U4l-xuQFFuQ1oPDR1hzEB6L4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/3m_LWx6Auww4hxWaUbVIBkCX0BKIb6r1t1bsouVmuAxvJUNMIQEAAwNXQsHWqrR6eXyRo04uTFH345TzaZM6pjL4nc8rWurzSmHZWZj2eIgIvtC4U4l-xuQFFuQ1oPDR1hzEB6L4.png" alt=""></a></p>
@@ -151,19 +157,25 @@
 <p>Now that we have our execution environment, we can send it to our automation controller. Selecting the ellipsis and choosing “Use in Controller”. Here, we can see all the relevant information regarding our execution environment and select which automation controller to push it to. Once you select your controller you will be redirected to your automation controller to add the execution environment.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/4sbkBOyiD7D0fEko8LXNBFedV3Jtbz3t3-nQRzY7jCfvw4COGb5iHS3cpeQhsiIR8iLDawYsLctH6QzM4fb1fldOztz16mXlthd67nVLTa1T3yjDnBjEmciFWD_iFlVo7dXb3Scm.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/4sbkBOyiD7D0fEko8LXNBFedV3Jtbz3t3-nQRzY7jCfvw4COGb5iHS3cpeQhsiIR8iLDawYsLctH6QzM4fb1fldOztz16mXlthd67nVLTa1T3yjDnBjEmciFWD_iFlVo7dXb3Scm.png" alt=""></a></p>
 <p>Now we have our automation cookie up and running, it&#39;s time to indulge in our sweet automation!</p>
-<aside class="blog-callout blog-callout--tmm">
+<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Kubernetes automation content</p>
   <p class="blog-callout__body">Collections, inventories, and patterns from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/">Read the guide →</a>
+  </div>
 </aside><h2 id="additional-resources">Additional resources</h2><ul>
 <li>Try <a href="https://www.redhat.com/en/technologies/management/ansible/try-it">Ansible Automation Platform</a> free for 60 days</li>
 <li>Blog: <a href="https://www.ansible.com/blog/activate-insights-for-ansible-automation-platform">How to Activate Insights for Ansible Automation Platform</a></li>
 <li>Blog: <a href="https://www.ansible.com/blog/introducing-red-hat-ansible-automation-platform-2.1">Introducing Ansible Automation Platform 2.1</a>.</li>
 </ul>
-<aside class="blog-related">
+<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
+  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
+  <div class="blog-hub-addition__content">
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li><li><a href="/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/">Navigating AI vulnerability discovery and achieving operational resilience with automation</a></li><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li></ul>
+  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>
