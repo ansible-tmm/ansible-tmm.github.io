@@ -50,26 +50,19 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2019-11-14">November 13, 2019</time> · 6-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> In this blog post, we go into how to get started with Automation Analytics, a part of Red Hat Ansible Automation Platform.</div>
-</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog post, we go into how to get started with Automation Analytics, a part of Red Hat Ansible Automation Platform.</aside><aside class="blog-toc">
+  
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#what-you-need-to-get-started">What you need to get started:</a></li><li><a href="#ansible-automation-platform-terminology">Ansible Automation Platform terminology</a></li><li><a href="#activating-data-collection">Activating Data Collection</a></li><li><a href="#manual-data-collection">Manual Data Collection</a></li><li><a href="#verifying-ansible-tower-is-syncing">Verifying Ansible Tower is syncing</a></li><li><a href="#exploring-automation-analytics">Exploring Automation Analytics</a></li><li><a href="#going-further">Going Further</a></li></ul>
-  </div>
 </aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png" alt="blog_getting-started_automation-analytics"></a></p>
 <p>With the upcoming release of the Red Hat Ansible Automation Platform there are now included Software as a Service (SaaS) offerings, one of which is <a href="https://www.redhat.com/products/automation-analytics">Automation Analytics</a>.  This application provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire infrastructure.</p>
 <p>When talking to the community and our customers, a question that often comes up is: “How do we measure success?”.  Automation Analytics provides key data on Job Template usage, Ansible Module usage, organizational comparisons across your enterprise, and much more.  This data can be used to assess usage, success criteria, and even charge backs between different groups. This blog post will outline how to get started with Automation Analytics and start collecting data right away.</p>
-<h2 id="section"></h2><aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<h2 id="section"></h2><aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
-  </div>
 </aside><h2 id="what-you-need-to-get-started">What you need to get started:</h2><ul>
 <li><p>Red Hat Ansible Tower 3.5.3 or newer</p>
 </li>
@@ -89,14 +82,12 @@
 <li><strong>SaaS</strong> - Software as a Service.  For this post this refers to software that Red Hat hosts and runs versus software that a customer runs on their own infrastructure.  There are multiple SaaS offerings available on cloud.redhat.com, but we are strictly talking about Automation Analytics.</li>
 <li><strong>organization</strong> - this refers specifically to the terminology in Red Hat Ansible Tower.  An Ansible Tower organization is a logical collection of Users, Teams, Projects, and Inventories. It is the highest level in the Tower object hierarchy.</li>
 </ul>
-<h2 id="section-2"></h2><aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<h2 id="section-2"></h2><aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
-  </div>
 </aside><h2 id="activating-data-collection">Activating Data Collection</h2><p>First login to your Red Hat Ansible Tower web UI (user interface).  The user account must have administrative privileges to turn on data collection.  Click on the Settings button on the left menu. If the menu is in compact mode there will only be a small gear representing the settings.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200.png" alt="pasted image 0"></a></p>
 <p>Next click on the System button:</p>
@@ -178,12 +169,10 @@
 <li><a href="https://www.ansible.com/community/events/automates">Ansible Automates events</a></li>
 </ul>
 <p>Also check out the next post in this series: <a href="https://www.redhat.com/blog/automation-analytics-part-2-looking-at-data-collection">Getting Started with Automation Analytics: Part 2</a></p>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-and-packer-why-they-are-better-together/">Using Ansible and Packer, From Provisioning to Orchestration</a></li><li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

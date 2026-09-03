@@ -50,10 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2024-12-05">December 4, 2024</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Red Hat Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud deployments.</div>
-</aside><p>Red Hat Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud deployments.  In my last public cloud blog, I talked about &quot;Two Simple Ways Automation Can Save You Money on Your AWS Bill&quot; and similarly to Ashton&#39;s blog &quot;Bringing Order to the Cloud: Day 2 Operations in AWS with Ansible&quot;, we both wanted to look outside the common public cloud use-case of provisioning and deprovisioning resources and instead look at automating common operational tasks.  For this blog post I want to cover how the Technical Marketing team for Ansible orchestrates a pipeline for demos and workshops with Ansible and how we integrate that with custom AMIs (Amazon Machine Images) created with <a href="https://www.packer.io/">Packer</a>.  Packer is an open source tool that allows IT operators to standardize and automate the process of building system images.</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Red Hat Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud deployments.</aside><p>Red Hat Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud deployments.  In my last public cloud blog, I talked about &quot;Two Simple Ways Automation Can Save You Money on Your AWS Bill&quot; and similarly to Ashton&#39;s blog &quot;Bringing Order to the Cloud: Day 2 Operations in AWS with Ansible&quot;, we both wanted to look outside the common public cloud use-case of provisioning and deprovisioning resources and instead look at automating common operational tasks.  For this blog post I want to cover how the Technical Marketing team for Ansible orchestrates a pipeline for demos and workshops with Ansible and how we integrate that with custom AMIs (Amazon Machine Images) created with <a href="https://www.packer.io/">Packer</a>.  Packer is an open source tool that allows IT operators to standardize and automate the process of building system images.</p>
 <p>For some of our <a href="https://red.ht/ansible_labs">self-paced interactive hands-on labs on Ansible.com</a>, we can quickly spin up images in seconds.  In an example automation pipeline we will:</p>
 <ol>
 <li>Provision a virtual instance.</li>
@@ -79,14 +76,12 @@
 <p>This simple provisioner plugin is executing the Ansible Playbook pre_build_controller.yml.  I can also use Ansible Automation Platform to orchestrate the whole process by kicking off Packer and then continuing on.  Anything that I can do ahead of time, I can pre-build into the image.  This means there is less automation I need to do at boot time (or what is sometimes referred to as &quot;automation just in time&quot;).  The new process looks like this diagram:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible-packer-blog-two.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible-packer-blog-two.png" alt="Create pre-built image diagram"></a></p>
 <p>These two processes, building images and serving a demo environment, are actually independent of each other.  Depending on how often a pre-built image needs to be executed, we can schedule that in automation controller, or even generate them on-demand via <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/webhooks.html">webhooks</a>. On-demand generation means as soon as someone changes an Ansible Playbook relevant to anything pre_build, we can have Ansible Automation Platform create the new image immediately, and even test it!</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
-  </div>
 </aside><h2 id="sharing-and-copying-cloud-instances">Sharing and copying cloud instances</h2><p>Once we create a pre_built AMI, we need to make sure we can use it in multiple regions, and on other accounts. With public marketplace instances you can use cool automation tricks like using the <a href="https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_ami_info_module.html">ec2_ami_info module</a> for dynamic lookups, but we have now essentially created private AMIs we can copy to other regions, or share to other AWS accounts so they have access to these pre_built images.  To solve this problem we can use automation, and I have created an Ansible Content Collection for <a href="https://galaxy.ansible.com/ansible_cloud/share_ami">ansible_cloud.share_ami</a>.</p>
 <p>This Collection currently has two roles available that will assist cloud administrators, copy and share.</p>
 <h3 id="copy">Copy</h3><p>This role will copy an AMI from one region, to any other specified regions.  This means you can use Packer to create it just once, and have Ansible take care of copying it to any other regions and return you with a list of new AMIs per region.</p>
@@ -154,12 +149,10 @@
   <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>new_ami_name: "RHEL 8.6 with automation controller"</span></span>
 <span class="line"><span>new_tag: "my test"</span></span></code></pre>
 </div><p>Now you can see one of the many ways that Ansible Automation Platform and Packer can easily and seamlessly work together to accomplish cloud automation tasks.  If you want more blogs on Ansible and Packer or Ansible and Terraform, please let us know!</p>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li><li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

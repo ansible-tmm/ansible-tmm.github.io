@@ -50,10 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2019-12-02">December 1, 2019</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Part 2 of the Automation Analytics blog post expanding on what data is collected and how to gain access to that data.</div>
-</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png" alt="blog_getting-started-Automation-Analytics-Part-2"></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Part 2 of the Automation Analytics blog post expanding on what data is collected and how to gain access to that data.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png" alt="blog_getting-started-Automation-Analytics-Part-2"></a></p>
 <p>We recently released <a href="https://www.ansible.com/products/automation-platform">Red Hat Ansible Automation Platform</a> which now includes multiple Software-as-a-Service (SaaS) offerings, one of which is Automation Analytics.  This offering provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire automation infrastructure.</p>
 <p>In a previous blog I wrote about <a href="https://www.ansible.com/blog/getting-started-with-automation-analytics">Getting Started with Automation Analytics</a>, but now want to expand on what data is collected and how to gain access to that data.  I highly recommend reading the previous blog if you are new to Red Hat Ansible Automation Platform, Ansible Tower concepts and our SaaS offerings. This is important to many customers because they all have their own security concerns with what data leaves their premises as well as  obligations to their own customers and stakeholders to make sure data sent will not be compromised in any way.</p>
 <p><a href="#Retrievingdata">Retrieving the data:</a></p>
@@ -73,14 +70,12 @@
 <p><a href="#unified_jobs_table.csv">unified_jobs_table.csv</a></p>
 <p><a href="#unified_job_template_table.csv">unified_job_template_table.csv</a></p>
 <p><a href="#Where-to-go-next">Where to go next?</a></p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
-  </div>
 </aside><h2 id="retrieving-the-data">Retrieving the data:</h2><p>Login to the Ansible Tower host with an account that has root privileges.  Create a folder (or use an existing folder) to work from.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -237,26 +232,22 @@
 <span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
 </div><h3 id="section-3"></h3><h3 id="unified-jobs-tablecsv">unified\_jobs\_table.csv</h3><p>This file includes information about the job runs (any job template that was executed) including when it was run and if it was successful or failed.  Most of the data is quite clear what it represents, but the polymorphic_ctype_id may throw folks. The polymorphic_ctype_id is an internal mapping to get that tracks the Job Type such as if the id is a <a href="https://docs.ansible.com/ansible-tower/latest/html/administration/management_jobs.html">systemjob</a>, <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html">workflowjob</a>, job, etc.  This file corresponds to the events_table.csv, and can also be seen in the <a href="https://gist.github.com/IPvSean/e7edb73f21a7eb6d9be058964b6bf9bb">gist provided above</a>.  The events_table.csv file gives an entire breakdown of every task within the Job Template versus the unified_jobs_table.csv which just catalogs the Job Run, the start time, finish type, etc.</p>
 <h3 id="unified-job-template-tablecsv">unified\_job\_template\_table.csv</h3><p>This file contains information about the Job Templates themselves (versus the Job Runs in the unified_job_table.csv file linked above).  This includes the id, polymorphic_ctype_id, when it was created, modified, the name of the job template and more. To see an example of this file check out my <a href="https://gist.github.com/IPvSean/18f06125f854a0adece060ce35275959">public gist here</a>.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
-  </div>
 </aside><h2 id="where-to-go-next">Where to go next?</h2><p>I hope this blog helps outline what type of data is sent to Red Hat to help alleviate any security concerns or data questions.  When I am talking to folks about the Red Hat Ansible Automation Platform I like to explain that they get all the Ansible they know and love today, but we are now bundling everything together in one simple platform for our customers.  The SaaS offering Automation Analytics is optional and included in the price of what folks were paying previously. We do not force any existing customers to use the tool and hand us data, but hope this will provide increased benefits.</p>
 <ul>
 <li><a href="https://www.ansible.com/products/automation-analytics">Learn more on Automation Analytics including a video demo</a></li>
 <li><a href="https://www.ansible.com/community/events/workshops">Attend an Ansible Automation Workshop and get hands-on with Ansible Tower</a></li>
 <li><a href="https://www.ansible.com/products/pricing">Contact us to get pricing information on the Ansible Automation Platform</a></li>
 </ul>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-and-packer-why-they-are-better-together/">Using Ansible and Packer, From Provisioning to Orchestration</a></li><li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

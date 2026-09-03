@@ -50,10 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2022-08-01">July 31, 2022</time> · 9-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Read about the technical implementation of automation mesh, what network ports it is using and how you can secure it.</div>
-</aside><p>Red Hat Ansible Automation Platform 2 features an awesome new way to scale out your automation workloads: automation mesh.  If you are unfamiliar with automation mesh, I highly recommend reading Craig Brandt’s blog post <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.1-automation-mesh">What&#39;s new: an introduction to automation mesh</a> which outlines how automation mesh can simplify your operations and scale your automation globally.  For this blog post, I want to focus on the technical implementation of automation mesh, what network ports it is using and how you can secure it.</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Read about the technical implementation of automation mesh, what network ports it is using and how you can secure it.</aside><p>Red Hat Ansible Automation Platform 2 features an awesome new way to scale out your automation workloads: automation mesh.  If you are unfamiliar with automation mesh, I highly recommend reading Craig Brandt’s blog post <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.1-automation-mesh">What&#39;s new: an introduction to automation mesh</a> which outlines how automation mesh can simplify your operations and scale your automation globally.  For this blog post, I want to focus on the technical implementation of automation mesh, what network ports it is using and how you can secure it.</p>
 <p>To quickly summarize both Craig’s blog post and our documentation, we separated the control plane (which includes the webUI and API) from the execution plane (where an Ansible Playbook is executed) in Ansible Automation Platform 2.  This allows you to choose where jobs run across execution nodes, so you can deliver and run automation closer to the devices that need it. In our implementation, there is four different types of nodes:</p>
 <ul>
 <li><strong>Control plane nodes</strong>: These are  accessed either via the WebUI and API. Execution capabilities are disabled on these nodes.</li>
@@ -254,12 +251,10 @@
 <li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our new web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
 <li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
 </ul>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-and-packer-why-they-are-better-together/">Using Ansible and Packer, From Provisioning to Orchestration</a></li><li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

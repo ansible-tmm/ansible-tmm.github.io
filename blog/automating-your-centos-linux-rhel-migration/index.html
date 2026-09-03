@@ -50,10 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2024-06-26">June 25, 2024</time> · 6-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> CentOS Linux EOL is edging  closer and Ansible Automation Platform is just the tool to help you upgrade with speed, consistency and scale.</div>
-</aside><p>The end of life (EOL) for CentOS Linux 7 is approaching, with updates ending on <strong>June 30, 2024</strong>. This impending deadline signifies the end of security updates and maintenance, posing significant risks for organizations that continue to rely on the outdated operating system. Upgrading to a more current and supported platform, such as <a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux">Red Hat Enterprise Linux</a> (RHEL), is needed to maintain an up-to-date security posture and  continued functionality.</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> CentOS Linux EOL is edging  closer and Ansible Automation Platform is just the tool to help you upgrade with speed, consistency and scale.</aside><p>The end of life (EOL) for CentOS Linux 7 is approaching, with updates ending on <strong>June 30, 2024</strong>. This impending deadline signifies the end of security updates and maintenance, posing significant risks for organizations that continue to rely on the outdated operating system. Upgrading to a more current and supported platform, such as <a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux">Red Hat Enterprise Linux</a> (RHEL), is needed to maintain an up-to-date security posture and  continued functionality.</p>
 <p>Migrating these systems, which may play a critical role in your organization’s IT infrastructure, is not trivial. <a href="https://www.redhat.com/en/technologies/management/ansible">Red Hat Ansible Automation Platform</a> can help streamline and automate this process, however, reducing the complexity, while enabling scalability and the ability to orchestrate changes to the surrounding infrastructure to support the migration.</p>
 <p>In this article I explore what is possible when using Ansible Automation Platform to drive this migration at scale across your organization and the steps needed to achieve this.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img1.png"><img src="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img1.png" alt="Centos Linux Migration to RHEL Workflow"></a></p>
@@ -157,26 +154,22 @@
 </div><p>As soon as a system has been upgraded, we can use Ansible Automation Platform to check the state of the system. If everything is good, we can also use automation to bring the systems back into production.</p>
 <h4 id="step-3-post-upgrade-add-ons">Step 3: Post-upgrade add-ons</h4><p>Our upgrades are done, but we can still do more with Ansible Automation Platform. Post-upgrade configuration and integration can take place as part of our automation workflows, streamlining all the additional tasks we often forget about when upgrading systems. Ansible Automation Platform allows you to integrate your new RHEL system into <a href="https://www.redhat.com/en/technologies/management/insights">Red Hat Insights</a>, simplifying compliance checks and enforcement. We can also configure <a href="https://www.redhat.com/en/blog/automate-performance-management-performance-co-pilot">Performance Co-Pilot</a> to report system metrics to <a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">Event-Driven Ansible</a> and just about every other Day 2 task you could think of!</p>
 <p><a href="https://console.redhat.com/ansible/ansible-dashboard">Automation analytics</a>can help provide clarity on the automated process or help us identify possible anomalies in the hosts during the process, which we can then address later.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
   <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
-  </div>
 </aside><h2 id="learn-more">Learn more</h2><ul>
 <li>This exercise is from a workshop provided by Red Hat - <a href="https://github.com/redhat-partner-tech/leapp-project">Check out the code</a></li>
 <li>Try <a href="https://www.redhat.com/en/technologies/management/ansible/try-it">Ansible Automation Platform</a> free for 60 days</li>
 <li>Learn how to automate on the platform with our <a href="https://www.redhat.com/en/interactive-labs/ansible">self-paced labs</a></li>
 <li>Check out the action on our <a href="https://www.youtube.com/@AnsibleAutomation">YouTube Channel</a></li>
 </ul>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li><li><a href="/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/">Navigating AI vulnerability discovery and achieving operational resilience with automation</a></li><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>

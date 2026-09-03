@@ -50,26 +50,19 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2026-06-08">June 7, 2026</time> · 8-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Learn how Red Hat Ansible Automation Platform helps organizations adopt zero trust security by automating policy enforcement and reducing the impact of security breaches. Discover the benefits of centralized enforcement with distributed execution and the dual-ring enforcement model.</div>
-</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Learn how Red Hat Ansible Automation Platform helps organizations adopt zero trust security by automating policy enforcement and reducing the impact of security breaches. Discover the benefits of centralized enforcement with distributed execution and the dual-ring enforcement model.</aside><aside class="blog-toc">
+  
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#the-ai-attack-surface-shift">The AI attack surface shift</a></li><li><a href="#defense-needs-an-automated-operational-layer">Defense needs an automated operational layer</a></li><li><a href="#ansible-automation-platform-as-the-policy-enforcement-point">Ansible Automation Platform as the Policy Enforcement Point</a></li><li><a href="#shrinking-potential-impact-with-dynamic-credentials-and-micro-segmentation">Shrinking potential impact with dynamic credentials and micro-segmentation</a></li><li><a href="#incident-response-at-machine-speed">Incident response at machine speed</a></li><li><a href="#multiple-layers-one-defense">Multiple layers, one defense</a></li><li><a href="#resources">Resources</a></li></ul>
-  </div>
 </aside><p>Recently, Red Hat&#39;s Vincent Danen <a href="https://www.redhat.com/en/blog/when-ai-finds-bugs-why-defense-depth-was-always-answer">highlighted</a> how AI models found 271 real security defects in Firefox in a single pass during Mozilla&#39;s collaboration with Anthropic. If AI can do that for defenders, it can do the same for attackers. As Danen put it, &quot;if your security strategy is solely predicated on the assumption that software will be vulnerability-free, you&#39;ve already lost.&quot;</p>
 <p>Vulnerabilities in code are only the entry point. The real damage comes after—lateral movement through misconfigured networks, overprivileged credentials, unrotated secrets, and services that blindly trust each other. No patch cycle can keep up with that. This underscores the need for more &quot;<a href="https://en.wikipedia.org/wiki/Defense_in_depth_(computing)">defense in depth</a>&quot; across enterprises—a cultural shift that assumes a compromise will inevitably occur, and focusing on reducing the impact of the exposure itself.</p>
 <p>This is the definition of <a href="https://www.redhat.com/en/topics/security/what-is-zero-trust">zero trust</a>. This first tidal wave of security vulnerabilities has a second and third coming behind it, and organizations need to adopt zero trust to move from pure prevention to containing the breach—enforcing least privilege across identity, secrets, network segmentation, and policy at every layer. Organizations require automated enforcement that executes at the velocity of these AI-driven threats. <a href="https://www.redhat.com/en/technologies/management/ansible">Red Hat Ansible Automation Platform</a> helps make this possible.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
   <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
-  </div>
 </aside><h2 id="the-ai-attack-surface-shift">The AI attack surface shift</h2><p>Traditional vulnerability scanners flag potential issues and hand them to a human for triage. AI has commoditized the cyberattack. Today&#39;s AI tools are essentially an entire team rolled into one, all at the cost of tokens. While devastating breaches like <a href="https://www.fortinet.com/resources/cyberglossary/solarwinds-cyber-attack">SolarWinds</a>demanded time, deep expertise, and luck, AI now empowers motivated attackers to effortlessly chain together complex, multiplatform vulnerabilities.</p>
 <p>These seemingly small weaknesses add up, and not for your benefit. For example:</p>
 <ul>
@@ -79,14 +72,12 @@
 </ul>
 <p>None of these are overly dangerous alone. Individually each would sit in a backlog as &quot;low priority,&quot; but chained together, they could let an attacker brute-force a password, hijack the session before it expires, and land inside the settings page as an administrator. Three minor bugs, yet you get a functional break-in.</p>
 <p>These advanced AI models write, compile, and execute exploit code, using failure outputs to iteratively refine and retry their attacks. While organizations use this to their advantage by finding and fixing previously unknown vulnerabilities at speed, the uncomfortable truth is that this capability is also available to attackers. As Danen wrote, &quot;the same tools that help defenders find bugs will inevitably help attackers find them too.&quot; The attacker skill ceiling just dropped. Faster patching is part of the answer, but it must be supplemented by good defenses.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM tool</span>
   <p class="blog-callout__title">AAP CVE Report</p>
   <p class="blog-callout__body">Explore CVE information relevant to Ansible Automation Platform.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/aap_cve_report/">Open tool →</a>
-  </div>
 </aside><h2 id="defense-needs-an-automated-operational-layer">Defense needs an automated operational layer</h2><p><a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux">Red Hat Enterprise Linux</a> with <a href="https://www.redhat.com/en/topics/linux/what-is-selinux">SELinux</a> and <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift">Red Hat OpenShift</a> already provide platform-level hardening, but these platform-level defenses need to be supplemented. For example, SELinux doesn&#39;t decide who&#39;s allowed to deploy an application. Container isolation doesn&#39;t revoke database credentials when a Security Information and Event Management (SIEM) system detects a brute-force attack at 3 AM. These are roles automation can play in creating a good defensive strategy.</p>
 <p>Operational changes (deployments, patches, network reconfigurations, credential rotations) flow through people, scripts, pipelines, and automation. If those paths aren&#39;t gated by policy, then platform hardening protects you from one class of attack while leaving another class wide open.</p>
 <p><a href="https://csrc.nist.gov/pubs/sp/800/207/final">NIST SP 800-207</a> lays out the Zero Trust Architecture (ZTA) blueprint, and at its center is the Policy Enforcement Point (PEP). Most people think of the PEP as a firewall or a gateway that filters network traffic. But when teams are deploying applications, patching servers, and changing network configurations, those actions don&#39;t pass through a firewall, they pass through automation. Ultimately, zero trust is an operational discipline that requires automation to be delivered at scale.</p>
@@ -165,12 +156,10 @@
 <li>Interactive walk-through: <a href="https://www.redhat.com/en/interactive-experiences">IT automation including security automation</a></li>
 <li>Web page: <a href="https://www.redhat.com/en/technologies/management/ansible/security-automation">Security automation</a></li>
 </ul>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li><li><a href="/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant/">Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant</a></li><li><a href="/blog/event-driven-ansible-simplified-event-routing-event-streams/">Event-Driven Ansible: Simplified event routing with Event Streams</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>

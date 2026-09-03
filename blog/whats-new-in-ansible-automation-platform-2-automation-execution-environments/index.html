@@ -50,10 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2021-10-04">October 3, 2021</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Ansible Automation Platform 2 introduces “automation execution environments.” These are atomic images on which all automation is run.</div>
-</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png" alt="aap 2 gray flying as-1"></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Ansible Automation Platform 2 introduces “automation execution environments.” These are atomic images on which all automation is run.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png" alt="aap 2 gray flying as-1"></a></p>
 <p>Red Hat Ansible Automation Platform 2 is now available to customers. This release expands the possibilities of automation across your organization, with a more secure, flexible foundation to build and deploy automation with greater acceleration, orchestration and innovation.</p>
 <p>As automation usage/practices/etc. spreads throughout an organization, managing multiple automation environments for different teams and use cases become challenging. This is even more true as automation starts to scale across the IT organization. As automation continues to be part of critical workflows, the following enhancements have been made in Ansible Automation Platform 2:</p>
 <ul>
@@ -64,14 +61,12 @@
 <li>Enable third-party developers and partners to create their own automation execution environments for their users and customers using the newly released ansible-builder command line tool.</li>
 </ul>
 <h4 id="what-are-automation-execution-environments">**What are automation execution environments?**</h4><p>Having consistent, reliable automation is key to a successful automation initiative. One Ansible Automation Platform customer had their internal administration team maintaining over 40 different virtual environments for various teams. Some used different versions of Ansible; network teams required different automation content (and dependencies) for their specific devices, and developers built their own environments for testing.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
-  </div>
 </aside><p>There were no platform tools to support and maintain these environments other than documentation pointing to the de facto solution of specific python virtual environments. This caused custom environments to proliferate, drift to happen between development and production, and an increase in the cost and complexity of automation. Furthermore, this burden landed on the platform administrator to keep track of while maintaining everything as operational.</p>
 <p>Ansible Automation Platform 2 introduces a new construct called automation execution environments. These are atomic images on which all automation is run. Automation execution environments contain the following:</p>
 <ul>
@@ -83,14 +78,12 @@
 </ul>
 <p>This provides a standardized way to define, build and distribute the environments that the automation runs in. In a nutshell, automation execution environments are container images that allow for easier administration of Ansible by the platform administrator.</p>
 <h4 id="role-of-automation-execution-environments-in-ansible-automation-platform-20">**Role of automation execution environments in Ansible Automation Platform 2.0**</h4><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ABU%20Blog%20%7C%20Whats%20new%20in%20Ansible%20Automation%20Platform%202%20automation%20execution%20environments-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ABU%20Blog%20%7C%20Whats%20new%20in%20Ansible%20Automation%20Platform%202%20automation%20execution%20environments-1.png" alt=""></a></p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
-  </div>
 </aside><p><em>Automation controller 4.0 architecture</em></p>
 <p>The move to automation execution environments is part of Red Hat’s approach to separate the control plane from execution plane for better scalability for automation developers and administrators. Automation teams require that their automation runs consistently across multiple platforms. All custom dependencies are now defined at the development phase and are no longer defined at the administration/deployment phase. Having the automation execution decoupled from the control plane enables faster development cycles, scalability, reliability and portability across environments. Automation execution environments have enabled Ansible Automation Platform to move to a distributed architecture, so customers can scale automation across their organization.</p>
 <h4 id="what-is-ansible-builder">**What is** **ansible-builder****?**</h4><p>Now that you are aware of automation execution environments, the benefits they offer and the role they play in Ansible Automation Platform 2 release, how do you actually build one?</p>
@@ -115,12 +108,10 @@ With the release of Ansible Automation Platform 2, there are a set of prebuilt, 
 <li>If you are a Red Hat customer, please visit the<a href="https://red.ht/AAP-20">Ansible Automation Platform 2 landing page</a> in the Red Hat Customer Portal that consolidates all our documentation and guidance available to you.</li>
 <li><a href="https://www.ansible.com/contact-us">Please reach out to your local Red Hat representative to assist your organization in getting started with Ansible Automation Platform 2.0</a></li>
 </ul>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/the-anatomy-of-automation-execution-environments/">The anatomy of automation execution environments</a></li><li><a href="/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/">Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</a></li><li><a href="/blog/new-red-hat-ansible-development-tools/">Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#anshul-behl">Anshul Behl</a></p></footer>

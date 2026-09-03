@@ -50,20 +50,15 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2021-12-02">December 1, 2021</time> · 8-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Red Hat Ansible Automation Platform 2.1 is available now! Create, manage and scale automation with more ease and efficiency than ever before.</div>
-</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png" alt=""></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Red Hat Ansible Automation Platform 2.1 is available now! Create, manage and scale automation with more ease and efficiency than ever before.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png" alt=""></a></p>
 <p>We are thrilled to announce the general availability of Red Hat Ansible Automation Platform 2.1. This is the follow-on to the Ansible Automation Platform 2.0 Early Access released this summer, and <a href="https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators">announced</a> at AnsibleFest 2021. Red Ansible Automation Platform 2.1 introduces major features that allow customers to onboard more easily with even more flexible automation architectures and use cases. Ansible Automation Platform 2.1 is the culmination of many years of reimagining how enterprise automators automate for today and tomorrow.</p>
 <p>You can download the latest version directly from the <a href="https://access.redhat.com/downloads/content/480/">Red Hat Customer Portal</a>, or sign up for a free trial at <a href="http://red.ht/try_ansible">red.ht/try_ansible</a>. Ansible Automation Platform is the Ansible you know and love, designed for the enterprise. I am going to summarize <a href="https://www.ansible.com/blog/introducing-ansible-automation-platform-2">Andrius Benokraitis’ blog post</a> from September, when Ansible Automation Platform 2 was announced, and expand on some key developments from 2.0 to 2.1.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
-  </div>
 </aside><p>[<a href="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png" alt="aap 2 ebook copy"></a>](<a href="https://www.redhat.com/en/resources/ansible-automation-platform-2-ebook">https://www.redhat.com/en/resources/ansible-automation-platform-2-ebook</a>)</p>
 <p><em>Take a look at our latest e-book to learn what common automation roles you can expect from Red Hat Ansible Automation Platform 2.</em></p>
 <p><strong>First, some general information</strong>:</p>
@@ -88,14 +83,12 @@
 <li>All Documentation updates can also be found <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/">online</a>, including the updated release notes.</li>
 </ul>
 <h4 id="new-to-ansible-automation-platform-21-automation-mesh">New to Ansible Automation Platform 2.1: automation mesh</h4><p><a href="https://www.ansible.com/products/automation-mesh">Automation mesh</a> (<a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_automation_mesh_guide/index">documentation)</a>: This is the newest addition to Ansible Automation Platform, and replaces the isolated nodes feature in 1.2. By combining automation execution environments in version 2.0 with automation mesh in version 2.1, the automation control plane and execution plane are fully decoupled, making it easier to scale automation across the globe. You can now run your automation as close to the source as possible, without being bound to running automation in a single data center. With automation mesh, you can create execution nodes right next to the source (for example, a branch office in Johannesburg, South Africa) while execution is deployed on our automation controller in Durham, NC.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
-  </div>
 </aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/HlT3VHI5pW_NCbwu_NAKVi8OhCG74ZX54X7fJXiJti1rF8Aije_HHp3I3KZ29mPccCSFXbOOjDbTkGO4HT2YnRZ2WyYuB6rRKLbSmmX7TXPeMKI8fWn7-Q8pMoC3RcAFZnG-7kqs.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/HlT3VHI5pW_NCbwu_NAKVi8OhCG74ZX54X7fJXiJti1rF8Aije_HHp3I3KZ29mPccCSFXbOOjDbTkGO4HT2YnRZ2WyYuB6rRKLbSmmX7TXPeMKI8fWn7-Q8pMoC3RcAFZnG-7kqs.png" alt=""></a></p>
 <p>Automation mesh adds:</p>
 <ul>
@@ -157,12 +150,10 @@
 <td>subscription-manager repos  --disable=ansible-automation-platform-2.0-early-access-for-rhel-8-x86_64-rpms  subscription-manager repos --enable=ansible-automation-platform-2.1-for-rhel-8-x86_64-rpms</td>
 </tr>
 </tbody></table>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-and-packer-why-they-are-better-together/">Using Ansible and Packer, From Provisioning to Orchestration</a></li><li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

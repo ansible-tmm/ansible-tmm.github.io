@@ -50,15 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2021-01-12">January 11, 2021</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production.</div>
-</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production.</aside><aside class="blog-toc">
+  
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#what-are-resource-module-return-values">What are resource module return values?</a></li><li><a href="#a-practical-example">A practical example</a></li><li><a href="#using-return-values">Using return values</a></li><li><a href="#where-do-i-go-next">Where do I go next?</a></li></ul>
-  </div>
 </aside><p>The Red Hat Ansible Network Automation engineering team is continually adding new resource modules <a href="https://access.redhat.com/articles/5531421">to its supported network platforms</a>.  Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production. The goal for resource modules is to avoid creating and maintaining overly complex jinja2 templates for rendering and pushing network configuration, as well as having to maintain complex fact gathering and parsing methodologies.  For this blog post, we will cover standard return values that are the same across all supported network platforms (e.g. Arista EOS, Cisco IOS, NXOS, IOS-XR, and Juniper Junos) and all resource modules.</p>
 <p>Before we get started, I wanted to call out three previous blog posts covering resource modules. If you are unfamiliar with resource modules, check any of these out:</p>
 <ul>
@@ -73,14 +68,12 @@
 </li>
 </ul>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-01-12%20at%202.56.22%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-01-12%20at%202.56.22%20PM.png" alt="Screen Shot 2021-01-12 at 2.56.22 PM"></a></p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
-  </div>
 </aside><h2 id="what-are-resource-module-return-values">What are resource module return values?</h2><p>Return values are what are returned from the resource modules when it finishes execution. Let’s cover when you would use them, how to use them, and why you should care!</p>
 <p>So let&#39;s get started: All currently released resource modules have the exact same return values to make it easy to automate consistently across any network resource module. They are the following:</p>
 <table>
@@ -104,14 +97,12 @@
 </tr>
 </tbody></table>
 <p>Why are return values important? They give you state <em>before and after</em> modifications happen. The before value lets you know the state of the device before you do any modification.  This makes it easy to revert changes or simply compare the before and after of any particular resource.  The commands return value will actually be in the network platform’s device syntax, so if you are automating an Arista EOS switch, you will get Arista commands.  This is important because it allows a network operator to quickly see what the automation actually did, and in the syntax that is expected of the operator.  There is no abstraction happening that impacts the network operator from the tool, so trust is gained with automation, which can help with establishing a positive culture between network automation engineers and folks that might just be starting their automation journey.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Network automation on the TMM blog</p>
   <p class="blog-callout__body">More posts on network automation from the Ansible Technical Marketing team.</p>
   <a class="blog-callout__cta" href="/blog/?author=sean-cavanaugh">Browse posts →</a>
-  </div>
 </aside><h2 id="a-practical-example">A practical example</h2><p>Let&#39;s look at a practical example using the Arista <a href="https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_l2_interfaces_module.html">eos_l2_interfaces module</a> from the Arista Network Collection. The quick summary for those that don’t know what a Collection is: it’s how content is packaged, including Ansible Modules. The modules that you know and love still work exactly the same way you are used to but packaged in a more portable and flexible format.</p>
 <p>The l2_interfaces resource modules configure layer 2 access and trunk ports on network devices.  Lets look at an Ansible Playbook example:</p>
 <div class="blog-code-block">
@@ -211,12 +202,10 @@
 <p><strong>I missed AnsibleFest 2020. where is the content?</strong></p>
 <p>We got you covered, check out this video: <a href="https://www.youtube.com/watch?v=YjEPR9jjSD0&t=2s">AnsibleFest 2020! I missed it! Where is the content?</a>  </p>
 <p>Explore everything on-demand for free on <a href="https://www.ansible.com/ansiblefest">www.ansible.com/ansiblefest</a></p>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li><li><a href="/blog/red-hat-ansible-network-automation-updates/">Red Hat Ansible Network Automation Updates</a></li><li><a href="/blog/porting-ansible-network-playbooks-with-new-connection-plugins/">Porting Ansible Network Playbooks with New Connection Plugins</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

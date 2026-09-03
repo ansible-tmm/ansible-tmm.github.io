@@ -50,15 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2018-02-08">February 7, 2018</time> · 10-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> The upcoming Ansible 2.5 open source project release has some really exciting improvements. Here we highlight a few of the notable additions.</div>
-</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> The upcoming Ansible 2.5 open source project release has some really exciting improvements. Here we highlight a few of the notable additions.</aside><aside class="blog-toc">
+  
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#new-connection-types-network-cli-and-netconf">New Connection Types: network\_cli and NETCONF</a></li><li><a href="#ansible-fact-improvements">Ansible Fact Improvements</a></li><li><a href="#improved-logging">Improved Logging</a></li><li><a href="#continued-enablement-for-declarative-intent">Continued Enablement for Declarative Intent</a></li><li><a href="#persistent-ssh-connection-improvements">Persistent SSH Connection Improvements</a></li><li><a href="#additional-platforms-and-modules">Additional Platforms and Modules</a></li></ul>
-  </div>
 </aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Ansible-2-5-Coming-Soon-Networking.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Ansible-2-5-Coming-Soon-Networking.png" alt="Ansible 2.5 Networking Features"></a></p>
 <p>The upcoming Ansible 2.5 open source project release has some really exciting improvements, and the following blog highlights just a few of the notable additions. In typical Ansible fashion, development of networking enhancements is done in the open with the help of the community. You can follow along by watching the <a href="https://github.com/ansible/ansible/projects/10">networking GitHub project board</a>, as well as the roadmap for Ansible 2.5 via the <a href="https://github.com/ansible/community/wiki/Network%3ACore-roadmap-2.5">networking wiki page</a>.</p>
 <p>A few highlighted features include:</p>
@@ -211,14 +206,12 @@
 </tr>
 </tbody></table>
 <p>There are many more platforms available for use via <a href="http://docs.ansible.com/ansible/latest/list_of_network_modules.html">community modules</a>, but for simplicity and convenience we have detailed networking platforms that are supported as part of the <a href="https://www.ansible.com/products/engine/pricing">Red Hat Ansible Engine Networking Add-on</a>.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
-  </div>
 </aside><h2 id="ansible-fact-improvements">Ansible Fact Improvements</h2><p>In the playbooks shown above, network automation veterans have noticed another change. Network automation playbooks no longer require gather_facts: no when using the new network_cli or netconf connection methods. Previously when using connection: local, if gathering facts was not disabled it would gather facts about the local system. For example, if I ran a playbook from my MacBook Pro on two network devices, I just captured facts about my Macbook Pro twice.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -468,20 +461,16 @@
 <li><a href="http://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html#netact">Nokia NetAct</a></li>
 </ul>
 <p>The Ansible Networking team is excited for the forthcoming Ansible 2.5 release, and would like to extend a warm thank you to all networking partners and community members that helped make it possible. We love to hear your feedback, thoughts and ideas, and we welcome you to participate in the <a href="https://github.com/ansible/community/tree/master/group-network">Ansible networking community</a>.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Network automation on the TMM blog</p>
   <p class="blog-callout__body">More posts on network automation from the Ansible Technical Marketing team.</p>
   <a class="blog-callout__cta" href="/blog/?author=sean-cavanaugh">Browse posts →</a>
-  </div>
-</aside><aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+</aside><aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li><li><a href="/blog/ansible-network-resource-modules-deep-dive-on-return-values/">Ansible Network Resource Modules: Deep Dive on Return Values</a></li><li><a href="/blog/red-hat-ansible-network-automation-updates/">Red Hat Ansible Network Automation Updates</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

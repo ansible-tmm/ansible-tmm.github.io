@@ -50,15 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2022-02-01">January 31, 2022</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Red Hat Insights for Ansible Automation Platform is an analytics tool to help you identify, troubleshoot, and resolve issues across your entire ecosystem.</div>
-</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Red Hat Insights for Ansible Automation Platform is an analytics tool to help you identify, troubleshoot, and resolve issues across your entire ecosystem.</aside><aside class="blog-toc">
+  
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#what-youll-need-to-activate-automation-analytics-and-insights-for-ansible-automation-platform">What you’ll need to activate Automation Analytics and Insights for Ansible Automation Platform</a></li><li><a href="#turning-on-data-collection-in-automation-analytics-and-insights-for-automation-controller">Turning on data collection in Automation Analytics and Insights for automation controller</a></li><li><a href="#turning-on-data-collection-for-red-hat-ansible-tower">Turning on data collection for Red Hat Ansible Tower</a></li><li><a href="#manual-data-collection-within-automation-analytics-and-insights">Manual data collection within Automation Analytics and Insights</a></li><li><a href="#verifying-data-sync-with-automation-controller">Verifying data sync with automation controller</a></li><li><a href="#putting-automation-analytics-and-insights-to-work-in-your-automation-practice">Putting Automation Analytics and Insights to work in your automation practice</a></li><li><a href="#additional-resources">Additional resources</a></li></ul>
-  </div>
 </aside><p>Two indispensable but sometimes overlooked tools included with an Ansible Automation Platform subscription are the cloud-based services, Automation Analytics and Red Hat Insights for Ansible Automation Platform.</p>
 <p>Automation Analytics and Insights form a suite of reporting and analytics tools to help you identify, troubleshoot, and resolve operational, business, and security issues across your entire ecosystem. You can also track the ROI of your automation investment and plan future automation projects to prioritize your efforts where they will have the biggest impact on your business.</p>
 <p>Before you can start using these services to better understand your automation estate and make data-driven decisions, you need to set up the flow of information from your enterprise into the Red Hat Hybrid Cloud Console.</p>
@@ -84,14 +79,12 @@
 <li><strong>RED HAT CUSTOMER PASSWORD</strong> is your cloud.redhat.com password for the corresponding username.</li>
 </ul>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Edit%20Details.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Edit%20Details.png" alt="Edit Details"></a></p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
-  </div>
 </aside><h2 id="turning-on-data-collection-for-red-hat-ansible-tower">Turning on data collection for Red Hat Ansible Tower</h2><p>Log in to your Ansible Automation Platform web UI (user interface). The user account must have administrative privileges to turn on data collection. Click on the “Settings” button on the left menu. Note: If the menu is in compact mode, there will only be a small gear representing the settings.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Settings.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Settings.png" alt="Settings"></a></p>
 <p>Next click on the “System” button:</p>
@@ -108,14 +101,12 @@
 <p>Here is an example snippet of the Settings &gt; System page:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/AA%20Settings.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/AA%20Settings.png" alt="AA Settings"></a></p>
 <p>Click the “Save” button. Once saved, automation controller will sync to cloud.redhat.com up to four times a day. Currently, this sync frequency setting cannot be adjusted.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--redhat" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--redhat">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">Red Hat</span>
   <p class="blog-callout__title">Ansible Automation Platform documentation</p>
   <p class="blog-callout__body">Official product documentation from Red Hat.</p>
   <a class="blog-callout__cta" href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/">Read the docs →</a>
-  </div>
 </aside><h2 id="manual-data-collection-within-automation-analytics-and-insights">Manual data collection within Automation Analytics and Insights</h2><p>If you want to register a system and sync to <a href="http://console.redhat.com">console.redhat.com</a> right away, you can do this using the automation controller command line, which allows you to quickly verify that everything is set up correctly.</p>
 <p>Log in as the awx user or an administrative user on the control node and run the following command:</p>
 <table>
@@ -171,12 +162,10 @@
 <li>Webinar: Analyze and expand automation with hosted services</li>
 <li>Graphic: <a href="https://www.redhat.com/hubfs/RH_INFRA_007862_03_SRC_AnsibleAutomationAnalytics_PersonaBenefitsTable_rh.pdf?hsLang=en-us">Automation analytics and Red Hat Insights role-based benefits</a></li>
 </ul>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li><li><a href="/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/">Navigating AI vulnerability discovery and achieving operational resilience with automation</a></li><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>

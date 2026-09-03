@@ -50,21 +50,16 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2018-04-19">April 18, 2018</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin. In this post we take you through converting existing networking playbooks that use connection: local to using connection: network_cli.</div>
-</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png" alt=""></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin. In this post we take you through converting existing networking playbooks that use connection: local to using connection: network_cli.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png" alt=""></a></p>
 <p>The Ansible Networking Team is excited about the release of <a href="https://www.redhat.com/blog/ansible-2.5-traveling-space-and-time">Ansible 2.5</a>. Back in February, I wrote about new <a href="https://www.redhat.com/blog/coming-soon-networking-features-in-ansible-2.5">Networking Features in Ansible 2.5</a>, and one of the biggest areas of feedback was around the network_cli connection plugin. For more background on this connection plugin, please refer to the previous blog post.</p>
 <p>In this post, I convert existing networking playbooks that use <code>connection: local</code> to use <code>connection: network_cli</code>. Please note that the passwords are in plain text for demonstration purposes only. Refer to the following Ansible Networking documentation page recommendation for using Ansible Vault for secure password storage and usage.  </p>
 <p>To demonstrate, let’s use an existing GitHub repository with working playbooks using the legacy connection local method. NOTE: The connection local method will continue to be supported for quite some time, and has not been announced as deprecated yet. This repository has several examples using Ansible and NAPALM but we are highlighting the Ansible Playbooks in this post.  The GitHub repository can be <a href="https://github.com/network-automation/ansible-napalm-samples">found here</a>.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
-  </div>
 </aside><h3 id="example-1-backing-up-a-configurationhttpsgithubcomnetwork-automationansible-napalm-samplesexample-1-backing-up-a-config">[Example 1 - Backing Up a Configuration](https://github.com/network-automation/ansible-napalm-samples#example-1---backing-up-a-config)</h3><p>Networking platforms use their specific <code>*_config</code> platform module for easy backups within Ansible. For this playbook we are running the Ansible Playbook against a Cisco NX-OS platform, so we are using the nxos_config module. Using this module, set the <code>backup</code> parameter to <code>yes</code>.  This is how the playbook looked using the <code>connection: local</code> and <code>provider</code> method in Ansible 2.4:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -320,14 +315,12 @@
 <p>Please consider joining the network-automation GitHub! Just <a href="mailto:ansible-network@redhat.com">email us</a> with your GitHub username.</p>
 <h3 id="faq">FAQ</h3><p><strong>Q: What happens if I don’t convert my playbooks for Ansible 2.5?</strong><br>A: Nothing, except your playbooks won&#39;t be as quick and efficient as they could be. The <code>connection: local</code> and <code>provider</code> method are not being deprecated for the Ansible 2.5 release. However, in relation to Ansible networking modules, it is planned for future deprecation (TBD).   </p>
 <p>Please note that deprecating something in Ansible doesn’t mean that it will be immediately removed. Currently, all deprecated parameters, features, modules, etc, are supported for four release cycles after deprecation before they are removed from the Ansible project. When looking at the release cycle you can see that four release cycles is roughly 16 months. You will see a deprecation warning when you run a playbook with a deprecated parameter, feature, or module. Please refer to the Porting Guide before upgrading Ansible.  </p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Network automation on the TMM blog</p>
   <p class="blog-callout__body">More posts on network automation from the Ansible Technical Marketing team.</p>
   <a class="blog-callout__cta" href="/blog/?author=sean-cavanaugh">Browse posts →</a>
-  </div>
 </aside><p>For more information, you can check out the change log on GitHub to look at what is being deprecated per release.</p>
 <hr>
 <p><strong>Q: What if I wrote a module, using an Ansible module, or am using a module provided elsewhere that requires the connection: local method?  You are going to deprecate connection: local?</strong></p>
@@ -394,12 +387,10 @@
 </div><hr>
 <p><strong>Q: Where can I get more info?</strong></p>
 <p>A: Check out the offical Ansible 2.5 porting guide and <br>the new Ansible Networking documentation</p>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li><li><a href="/blog/ansible-network-resource-modules-deep-dive-on-return-values/">Ansible Network Resource Modules: Deep Dive on Return Values</a></li><li><a href="/blog/red-hat-ansible-network-automation-updates/">Red Hat Ansible Network Automation Updates</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>

@@ -50,15 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2023-10-30">October 29, 2023</time> · 6-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> In this blog, we’ll walk through the steps to get Ansible Lightspeed with IBM watsonx Code Assistant up and running for your organization. We’ll share how end users can set up the service in their Visual Studio Code (VS Code) environment. We’ll also share more on what to expect from the experience and supplemental tools available to turbocharge your Ansible creator journey with generative AI capabilities built on a foundation of transparency, accuracy, and choice</div>
-</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog, we’ll walk through the steps to get Ansible Lightspeed with IBM watsonx Code Assistant up and running for your organization. We’ll share how end users can set up the service in their Visual Studio Code (VS Code) environment. We’ll also share more on what to expect from the experience and supplemental tools available to turbocharge your Ansible creator journey with generative AI capabilities built on a foundation of transparency, accuracy, and choice</aside><aside class="blog-toc">
+  
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#bringing-ai-to-ansible-content-creation-through-collaboration-between-red-hat-and-ibm">Bringing AI to Ansible content creation through collaboration between Red Hat and IBM</a></li><li><a href="#how-to-access-ansible-lightspeed">How to access Ansible Lightspeed</a></li><li><a href="#create">Create</a></li><li><a href="#adopt">Adopt</a></li><li><a href="#maintain">Maintain</a></li><li><a href="#ansible-code-bot">Ansible code bot</a></li><li><a href="#additional-resources">Additional resources</a></li></ul>
-  </div>
 </aside><p>**Note from the editor:**This blog post was originally published in November 2023 and has been updated to include the latest feature enhancements for Red Hat Ansible Automation Platform subscribers.</p>
 <p><a href="https://www.redhat.com/en/about/press-releases/red-hat-launches-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant-ai-driven-enterprise-it-automation">Red Hat Ansible Lightspeed with IBM watsonx Code Assistant</a> is a generative AI (gen AI) service within Red Hat Ansible Automation Platform that is engineered to help automation teams create, adopt and maintain Ansible content more efficiently.</p>
 <p>In this post, we’ll walk through the capabilities of Ansible Lightspeed with IBM watsonx Code Assistant to help you turbocharge Ansible content creation experience and start automating faster. We&#39;ll also review the options available to help you get hands-on with the service.</p>
@@ -71,14 +66,12 @@
 <li>Gen AI: <a href="https://www.ibm.com/products/watsonx-code-assistant-ansible-lightspeed">IBM watsonx Code Assistant</a> provides access to Ansible-specific watsonx.ai foundation model that generates Ansible content recommendations. This is the “AI guts&#39;&#39; of the solution.</li>
 </ol>
 <p>Ansible Lightspeed with IBM watsonx Code Assistant can be deployed as a software-as-a-service (SaaS) deployment or on-premise in your datacenter.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
-  </div>
 </aside><h2 id="how-to-access-ansible-lightspeed">How to access Ansible Lightspeed</h2><p>Ansible Lightspeed is included with a subscription to Ansible Automation Platform, however, there is an additional cost to access the IBM watsonx Code Assistant model.</p>
 <h3 id="saas-based-service">SaaS-based service</h3><p>Ansible Automation Platform customers: start a 90-day trial</p>
 <p>Existing Ansible Automation Platform customers can start experimenting with the service through a free 90-day trial to Ansible Lightspeed. <a href="https://www.redhat.com/en/products/interactive-walkthrough/install-ansible-lightspeed">Learn how</a>.</p>
@@ -88,14 +81,12 @@
 <h3 id="on-premise-service">On-premise service</h3><p>For on-premise deployments, you will need to install the Ansible Lightspeed software via the Red Hat OpenShift operator, as well as the IBM watsonx Code Assistant via IBM Cloud Pak for Data. <a href="https://www.ibm.com/products/watsonx-code-assistant-ansible-lightspeed">Please contact IBM</a> for pricing and additional information.</p>
 <p>Once you&#39;re connected,  it&#39;s time to experience its AI-enhanced content creation experience. The following features are available through both the SaaS and on-premise service.</p>
 <h3 id="hybrid-deployment">Hybrid deployment</h3><p>You can also deploy Red Hat Ansible Lightspeed on-premise and connect to the IBM watsonx Code Assistant model in the cloud. A hybrid deployment gives you more flexibility to run the Red Hat Ansible Lightspeed service in your regional datacenter while connecting to WCA hosted in an <a href="https://cloud.ibm.com/catalog/services/ibm-watsonx-code-assistant">IBM-supported location</a>. It also allows you to use Ansible Automation Platform for user authentication, eliminating the need to log into the Red Hat Ansible Lightspeed cloud-based service.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
-  </div>
 </aside><h2 id="create">Create</h2><h3 id="create-an-ansible-playbook">Create an Ansible Playbook</h3><p>Ansible Lightspeed with watsonx Code Assistant supports full playbook generation and content explanation. You will need to install the latest version of the Ansible VS Code extension (&gt;=24.8.0) to access these features.</p>
 <p>To get started, click on the Ansible icon in the left-hand navigation and then the “Get Started” button under the Ansible content creator. Select “Playbook with Ansible Lightspeed” to enter the guided chat interface for full playbook generation.</p>
 <p>In the interface, enter your playbook prompt in natural language and click “Analyze”. The service will provide an editable outline of tasks (pseudo code). This chat-like interface allows real-time interaction with the gen AI service where you can refine your prompt. Both the playbook goal and outline are sent to Ansible Lightspeed with watsonx Code Assistant, which suggests a complete playbook. This intuitive and guided experience helps novice to intermediate users generate full Ansible Playbooks using gen AI.</p>
@@ -160,12 +151,10 @@
 <li>Datasheet: <a href="https://www.redhat.com/en/engage/ansible-lightspeed-ibm-watsonx-code-assistant-datasheet">Ansible Lightspeed with IBM watsonx Code Assistant</a></li>
 </ul>
 <p>Thanks for reading and happy automating.</p>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li><li><a href="/blog/introducing-ansible-plug-ins-red-hat-developer-hub/">Introducing Ansible plug-ins for Red Hat Developer Hub</a></li><li><a href="/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide/">New reference architecture: Red Hat Ansible Automation Platform 1.2 to 2 Migration Guide</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#anshul-behl">Anshul Behl</a></p></footer>

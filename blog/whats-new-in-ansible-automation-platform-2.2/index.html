@@ -50,15 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#andrius-benokraitis">Andrius Benokraitis</a> · <time datetime="2022-05-26">May 25, 2022</time> · 8-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> An overview of the new features found in the Ansible Automation Platform 2.2 release</div>
-</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> An overview of the new features found in the Ansible Automation Platform 2.2 release</aside><aside class="blog-toc">
+  
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#automation-topology-viewer">Automation topology viewer</a></li><li><a href="#digitally-signed-red-hat-ansible-certified-content-collections">Digitally signed Red Hat Ansible Certified Content Collections</a></li><li><a href="#updated-developer-and-creator-tooling">Updated developer and creator tooling</a></li><li><a href="#enhanced-collections-for-network-automation">Enhanced Collections for network automation</a></li><li><a href="#automation-services-catalog-is-now-on-premise">Automation services catalog is now on-premise</a></li><li><a href="#automation-reporting-and-analytics-more-integrated">Automation reporting and analytics more integrated</a></li><li><a href="#red-hat-enterprise-linux-9-support">Red Hat Enterprise Linux 9 support</a></li><li><a href="#next-steps">Next Steps</a></li></ul>
-  </div>
 </aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png" alt="aap2.2"></a></p>
 <p>The Ansible product team at Red Hat is thrilled to announce the general availability of Red Hat Ansible Automation Platform 2.2, which includes numerous features and bug fixes that further solidify Ansible Automation Platform as the <em>de facto</em> enterprise IT automation solution for developers to operations teams in data centers, clouds, and at the edge. A few of the most noteworthy features in this release include:</p>
 <ul>
@@ -71,14 +66,12 @@
 <li>Red Hat Enterprise Linux 9 support</li>
 </ul>
 <p>Don’t forget to check out the <a href="https://docs.ansible.com/">product documentation</a> including the <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html/red_hat_ansible_automation_platform_release_notes/index">release notes</a>!</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
-  </div>
 </aside><h2 id="automation-topology-viewer">Automation topology viewer</h2><p>Let’s face it, automating at enterprise scale is really hard. Although many features were added for the content creator and developer in Ansible Automation Platform 2, the automation operations teams are typically responsible for making sure automation is up and running as it should across all inventories, worldwide, with 24/7 availability and uptime. As enterprise automation operations teams continue to implement strategies from IT leaders and architects, their need to troubleshoot complex automation topologies continues to grow as well. With the introduction of <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.1-automation-mesh">automation mesh</a> in Ansible Automation Platform 2, automation execution can now be decentralized, running closer to where the automation needs to run (in the cloud, at the edge, etc.) while still managed by a single operations team. This operations team now must support multiple environments that span different locations, each with niche automation requirements that they may not have intimate knowledge of at any given moment.</p>
 <p>Enter automation topology viewer, included as part of automation controller. This new addition allows operators to graphically visualize how automation nodes are connected to each other. You can find <strong>Topology View</strong> under the <strong>Administration</strong> section of the left menu bar within the automation controller graphical user interface.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/YF_2iRcBgFrOMwClIqCCDEd4LZ-64gWFQfelnEyqgi3NZJGQi6J2DfGFYYxgNMpb1v5nlJvG_pcQCJkC-6H6WIxKkVqYoNxiuvb9liUgzOcmCarrmConHzpjrW3lcNjtEIlwGFWvfExVwnLyRg.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/YF_2iRcBgFrOMwClIqCCDEd4LZ-64gWFQfelnEyqgi3NZJGQi6J2DfGFYYxgNMpb1v5nlJvG_pcQCJkC-6H6WIxKkVqYoNxiuvb9liUgzOcmCarrmConHzpjrW3lcNjtEIlwGFWvfExVwnLyRg.png" alt=""></a></p>
@@ -88,14 +81,12 @@
 <p>As automation continues to scale, the topology viewer becomes more useful, as shown in the following example, which contains three of the four node types (controller, execution, hop):</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/0IBVf2itri31peHd1UFaUNQjnAKh-b6rS6vltX9dFdJQeu0fYmyQEDUXNqyNY9RrVmgHvsIOFW7eu7RiqFn4HX1RDbBF4G4CnOuEDnwcC1Ay6PWwjlVEwIOZiqXvwatazC_3KncmrD_fN1a1Xg.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/0IBVf2itri31peHd1UFaUNQjnAKh-b6rS6vltX9dFdJQeu0fYmyQEDUXNqyNY9RrVmgHvsIOFW7eu7RiqFn4HX1RDbBF4G4CnOuEDnwcC1Ay6PWwjlVEwIOZiqXvwatazC_3KncmrD_fN1a1Xg.png" alt=""></a></p>
 <p>For more information on automation mesh, and how the automation topology viewer works with it, check out <a href="https://events.experiences.redhat.com/widget/redhat/sum22/SessionCatalog22/session/1641398142450001vmkJ">Phil Griffiths’ on-demand Summit 2022 breakout session entitled: “OD1512 - Ansible Automation Platform 2 automation mesh—starting locally, scaling globally</a>.”</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
   <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
-  </div>
 </aside><h2 id="digitally-signed-red-hat-ansible-certified-content-collections">Digitally signed Red Hat Ansible Certified Content Collections</h2><p>The increased focus on information security and how software is run in enterprise production environments has never been greater. Providing security-focused features in Ansible Automation Platform 2 continues to be a priority, with the ability to execute certified and compliant automation anywhere in your enterprise. New in this release is collection signing, which is the genesis of a more holistic chain-of-custody security feature going forward. The following two use cases are of note:</p>
 <ol>
 <li><p><strong>Digitally signed Red Hat Ansible Certified Content Collections on Ansible automation hub</strong>  </p>
@@ -175,12 +166,10 @@
 <p>Sign up for an Ansible Automation Platform <a href="https://www.redhat.com/en/technologies/management/ansible/try-it">60-day trial</a> to try it in your environment.</p>
 <p><strong>Plan your upgrade</strong></p>
 <p>If you are still operating Ansible Automation Platform 1.2, it is time to start planning your upgrade. Get started with this checklist, “5 ways to prepare for migration to Ansible Automation Platform 2.” You can also register for a free webinar, “Migrating to the next generation IT automation platform.”</p>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave/">A Deeper Look, Red Hat Named a Leader in the Forrester Wave</a></li><li><a href="/blog/introducing-ansible-automation-platform-2/">Introducing Ansible Automation Platform 2</a></li><li><a href="/blog/team-automation-numbers/">By the numbers: Getting your team on board with IT automation</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#andrius-benokraitis">Andrius Benokraitis</a></p></footer>

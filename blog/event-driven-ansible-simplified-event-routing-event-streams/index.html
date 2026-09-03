@@ -50,26 +50,19 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2026-01-13">January 12, 2026</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Learn how Event-Driven Ansible&#39;s simplified event routing with Event Streams improves flexibility in setting up event-driven automation scenarios. Discover new enhancements to Kafka for event source connections and additional content updates. Take your event-driven automation to the next level with AIOps.</div>
-</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Learn how Event-Driven Ansible&#39;s simplified event routing with Event Streams improves flexibility in setting up event-driven automation scenarios. Discover new enhancements to Kafka for event source connections and additional content updates. Take your event-driven automation to the next level with AIOps.</aside><aside class="blog-toc">
+  
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#webhooks-kafka-and-event-bus-connection-methods">Webhooks, Kafka, and event bus connection methods</a></li><li><a href="#simplified-event-routing-with-event-streams">Simplified event routing with Event Streams</a></li><li><a href="#enhancements-to-kafka-for-event-source-connections">Enhancements to Kafka for event source connections</a></li><li><a href="#ease-of-use-enhancements">Ease of use enhancements</a></li><li><a href="#new-ansible-content-collections-and-plugins">New Ansible Content Collections and Plugins</a></li><li><a href="#take-it-to-the-next-level-with-aiops">Take it to the next level with AIOps</a></li><li><a href="#learn-more">Learn more</a></li></ul>
-  </div>
 </aside><p>The systems running an organization&#39;s infrastructure and applications are interconnected, creating an environment of controlled chaos where events in one area can ripple unpredictably through others. Red Hat Ansible Automation Platform features Event-Driven Ansible as an automation mechanism for reacting to these ripples. Event-Driven Ansible listens to external event or alert sources so you can design automated responses for these events, enabling faster response to problems with consistency and accuracy.</p>
 <p>A foundational use case that can be used almost anywhere to provide a great deal of value to the technical team is ticket enrichment. With Event-Driven Ansible, an alert from an observability or monitoring tool can drive a workflow of automated troubleshooting, fact gathering and reporting with ticket creation in an IT service management (ITSM) solution. This places valuable data in the hands of the support teams, saving them time and reducing mean time to resolution (MTTR).  Event-Driven Ansible automates remediation for known low severity issues, such as restarting a container or rotating expired certificates from a pending expiration alert. This not only lets you sleep more, but can help enable resilient systems through automated response and remediation.</p>
 <p>Event-Driven Ansible enables integration into your technology ecosystem as well, transforming Ansible Automation Platform into an active participant in your infrastructure. Responses can be much more than issue remediation and can include proactive scenarios. For example, as you make changes to systems, you can trigger Event-Driven Ansible to run compliance checks and update a configuration management database (CMDB) and ITSM records for you. If systems are found to be out of compliance, Event-Driven Ansible could create an ITSM ticket and restore configurations from the source of truth.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
   <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
-  </div>
 </aside><h2 id="webhooks-kafka-and-event-bus-connection-methods">Webhooks, Kafka, and event bus connection methods</h2><p>Before I get into our new Event Streams feature, I want to emphasize that when looking at event-driven automation as a mechanism to improve your environment, you need to ensure that you&#39;re using the correct integration methods and plug-ins.</p>
 <p>Webhooks are recommended for simple and direct integrations with low-to-moderate event volumes. Apache Kafka is best for high-volume, mission-critical event streams that require durability.</p>
 <ul>
@@ -129,14 +122,12 @@
 <li>Start with webhooks if you&#39;re integrating with SaaS tools, have moderate volumes, and need quick time-to-value in development or testing environments. Later, move to Event Streams for production and to integrate security into your events coming from webhooks.</li>
 <li>Migrate to event buses such as Apache Kafka, AWS SQS, Azure Service Bus, when you need guaranteed delivery, event persistence and replay capabilities, multiple consumers, or handle critical high-volume streams.</li>
 </ul>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
   <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
-  </div>
 </aside><h2 id="simplified-event-routing-with-event-streams">Simplified event routing with Event Streams</h2><p>Now let&#39;s talk about what&#39;s new. We initially released event-driven automation with webhooks and Kafka for connecting external sources of alerts to the decision engine in Event-Driven Ansible. Event Streams is an Event-Driven Ansible enhancement to webhook events that makes it a good choice for production environments. As an alert-pushing solution, it has the ability to:</p>
 <ul>
 <li>Automatically route an event source to one or many configured rulebook activations, so this enables a single event stream endpoint to more flexibly serve multiple event-driven activations.</li>
@@ -183,12 +174,10 @@
 <p>Enhanced event-driven automation capabilities have been added to Ansible Automation Platform. It&#39;s something to consider, whether you&#39;re looking for enhanced operational control for production operations, expanding event-driven automation at scale, or making your move to AIOps.</p>
 <p>I have provided additional learning and how-to information throughout this blog, but there is an additional on demand webinar that I strongly recommend you watch. <a href="https://www.redhat.com/en/events/webinar/whats-new-ansible-automation-platforms-event-driven-ansible">This webinar</a> covers these features and includes a demo by yours truly.  We also had a customer guest on this webinar. He is an early adopter of Event-Driven automation with Ansible Automation Platform and talked about his very advanced fact gathering and smoke-test response for issues. You can also further your learning journey on the <a href="http://redhat.com/event-driven-ansible">Event-Driven Ansible web page</a> that contains a series of resources.</p>
 <p> <a href="https://www.redhat.com/en/events/webinar/whats-new-ansible-automation-platforms-event-driven-ansible">Watch the webinar</a></p>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li><li><a href="/blog/windows-enterprise-ansible-galaxy/">The Windows enterprise in an Ansible galaxy</a></li><li><a href="/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/">Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>

@@ -50,15 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2024-12-05">December 4, 2024</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-hub-addition blog-callout blog-callout--summary" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content"><strong>Summary:</strong> Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.</div>
-</aside><aside class="blog-hub-addition blog-toc" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.</aside><aside class="blog-toc">
+  
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#a-tale-of-two-ansible-builder-packages">A tale of two ansible-builder packages</a></li><li><a href="#why-does-the-ansible-builder-package-have-two-base-images">Why does the ansible-builder package have two base images?</a></li><li><a href="#automation-execution-environment-design">Automation execution environment design</a></li><li><a href="#verifying-your-base-images">Verifying your base images</a></li><li><a href="#using-the-ansible-builder-context">Using the ansible-builder context</a></li><li><a href="#looking-forward">Looking forward</a></li></ul>
-  </div>
 </aside><p>Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.</p>
 <p>Automation execution environments are container images that act as Ansible runtimes for automation controller jobs. Ansible Automation Platform also includes a command-line tool called ansible-builder(execution environment builder)that lets you create automation execution environments by specifying Ansible Content Collections and Python dependencies.</p>
 <p>In general, an automation execution environment includes:</p>
@@ -70,14 +65,12 @@
 </ul>
 <p><a href="https://www.redhat.com/rhdc/managed-files/execution-environment-ubi.png"><img src="https://www.redhat.com/rhdc/managed-files/execution-environment-ubi.png" alt="Automation execution environment universal base image."></a></p>
 <p>In this blog, I will take you through the inner workings of ansible-builder and <strong>how</strong> all the above requirements are packaged inside automation execution environments and delivered as part of Ansible Automation Platform.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
-  </div>
 </aside><h2 id="a-tale-of-two-ansible-builder-packages">A tale of two ansible-builder packages</h2><p>As all projects in Red Hat, ansible-builder follows an open development model and an upstream-first approach. The upstream project for <a href="https://github.com/ansible/ansible-builder">ansible-builder</a> is distributed as a Python package, and then packaged into an RPM for Ansible Automation Platform downstream. This also means that there are different ways to install the upstream package and the downstream ansible-builder.</p>
 <p>NOTE: To get the downstream packages, you must subscribe to Ansible Automation Platform repos from Red Hat.</p>
 <p>Upstream:</p>
@@ -143,14 +136,12 @@
 <p>For reference, CentOS 8 and UBI8 (for downstream) serve as the base images for the python-base container image, which acts as the image for running python-based projects, hence it bundles a version of Python that is supported by the ansible-core package (python 3.8 for reference).</p>
 <p>This python-base image serves as the base image for both the python-builder image as well as the ansible-runner (ee-minimal downstream) image. To summarize the purpose of python-builder and ansible-builder images, they build Python projects such as ansible-core and any Collections that are dependent on Python. For instance, if your Collection relies on Python dependencies for which wheels need to be built on the machine itself, they are built on the python-builder image.</p>
 <p>Finally, the ansible-runner (ee-minimal downstream) image includes a version of the ansible-core package. The ansible-builder image works in conjunction with this image to build Python wheels, so that the final automation execution environment size is minimal by only keeping things that are necessary to run your required automation. custom-ee1 and custom-ee2 in the diagram represent any custom automation execution environments that can be created using ansible-runner (ee-minimal downstream) and the ansible-builder image.</p>
-<aside class="blog-hub-addition blog-callout blog-callout--tmm" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">Team resource</span>
   <p class="blog-callout__title">Kubernetes automation content</p>
   <p class="blog-callout__body">Collections, inventories, and patterns from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/">Read the guide →</a>
-  </div>
 </aside><h2 id="verifying-your-base-images">Verifying your base images</h2><p>To start building your custom automation execution environments, you should first verify which <code>EE_BASE_IMAGE</code> and <code>EE_BUILDER_IMAGE</code> are used in ansible-builder by default. To verify, first create an empty automation execution environment definition file called execution-environment.yml</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -299,12 +290,10 @@
 <span class="line"><span>Successfully tagged localhost/disconnected_ee:1.0</span></span>
 <span class="line"><span>2316db485a1c4e7be4a687c682d0fc90335372d7e5564774f1ff6451840ac35f</span></span></code></pre>
 </div><h2 id="looking-forward">Looking forward</h2><p>Our ultimate goal is to make the developer experience as seamless as possible for customers. Ansible engineering teams are working on enhancements to the automation execution environment building experience, with several improvements already in the planning stage. Until those enhancements are available, this blog should help you tackle any challenges around the process of building automation execution environments. Following the upstream first model means you can also participate in community discussions and provide your thoughts and feedback through IRC. Please follow the link <a href="https://docs.ansible.com/ansible/latest/community/communication.html#ansible-community-on-irc">here</a> to join us. One of the main enhancements to the automation execution environment experience is being discussed in this <a href="https://github.com/ansible/ansible-builder/pull/411">GitHub pull request</a>, so you can participate in the GitHub discussions as well.</p>
-<aside class="blog-hub-addition blog-related" aria-label="Added on the Ansible TMM hub">
-  <p class="blog-hub-addition__badge">Added on the Ansible TMM hub</p>
-  <div class="blog-hub-addition__content">
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
   <ul><li><a href="/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/">Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</a></li><li><a href="/blog/new-red-hat-ansible-development-tools/">Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience</a></li><li><a href="/blog/introducing-ansible-plug-ins-red-hat-developer-hub/">Introducing Ansible plug-ins for Red Hat Developer Hub</a></li></ul>
-  </div>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#anshul-behl">Anshul Behl</a></p></footer>
