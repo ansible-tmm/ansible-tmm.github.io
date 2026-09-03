@@ -17,6 +17,13 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:20:39Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** we created a simple reference architecture to help guide you migrate from Ansible Automation Platform 1.2 to Ansible Automation Platform 2.
+
+<!-- blog-enrichment:end -->
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/svFddIqV7xPFilaUztr4wit2zyRiToanGQacqtyBYkprP1SUAoApyoV89LI0mwv-FK4ijQeT3MARtXYO8Wl0oBCKHY44bdd09eo9XuBIEFBgLBbpzT9WHEqmJqfc-UTKGisvDeur.png)](https://www.redhat.com/rhdc/managed-files/ansible/svFddIqV7xPFilaUztr4wit2zyRiToanGQacqtyBYkprP1SUAoApyoV89LI0mwv-FK4ijQeT3MARtXYO8Wl0oBCKHY44bdd09eo9XuBIEFBgLBbpzT9WHEqmJqfc-UTKGisvDeur.png)
 
 Side-by-Side migration to Ansible Automation Platform 2
@@ -26,6 +33,9 @@ The release of [Red Hat Ansible Automation Platform 2.1](https://www.ansible.com
 With the importance of enterprise automation and taking advantage of the latest Ansible Automation Platform, we created a simple [reference architecture to help guide you migrate from Ansible Automation Platform 1.2 to Ansible Automation Platform 2](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.4/html-single/ansible_automation_platform_1.2_to_2_migration_guide/index).
 
 It consists of using a side-by-side methodology for the migration process via using the Ansible Automation Platform installer to do the migration and restoring a Database backup from a Ansible Automation Platform 1.2 cluster.
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## **Why are you going to love it?**
 
@@ -52,6 +62,9 @@ This one-time effort opens the door to take advantage of the latest Ansible Auto
 
 To make this process easy, this reference architecture will walk you through an actual migration we did from Ansible Automation Platform 1.2 to Ansible Automation Platform 2.
 
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
+
 ## **What can I do next?**
 
 Whether you are beginning your automation journey or are a seasoned veteran, you can reach out with questions and feedback regarding the migration process at [ansible-feedback@redhat.com](mailto:ansible-feedback@redhat.com). In addition, you can reference a variety of resources to enhance your automation knowledge:
@@ -66,3 +79,14 @@ Whether you are beginning your automation journey or are a seasoned veteran, you
 Also, if you’re interested in some hands-on assistance with your migration or want help building a strategy for onboarding Ansible Automation Platform 2, please reach out to your Account Executive for more information about Red Hat Consulting.
 
 A special thanks to Roger Lopez for his contributions to this blog and the migration reference architecture.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Introducing Ansible plug-ins for Red Hat Developer Hub](/blog/introducing-ansible-plug-ins-red-hat-developer-hub/)
+> - [Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant](/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

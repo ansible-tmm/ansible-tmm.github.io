@@ -50,7 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#andrius-benokraitis">Andrius Benokraitis</a> · <time datetime="2022-05-26">May 25, 2022</time> · 8-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png" alt="aap2.2"></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> An overview of the new features found in the Ansible Automation Platform 2.2 release</aside><aside class="blog-toc">
+  <p class="blog-toc__title">On this page</p>
+  <ul><li><a href="#automation-topology-viewer">Automation topology viewer</a></li><li><a href="#digitally-signed-red-hat-ansible-certified-content-collections">Digitally signed Red Hat Ansible Certified Content Collections</a></li><li><a href="#updated-developer-and-creator-tooling">Updated developer and creator tooling</a></li><li><a href="#enhanced-collections-for-network-automation">Enhanced Collections for network automation</a></li><li><a href="#automation-services-catalog-is-now-on-premise">Automation services catalog is now on-premise</a></li><li><a href="#automation-reporting-and-analytics-more-integrated">Automation reporting and analytics more integrated</a></li><li><a href="#red-hat-enterprise-linux-9-support">Red Hat Enterprise Linux 9 support</a></li><li><a href="#next-steps">Next Steps</a></li></ul>
+</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png" alt="aap2.2"></a></p>
 <p>The Ansible product team at Red Hat is thrilled to announce the general availability of Red Hat Ansible Automation Platform 2.2, which includes numerous features and bug fixes that further solidify Ansible Automation Platform as the <em>de facto</em> enterprise IT automation solution for developers to operations teams in data centers, clouds, and at the edge. A few of the most noteworthy features in this release include:</p>
 <ul>
 <li>New automation topology viewer in automation controller</li>
@@ -62,8 +65,12 @@
 <li>Red Hat Enterprise Linux 9 support</li>
 </ul>
 <p>Don’t forget to check out the <a href="https://docs.ansible.com/">product documentation</a> including the <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html/red_hat_ansible_automation_platform_release_notes/index">release notes</a>!</p>
-<h2>Automation topology viewer</h2>
-<p>Let’s face it, automating at enterprise scale is really hard. Although many features were added for the content creator and developer in Ansible Automation Platform 2, the automation operations teams are typically responsible for making sure automation is up and running as it should across all inventories, worldwide, with 24/7 availability and uptime. As enterprise automation operations teams continue to implement strategies from IT leaders and architects, their need to troubleshoot complex automation topologies continues to grow as well. With the introduction of <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.1-automation-mesh">automation mesh</a> in Ansible Automation Platform 2, automation execution can now be decentralized, running closer to where the automation needs to run (in the cloud, at the edge, etc.) while still managed by a single operations team. This operations team now must support multiple environments that span different locations, each with niche automation requirements that they may not have intimate knowledge of at any given moment.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Solution Guides</p>
+  <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
+  <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+</aside><h2 id="automation-topology-viewer">Automation topology viewer</h2><p>Let’s face it, automating at enterprise scale is really hard. Although many features were added for the content creator and developer in Ansible Automation Platform 2, the automation operations teams are typically responsible for making sure automation is up and running as it should across all inventories, worldwide, with 24/7 availability and uptime. As enterprise automation operations teams continue to implement strategies from IT leaders and architects, their need to troubleshoot complex automation topologies continues to grow as well. With the introduction of <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.1-automation-mesh">automation mesh</a> in Ansible Automation Platform 2, automation execution can now be decentralized, running closer to where the automation needs to run (in the cloud, at the edge, etc.) while still managed by a single operations team. This operations team now must support multiple environments that span different locations, each with niche automation requirements that they may not have intimate knowledge of at any given moment.</p>
 <p>Enter automation topology viewer, included as part of automation controller. This new addition allows operators to graphically visualize how automation nodes are connected to each other. You can find <strong>Topology View</strong> under the <strong>Administration</strong> section of the left menu bar within the automation controller graphical user interface.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/YF_2iRcBgFrOMwClIqCCDEd4LZ-64gWFQfelnEyqgi3NZJGQi6J2DfGFYYxgNMpb1v5nlJvG_pcQCJkC-6H6WIxKkVqYoNxiuvb9liUgzOcmCarrmConHzpjrW3lcNjtEIlwGFWvfExVwnLyRg.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/YF_2iRcBgFrOMwClIqCCDEd4LZ-64gWFQfelnEyqgi3NZJGQi6J2DfGFYYxgNMpb1v5nlJvG_pcQCJkC-6H6WIxKkVqYoNxiuvb9liUgzOcmCarrmConHzpjrW3lcNjtEIlwGFWvfExVwnLyRg.png" alt=""></a></p>
 <p>Refer to the following simple example view taken from topology viewer in automation controller:</p>
@@ -72,20 +79,26 @@
 <p>As automation continues to scale, the topology viewer becomes more useful, as shown in the following example, which contains three of the four node types (controller, execution, hop):</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/0IBVf2itri31peHd1UFaUNQjnAKh-b6rS6vltX9dFdJQeu0fYmyQEDUXNqyNY9RrVmgHvsIOFW7eu7RiqFn4HX1RDbBF4G4CnOuEDnwcC1Ay6PWwjlVEwIOZiqXvwatazC_3KncmrD_fN1a1Xg.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/0IBVf2itri31peHd1UFaUNQjnAKh-b6rS6vltX9dFdJQeu0fYmyQEDUXNqyNY9RrVmgHvsIOFW7eu7RiqFn4HX1RDbBF4G4CnOuEDnwcC1Ay6PWwjlVEwIOZiqXvwatazC_3KncmrD_fN1a1Xg.png" alt=""></a></p>
 <p>For more information on automation mesh, and how the automation topology viewer works with it, check out <a href="https://events.experiences.redhat.com/widget/redhat/sum22/SessionCatalog22/session/1641398142450001vmkJ">Phil Griffiths’ on-demand Summit 2022 breakout session entitled: “OD1512 - Ansible Automation Platform 2 automation mesh—starting locally, scaling globally</a>.”</p>
-<h2>Digitally signed Red Hat Ansible Certified Content Collections</h2>
-<p>The increased focus on information security and how software is run in enterprise production environments has never been greater. Providing security-focused features in Ansible Automation Platform 2 continues to be a priority, with the ability to execute certified and compliant automation anywhere in your enterprise. New in this release is collection signing, which is the genesis of a more holistic chain-of-custody security feature going forward. The following two use cases are of note:</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Workshops and Labs</p>
+  <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
+  <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+</aside><h2 id="digitally-signed-red-hat-ansible-certified-content-collections">Digitally signed Red Hat Ansible Certified Content Collections</h2><p>The increased focus on information security and how software is run in enterprise production environments has never been greater. Providing security-focused features in Ansible Automation Platform 2 continues to be a priority, with the ability to execute certified and compliant automation anywhere in your enterprise. New in this release is collection signing, which is the genesis of a more holistic chain-of-custody security feature going forward. The following two use cases are of note:</p>
 <ol>
-<li><strong>Digitally signed Red Hat Ansible Certified Content Collections on Ansible automation hub</strong><br>All new and updated Red Hat Ansible Certified Content Collections will be signed by Red Hat as part of the normal certified content submission process. The public key for verifying signed content will be made available on the Red Hat Customer Portal for on-demand use, or offline use with a private/local keyring.</li>
-<li><strong>Digitally sign your user-built, community, or third-party Ansible Content Collections on private automation hub</strong><br>For any Collections that are not already signed by Red Hat, automation teams can configure a signing service to private automation hub to auto-sign published Collections or host requests for approval before publishing. Developers and content creators may upload their own Collections via the private automation hub GUI or the CLI, and an approver can then sign and approve them for publishing and use across the organization.</li>
+<li><p><strong>Digitally signed Red Hat Ansible Certified Content Collections on Ansible automation hub</strong>  </p>
+<p>All new and updated Red Hat Ansible Certified Content Collections will be signed by Red Hat as part of the normal certified content submission process. The public key for verifying signed content will be made available on the Red Hat Customer Portal for on-demand use, or offline use with a private/local keyring.</p>
+</li>
+<li><p><strong>Digitally sign your user-built, community, or third-party Ansible Content Collections on private automation hub</strong>  </p>
+<p>For any Collections that are not already signed by Red Hat, automation teams can configure a signing service to private automation hub to auto-sign published Collections or host requests for approval before publishing. Developers and content creators may upload their own Collections via the private automation hub GUI or the CLI, and an approver can then sign and approve them for publishing and use across the organization.</p>
+</li>
 </ol>
 <p>Digital signing for Ansible Content Collections is only the beginning. Since the running of automation occurs in automation execution environments, it’s only natural that the next area of content signing would be at this level, the container level. Stay tuned for more on this in coming releases!</p>
 <p>For more information, check out the <a href="https://github.com/ansible/galaxy_ng/blob/master/docs/config/collection_signing.md">project upstream documentation</a>.</p>
 <p>NOTE: <em>This feature is included as a</em> <a href="https://access.redhat.com/solutions/21101"><em>technology preview</em></a> <em>supported feature, and may be made fully supported in a future release.</em></p>
-<h2>Updated developer and creator tooling</h2>
-<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.12.15%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.12.15%20PM.png" alt="Screen Shot 2022-05-24 at 2.12.15 PM"></a></p>
+<h2 id="updated-developer-and-creator-tooling">Updated developer and creator tooling</h2><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.12.15%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.12.15%20PM.png" alt="Screen Shot 2022-05-24 at 2.12.15 PM"></a></p>
 <p>As Ansible Playbooks and roles are written by more people across teams that want to automate in their organization, there becomes a need to provide standardized tools to help developers along the way.</p>
-<h3>Added ansible-lint package</h3>
-<p>In this release the newly bundled <code>ansible-lint</code> command-line tool promotes proven practices, patterns, and behaviors for writing Ansible content. Key benefits include:</p>
+<h3 id="added-ansible-lint-package">Added ansible-lint package</h3><p>In this release the newly bundled <code>ansible-lint</code> command-line tool promotes proven practices, patterns, and behaviors for writing Ansible content. Key benefits include:</p>
 <ul>
 <li>A consistent creator experience across teams due to opinionated strategy and supported tools.</li>
 <li>Integration with other common CI tools, which allows custom Ansible content to be easily tested and integrated into larger business workflows.</li>
@@ -93,44 +106,36 @@
 </ul>
 <p>For more information, checkout the <a href="https://ansible-lint.readthedocs.io/en/latest/">project upstream documentation</a>.</p>
 <p>NOTE: <em>This feature (ansible-lint)  is included as a</em> <a href="https://access.redhat.com/solutions/21101"><em>technology preview</em></a> <em>supported feature, and may be made fully supported in a future release.</em></p>
-<h3>Updated ansible-navigator</h3>
-<p>First released in Ansible Automation Platform 2.0, <code>ansible-navigator</code> now includes more features to create content more easily, including:</p>
+<h3 id="updated-ansible-navigator">Updated ansible-navigator</h3><p>First released in Ansible Automation Platform 2.0, <code>ansible-navigator</code> now includes more features to create content more easily, including:</p>
 <ul>
 <li>Native pass-through control of both <code>ansible-builder</code> and <code>ansible-lint</code>.</li>
 <li>Native support for execution of “ad-hoc” ansible commands in an automation execution environment.</li>
 <li>Simple settings management for <code>ansible-navigator</code> installations. Settings that are active or have been modified are clearly identified with Visual Studio Code (VS Code).</li>
 </ul>
 <p>For more information, check out the <a href="https://ansible-navigator.readthedocs.io/en/latest/">upstream project documentation</a>.</p>
-<h3>Added VS Code extension</h3>
-<p>Finally, a newly bundled VS Code extension provides language support for creating Ansible content, including smart auto-completion of related playbook content, syntax highlighting, jinja helpers, and direct integrations with supported tooling.</p>
+<h3 id="added-vs-code-extension">Added VS Code extension</h3><p>Finally, a newly bundled VS Code extension provides language support for creating Ansible content, including smart auto-completion of related playbook content, syntax highlighting, jinja helpers, and direct integrations with supported tooling.</p>
 <p>For more information, check out the <a href="https://marketplace.visualstudio.com/items?itemName=redhat.ansible">VS Code extension download</a>, as well as a <a href="https://www.ansible.com/blog/deep-dive-on-ansible-vscode-extension">recent blog post that covers a deep dive</a>.</p>
-<h2>Enhanced Collections for network automation</h2>
-<p>We don’t typically highlight Collections as part of an Ansible Automation Platform release because they’re developed and released asynchronously from the product and they’re already available on Ansible automation hub. New in Ansible Automation Platform 2.2, supported execution environments that are built by Red Hat are now included by default with the Ansible Automation Platform bundled installer (thanks to Skopeo). Because of this, The latest version of the <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments">ee-supported-rhel8 automation execution environment</a>, which comes bundled with Ansible Automation Platform 2.2, includes many improvements for network automation, most notably:</p>
+<h2 id="enhanced-collections-for-network-automation">Enhanced Collections for network automation</h2><p>We don’t typically highlight Collections as part of an Ansible Automation Platform release because they’re developed and released asynchronously from the product and they’re already available on Ansible automation hub. New in Ansible Automation Platform 2.2, supported execution environments that are built by Red Hat are now included by default with the Ansible Automation Platform bundled installer (thanks to Skopeo). Because of this, The latest version of the <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments">ee-supported-rhel8 automation execution environment</a>, which comes bundled with Ansible Automation Platform 2.2, includes many improvements for network automation, most notably:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.01.43%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.01.43%20PM.png" alt="Screen Shot 2022-05-24 at 2.01.43 PM"></a></p>
-<h3>Increased performance and resiliency</h3>
-<ul>
+<h3 id="increased-performance-and-resiliency">Increased performance and resiliency</h3><ul>
 <li><a href="https://docs.ansible.com/ansible/latest/collections/ansible/netcommon/libssh_connection.html">LibSSH</a> (using pylibSSH Python library) is now the default Secure Shell (SSH) connection, with fallback to paramiko if needed.</li>
 <li><a href="https://docs.ansible.com/ansible/latest/collections/ansible/netcommon/network_cli_connection.html#parameter-import_modules">Direct execution is enabled by default.</a> Instead of the shell executing and packaging network modules, they will be directly executed by the Ansible control node. This results in a much faster execution performance and reduced execution node central processing unit (CPU).</li>
 </ul>
-<h3>Additional network use-cases</h3>
-<ul>
+<h3 id="additional-network-use-cases">Additional network use-cases</h3><ul>
 <li>New Red Hat-supported <code>ansible.yang</code> 1.0.0 Collection (was <code>community.yang</code> Collection) includes Ansible plugins to help support YANG data models with network devices.</li>
 <li>New resource modules, including <code>snmp_server</code> and <code>hostname</code> modules for supported network operating systems for Arista, Cisco, Juniper and VyOS.</li>
 <li>Built-in support for manipulation of IPv4 and IPv6 addresses, subnets, masks and prefixes, the <code>ipaddr</code> filter plugin has been added to the <code>ansible.utils</code> Collection.</li>
 <li>The new consolidate filter plugin simplifies Ansible facts manipulation. This plugin presents collective structured data, including all supplied facts grouping on common attributes. It has also been added to the ansible.utils collection.</li>
 </ul>
-<h3>Continued asynchronous releases</h3>
-<ul>
+<h3 id="continued-asynchronous-releases">Continued asynchronous releases</h3><ul>
 <li>Continued enhancements for Arista EOS, Cisco IOS XE, Cisco NX-OS, Cisco IOS XR, Juniper JunOS and VyOS.</li>
 <li>Major releases of ansible.netcommon and <a href="https://access.redhat.com/articles/4993781">supported network platform</a> Collections.</li>
 </ul>
-<h2>Automation services catalog is now on-premise</h2>
-<p>With Ansible Automation Platform 2.2, the automation services catalog evolves from a hosted service on console.redhat.com to a self-hosted, on-premises version that gives automation creators and business users self-service access to their Ansible automation across physical, virtual, cloud, container, and edge environments.</p>
+<h2 id="automation-services-catalog-is-now-on-premise">Automation services catalog is now on-premise</h2><p>With Ansible Automation Platform 2.2, the automation services catalog evolves from a hosted service on console.redhat.com to a self-hosted, on-premises version that gives automation creators and business users self-service access to their Ansible automation across physical, virtual, cloud, container, and edge environments.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.07.19%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.07.19%20PM.png" alt="Screen Shot 2022-05-24 at 2.07.19 PM"></a></p>
 <p>This new iteration of the automation services catalog helps organizations extend the value of their automation to the business user by presenting access to Ansible Automation Platform in a catalog-style format. With multilevel approval and role-based access control (RBAC), administrators can deploy projects more quickly, with the governance they need to meet compliance and procurement requirements.</p>
 <p>NOTE: <em>This feature is included as a</em> <a href="https://access.redhat.com/solutions/21101"><em>technology preview</em></a> <em>supported feature, and may be made fully supported in a future release.</em></p>
-<h2>Automation reporting and analytics more integrated</h2>
-<p>Ansible Automation Platform 2.2 includes a simpler, more intuitive way to connect your automation data with Red Hat Insights. The <code>insights-client</code> package responsible for ensuring connected data for your Ansible Automation Platform infrastructure is a part of the bundled installer on the Red Hat Customer Portal.</p>
+<h2 id="automation-reporting-and-analytics-more-integrated">Automation reporting and analytics more integrated</h2><p>Ansible Automation Platform 2.2 includes a simpler, more intuitive way to connect your automation data with Red Hat Insights. The <code>insights-client</code> package responsible for ensuring connected data for your Ansible Automation Platform infrastructure is a part of the bundled installer on the Red Hat Customer Portal.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.24.06%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-05-24%20at%202.24.06%20PM.png" alt="Screen Shot 2022-05-24 at 2.24.06 PM"></a></p>
 <p>With Red Hat Insights, you get actionable metrics and dashboards to help identify, troubleshoot, and resolve operational, business, and security issues across your entire ecosystem. You gain full visibility into the performance and return on investment (ROI) of your efforts, enabling more informed decisions to optimize and expand your automation.</p>
 <p>Insights for Ansible Automation Platform includes:</p>
@@ -141,8 +146,7 @@
 <li><strong>Drift</strong> to establish consistent configuration across systems.</li>
 <li><strong>Advisor</strong> to identify issues and remediations to generate playbooks to resolve issues quickly.</li>
 </ul>
-<h2>Red Hat Enterprise Linux 9 support</h2>
-<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/rhel9_banner.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/rhel9_banner.png" alt="rhel9_banner"></a></p>
+<h2 id="red-hat-enterprise-linux-9-support">Red Hat Enterprise Linux 9 support</h2><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/rhel9_banner.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/rhel9_banner.png" alt="rhel9_banner"></a></p>
 <p>The automation and management capabilities of Ansible Automation Platform 2.2 are now supported on Red Hat Enterprise Linux 9:</p>
 <ul>
 <li><strong>Components now available for Red Hat Enterprise Linux 9.</strong> Ansible Automation Platform components, including automation controller, private automation hub, automation services catalog, and many developer and creator tools, are now available as Red Hat Enterprise Linux 8 or 9 Red Hat Package Manager (RPM) packages in the Red Hat Customer Portal.</li>
@@ -150,8 +154,7 @@
 <li><strong>An updated Red Hat Ansible Certified Content Collection for Red Hat Enterprise Linux system roles to automate Red Hat Enterprise Linux 9 instances.</strong> The <code>redhat.rhel_system_roles</code> Collection on Ansible automation hub supports the ability to automate Red Hat Enterprise Linux 9.</li>
 </ul>
 <p>New additions to the <code>rhel_system_roles</code> Collection, available on Ansible automation hub, include system roles for <a href="https://access.redhat.com/articles/3050101">Postfix, Intelligence Platform Management Interface (IPMI) management, Cockpit, Firewalld, and Red Hat Enterprise Linux high-availability cluster solutions</a>. For more information on the release of Red Hat Enterprise Linux 9, please refer to <a href="https://www.redhat.com/en/about/press-releases/red-hat-defines-new-epicenter-innovation-red-hat-enterprise-linux-9">the official press release</a>.</p>
-<h2>Next Steps</h2>
-<p><strong>More Ansible Automation Platform 2.2 Resources</strong></p>
+<h2 id="next-steps">Next Steps</h2><p><strong>More Ansible Automation Platform 2.2 Resources</strong></p>
 <p>You can get a rundown of what’s new in this checklist, <a href="https://www.redhat.com/en/resources/whats-new-ansible-automation-platform-2-2-checklist">What’s new: Ansible Automation Platform 2.2</a>. For even more context, including a recap of Ansible Automation Platform 2 releases to date, and a look ahead at 2.3, check out the free, on-demand webinar, Ansible Automation Platform 2.2: next generation platform enhancements.</p>
 <p><strong>Take a video tour</strong></p>
 <p>This eight-minute <a href="https://youtu.be/7GJjhZoYEus">overview video</a> highlights the components and features in the latest version of Ansible Automation Platform—and how they come together to deliver a comprehensive enterprise automation experience.</p>
@@ -160,7 +163,10 @@
 <p>Sign up for an Ansible Automation Platform <a href="https://www.redhat.com/en/technologies/management/ansible/try-it">60-day trial</a> to try it in your environment.</p>
 <p><strong>Plan your upgrade</strong></p>
 <p>If you are still operating Ansible Automation Platform 1.2, it is time to start planning your upgrade. Get started with this checklist, “5 ways to prepare for migration to Ansible Automation Platform 2.” You can also register for a free webinar, “Migrating to the next generation IT automation platform.”</p>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave/">A Deeper Look, Red Hat Named a Leader in the Forrester Wave</a></li><li><a href="/blog/introducing-ansible-automation-platform-2/">Introducing Ansible Automation Platform 2</a></li><li><a href="/blog/team-automation-numbers/">By the numbers: Getting your team on board with IT automation</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#andrius-benokraitis">Andrius Benokraitis</a></p></footer>
     </article>

@@ -16,6 +16,13 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:20:56Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** For this webinar, we had an awesome group of individuals with a diverse talent range across multiple skill sets from Product Management, Technical Marketing and Engineering.
+
+<!-- blog-enrichment:end -->
+
 [![ask me anything](https://www.redhat.com/rhdc/managed-files/ansible/ask%20me%20anything.png)](https://www.redhat.com/rhdc/managed-files/ansible/ask%20me%20anything.png)
 
 I recently had the opportunity to emcee an Ask me Anything webinar in April 12, These sessions are a good opportunity for the community, customers, partners and more to talk directly to Red Hat employees about what is happening on Red Hat Ansible Automation Platform and beyond. For this webinar, we had an awesome group of individuals with a diverse talent range across multiple skill sets from Product Management, Technical Marketing and Engineering:
@@ -29,6 +36,9 @@ I recently had the opportunity to emcee an Ask me Anything webinar in April 12, 
 To watch the webinar on-demand check it out here.
 
 As it turns out, we can’t get to every question that comes in, so we had some time to review and will try to provide the Q&A right here! We also answered a series of questions in email after the event. If you still have questions, we will be doing future Ask Me Anything webinars. Once the date and registration link become available, we will update this blog with the information.
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## Questions and Answers:
 
@@ -115,6 +125,9 @@ Here is [the installation guide](https://access.redhat.com/documentation/en-us/r
 
 Red Hat currently also has a managed application implementation of Red Hat Ansible Automation Platform on Microsoft Azure if that’s of interest to you. You can get more [details on that here](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_on_microsoft_azure_guide/index).
 
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
+
 ## ​​What can I do next?
 
 Whether you are beginning your automation journey or are a seasoned veteran, there are a variety of resources to enhance your automation knowledge:
@@ -124,3 +137,14 @@ Whether you are beginning your automation journey or are a seasoned veteran, the
 - [Developer license](https://developers.redhat.com/about) - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.
 - [Subscribe to the Red Hat Ansible Automation Platform YouTube channel.](https://www.youtube.com/ansibleautomation) Be sure to check out our new web series, [Automated Live hosted by Colin McNaughton.](https://www.redhat.com/en/technologies/management/ansible/automated-live-videos)
 - [Follow Red Hat Ansible](https://twitter.com/ansible) [Automation Platform](https://www.youtube.com/ansibleautomation) [on Twitter](https://twitter.com/ansible) - Do you have questions or an automation project you want to show off? Tweet at us!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

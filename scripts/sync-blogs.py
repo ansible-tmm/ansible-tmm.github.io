@@ -26,6 +26,7 @@ from blog_extractors import (
     extract_metadata,
     html_to_markdown,
 )
+from blog_enrichment import enrich_markdown_body
 
 ROOT = Path(__file__).resolve().parent.parent
 TEAM_JS = ROOT / "js" / "team.js"
@@ -334,6 +335,9 @@ def sync_post(
         "read_time_minutes": metadata.read_time_minutes,
         "synced_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
     }
+
+    index_posts = build_index_from_markdown()
+    markdown_body = enrich_markdown_body(markdown_body, frontmatter, index_posts)
 
     CONTENT_DIR.mkdir(parents=True, exist_ok=True)
     md_path = CONTENT_DIR / f"{slug}.md"

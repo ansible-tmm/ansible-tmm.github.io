@@ -50,112 +50,90 @@
         <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2022-03-21">March 20, 2022</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p>With increased adoption of container automation, IT organizations continue to expand their requirements when it comes to deploying and managing their Kubernetes clusters. As such, we at Red Hat continue to add new features and capabilities to meet those demands by announcing the availability of <code>kubernetes.core</code> version 2.3, our Red Hat Ansible Certified Content Collection for Kubernetes and Helm.</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog post, we’ll go over what’s new and what’s different in this release of our Kubernetes Collection.</aside><aside class="blog-toc">
+  <p class="blog-toc__title">On this page</p>
+  <ul><li><a href="#new-module-k8s-taint">New Module - k8s\_taint</a></li><li><a href="#enablement-of-server-side-apply">Enablement of Server-Side Apply</a></li><li><a href="#incremental-improvements">Incremental Improvements</a></li><li><a href="#summary">Summary</a></li></ul>
+</aside><p>With increased adoption of container automation, IT organizations continue to expand their requirements when it comes to deploying and managing their Kubernetes clusters. As such, we at Red Hat continue to add new features and capabilities to meet those demands by announcing the availability of <code>kubernetes.core</code> version 2.3, our Red Hat Ansible Certified Content Collection for Kubernetes and Helm.</p>
 <p>In this blog post, we’ll go over what’s new and what’s different in this release of our Kubernetes Collection.</p>
-<h2>New Module - k8s_taint</h2>
-<p>With the release of <code>kubernetes.core</code> 2.3, we introduce the <code>k8s_taint</code> module. This module provides the ability for a Kuberentes node to repel a pod or set of pods from being scheduled unless they have a matching toleration. This establishes that with taints and tolerations in place, pods are not scheduled onto inappropriate nodes.</p>
+<h2 id="new-module-k8s-taint">New Module - k8s\_taint</h2><p>With the release of <code>kubernetes.core</code> 2.3, we introduce the <code>k8s_taint</code> module. This module provides the ability for a Kuberentes node to repel a pod or set of pods from being scheduled unless they have a matching toleration. This establishes that with taints and tolerations in place, pods are not scheduled onto inappropriate nodes.</p>
 <p>This feature is quite useful when you are trying to ensure exclusivity of a particular set of nodes (only allow a particular group of users access) or you want to provide particular nodes with special hardware (such as GPUs) to only run pods that require the use of the specialized hardware and keep out the pods that don’t require it.</p>
 <p>An example of using the <code>k8s_taint</code> module where the toleration key has a value of <code>key1</code> and its effect is to not execute <code>NoExecute</code>. This means that no pod will be able to execute onto node <code>foo</code> unless it has a matching toleration.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Taint node "foo"</span></span>
-<span class="line"><span>  kubernetes.core.k8s_taint:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      state: present</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      name: foo</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      taints:</span></span>
-<span class="line"><span>    - effect: NoExecute</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        key: "key1"</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Taint node "foo"</span></span>
+<span class="line"><span style="color:#85E89D">  kubernetes.core.k8s_taint</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    state</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">present</span></span>
+<span class="line"><span style="color:#85E89D">    name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">foo</span></span>
+<span class="line"><span style="color:#85E89D">    taints</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">effect</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">NoExecute</span></span>
+<span class="line"><span style="color:#85E89D">      key</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"key1"</span></span></code></pre>
 </div><p>Additionally, more than one effect can be provided to apply additional effects:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Taint node "foo"</span></span>
-<span class="line"><span>  kubernetes.core.k8s_taint:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      state: present</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      name: foo</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      taints:</span></span>
-<span class="line"><span>    - effect: NoExecute</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        key: "key1"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        value: "value1"</span></span>
-<span class="line"><span>    - effect: NoSchedule</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        key: "key1"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        value: "value1"</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Taint node "foo"</span></span>
+<span class="line"><span style="color:#85E89D">  kubernetes.core.k8s_taint</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    state</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">present</span></span>
+<span class="line"><span style="color:#85E89D">    name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">foo</span></span>
+<span class="line"><span style="color:#85E89D">    taints</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">effect</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">NoExecute</span></span>
+<span class="line"><span style="color:#85E89D">      key</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"key1"</span></span>
+<span class="line"><span style="color:#85E89D">      value</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"value1"</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">effect</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">NoSchedule</span></span>
+<span class="line"><span style="color:#85E89D">      key</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"key1"</span></span>
+<span class="line"><span style="color:#85E89D">      value</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"value1"</span></span></code></pre>
 </div><p>This means that no pod will be able to execute nor schedule onto node <code>foo</code> unless it has a matching toleration.  </p>
 <p><strong>NOTE</strong>: The available effects of the taint on pods are: <code>NoSchedule</code>, <code>NoExecute</code> and <code>PreferNoSchedule</code>.</p>
 <p>Lastly, a taint can be removed by changing the state from present to absent:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Remove taint from "foo".</span></span>
-<span class="line"><span>  kubernetes.core.k8s_taint:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      state: absent</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      name: foo</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      taints:</span></span>
-<span class="line"><span>    - effect: NoExecute</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        key: "key1"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        value: "value1"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        value: "value1"</span></span></code></pre>
-</div><h2>Enablement of Server-Side Apply</h2>
-<p>Server Side Apply assists users and controllers in managing their resources via declarative configurations. One of the goals of Server Side Apply is to provide more robust handling of conflicts that might arise when a resource is modified by multiple agents concurrently. Client Side Apply works by first fetching the existing resource, then determining the difference between the existing state of resource and the desired state of the resource. If they differ, a patch is applied to the resource for the difference. When resources are modified concurrently, this can lead to race conditions where the same fields are being changed. Server Side Apply assigns ownership of individual fields, preventing unintended changes from being applied in situations where there is contention.</p>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Remove taint from "foo".</span></span>
+<span class="line"><span style="color:#85E89D">  kubernetes.core.k8s_taint</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    state</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">absent</span></span>
+<span class="line"><span style="color:#85E89D">    name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">foo</span></span>
+<span class="line"><span style="color:#85E89D">    taints</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">effect</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">NoExecute</span></span>
+<span class="line"><span style="color:#85E89D">      key</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"key1"</span></span>
+<span class="line"><span style="color:#85E89D">      value</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"value1"</span></span>
+<span class="line"><span style="color:#85E89D">      value</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"value1"</span></span></code></pre>
+</div><h2 id="enablement-of-server-side-apply">Enablement of Server-Side Apply</h2><p>Server Side Apply assists users and controllers in managing their resources via declarative configurations. One of the goals of Server Side Apply is to provide more robust handling of conflicts that might arise when a resource is modified by multiple agents concurrently. Client Side Apply works by first fetching the existing resource, then determining the difference between the existing state of resource and the desired state of the resource. If they differ, a patch is applied to the resource for the difference. When resources are modified concurrently, this can lead to race conditions where the same fields are being changed. Server Side Apply assigns ownership of individual fields, preventing unintended changes from being applied in situations where there is contention.</p>
 <p>To take advantage of Server Side Apply within <code>kubernetes.core.k8s</code>, a user can use the <code>server_side_apply</code> field that declare a <code>field_manager</code> as follows:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Create configmap using server side apply</span></span>
-<span class="line"><span>  kubernetes.core.k8s:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      namespace: testing</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      definition:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        apiVersion: v1</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        kind: ConfigMap</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        metadata:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>          name: my-configmap</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      apply: yes</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      server_side_apply:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        field_manager: ansible</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Create configmap using server side apply</span></span>
+<span class="line"><span style="color:#85E89D">  kubernetes.core.k8s</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    namespace</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">testing</span></span>
+<span class="line"><span style="color:#85E89D">    definition</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      apiVersion</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">v1</span></span>
+<span class="line"><span style="color:#85E89D">      kind</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ConfigMap</span></span>
+<span class="line"><span style="color:#85E89D">      metadata</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">my-configmap</span></span>
+<span class="line"><span style="color:#85E89D">    apply</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
+<span class="line"><span style="color:#85E89D">    server_side_apply</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      field_manager</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ansible</span></span></code></pre>
 </div><p><strong>NOTE</strong>: This option requires Kubernetes Python Client 19.15.0 or higher.</p>
-<h2>Incremental Improvements</h2>
-<p>In this release, we have replaced the client side implementation of dry run with server side dry run. With this switch, we can make sure that admission controllers are run and schema validation occurs, providing a more accurate representation of the changes. This feature requires a Kubernetes Python Client version &gt;= 18.20.0, and is used automatically when running the <code>kubernetes.core.k8s</code> module in <code>check</code> mode.</p>
+<h2 id="incremental-improvements">Incremental Improvements</h2><p>In this release, we have replaced the client side implementation of dry run with server side dry run. With this switch, we can make sure that admission controllers are run and schema validation occurs, providing a more accurate representation of the changes. This feature requires a Kubernetes Python Client version &gt;= 18.20.0, and is used automatically when running the <code>kubernetes.core.k8s</code> module in <code>check</code> mode.</p>
 <p>We have also added the ability to impersonate users and groups through the new <code>impersonate_user</code> and <code>impersonate_groups</code> parameters in the <code>kubernetes.core.k8s</code> module. To use this feature, the authenticating user must have the ability to perform the <code>impersonate</code> verb. This can be configured using Kubernetes RBAC.</p>
 <p>There have been a number of small improvements to our Helm modules. The <code>kubernetes.core.helm_info</code> module now has a <code>release_state</code> parameter that gives you expanded control over filtering releases. The default behavior of returning only releases in the failed or deployed state remains the same. Additional release states are now supported, as well.</p>
 <p>A new <code>plugin_version</code> parameter has been added to the <code>kubernetes.core.helm_plugin</code> module. In addition to being able to install a specific version of Helm plugin, a new latest state was added. This state verifies that the requested plugin is always at the latest version. This differs from the default present state in that with <code>state: present</code>, the latest version will only be installed if the plugin is not currently installed.</p>
 <p>Finally, the <code>wait</code> parameter on the <code>kubernetes.core.helm</code> module will now work when deleting releases. Previously, this only worked when installing or upgrading a release due to limitations in helm itself. This functionality requires a helm version &gt;= 3.7.0.</p>
-<h2>Summary</h2>
-<p>With the newest release of Ansible Content Collection for <code>kubernetes.core</code>, users now have:</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">Team resource</span>
+  <p class="blog-callout__title">Kubernetes automation content</p>
+  <p class="blog-callout__body">Collections, inventories, and patterns from the Ansible TMM team.</p>
+  <a class="blog-callout__cta" href="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/">Read the guide →</a>
+</aside><h2 id="summary">Summary</h2><p>With the newest release of Ansible Content Collection for <code>kubernetes.core</code>, users now have:</p>
 <ul>
 <li>the flexibility to set taints and tolerations to repel a pod or set of pods from being scheduled unless they have a matching toleration.</li>
 <li>the ability to implement Server Side Apply to manage their resources via declarative configurations.</li>
@@ -171,7 +149,10 @@
 <li><a href="https://www.ansible.com/blog/introducing-the-ansible-content-collection-for-red-hat-openshift">Introducing the Ansible Content Collection for Red Hat OpenShift</a></li>
 <li><a href="https://www.ansible.com/resources/ebooks">Ansible e-books</a> with topic-specific insights</li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/">Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application</a></li><li><a href="/blog/ansible-automation-platform-youre-using-it-wrong/">Ansible Automation Platform … You’re using it wrong.</a></li><li><a href="/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/">New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#roger-lopez">Roger Lopez</a></p></footer>
     </article>

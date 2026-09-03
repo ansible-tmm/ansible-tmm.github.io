@@ -15,6 +15,13 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:14Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** This blog post from Sean Cavanaugh covers his journey of getting Github Actions to work with Red Hat Ansible Tower.
+
+<!-- blog-enrichment:end -->
+
 [![RH-Ansible-TowerAPI-with-Github-Actions-Blog](https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg)](https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg)
 
 Red Hat Ansible Tower can be considered the API (Application Programmatic Interface) for your Ansible Playbooks. Even if you don’t take advantage of the Web UI (User Interface) many Ansible users still benefit from using Ansible Tower because they can fit it in their existing ecosystem of tools. Are you new to using the API on Ansible Tower and want to learn how to get started? This blog post will cover my own journey of getting Github Actions to work with Red Hat Ansible Tower. My goal was to be able to have Github PRs (Pull Requests) to trigger a workflow template to perform some automated testing using an Ansible [Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html). The popularity of [some Ansible Playbooks I wrote](https://github.com/network-automation/linklight) is on the rise, so I thought I’d add some automated testing – just to make sure I didn’t accidentally break something the community was using.
@@ -26,6 +33,9 @@ I think the best approach to building an automated workflow is to reduce the tes
 [![image4](https://www.redhat.com/rhdc/managed-files/ansible/image4.png)](https://www.redhat.com/rhdc/managed-files/ansible/image4.png)
 
 There is an example of using curl to talk to the Ansible Tower API located in the documentation: <https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#launching-jobs-with-curl>
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## HTTPie
 
@@ -42,7 +52,7 @@ The above HTTPie command will launch job 84, which is a unique identifier for my
 ## GitHub Actions
 
 I bring up HTTPie because it is already an available Action within Github Actions, so I needed to make sure I knew how HTTPie worked, what parameters I needed, and how to authenticate my requests. It is simple to use and even worked on my older MacOS laptop. It is not because curl is better or worse, I was just trying to use something that had clear examples working in Github Actions. I am sure there are numerous ways I could accomplish the same task.  
-  
+
 Now that I have HTTPie working I can start building my Github Actions workflow. When you first click on the Github Actions tab on a repo, you will get a blank page with a “Create a new workflow” green button:
 
 [![image3-1](https://www.redhat.com/rhdc/managed-files/ansible/image3-1.png)](https://www.redhat.com/rhdc/managed-files/ansible/image3-1.png)
@@ -76,6 +86,20 @@ Now I simply created a test repo in my organization to play around with my new G
 
 The call httpbin is the name from my Github Action workflow file. You can click on the Details link and see API request and how Red Hat Ansible Tower responded. I hope to show a more feature complete demonstration in the future, but I was able to accomplish my original goal pretty easily after just looking at a few examples! Super big thanks to [Chris Short](https://www.redhat.com/blog/author/chris-short) who educated me about Github Actions and encouraged me to sign up for the beta.
 
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
+
 ## AnsibleFest 2019
 
 Want to talk to the folks writing the blog posts? Come join us in Atlanta, GA September 24-26 at [AnsibleFest 2019](https://www.redhat.com/ansiblefest)!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

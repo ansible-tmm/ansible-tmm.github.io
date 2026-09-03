@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>blog post | Getting Started with Event-Driven Ansible — Ansible TMM Blog</title>
+  <title>Getting Started with Event-Driven Ansible — Ansible TMM Blog</title>
   <meta name="description" content="As one technology advances, it expands the possibilities for other technologies and offers the solutions of tomorrow for the challenges we face today.">
   <link rel="canonical" href="https://www.redhat.com/en/blog/getting-started-with-event-driven-ansible">
-  <meta property="og:title" content="blog post | Getting Started with Event-Driven Ansible">
+  <meta property="og:title" content="Getting Started with Event-Driven Ansible">
   <meta property="og:description" content="As one technology advances, it expands the possibilities for other technologies and offers the solutions of tomorrow for the challenges we face today.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.redhat.com/en/blog/getting-started-with-event-driven-ansible">
@@ -46,11 +46,11 @@
       <a href="/blog/" class="blog-post-back">← Back to blog</a>
       <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/getting-started-with-event-driven-ansible" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on November 26, 2024.</aside>
       <header class="blog-post-header">
-        <h1 class="blog-post-title">blog post | Getting Started with Event-Driven Ansible</h1>
+        <h1 class="blog-post-title">Getting Started with Event-Driven Ansible</h1>
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2024-11-27">November 26, 2024</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p>As one technology advances, it expands the possibilities for other technologies and offers the solutions of tomorrow for the challenges we face today. AnsibleFest 2022 brings us new advances in Ansible automation that are as bright as they are innovative. I am talking about the Event-Driven Ansible developer preview.</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> As one technology advances, it expands the possibilities for other technologies and offers the solutions of tomorrow for the challenges we face today.</aside><p>As one technology advances, it expands the possibilities for other technologies and offers the solutions of tomorrow for the challenges we face today. AnsibleFest 2022 brings us new advances in Ansible automation that are as bright as they are innovative. I am talking about the Event-Driven Ansible developer preview.</p>
 <p>Automation allows us to give our systems and technology speed and agility while minimizing human error. However, when it comes to trouble tickets and issues, we are often left to traditional and manual methods of troubleshooting and information gathering. We inherently slow things down and interrupt our businesses. We have to gather information, try our common troubleshooting steps, confirm with different teams, and eventually, we need to sleep.</p>
 <p>The following image illustrates a support lifecycle with many manual steps and hand-offs:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/getting-started-eda-lifecycle-diagram.png"><img src="https://www.redhat.com/rhdc/managed-files/getting-started-eda-lifecycle-diagram.png" alt="Support lifecycle diagram"></a></p>
@@ -58,8 +58,12 @@
 <p>The following image illustrates how event-driven automation is used in the support lifecycle: fewer steps, faster Mean-Time-To-Resolution.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/getting-started-eda-eda.png"><img src="https://www.redhat.com/rhdc/managed-files/getting-started-eda-eda.png" alt="Event-Driven Ansible in the support lifecycle"></a></p>
 <p>Event-Driven Ansible has the potential to change the way we respond to issues and illuminates many new automation possibilities. So, how do you take the next step with Event-Driven Ansible?</p>
-<h2>Let&#39;s get started!</h2>
-<p>Event-Driven Ansible is currently in developer preview, however there is nothing stopping us from installing ansible-rulebook, which is the CLI component of Event-Driven Ansible, and building our first rulebook. Event-Driven Ansible contains a decision framework that was built using Drools. We need a rulebook to tell the system what events to flag and how to respond to them. These rulebooks are also created in YAML and are used like traditional Ansible Playbooks, so this makes it easier to understand and build the rulebooks we need. One key difference between playbooks and rulebooks is the If-this-then-that coding that is needed in a rulebook to make an event driven automation approach work.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">Team resource</span>
+  <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
+  <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
+  <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
+</aside><h2 id="lets-get-started">Let's get started!</h2><p>Event-Driven Ansible is currently in developer preview, however there is nothing stopping us from installing ansible-rulebook, which is the CLI component of Event-Driven Ansible, and building our first rulebook. Event-Driven Ansible contains a decision framework that was built using Drools. We need a rulebook to tell the system what events to flag and how to respond to them. These rulebooks are also created in YAML and are used like traditional Ansible Playbooks, so this makes it easier to understand and build the rulebooks we need. One key difference between playbooks and rulebooks is the If-this-then-that coding that is needed in a rulebook to make an event driven automation approach work.</p>
 <p>A rulebook is comprised of three main components:</p>
 <ul>
 <li><strong>Sources</strong> define which event source we will use. These sources come from source plugins which have been built to accommodate common use cases. With time, more and more sources will be available. There are some source plugins that are available already, including: webhooks, Kafka, Azure service bus, file changes, and alertmanager.</li>
@@ -91,27 +95,22 @@
     <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Listen for events on a webhook</span></span>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">---</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Listen for events on a webhook</span></span>
 <span class="line"><span style="color:#85E89D"> hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">all</span></span>
 <span class="line"><span style="color:#6A737D"> ## Define our source for events</span></span>
 <span class="line"><span style="color:#85E89D"> sources</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">ansible.eda.webhook</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         host</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0.0.0.0</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         port</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5000</span></span>
+<span class="line"><span style="color:#85E89D">       host</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0.0.0.0</span></span>
+<span class="line"><span style="color:#85E89D">       port</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5000</span></span>
 <span class="line"><span style="color:#6A737D"> ## Define the conditions we are looking for</span></span>
 <span class="line"><span style="color:#85E89D"> rules</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Say Hello</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">       condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.payload.message == "Ansible is super cool!"</span></span>
+<span class="line"><span style="color:#85E89D">     condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.payload.message == "Ansible is super cool!"</span></span>
 <span class="line"><span style="color:#6A737D"> ## Define the action we should take should the condition be met</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">       action</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         run_playbook</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">           name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">say-what.yml</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">     action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">       run_playbook</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">         name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">say-what.yml</span></span></code></pre>
 </div><p>If we look at this example, we can see the structure of the rulebook. Our sources, rules and actions are defined. We are using the webhook source plugin from our ansible.eda collection, and we are looking for a message payload from our webhook that contains &quot;Ansible is super cool&quot;. Once this condition has been met, our defined action will trigger, which in this case is to trigger a playbook.</p>
 <p>One important thing to take note of ansible-rulebook is that it is not like ansible-playbook which runs a playbook and once the playbook has been completed it will exit. With ansible-rulebook, it will continue to run waiting for events and matching those events. It will only exit upon a shutdown action or if there is an issue with the event source itself, for example if a website you are watching with the url-check plugin stops working.</p>
 <p>With our rulebook built, we will simply tell ansible-rulebook to use it as a ruleset and wait for events:</p>
@@ -165,14 +164,16 @@
 <span class="line"><span>INFO:root:Waiting for event</span></span></code></pre>
 </div><p>We can see from the output above, that the condition was met from the webhook and ansible-rulebook then triggered our action which was to run_playbook. The playbook we defined is then triggered and once it completes we can see we revert back to &quot;Waiting for event&quot;.</p>
 <p>Event-Driven Ansible opens up the possibilities of faster resolution and greater automated observation of our environments. It has the possibility of simplifying the lives of many technical and sleep-deprived engineers. The current ansible-rulebook is easy to learn and work with, and the graphical user interface EDA-Server will simplify this further.</p>
-<h2>What can you do next?</h2>
-<p>Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
+<h2 id="what-can-you-do-next">What can you do next?</h2><p>Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
 <ul>
 <li>Self-paced lab exercises - We have interactive, in-browser exercises to help you get started with Event-Driven Ansible and ansible-rulebook.</li>
 <li><a href="https://youtu.be/PtevBKX1SYI">Event-Driven Rulebooks</a> - Watch another example of Event-Driven Ansible on our YouTube channel.</li>
 <li><a href="https://youtu.be/Bb51DftLbPE">Event-Driven Ansible and Gitops</a> - Watch another example of Event-Driven Ansible, but with GitOps, on our YouTube channel.</li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li><li><a href="/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/">Navigating AI vulnerability discovery and achieving operational resilience with automation</a></li><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>
     </article>

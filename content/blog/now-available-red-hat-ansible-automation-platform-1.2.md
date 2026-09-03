@@ -16,6 +16,21 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:04Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Red Hat Ansible Automation Platform 1.2 is now generally available with increased focus on improving efficiency, increasing productivity and controlling risk and expenses.
+
+> [!toc]
+> **On this page**
+>
+> - [An automation platform for mission critical workloads](#an-automation-platform-for-mission-critical-workloads)
+> - [What's new with Ansible Automation Platform 1.2?](#whats-new-with-ansible-automation-platform-12)
+> - [How does Ansible Automation Platform 1.2 work with Kubernetes?](#how-does-ansible-automation-platform-12-work-with-kubernetes)
+> - [Where do I go next?](#where-do-i-go-next)
+
+<!-- blog-enrichment:end -->
+
 Red Hat Ansible Automation Platform 1.2 is now generally available with increased focus on improving efficiency, increasing productivity and controlling risk and expenses.  While many IT infrastructure engineers are familiar with automating compute platforms, Ansible Automation Platform is the first holistic automation platform to help manage, automate and orchestrate everything in your IT infrastructure from edge to datacenter.  To download the newest release or get a trial license, please sign up on <http://red.ht/try_ansible>.
 
 [![Image One](https://www.redhat.com/rhdc/managed-files/ansible/Image%20One.jpg)](https://www.redhat.com/rhdc/managed-files/ansible/Image%20One.jpg)
@@ -42,6 +57,9 @@ Ansible Automation Platform also includes access to multiple hosted services fou
 
 - Learn more on YouTube: [automation services catalog](https://www.youtube.com/playlist?list=PLdu06OJoEf2ZN_AWwwJ3jxp6G03dCivlp)
 
+> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> From chat message to automated action with the TMM team walkthrough.
+
 ## What's new with Ansible Automation Platform 1.2?
 
 **Introducing private Automation Hub**  
@@ -66,6 +84,9 @@ Three new certified Ansible Content Collections cover areas that are in high dem
 - [Kubernetes Core Collection](https://cloud.redhat.com/ansible/automation-hub/kubernetes/core) for native Kubernetes automation; supported by Red Hat.
 - [VMware vSphere REST API Collection](https://cloud.redhat.com/ansible/automation-hub/vmware/vmware_rest) that contains 170+ Ansible modules and plugins using VMware REST API, supported by Red Hat.
 - These new, supported Collections follow the initial [announcement made in June](https://www.ansible.com/blog/now-available-the-new-ansible-content-collections-on-automation-hub) containing network, cloud, and security content.
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## How does Ansible Automation Platform 1.2 work with Kubernetes?
 
@@ -92,3 +113,14 @@ Check out the documentation online here: <https://access.redhat.com/documentatio
 We got you covered, check out this video: [AnsibleFest 2020! I missed it! Where is the content?](https://www.youtube.com/watch?v=YjEPR9jjSD0&t=2s)
 
 Explore everything on-demand for free on [www.ansible.com/ansiblefest](https://www.ansible.com/ansiblefest)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

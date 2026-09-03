@@ -16,6 +16,13 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:21:37Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** CentOS Linux EOL is edging  closer and Ansible Automation Platform is just the tool to help you upgrade with speed, consistency and scale.
+
+<!-- blog-enrichment:end -->
+
 The end of life (EOL) for CentOS Linux 7 is approaching, with updates ending on **June 30, 2024**. This impending deadline signifies the end of security updates and maintenance, posing significant risks for organizations that continue to rely on the outdated operating system. Upgrading to a more current and supported platform, such as [Red Hat Enterprise Linux](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) (RHEL), is needed to maintain an up-to-date security posture and  continued functionality.
 
 Migrating these systems, which may play a critical role in your organization’s IT infrastructure, is not trivial. [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) can help streamline and automate this process, however, reducing the complexity, while enabling scalability and the ability to orchestrate changes to the surrounding infrastructure to support the migration.
@@ -153,9 +160,23 @@ Our upgrades are done, but we can still do more with Ansible Automation Platform
 
 [Automation analytics](https://console.redhat.com/ansible/ansible-dashboard)can help provide clarity on the automated process or help us identify possible anomalies in the hosts during the process, which we can then address later.
 
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
+
 ## Learn more
 
 - This exercise is from a workshop provided by Red Hat - [Check out the code](https://github.com/redhat-partner-tech/leapp-project)
 - Try [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible/try-it) free for 60 days
 - Learn how to automate on the platform with our [self-paced labs](https://www.redhat.com/en/interactive-labs/ansible)
 - Check out the action on our [YouTube Channel](https://www.youtube.com/@AnsibleAutomation)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

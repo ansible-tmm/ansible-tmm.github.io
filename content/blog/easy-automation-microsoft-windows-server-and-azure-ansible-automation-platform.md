@@ -18,6 +18,21 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:35Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections.
+
+> [!toc]
+> **On this page**
+>
+> - [OpenSSH support](#openssh-support)
+> - [Why automate Windows with Ansible Automation Platform?](#why-automate-windows-with-ansible-automation-platform)
+> - [Expanding the ansible.windows collection](#expanding-the-ansiblewindows-collection)
+> - [Azure additions](#azure-additions)
+
+<!-- blog-enrichment:end -->
+
 The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections. Additionally, the new `Microsoft.iis` collection includes comprehensive support for configuring Internet Information Services (IIS), and the `ansible.windows` collection has been updated with additional modules to support Windows server management. Furthermore, Ansible Automation Platform extends its reach to cloud and hybrid environments with new support for managing Azure Arc resources, enabling consistent and unified management across on-premises, multi-cloud and edge environments.
 
 ## OpenSSH support
@@ -78,6 +93,9 @@ This certified [collection](https://catalog.redhat.com/software/collection/micr
 
 This collection focuses on management of IIS and allows you to create and manage virtual directories, web applications, web application pools and IIS websites. The collection also provides modules to gather information on each of these components.
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## Azure additions
 
 Azure Arc allows Azure to monitor infrastructure in or outside of the cloud, and Ansible Automation Platform can automate deployment and configuration of that infrastructure.  Azure Arc supports virtual machine (VM) management over SSH, and Ansible Automation Platform now enables connectivity and automation of connected VMs through Arc as if the nodes were directly routable. Read [this article](https://www.redhat.com/en/blog/migrate-to-azure-monitor-agent-on-azure-arc-using-red-hat-ansible-automation-platform) for information about deploying the Azure Arc monitoring agent using Ansible Automation Platform.
@@ -86,6 +104,9 @@ New additions to [azure.azcollection](https://catalog.redhat.com/software/colle
 
 The recent updates to the Azure and Microsoft Windows and IIS Certified Collections for Ansible Automation Platform represent a significant step forward in enhancing automation capabilities for enterprises. These updates not only streamline the integration of Azure services with Ansible Automation Platform, but also ensure that organizations can leverage the latest features and connection types. By continuously evolving and expanding the certified collections, Red Hat and Microsoft are empowering IT teams to automate complex workflows with greater efficiency and confidence.
 
+> [!callout type=redhat label="Red Hat" title="Ansible Automation Platform documentation" url="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/" cta="Read the docs"]
+> Official product documentation from Red Hat.
+
 ### Where to go next
 
 - Attend Red Hat’s premier event [Red Hat Summit 2025](https://www.redhat.com/en/summit)
@@ -93,3 +114,14 @@ The recent updates to the Azure and Microsoft Windows and IIS Certified Collecti
 - Learn how to use [Windows and Event-Drive Ansible](https://youtu.be/0vQACe3shW0?si=DdzBwCrjfVYgPOGw) with AI ticket enrichment
 - Watch a video on [Windows automation: Speed and scale](https://youtu.be/nmW49G-5-p0?si=NHkXu02oMCzP8W1C) to understand how you can scale your automation of Windows servers
 - Want to learn Ansible? Check out our[getting started guide](https://developers.redhat.com/products/ansible/getting-started) on[developers.redhat.com](http://developers.redhat.com/)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Importing Ansible Validated Content into Private Automation Hub](/blog/importing-ansible-validated-content-into-private-automation-hub/)
+> - [Unleashing the Potential of Multi-Cloud Automation with Ansible and Terraform](/blog/unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform/)
+> - [Red Hat Ansible Automation Platform on Google Cloud Marketplace](/blog/red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace/)
+
+<!-- blog-enrichment:related-end -->

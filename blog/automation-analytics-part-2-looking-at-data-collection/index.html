@@ -50,7 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2019-12-02">December 1, 2019</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png" alt="blog_getting-started-Automation-Analytics-Part-2"></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Part 2 of the Automation Analytics blog post expanding on what data is collected and how to gain access to that data.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png" alt="blog_getting-started-Automation-Analytics-Part-2"></a></p>
 <p>We recently released <a href="https://www.ansible.com/products/automation-platform">Red Hat Ansible Automation Platform</a> which now includes multiple Software-as-a-Service (SaaS) offerings, one of which is Automation Analytics.  This offering provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire automation infrastructure.</p>
 <p>In a previous blog I wrote about <a href="https://www.ansible.com/blog/getting-started-with-automation-analytics">Getting Started with Automation Analytics</a>, but now want to expand on what data is collected and how to gain access to that data.  I highly recommend reading the previous blog if you are new to Red Hat Ansible Automation Platform, Ansible Tower concepts and our SaaS offerings. This is important to many customers because they all have their own security concerns with what data leaves their premises as well as  obligations to their own customers and stakeholders to make sure data sent will not be compromised in any way.</p>
 <p><a href="#Retrievingdata">Retrieving the data:</a></p>
@@ -70,8 +70,12 @@
 <p><a href="#unified_jobs_table.csv">unified_jobs_table.csv</a></p>
 <p><a href="#unified_job_template_table.csv">unified_job_template_table.csv</a></p>
 <p><a href="#Where-to-go-next">Where to go next?</a></p>
-<h2>Retrieving the data:</h2>
-<p>Login to the Ansible Tower host with an account that has root privileges.  Create a folder (or use an existing folder) to work from.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Workshops and Labs</p>
+  <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
+  <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+</aside><h2 id="retrieving-the-data">Retrieving the data:</h2><p>Login to the Ansible Tower host with an account that has root privileges.  Create a folder (or use an existing folder) to work from.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">PowerShell</span>
@@ -119,10 +123,8 @@
 <span class="line"><span style="color:#E1E4E8">├── unified_jobs_table.csv</span></span>
 <span class="line"><span style="color:#E1E4E8">└── unified_job_template_table.csv</span></span></code></pre>
 </div><p>This blog describes the data collected as of Red Hat Ansible Tower 3.6. Later releases of the platform may gather different data, or format it differently.</p>
-<h2>Analyzing the data</h2>
-<p>This is your data, nothing is encrypted on the local file system. That means it is possible to cat each file (or open with the text editor or application of your choice). Please refer to the <a href="https://www.ansible.com/products/ansible-analytics/faq">Security FAQ</a> for high level answers.  All the created file types are either json or csv files, making them easy to read and understand. I will walk through each file and generally show what data is in there, and provide some thorough examples.</p>
-<h3>config.json</h3>
-<p>The config.json file contains data around the Ansible Tower system itself.  This includes the version of Red Hat Enterprise Linux, relevant universally unique identifiers (uuid), license types, license information, authentication backends and more.  Think of this as literally the Ansible Tower settings that you can find in the Web UI (<a href="https://docs.ansible.com/ansible-tower/latest/html/administration/configure_tower_in_tower.html">documentation is here</a>).  To pretty print this to make it more readable try using the | python -m json.tool, for example:</p>
+<h2 id="analyzing-the-data">Analyzing the data</h2><p>This is your data, nothing is encrypted on the local file system. That means it is possible to cat each file (or open with the text editor or application of your choice). Please refer to the <a href="https://www.ansible.com/products/ansible-analytics/faq">Security FAQ</a> for high level answers.  All the created file types are either json or csv files, making them easy to read and understand. I will walk through each file and generally show what data is in there, and provide some thorough examples.</p>
+<h3 id="configjson">config.json</h3><p>The config.json file contains data around the Ansible Tower system itself.  This includes the version of Red Hat Enterprise Linux, relevant universally unique identifiers (uuid), license types, license information, authentication backends and more.  Think of this as literally the Ansible Tower settings that you can find in the Web UI (<a href="https://docs.ansible.com/ansible-tower/latest/html/administration/configure_tower_in_tower.html">documentation is here</a>).  To pretty print this to make it more readable try using the | python -m json.tool, for example:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">Text</span>
@@ -170,13 +172,9 @@
 <span class="line"><span style="color:#79B8FF">    "tower_version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"3.6.0"</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
 </div><p>Because of the large size of the data sets I will from here on start linking to <a href="https://help.github.com/en/github/writing-on-github/creating-gists">public gists</a> that are easier to consume then in-line in this blog.</p>
-<h3></h3>
-<h3>counts.json</h3>
-<p>The counts.json file simply contains the total amount of objects for each relevant category.  For example the total number of organizations, teams, users, inventories, etc. that exist on the Ansible Tower cluster.  The data is really straightforward and I am providing my Ansible Tower data collected in a <a href="https://gist.github.com/IPvSean/9e7e9e7b597ff1dff63f0736901a5735">public gist for counts.json</a>.</p>
-<h3>cred_type_counts.json</h3>
-<p>The file cred_type_counts.json provides information breakdowns on each <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types">credential type</a> that is configured in Ansible Tower, including <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credential_types.html">custom credential types</a>.  This simply records data on how many are configured, and if they are configured by Ansible Tower or an external source such as CyberArk.  To check out what this looks like and see all the data collected refer to my <a href="https://gist.github.com/IPvSean/02ac74da4346a6eac9d366f981909bed">public gist for cred_type_counts.json</a>.</p>
-<h3>events_table.csv</h3>
-<p>This table provides task by task detail from Job Templates such as the the playbook filename, the role that the tasks resides in, the named description in the task (if any is specified) and more.  This is a CSV versus a JSON because it is literally a table copy of the main_jobevent table within Ansible Tower (which is already a table). These are any job events that have happened since the last run, in my case since I ran the jobs back to back there is no data in here, since no job events took place.</p>
+<h3 id="section"></h3><h3 id="countsjson">counts.json</h3><p>The counts.json file simply contains the total amount of objects for each relevant category.  For example the total number of organizations, teams, users, inventories, etc. that exist on the Ansible Tower cluster.  The data is really straightforward and I am providing my Ansible Tower data collected in a <a href="https://gist.github.com/IPvSean/9e7e9e7b597ff1dff63f0736901a5735">public gist for counts.json</a>.</p>
+<h3 id="cred-type-countsjson">cred\_type\_counts.json</h3><p>The file cred_type_counts.json provides information breakdowns on each <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types">credential type</a> that is configured in Ansible Tower, including <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credential_types.html">custom credential types</a>.  This simply records data on how many are configured, and if they are configured by Ansible Tower or an external source such as CyberArk.  To check out what this looks like and see all the data collected refer to my <a href="https://gist.github.com/IPvSean/02ac74da4346a6eac9d366f981909bed">public gist for cred_type_counts.json</a>.</p>
+<h3 id="events-tablecsv">events\_table.csv</h3><p>This table provides task by task detail from Job Templates such as the the playbook filename, the role that the tasks resides in, the named description in the task (if any is specified) and more.  This is a CSV versus a JSON because it is literally a table copy of the main_jobevent table within Ansible Tower (which is already a table). These are any job events that have happened since the last run, in my case since I ran the jobs back to back there is no data in here, since no job events took place.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">Text</span>
@@ -184,8 +182,7 @@
   </div>
   <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>id,created,uuid,parent_uuid,event,task_action,failed,changed,playbook,play,task,role,job_id,host_id,host_name</span></span></code></pre>
 </div><p>I created a full example where I ran a Job Template from my Ansible Tower cluster and recorded a awx gather_analytics immediatley after, this can be found <a href="https://gist.github.com/IPvSean/e7edb73f21a7eb6d9be058964b6bf9bb">on this gist</a> to see what type of data is provided.</p>
-<h3>instance_info.json</h3>
-<p>The instance_info.json info provided breakouts per instance versus the holistic Ansible Tower cluster. This allows granular differences between different nodes within an Ansible Tower cluster. This is helpful because if there was a bad install, decreased capacity or unreachable node we can grab additional info.  In this case capacity is a value we calculate on how much memory and cpu is available to that node, and how much the administer has weighted the usage of that capacity, more info can be <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html#selecting-the-right-capacity">found in the documentation</a>.  The capacity value is used to determine how many forks can be allocated to run on that Ansible Tower Instance.  In my case I only have a single node in my Ansible Tower cluster so there is only one uuid in my info:</p>
+<h3 id="instance-infojson">instance\_info.json</h3><p>The instance_info.json info provided breakouts per instance versus the holistic Ansible Tower cluster. This allows granular differences between different nodes within an Ansible Tower cluster. This is helpful because if there was a bad install, decreased capacity or unreachable node we can grab additional info.  In this case capacity is a value we calculate on how much memory and cpu is available to that node, and how much the administer has weighted the usage of that capacity, more info can be <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html#selecting-the-right-capacity">found in the documentation</a>.  The capacity value is used to determine how many forks can be allocated to run on that Ansible Tower Instance.  In my case I only have a single node in my Ansible Tower cluster so there is only one uuid in my info:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">JSON</span>
@@ -203,18 +200,12 @@
 <span class="line"><span style="color:#79B8FF">        "version"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"3.6.0"</span></span>
 <span class="line"><span style="color:#E1E4E8">    }</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-</div><h3>inventory_counts.json</h3>
-<p>The inventory_counts.json file provided all known inventories in the Ansible Tower cluster, the amount of hosts associated with each inventory, the <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html#smart-inventories">kind of inventory</a> and the number of sources (inventories can have more than one source).  I have included my inventory_counts.json file in this <a href="https://gist.github.com/IPvSean/d1a1a54a1d153b0e7f3e8de16f94ad04">public gist.</a></p>
-<h3>job_counts.json</h3>
-<p>The jobs_counts.json file provided data around holistic job execution on this Ansible Tower cluster.  This includes total jobs, both successful, cancelled and failed. It will also do breakouts of manual jobs, relaunched jobs.  Refer to my <a href="https://gist.github.com/IPvSean/64d666f7cfcbd57fabd9ebf35126418c">public gist</a> to see what this data looks like.</p>
-<h3>job_instance_counts.json</h3>
-<p>This file provides breakouts of Job Runs by individual instances (also known as nodes) within an Ansible Tower cluster.  My Ansible Tower cluster only has one node so this file is less then interesting but refer to my <a href="https://gist.github.com/IPvSean/3bbfd0cb86f25e878d320ddd9625d050">public gist</a> to see what this data looks like.</p>
-<h3>manifest.json</h3>
-<p>The manifest.json file keeps track of the data schema for every other file provided.  If a file schema changes on different versions of Ansible Tower this allows cloud.redhat.com to understand each individual schema.  The data schemas may change over time as more and more features are rolled out. Check out <a href="https://gist.github.com/IPvSean/137edc192d5943e1e364d11f9bfbe8c5">my public gist here</a>.</p>
-<h3>org_counts.json</h3>
-<p>The org_counts.json file provides information on each <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/organizations.html">organization</a> on this Ansible Tower cluster and the amount of users and teams associated with that organization.  Refer to my <a href="https://gist.github.com/IPvSean/436044e704630846827c1e84348896fb">public gist</a> to see an example.</p>
-<h3>projects_by_scm_type.json</h3>
-<p>The projects_by_scm_type.json provides a breakdown of all <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#projects">project types</a> including Git, Subversion, Mercurial, and Red Hat Insights.  You can see in my Ansible Tower cluster that I have 19 git projects and 1 Red Hat Insights project:</p>
+</div><h3 id="inventory-countsjson">inventory\_counts.json</h3><p>The inventory_counts.json file provided all known inventories in the Ansible Tower cluster, the amount of hosts associated with each inventory, the <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html#smart-inventories">kind of inventory</a> and the number of sources (inventories can have more than one source).  I have included my inventory_counts.json file in this <a href="https://gist.github.com/IPvSean/d1a1a54a1d153b0e7f3e8de16f94ad04">public gist.</a></p>
+<h3 id="job-countsjson">job\_counts.json</h3><p>The jobs_counts.json file provided data around holistic job execution on this Ansible Tower cluster.  This includes total jobs, both successful, cancelled and failed. It will also do breakouts of manual jobs, relaunched jobs.  Refer to my <a href="https://gist.github.com/IPvSean/64d666f7cfcbd57fabd9ebf35126418c">public gist</a> to see what this data looks like.</p>
+<h3 id="job-instance-countsjson">job\_instance\_counts.json</h3><p>This file provides breakouts of Job Runs by individual instances (also known as nodes) within an Ansible Tower cluster.  My Ansible Tower cluster only has one node so this file is less then interesting but refer to my <a href="https://gist.github.com/IPvSean/3bbfd0cb86f25e878d320ddd9625d050">public gist</a> to see what this data looks like.</p>
+<h3 id="manifestjson">manifest.json</h3><p>The manifest.json file keeps track of the data schema for every other file provided.  If a file schema changes on different versions of Ansible Tower this allows cloud.redhat.com to understand each individual schema.  The data schemas may change over time as more and more features are rolled out. Check out <a href="https://gist.github.com/IPvSean/137edc192d5943e1e364d11f9bfbe8c5">my public gist here</a>.</p>
+<h3 id="org-countsjson">org\_counts.json</h3><p>The org_counts.json file provides information on each <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/organizations.html">organization</a> on this Ansible Tower cluster and the amount of users and teams associated with that organization.  Refer to my <a href="https://gist.github.com/IPvSean/436044e704630846827c1e84348896fb">public gist</a> to see an example.</p>
+<h3 id="projects-by-scm-typejson">projects\_by\_scm\_type.json</h3><p>The projects_by_scm_type.json provides a breakdown of all <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#projects">project types</a> including Git, Subversion, Mercurial, and Red Hat Insights.  You can see in my Ansible Tower cluster that I have 19 git projects and 1 Red Hat Insights project:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">JSON</span>
@@ -227,9 +218,7 @@
 <span class="line"><span style="color:#79B8FF">    "manual"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#79B8FF">    "svn"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-</div><h3></h3>
-<h3>query_info.json</h3>
-<p>The query_info.json data simply states the last time the awx-manage gather_analytics process was run and if it was manual or automatic.</p>
+</div><h3 id="section-2"></h3><h3 id="query-infojson">query\_info.json</h3><p>The query_info.json data simply states the last time the awx-manage gather_analytics process was run and if it was manual or automatic.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">JSON</span>
@@ -240,19 +229,23 @@
 <span class="line"><span style="color:#79B8FF">    "current_time"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"2019-11-22 20:10:27.751267+00:00"</span><span style="color:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#79B8FF">    "last_run"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"2019-11-22 20:03:40.361225+00:00"</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-</div><h3></h3>
-<h3>unified_jobs_table.csv</h3>
-<p>This file includes information about the job runs (any job template that was executed) including when it was run and if it was successful or failed.  Most of the data is quite clear what it represents, but the polymorphic_ctype_id may throw folks. The polymorphic_ctype_id is an internal mapping to get that tracks the Job Type such as if the id is a <a href="https://docs.ansible.com/ansible-tower/latest/html/administration/management_jobs.html">systemjob</a>, <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html">workflowjob</a>, job, etc.  This file corresponds to the events_table.csv, and can also be seen in the <a href="https://gist.github.com/IPvSean/e7edb73f21a7eb6d9be058964b6bf9bb">gist provided above</a>.  The events_table.csv file gives an entire breakdown of every task within the Job Template versus the unified_jobs_table.csv which just catalogs the Job Run, the start time, finish type, etc.</p>
-<h3>unified_job_template_table.csv</h3>
-<p>This file contains information about the Job Templates themselves (versus the Job Runs in the unified_job_table.csv file linked above).  This includes the id, polymorphic_ctype_id, when it was created, modified, the name of the job template and more. To see an example of this file check out my <a href="https://gist.github.com/IPvSean/18f06125f854a0adece060ce35275959">public gist here</a>.</p>
-<h2>Where to go next?</h2>
-<p>I hope this blog helps outline what type of data is sent to Red Hat to help alleviate any security concerns or data questions.  When I am talking to folks about the Red Hat Ansible Automation Platform I like to explain that they get all the Ansible they know and love today, but we are now bundling everything together in one simple platform for our customers.  The SaaS offering Automation Analytics is optional and included in the price of what folks were paying previously. We do not force any existing customers to use the tool and hand us data, but hope this will provide increased benefits.</p>
+</div><h3 id="section-3"></h3><h3 id="unified-jobs-tablecsv">unified\_jobs\_table.csv</h3><p>This file includes information about the job runs (any job template that was executed) including when it was run and if it was successful or failed.  Most of the data is quite clear what it represents, but the polymorphic_ctype_id may throw folks. The polymorphic_ctype_id is an internal mapping to get that tracks the Job Type such as if the id is a <a href="https://docs.ansible.com/ansible-tower/latest/html/administration/management_jobs.html">systemjob</a>, <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html">workflowjob</a>, job, etc.  This file corresponds to the events_table.csv, and can also be seen in the <a href="https://gist.github.com/IPvSean/e7edb73f21a7eb6d9be058964b6bf9bb">gist provided above</a>.  The events_table.csv file gives an entire breakdown of every task within the Job Template versus the unified_jobs_table.csv which just catalogs the Job Run, the start time, finish type, etc.</p>
+<h3 id="unified-job-template-tablecsv">unified\_job\_template\_table.csv</h3><p>This file contains information about the Job Templates themselves (versus the Job Runs in the unified_job_table.csv file linked above).  This includes the id, polymorphic_ctype_id, when it was created, modified, the name of the job template and more. To see an example of this file check out my <a href="https://gist.github.com/IPvSean/18f06125f854a0adece060ce35275959">public gist here</a>.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Ansible Product Demos</p>
+  <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
+  <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+</aside><h2 id="where-to-go-next">Where to go next?</h2><p>I hope this blog helps outline what type of data is sent to Red Hat to help alleviate any security concerns or data questions.  When I am talking to folks about the Red Hat Ansible Automation Platform I like to explain that they get all the Ansible they know and love today, but we are now bundling everything together in one simple platform for our customers.  The SaaS offering Automation Analytics is optional and included in the price of what folks were paying previously. We do not force any existing customers to use the tool and hand us data, but hope this will provide increased benefits.</p>
 <ul>
 <li><a href="https://www.ansible.com/products/automation-analytics">Learn more on Automation Analytics including a video demo</a></li>
 <li><a href="https://www.ansible.com/community/events/workshops">Attend an Ansible Automation Workshop and get hands-on with Ansible Tower</a></li>
 <li><a href="https://www.ansible.com/products/pricing">Contact us to get pricing information on the Ansible Automation Platform</a></li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-and-packer-why-they-are-better-together/">Using Ansible and Packer, From Provisioning to Orchestration</a></li><li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>
     </article>

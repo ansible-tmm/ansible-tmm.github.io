@@ -18,13 +18,23 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:21:20Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin. In this post we take you through converting existing networking playbooks that use connection: local to using connection: network_cli.
+
+<!-- blog-enrichment:end -->
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png)](https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png)
 
 The Ansible Networking Team is excited about the release of [Ansible 2.5](https://www.redhat.com/blog/ansible-2.5-traveling-space-and-time). Back in February, I wrote about new [Networking Features in Ansible 2.5](https://www.redhat.com/blog/coming-soon-networking-features-in-ansible-2.5), and one of the biggest areas of feedback was around the network\_cli connection plugin. For more background on this connection plugin, please refer to the previous blog post.
 
 In this post, I convert existing networking playbooks that use `connection: local` to use `connection: network_cli`. Please note that the passwords are in plain text for demonstration purposes only. Refer to the following Ansible Networking documentation page recommendation for using Ansible Vault for secure password storage and usage.  
-  
+
 To demonstrate, let’s use an existing GitHub repository with working playbooks using the legacy connection local method. NOTE: The connection local method will continue to be supported for quite some time, and has not been announced as deprecated yet. This repository has several examples using Ansible and NAPALM but we are highlighting the Ansible Playbooks in this post.  The GitHub repository can be [found here](https://github.com/network-automation/ansible-napalm-samples).
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ### [Example 1 - Backing Up a Configuration](https://github.com/network-automation/ansible-napalm-samples#example-1---backing-up-a-config)
 
@@ -137,7 +147,7 @@ n9k                        : ok=1    changed=0    unreachable=0    failed=0
 ### [Example 2 - Adding an IP address to an Interface](https://github.com/network-automation/ansible-napalm-samples#example-2---adding-an-ip-address-to-an-interface)
 
 In the second Ansible Playbook example we are running against an Arista EOS platform, so we are using the eos\_config module.  
-  
+
 The login information for the Arista EOS device for this example is different from the Cisco NX-OS device, and requires an enable password for privileged commands:
 
 ```
@@ -235,9 +245,12 @@ Please consider joining the network-automation GitHub! Just [email us](mailto:an
 
 **Q: What happens if I don’t convert my playbooks for Ansible 2.5?**  
 A: Nothing, except your playbooks won't be as quick and efficient as they could be. The `connection: local` and `provider` method are not being deprecated for the Ansible 2.5 release. However, in relation to Ansible networking modules, it is planned for future deprecation (TBD).   
-  
+
 Please note that deprecating something in Ansible doesn’t mean that it will be immediately removed. Currently, all deprecated parameters, features, modules, etc, are supported for four release cycles after deprecation before they are removed from the Ansible project. When looking at the release cycle you can see that four release cycles is roughly 16 months. You will see a deprecation warning when you run a playbook with a deprecated parameter, feature, or module. Please refer to the Porting Guide before upgrading Ansible.  
-  
+
+> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> More posts on network automation from the Ansible Technical Marketing team.
+
 For more information, you can check out the change log on GitHub to look at what is being deprecated per release.
 
 ---
@@ -287,7 +300,7 @@ This playbook has three tasks:
 3. Delete the file we copied from.
 
 The first task uses a network-specific module (`nxos_config`), while the other two tasks use generic Linux modules (`copy` and `file`).  This playbook executes the nxos\_config against the specified hosts (the Ansible group `[cisco]`, specified by `hosts: cisco`).  When using the **netconf** or **network\_cli** connection plugin, the copy and file modules run locally (from the machine Ansible was executed from).  
-  
+
 As a side note: it’s very common to see Ansible Networking Playbooks where someone might template a file, then push it to the device like this:
 
 ```
@@ -315,3 +328,14 @@ The above works with **network\_cli** and **netconf** connection plugins.  The 
 
 A: Check out the offical Ansible 2.5 porting guide and   
 the new Ansible Networking documentation
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+> - [Ansible Network Resource Modules: Deep Dive on Return Values](/blog/ansible-network-resource-modules-deep-dive-on-return-values/)
+> - [Red Hat Ansible Network Automation Updates](/blog/red-hat-ansible-network-automation-updates/)
+
+<!-- blog-enrichment:related-end -->

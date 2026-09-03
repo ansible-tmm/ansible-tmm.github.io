@@ -15,6 +15,13 @@ read_time_minutes: 9
 synced_at: '2026-09-03T19:20:56Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Read about the technical implementation of automation mesh, what network ports it is using and how you can secure it.
+
+<!-- blog-enrichment:end -->
+
 Red Hat Ansible Automation Platform 2 features an awesome new way to scale out your automation workloads: automation mesh.  If you are unfamiliar with automation mesh, I highly recommend reading Craig Brandt’s blog post [What's new: an introduction to automation mesh](https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.1-automation-mesh) which outlines how automation mesh can simplify your operations and scale your automation globally.  For this blog post, I want to focus on the technical implementation of automation mesh, what network ports it is using and how you can secure it.
 
 To quickly summarize both Craig’s blog post and our documentation, we separated the control plane (which includes the webUI and API) from the execution plane (where an Ansible Playbook is executed) in Ansible Automation Platform 2.  This allows you to choose where jobs run across execution nodes, so you can deliver and run automation closer to the devices that need it. In our implementation, there is four different types of nodes:
@@ -213,3 +220,14 @@ Whether you are beginning your automation journey or are a seasoned veteran, the
 - Self-paced exercises - Specifically check out the exercise “Getting started with automation mesh” to get hands-on time with everything discussed in this blog.
 - [Subscribe to the Red Hat Ansible Automation Platform YouTube channel.](https://www.youtube.com/ansibleautomation) Be sure to check out our new web series, [Automated Live hosted by Colin McNaughton.](https://www.redhat.com/en/technologies/management/ansible/automated-live-videos)
 - [Follow Red Hat Ansible](https://twitter.com/ansible) [Automation Platform](https://www.youtube.com/ansibleautomation) [on Twitter](https://twitter.com/ansible) - Do you have questions or an automation project you want to show off? Tweet at us!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

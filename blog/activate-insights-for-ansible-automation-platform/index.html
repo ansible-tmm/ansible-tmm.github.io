@@ -50,11 +50,13 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2022-02-01">January 31, 2022</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p>Two indispensable but sometimes overlooked tools included with an Ansible Automation Platform subscription are the cloud-based services, Automation Analytics and Red Hat Insights for Ansible Automation Platform.</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Red Hat Insights for Ansible Automation Platform is an analytics tool to help you identify, troubleshoot, and resolve issues across your entire ecosystem.</aside><aside class="blog-toc">
+  <p class="blog-toc__title">On this page</p>
+  <ul><li><a href="#what-youll-need-to-activate-automation-analytics-and-insights-for-ansible-automation-platform">What you’ll need to activate Automation Analytics and Insights for Ansible Automation Platform</a></li><li><a href="#turning-on-data-collection-in-automation-analytics-and-insights-for-automation-controller">Turning on data collection in Automation Analytics and Insights for automation controller</a></li><li><a href="#turning-on-data-collection-for-red-hat-ansible-tower">Turning on data collection for Red Hat Ansible Tower</a></li><li><a href="#manual-data-collection-within-automation-analytics-and-insights">Manual data collection within Automation Analytics and Insights</a></li><li><a href="#verifying-data-sync-with-automation-controller">Verifying data sync with automation controller</a></li><li><a href="#putting-automation-analytics-and-insights-to-work-in-your-automation-practice">Putting Automation Analytics and Insights to work in your automation practice</a></li><li><a href="#additional-resources">Additional resources</a></li></ul>
+</aside><p>Two indispensable but sometimes overlooked tools included with an Ansible Automation Platform subscription are the cloud-based services, Automation Analytics and Red Hat Insights for Ansible Automation Platform.</p>
 <p>Automation Analytics and Insights form a suite of reporting and analytics tools to help you identify, troubleshoot, and resolve operational, business, and security issues across your entire ecosystem. You can also track the ROI of your automation investment and plan future automation projects to prioritize your efforts where they will have the biggest impact on your business.</p>
 <p>Before you can start using these services to better understand your automation estate and make data-driven decisions, you need to set up the flow of information from your enterprise into the Red Hat Hybrid Cloud Console.</p>
-<h2>What you’ll need to activate Automation Analytics and Insights for Ansible Automation Platform</h2>
-<p>In order to turn on data collection, you’ll need:</p>
+<h2 id="what-youll-need-to-activate-automation-analytics-and-insights-for-ansible-automation-platform">What you’ll need to activate Automation Analytics and Insights for Ansible Automation Platform</h2><p>In order to turn on data collection, you’ll need:</p>
 <ul>
 <li>A current Red Hat Ansible Automation Platform license</li>
 <li>Automation controller 4.1.0<ul>
@@ -65,8 +67,7 @@
 </li>
 <li>An Ansible controller cluster(s) and an automation controller instance that can access <a href="http://console.redhat.com">console.redhat.com</a></li>
 </ul>
-<h2>Turning on data collection in Automation Analytics and Insights for automation controller</h2>
-<p>For Ansible Automation Platform 2.2, integration of Red Hat Insights is done during your initial deployment. The insights-client package responsible for ensuring connected data for your Ansible Automation Platform infrastructure has also been added to the bundled installer on the Red Hat Customer Portal.</p>
+<h2 id="turning-on-data-collection-in-automation-analytics-and-insights-for-automation-controller">Turning on data collection in Automation Analytics and Insights for automation controller</h2><p>For Ansible Automation Platform 2.2, integration of Red Hat Insights is done during your initial deployment. The insights-client package responsible for ensuring connected data for your Ansible Automation Platform infrastructure has also been added to the bundled installer on the Red Hat Customer Portal.</p>
 <p>Once you have deployed your Ansible Automation Platform and logged into the automation controller, you will be prompted to enroll your platform during setup. Selecting these options will connect your automation controller to both services on <a href="http://console.redhat.com">console.redhat.com</a>.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Automation%20Controller.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Automation%20Controller.png" alt="Automation Controller"></a></p>
 <p>To connect your automation controller to Automation Analytics and Insights post installation, simply navigate to the controller settings and select the “Miscellaneous System” settings.</p>
@@ -77,8 +78,12 @@
 <li><strong>RED HAT CUSTOMER PASSWORD</strong> is your cloud.redhat.com password for the corresponding username.</li>
 </ul>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Edit%20Details.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Edit%20Details.png" alt="Edit Details"></a></p>
-<h2>Turning on data collection for Red Hat Ansible Tower</h2>
-<p>Log in to your Ansible Automation Platform web UI (user interface). The user account must have administrative privileges to turn on data collection. Click on the “Settings” button on the left menu. Note: If the menu is in compact mode, there will only be a small gear representing the settings.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Solution Guides</p>
+  <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
+  <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+</aside><h2 id="turning-on-data-collection-for-red-hat-ansible-tower">Turning on data collection for Red Hat Ansible Tower</h2><p>Log in to your Ansible Automation Platform web UI (user interface). The user account must have administrative privileges to turn on data collection. Click on the “Settings” button on the left menu. Note: If the menu is in compact mode, there will only be a small gear representing the settings.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Settings.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Settings.png" alt="Settings"></a></p>
 <p>Next click on the “System” button:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/System.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/System.png" alt="System"></a></p>
@@ -94,8 +99,12 @@
 <p>Here is an example snippet of the Settings &gt; System page:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/AA%20Settings.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/AA%20Settings.png" alt="AA Settings"></a></p>
 <p>Click the “Save” button. Once saved, automation controller will sync to cloud.redhat.com up to four times a day. Currently, this sync frequency setting cannot be adjusted.</p>
-<h2>Manual data collection within Automation Analytics and Insights</h2>
-<p>If you want to register a system and sync to <a href="http://console.redhat.com">console.redhat.com</a> right away, you can do this using the automation controller command line, which allows you to quickly verify that everything is set up correctly.</p>
+<aside class="blog-callout blog-callout--redhat">
+  <span class="blog-callout__label">Red Hat</span>
+  <p class="blog-callout__title">Ansible Automation Platform documentation</p>
+  <p class="blog-callout__body">Official product documentation from Red Hat.</p>
+  <a class="blog-callout__cta" href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/">Read the docs →</a>
+</aside><h2 id="manual-data-collection-within-automation-analytics-and-insights">Manual data collection within Automation Analytics and Insights</h2><p>If you want to register a system and sync to <a href="http://console.redhat.com">console.redhat.com</a> right away, you can do this using the automation controller command line, which allows you to quickly verify that everything is set up correctly.</p>
 <p>Log in as the awx user or an administrative user on the control node and run the following command:</p>
 <table>
 <thead>
@@ -119,16 +128,14 @@
 </tr>
 </tbody></table>
 <p>Don’t worry about re-running the command multiple times. The syncing tool is non-destructive meaning you will not lose data or upload duplicate data. No matter how many times you run the gather_analytics command, the data set will remain the same on <a href="http://console.redhat.com">console.redhat.com</a>.</p>
-<h2>Verifying data sync with automation controller</h2>
-<p>Login to the Red Hat Hybrid Cloud Console account at <a href="http://console.redhat.com/">console.redhat.com</a>, and select Ansible Automation Platform.</p>
+<h2 id="verifying-data-sync-with-automation-controller">Verifying data sync with automation controller</h2><p>Login to the Red Hat Hybrid Cloud Console account at <a href="http://console.redhat.com/">console.redhat.com</a>, and select Ansible Automation Platform.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-02-01%20at%2011.23.46%20AM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-02-01%20at%2011.23.46%20AM.png" alt="Screen Shot 2022-02-01 at 11.23.46 AM"></a></p>
 <p>Once your automation controller is connected, you should see the number of connected controllers indicated in the “Ansible Automation Platform” overview dashboard.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Job%20Status.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Job%20Status.png" alt="Job Status"></a></p>
 <p>Clicking on “total clusters” will show you the job status for the clusters that have been registered.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Clusters.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Clusters.png" alt="Clusters"></a></p>
 <p>Newly registered systems will display very little data for several days. The first time you register a system and turn on data collection, it will upload the last four weeks of activity. The automation controller dashboard will not match the dashboard one-to-one because automation controller jobs are filtered out. Examples of filtered jobs include cleanup activity stream and cleanup job details (<a href="https://docs.ansible.com/automation-controller/latest/html/administration/tower-manage.html#cleanup-of-old-data">see Management Jobs documentation</a>).</p>
-<h2>Putting Automation Analytics and Insights to work in your automation practice</h2>
-<p>Both tools give you deep analytics to help you understand your automation efforts and let your data work for you by proactively identifying and correcting issues, leading to a <a href="https://www.redhat.com/en/blog/self-healing-infrastructure-red-hat-insights-and-ansible-automation-platform">self-healing infrastructure</a>.</p>
+<h2 id="putting-automation-analytics-and-insights-to-work-in-your-automation-practice">Putting Automation Analytics and Insights to work in your automation practice</h2><p>Both tools give you deep analytics to help you understand your automation efforts and let your data work for you by proactively identifying and correcting issues, leading to a <a href="https://www.redhat.com/en/blog/self-healing-infrastructure-red-hat-insights-and-ansible-automation-platform">self-healing infrastructure</a>.</p>
 <p>The visibility you gain with the dashboards and reports can also be used to extend more automation into your enterprise, helping you:</p>
 <ul>
 <li>Track and measure the ROI of your automation efforts and share results with stakeholders outside of Ansible Automation Platform.</li>
@@ -146,14 +153,16 @@
 <td><strong>Concerned about sharing your data with Red Hat?</strong>  Red Hat does not collect credential secrets, personal data, automation variables, or task output. For more information about which data are collected and stored by Red Hat, check out our <a href="https://www.redhat.com/products/insights-for-ansible/faq">automation analytics data security FAQ</a>.</td>
 </tr>
 </tbody></table>
-<h2>Additional resources</h2>
-<p>Insights has gone through significant changes in recent months, and additional dashboards, features, and capabilities planned in the months ahead. Check out these new resources to guide you through the latest updates:</p>
+<h2 id="additional-resources">Additional resources</h2><p>Insights has gone through significant changes in recent months, and additional dashboards, features, and capabilities planned in the months ahead. Check out these new resources to guide you through the latest updates:</p>
 <ul>
 <li>Checklist: <a href="https://www.redhat.com/rhdc/managed-files/ma-3-ways-it-leaders-measure-automation-performance-overview-f31060pr-202202-en_1.pdf">3 ways IT leaders can measure automation performance</a></li>
 <li>Webinar: Analyze and expand automation with hosted services</li>
 <li>Graphic: <a href="https://www.redhat.com/hubfs/RH_INFRA_007862_03_SRC_AnsibleAutomationAnalytics_PersonaBenefitsTable_rh.pdf?hsLang=en-us">Automation analytics and Red Hat Insights role-based benefits</a></li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li><li><a href="/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/">Navigating AI vulnerability discovery and achieving operational resilience with automation</a></li><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>
     </article>

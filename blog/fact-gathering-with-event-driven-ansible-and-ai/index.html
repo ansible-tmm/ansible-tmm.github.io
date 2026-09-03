@@ -50,12 +50,16 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2023-11-02">November 1, 2023</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png" alt=""></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Event-Driven Ansible is changing the automation landscape and AI is changing how we work with technology. What happens when we use both for fact gathering ?</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png" alt=""></a></p>
 <p>The use of Event-Driven Ansible to enable fact gathering from events is considered a “Getting Started” type of use case, but it can be extremely powerful. This use case is simple and it is what we consider a “Read Only” type of action, meaning that we are not making any changes, but we are using the event to trigger a fact gathering process which we can later publish to the IT Service Management system.</p>
 <p>The benefit with this is we are able to provide consistent automated troubleshooting and fact gathering which is used to enrich the ticketing systems, so when our engineers have a look at the incident, they have all the information they need to decide on the next steps to resolve the issue or situation. This can potentially save many hours of toil and ultimately save an organization money from reduced down time and faster resolutions. But, we are assuming that our technical teams will know what to do with this event data.</p>
 <p>What if we could assist with filling the gap when an incident takes place, and we could receive information or even options on how to resolve the issues? This is where we could use Event-Driven Ansible with the power of AI to enhance our team&#39;s approach to an incident.</p>
-<h2>Event - Condition - Action!</h2>
-<p>My environment is simple: I have a few Windows systems, an Event-Driven Ansible controller listening to events from these Windows systems and an automation controller. Windows has a verbose event logging system and this is beneficial for this type of use case. Working with Active Directory, a common task is to create and remove users or manage users in general. In my first example of fact gathering, I create a new user on the Active Directory and the event payload I receive in my Event-Driven Ansible controller looks like this: (Formatted Json)</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">Team resource</span>
+  <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
+  <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
+  <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
+</aside><h2 id="event-condition-action">Event - Condition - Action!</h2><p>My environment is simple: I have a few Windows systems, an Event-Driven Ansible controller listening to events from these Windows systems and an automation controller. Windows has a verbose event logging system and this is beneficial for this type of use case. Working with Active Directory, a common task is to create and remove users or manage users in general. In my first example of fact gathering, I create a new user on the Active Directory and the event payload I receive in my Event-Driven Ansible controller looks like this: (Formatted Json)</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ebvZyDMBMN-UZuxwH420GXEDowhitLKDNRU1J_ZxdvGQg8bLJpIwee2UVoIIiaHRZjZZnldbzdvezK1ogpkTLZQv006OYYGBwfBaAbSyVOGKaNmqFOA-mY4DM03zEtFv5wjsLHewPl0XmhRmYnbcWp8_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ebvZyDMBMN-UZuxwH420GXEDowhitLKDNRU1J_ZxdvGQg8bLJpIwee2UVoIIiaHRZjZZnldbzdvezK1ogpkTLZQv006OYYGBwfBaAbSyVOGKaNmqFOA-mY4DM03zEtFv5wjsLHewPl0XmhRmYnbcWp8_0.png" alt=""></a></p>
 <p>The payload provides a wealth of information, and for a task like adding a user account to the Active Directory, this event-id can be used in a condition since I already know what the course of action should be when new users are added in my organization. I want to gather the information and post the account data into a ServiceNow ticket.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/8HMd71JU6fgz4Q9aDKy-bizxHHHU-rCYy30dwQCMfFqthxb2O3-LxrDLjKiuVDW6yiEB8aviX01ZwrrIXNrr6ywyQL-hBIfBP8-mmG7Y21hID9V8zf8hciNyuTr5iZp5KQbZ9LpNloFzRBkhXC0xNrE_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/8HMd71JU6fgz4Q9aDKy-bizxHHHU-rCYy30dwQCMfFqthxb2O3-LxrDLjKiuVDW6yiEB8aviX01ZwrrIXNrr6ywyQL-hBIfBP8-mmG7Y21hID9V8zf8hciNyuTr5iZp5KQbZ9LpNloFzRBkhXC0xNrE_0.png" alt=""></a></p>
@@ -65,47 +69,36 @@
     <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Events from Windows AD</span></span>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">---</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Events from Windows AD</span></span>
 <span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">all</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    sources</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">all</span></span>
+<span class="line"><span style="color:#85E89D">  sources</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">ansible.eda.kafka</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">       host</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">192.168.89.155</span></span>
+<span class="line"><span style="color:#85E89D">       port</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">9092</span></span>
+<span class="line"><span style="color:#85E89D">       topic</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">logs</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#85E89D">         host</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">192.168.89.155</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         port</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">9092</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         topic</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">logs</span></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    rules</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  rules</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">AD Account Change</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">       condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.body.winlog.event_id == "4722"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">       action</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         run_job_template</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          organization</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Default"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"AD Event Fact Gathering"</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">     condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.body.winlog.event_id == "4722"</span></span>
+<span class="line"><span style="color:#85E89D">     action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">       run_job_template</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        organization</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Default"</span></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"AD Event Fact Gathering"</span></span></code></pre>
 </div><p>We now have a ticket that gets created in ServiceNow when a new user is added to Active Directory. The ticket contains data from the event itself:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…output_omitted…</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>short_description: "{{ ansible_eda.event.body.event.action }}"</span></span>
-<span class="line"><span>Details: {{ ansible_eda.event.body.message | default("") }}</span></span>
-<span class="line"><span>Event-ID: {{ ansible_eda.event.body.winlog.event_id | default("") }}</span></span>
-<span class="line"><span>Event-Outcome: {{ ansible_eda.event.body.event.outcome | default("")</span></span></code></pre>
-</div><h2>Time to enrich that data for our technical team:</h2>
-<p>What about events that we might not know how to resolve or what they even mean? Sure, I can log the details by harvesting the event payload data, but that still leaves my engineers with the task of trying to figure out the next steps. This is where we can introduce AI technologies like ChatGPT.</p>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#9ECBFF">…output_omitted…</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#85E89D">short_description</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ ansible_eda.event.body.event.action }}"</span></span>
+<span class="line"><span style="color:#85E89D">Details</span><span style="color:#E1E4E8">: {{ </span><span style="color:#9ECBFF">ansible_eda.event.body.message | default("")</span><span style="color:#E1E4E8"> }}</span></span>
+<span class="line"><span style="color:#85E89D">Event-ID</span><span style="color:#E1E4E8">: {{ </span><span style="color:#9ECBFF">ansible_eda.event.body.winlog.event_id | default("")</span><span style="color:#E1E4E8"> }}</span></span>
+<span class="line"><span style="color:#85E89D">Event-Outcome</span><span style="color:#E1E4E8">: {{ </span><span style="color:#9ECBFF">ansible_eda.event.body.event.outcome | default("")</span></span></code></pre>
+</div><h2 id="time-to-enrich-that-data-for-our-technical-team">Time to enrich that data for our technical team:</h2><p>What about events that we might not know how to resolve or what they even mean? Sure, I can log the details by harvesting the event payload data, but that still leaves my engineers with the task of trying to figure out the next steps. This is where we can introduce AI technologies like ChatGPT.</p>
 <p>For this example, we are going to use the simple Windows firewall change as an event. I modify my rulebook to listen to events that could occur with firewall changes, by searching for a string in the message key of my payload.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -116,28 +109,18 @@
 <span class="line"></span>
 <span class="line"><span style="color:#85E89D"> rules</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">AD Account Change</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">       condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.body.winlog.event_id == "4722"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">       action</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         run_job_template</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          organization</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Default"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"AD Event Fact Gathering"</span></span>
+<span class="line"><span style="color:#85E89D">     condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.body.winlog.event_id == "4722"</span></span>
+<span class="line"><span style="color:#85E89D">     action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">       run_job_template</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        organization</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Default"</span></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"AD Event Fact Gathering"</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#E1E4E8">   - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Firewall security Event</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">       condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.body.message is search("The Windows Firewall service")</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">       action</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         run_job_template</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          organization</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Default"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Windows AI Enhanced Ticket"</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">     condition</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">event.body.message is search("The Windows Firewall service")</span></span>
+<span class="line"><span style="color:#85E89D">     action</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">       run_job_template</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        organization</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Default"</span></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Windows AI Enhanced Ticket"</span></span></code></pre>
 </div><p>Now, the fun part here is that in my Windows AI Enhanced Ticket template I am going to use the event-id from my event payload and embed them in an API request to ChatGPT:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -148,46 +131,27 @@
 <span class="line"></span>
 <span class="line"><span style="color:#B392F0">---</span></span>
 <span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Make API Call to ChatGPT</span></span>
+<span class="line"><span style="color:#85E89D">  hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">localhost</span></span>
+<span class="line"><span style="color:#85E89D">  vars</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    _url_</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">https://api.openai.com/v1/completions</span></span>
+<span class="line"><span style="color:#85E89D">    api_key</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">MYAPIKEY</span></span>
+<span class="line"><span style="color:#85E89D">    gpt_model</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"gpt-3.5-turbo-instruct"</span></span>
+<span class="line"><span style="color:#85E89D">    gpt_prompt</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Please explain this Windows Event: {{ ansible_eda.event.body.winlog.event_id }} “</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">localhost</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    vars</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">      _url_</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">https://api.openai.com/v1/completions</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">      api_key</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">MYAPIKEY</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">      gpt_model</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"gpt-3.5-turbo-instruct"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">      gpt_prompt</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Please explain this Windows Event: {{ ansible_eda.event.body.winlog.event_id }} “</span></span>
-<span class="line"></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">    tasks:</span></span>
+<span class="line"><span style="color:#9ECBFF">  tasks:</span></span>
 <span class="line"><span style="color:#9ECBFF">    - name: Send API request to ChatGPT</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">        uri:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">          url: "</span><span style="color:#E1E4E8">{{ </span><span style="color:#9ECBFF">_url_</span><span style="color:#E1E4E8"> }}</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">          method: POST</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">          headers:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">           Content-Type: application/json</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">           Authorization: Bearer {{ api_key }}</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">          body_format: json</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">          body:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">            model: "</span><span style="color:#E1E4E8">{{ </span><span style="color:#9ECBFF">gpt_model</span><span style="color:#E1E4E8"> }}</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">            prompt: "</span><span style="color:#E1E4E8">{{ </span><span style="color:#9ECBFF">gpt_prompt</span><span style="color:#E1E4E8"> }}</span><span style="color:#9ECBFF">"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">            max_tokens: 100  # Adjust the max_tokens as needed</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">        register: api_response</span></span></code></pre>
+<span class="line"><span style="color:#9ECBFF">      uri:</span></span>
+<span class="line"><span style="color:#9ECBFF">        url: "</span><span style="color:#E1E4E8">{{ </span><span style="color:#9ECBFF">_url_</span><span style="color:#E1E4E8"> }}</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#9ECBFF">        method: POST</span></span>
+<span class="line"><span style="color:#9ECBFF">        headers:</span></span>
+<span class="line"><span style="color:#9ECBFF">         Content-Type: application/json</span></span>
+<span class="line"><span style="color:#9ECBFF">         Authorization: Bearer {{ api_key }}</span></span>
+<span class="line"><span style="color:#9ECBFF">        body_format: json</span></span>
+<span class="line"><span style="color:#9ECBFF">        body:</span></span>
+<span class="line"><span style="color:#9ECBFF">          model: "</span><span style="color:#E1E4E8">{{ </span><span style="color:#9ECBFF">gpt_model</span><span style="color:#E1E4E8"> }}</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#9ECBFF">          prompt: "</span><span style="color:#E1E4E8">{{ </span><span style="color:#9ECBFF">gpt_prompt</span><span style="color:#E1E4E8"> }}</span><span style="color:#9ECBFF">"</span></span>
+<span class="line"><span style="color:#9ECBFF">          max_tokens: 100  # Adjust the max_tokens as needed</span></span>
+<span class="line"><span style="color:#9ECBFF">      register: api_response</span></span></code></pre>
 </div><p>Once I query ChatGPT with the specific event-id, I filter the response for the actual content I would like:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -197,10 +161,8 @@
   <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#9ECBFF">…output_omitted…</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Extract text from API response</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        set_fact</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          response_text</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ api_response.json.choices[0].text }}"</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">      set_fact</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        response_text</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ api_response.json.choices[0].text }}"</span></span></code></pre>
 </div><p>And then continue to create my ServiceNow ticket with the relevant information that I want to provide my technical team:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -211,23 +173,15 @@
 <span class="line"></span>
 <span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Create Enhanced incident Ticket</span></span>
 <span class="line"><span style="color:#85E89D">      servicenow.itsm.incident</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         instance</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          host</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ SN_HOST }}"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          username</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ SN_USERNAME }}"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          password</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ SN_PASSWORD }}"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         state</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">new</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         short_description</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ ansible_eda.event.body.event.action }}"</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         description</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|-</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">          Details: {{ ansible_eda.event.body.message | default("") }}</span></span>
-<span class="line"><span style="color:#85E89D">        AI Generated Description</span><span style="color:#E1E4E8">: {{ </span><span style="color:#9ECBFF">response_text | default("")</span><span style="color:#E1E4E8"> }}</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">       instance</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        host</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ SN_HOST }}"</span></span>
+<span class="line"><span style="color:#85E89D">        username</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ SN_USERNAME }}"</span></span>
+<span class="line"><span style="color:#85E89D">        password</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ SN_PASSWORD }}"</span></span>
+<span class="line"><span style="color:#85E89D">       state</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">new</span></span>
+<span class="line"><span style="color:#85E89D">       short_description</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ ansible_eda.event.body.event.action }}"</span></span>
+<span class="line"><span style="color:#85E89D">       description</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|-</span></span>
+<span class="line"><span style="color:#9ECBFF">        Details: {{ ansible_eda.event.body.message | default("") }}</span></span>
+<span class="line"><span style="color:#9ECBFF">        AI Generated Description: {{ response_text | default("") }}</span></span></code></pre>
 </div><p>My team can now login and look at the incident, which will provide them with details from the event log out of Windows but also an explanation from AI around that type of event and what that specific event-id actually means. If you wanted to, you could use another query and ask for the top 5 recommended solutions for the specific event.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/oxq0AHOxyOyaXMfXhxDbYfwIYf_vwG1Flm2S0RTylBBdJUut9Ax99W7Jmsj8qZOCjP1hLdiUZrOswzjCz6Yf2DQ42mwv2D7fARHI6GcYBm1r2eisfk2G_zCS3RlzxJCl1DsRSX4sYXs6cHI91we0wIg_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/oxq0AHOxyOyaXMfXhxDbYfwIYf_vwG1Flm2S0RTylBBdJUut9Ax99W7Jmsj8qZOCjP1hLdiUZrOswzjCz6Yf2DQ42mwv2D7fARHI6GcYBm1r2eisfk2G_zCS3RlzxJCl1DsRSX4sYXs6cHI91we0wIg_0.png" alt=""></a></p>
 <p>This is a simple example of how we can not only use Event-Driven Ansible to fact gather and create tickets using the event payload, but it also shows us that using technologies like AI in conjunction with Event-Driven Ansible could be extremely beneficial by using event data to generate suggestions and descriptions of issues for our teams which might not have the experience or skills to resolve.</p>
@@ -235,15 +189,22 @@
 <ul>
 <li>Demo: <a href="https://youtu.be/0vQACe3shW0?si=yzQF84YWSbakFLjj">Windows and Event-Driven Ansible w/ ServiceNow</a></li>
 </ul>
-<h2>Additional resources and next steps</h2>
-<p><strong>Want to learn more about Event-Driven Ansible?</strong></p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">Team resource</span>
+  <p class="blog-callout__title">Event-Driven Ansible ChatOps</p>
+  <p class="blog-callout__body">From chat message to automated action with the TMM team walkthrough.</p>
+  <a class="blog-callout__cta" href="/blog/event-driven-ansible-chatops-from-chat-to-action/">Read the guide →</a>
+</aside><h2 id="additional-resources-and-next-steps">Additional resources and next steps</h2><p><strong>Want to learn more about Event-Driven Ansible?</strong></p>
 <ul>
 <li>Self-paced labs: <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Hands-on experience with ServiceNow, Event-Driven Ansible and more</a></li>
 <li>Video: <a href="https://youtu.be/Dj7dhZdnRIY?si=hXS7cb3otvnYFezo">NetOps, ChatOps, and Event-Driven Ansible</a></li>
 <li>Event-Driven Ansible <a href="http://ansible.com/event-driven">web page</a></li>
 <li>Follow Nuno @<a href="https://twitter.com/NunoMart11">https://twitter.com/NunoMart11</a></li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li><li><a href="/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/">Navigating AI vulnerability discovery and achieving operational resilience with automation</a></li><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>
     </article>

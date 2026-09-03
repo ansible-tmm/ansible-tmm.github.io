@@ -15,6 +15,13 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:55Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Discover 5 lesser-known features of Red Hat Ansible Automation Platform, like callback plugins & job slicing, to optimize your automation experience.
+
+<!-- blog-enrichment:end -->
+
 ## 5 things you didn’t know your Red Hat Ansible Automation Platform could do
 
 [![5 things blog post](https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png)](https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png)
@@ -89,6 +96,9 @@ And there you have it! 5 things to take your automation to the next level!
 
 I hope you found these top 5 tips valuable in discovering new ways to leverage the power of Ansible Automation Platform.
 
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
+
 ## What can I do next?
 
 Whether you are beginning your automation journey or are a seasoned veteran, there are a variety of resources to enhance your automation knowledge.
@@ -98,3 +108,14 @@ Whether you are beginning your automation journey or are a seasoned veteran, the
 - [Developer license](https://developers.redhat.com/about) - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.
 - [Subscribe to the Red Hat Ansible Automation Platform YouTube channel.](https://www.youtube.com/ansibleautomation)
 - [Follow Red Hat Ansible](https://twitter.com/ansible) [Automation Platform](https://www.youtube.com/ansibleautomation) [on Twitter](https://twitter.com/ansible) - Do you have questions or an automation project you want to show off? Tweet at us!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application](/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/)
+> - [New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift](/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/)
+> - [Monitoring Red Hat Ansible Automation Platform on Red Hat OpenShift - The Easy Way](/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way/)
+
+<!-- blog-enrichment:related-end -->

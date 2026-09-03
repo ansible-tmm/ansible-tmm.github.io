@@ -15,6 +15,25 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:20:31Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** An overview of the new features found in the Ansible Automation Platform 2.2 release
+
+> [!toc]
+> **On this page**
+>
+> - [Automation topology viewer](#automation-topology-viewer)
+> - [Digitally signed Red Hat Ansible Certified Content Collections](#digitally-signed-red-hat-ansible-certified-content-collections)
+> - [Updated developer and creator tooling](#updated-developer-and-creator-tooling)
+> - [Enhanced Collections for network automation](#enhanced-collections-for-network-automation)
+> - [Automation services catalog is now on-premise](#automation-services-catalog-is-now-on-premise)
+> - [Automation reporting and analytics more integrated](#automation-reporting-and-analytics-more-integrated)
+> - [Red Hat Enterprise Linux 9 support](#red-hat-enterprise-linux-9-support)
+> - [Next Steps](#next-steps)
+
+<!-- blog-enrichment:end -->
+
 [![aap2.2](https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png)
 
 The Ansible product team at Red Hat is thrilled to announce the general availability of Red Hat Ansible Automation Platform 2.2, which includes numerous features and bug fixes that further solidify Ansible Automation Platform as the *de facto* enterprise IT automation solution for developers to operations teams in data centers, clouds, and at the edge. A few of the most noteworthy features in this release include:
@@ -28,6 +47,9 @@ The Ansible product team at Red Hat is thrilled to announce the general availabi
 - Red Hat Enterprise Linux 9 support
 
 Don’t forget to check out the [product documentation](https://docs.ansible.com/) including the [release notes](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.2/html/red_hat_ansible_automation_platform_release_notes/index)!
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## Automation topology viewer
 
@@ -49,13 +71,19 @@ As automation continues to scale, the topology viewer becomes more useful, as sh
 
 For more information on automation mesh, and how the automation topology viewer works with it, check out [Phil Griffiths’ on-demand Summit 2022 breakout session entitled: “OD1512 - Ansible Automation Platform 2 automation mesh—starting locally, scaling globally](https://events.experiences.redhat.com/widget/redhat/sum22/SessionCatalog22/session/1641398142450001vmkJ).”
 
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
+
 ## Digitally signed Red Hat Ansible Certified Content Collections
 
 The increased focus on information security and how software is run in enterprise production environments has never been greater. Providing security-focused features in Ansible Automation Platform 2 continues to be a priority, with the ability to execute certified and compliant automation anywhere in your enterprise. New in this release is collection signing, which is the genesis of a more holistic chain-of-custody security feature going forward. The following two use cases are of note:
 
 1. **Digitally signed Red Hat Ansible Certified Content Collections on Ansible automation hub**  
+
    All new and updated Red Hat Ansible Certified Content Collections will be signed by Red Hat as part of the normal certified content submission process. The public key for verifying signed content will be made available on the Red Hat Customer Portal for on-demand use, or offline use with a private/local keyring.
+
 2. **Digitally sign your user-built, community, or third-party Ansible Content Collections on private automation hub**  
+
    For any Collections that are not already signed by Red Hat, automation teams can configure a signing service to private automation hub to auto-sign published Collections or host requests for approval before publishing. Developers and content creators may upload their own Collections via the private automation hub GUI or the CLI, and an approver can then sign and approve them for publishing and use across the organization.
 
 Digital signing for Ansible Content Collections is only the beginning. Since the running of automation occurs in automation execution environments, it’s only natural that the next area of content signing would be at this level, the container level. Stay tuned for more on this in coming releases!
@@ -178,3 +206,14 @@ Sign up for an Ansible Automation Platform [60-day trial](https://www.redhat.com
 **Plan your upgrade**
 
 If you are still operating Ansible Automation Platform 1.2, it is time to start planning your upgrade. Get started with this checklist, “5 ways to prepare for migration to Ansible Automation Platform 2.” You can also register for a free webinar, “Migrating to the next generation IT automation platform.”
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [A Deeper Look, Red Hat Named a Leader in the Forrester Wave](/blog/a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave/)
+> - [Introducing Ansible Automation Platform 2](/blog/introducing-ansible-automation-platform-2/)
+> - [By the numbers: Getting your team on board with IT automation](/blog/team-automation-numbers/)
+
+<!-- blog-enrichment:related-end -->

@@ -17,21 +17,41 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:02Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production.
+
+> [!toc]
+> **On this page**
+>
+> - [What are resource module return values?](#what-are-resource-module-return-values)
+> - [A practical example](#a-practical-example)
+> - [Using return values](#using-return-values)
+> - [Where do I go next?](#where-do-i-go-next)
+
+<!-- blog-enrichment:end -->
+
 The Red Hat Ansible Network Automation engineering team is continually adding new resource modules [to its supported network platforms](https://access.redhat.com/articles/5531421).  Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production. The goal for resource modules is to avoid creating and maintaining overly complex jinja2 templates for rendering and pushing network configuration, as well as having to maintain complex fact gathering and parsing methodologies.  For this blog post, we will cover standard return values that are the same across all supported network platforms (e.g. Arista EOS, Cisco IOS, NXOS, IOS-XR, and Juniper Junos) and all resource modules.
 
 Before we get started, I wanted to call out three previous blog posts covering resource modules. If you are unfamiliar with resource modules, check any of these out:
 
 - acls - the resource module for configuring access control lists on network devices. For example: [junos\_acls](https://docs.ansible.com/ansible/latest/collections/junipernetworks/junos/junos_acls_module.html) on Juniper Junos  
-    
+
   [Deep Dive: ACL Configuration Management Using Ansible Network Automation Resource Modules](https://www.ansible.com/blog/deep-dive-acl-configuration-management-using-ansible-network-automation-resource-modules)
+
 - ospfv2 - the resource module for configuring the routing protocol OSPF. For example: [ios\_ospfv2](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_ospfv2_module.html) for OSPF configuration on Cisco IOS  
-    
+
   [Getting Started With OSPFV2 Resource Modules](https://www.ansible.com/blog/getting-started-with-ospfv2-resource-modules) by [Rohit Thakur](https://www.ansible.com/blog/author/rohit-thakur)
+
 - vlans - the resource module for configuring VLANS on network devices. For example: [eos\_vlans](https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_vlans_module.html) for VLANS configuration on Arista EOS  
-    
+
   [Deep dive on VLANS resource modules for network automation](https://www.ansible.com/blog/deep-dive-on-vlans-resource-modules-for-network-automation)
 
 [![Screen Shot 2021-01-12 at 2.56.22 PM](https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-01-12%20at%202.56.22%20PM.png)](https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-01-12%20at%202.56.22%20PM.png)
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ## What are resource module return values?
 
@@ -46,6 +66,9 @@ So let's get started: All currently released resource modules have the exact sam
 | **commands** | The set of commands pushed to the remote device. |
 
 Why are return values important? They give you state *before and after* modifications happen. The before value lets you know the state of the device before you do any modification.  This makes it easy to revert changes or simply compare the before and after of any particular resource.  The commands return value will actually be in the network platform’s device syntax, so if you are automating an Arista EOS switch, you will get Arista commands.  This is important because it allows a network operator to quickly see what the automation actually did, and in the syntax that is expected of the operator.  There is no abstraction happening that impacts the network operator from the tool, so trust is gained with automation, which can help with establishing a positive culture between network automation engineers and folks that might just be starting their automation journey.
+
+> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> More posts on network automation from the Ansible Technical Marketing team.
 
 ## A practical example
 
@@ -165,3 +188,14 @@ If you are unfamiliar with Ansible Collections, check out our [YouTube playlist 
 We got you covered, check out this video: [AnsibleFest 2020! I missed it! Where is the content?](https://www.youtube.com/watch?v=YjEPR9jjSD0&t=2s)  
 
 Explore everything on-demand for free on [www.ansible.com/ansiblefest](https://www.ansible.com/ansiblefest)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+> - [Red Hat Ansible Network Automation Updates](/blog/red-hat-ansible-network-automation-updates/)
+> - [Porting Ansible Network Playbooks with New Connection Plugins](/blog/porting-ansible-network-playbooks-with-new-connection-plugins/)
+
+<!-- blog-enrichment:related-end -->

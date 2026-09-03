@@ -1,0 +1,156 @@
+{
+  "rules": [
+    {
+      "id": "eda-getting-started",
+      "priority": 10,
+      "kind": "tmm",
+      "match": {
+        "keywords": ["event-driven", "rulebook", "ansible.eda", "event driven ansible"],
+        "topics": ["Event-driven automation"]
+      },
+      "callout": {
+        "label": "Team resource",
+        "title": "Getting started with Event-Driven Ansible",
+        "body": "Step-by-step guide from the Ansible TMM team.",
+        "url": "/blog/getting-started-with-event-driven-ansible/",
+        "cta": "Read the guide"
+      }
+    },
+    {
+      "id": "eda-chatops",
+      "priority": 11,
+      "kind": "tmm",
+      "match": {
+        "keywords": ["chatops", "slack", "teams integration"]
+      },
+      "callout": {
+        "label": "Team resource",
+        "title": "Event-Driven Ansible ChatOps",
+        "body": "From chat message to automated action with the TMM team walkthrough.",
+        "url": "/blog/event-driven-ansible-chatops-from-chat-to-action/",
+        "cta": "Read the guide"
+      }
+    },
+    {
+      "id": "aap-cve-report",
+      "priority": 20,
+      "kind": "tmm",
+      "match": {
+        "keywords": ["cve", "vulnerability", "cvss", "security defect", "zero trust"]
+      },
+      "callout": {
+        "label": "TMM tool",
+        "title": "AAP CVE Report",
+        "body": "Explore CVE information relevant to Ansible Automation Platform.",
+        "url": "https://ansible-tmm.github.io/aap_cve_report/",
+        "cta": "Open tool"
+      }
+    },
+    {
+      "id": "solution-guides",
+      "priority": 25,
+      "kind": "tmm",
+      "match": {
+        "keywords": ["solution guide", "use case", "reference architecture", "migration guide"]
+      },
+      "callout": {
+        "label": "TMM resource",
+        "title": "Solution Guides",
+        "body": "Outcome-focused guides for infrastructure and IT automation challenges.",
+        "url": "https://ansible-tmm.github.io/solution-guides/",
+        "cta": "Browse guides"
+      }
+    },
+    {
+      "id": "workshops-labs",
+      "priority": 30,
+      "kind": "tmm",
+      "match": {
+        "keywords": ["hands-on", "workshop", "lab environment", "interactive"]
+      },
+      "callout": {
+        "label": "TMM resource",
+        "title": "Workshops and Labs",
+        "body": "Launch guided lab environments for Ansible and Red Hat technologies.",
+        "url": "https://labs.demoredhat.com/",
+        "cta": "Launch a lab"
+      }
+    },
+    {
+      "id": "product-demos",
+      "priority": 35,
+      "kind": "tmm",
+      "match": {
+        "keywords": ["demo", "product demo", "showcase", "walkthrough"]
+      },
+      "callout": {
+        "label": "TMM resource",
+        "title": "Ansible Product Demos",
+        "body": "Reusable demos that showcase Ansible Automation Platform capabilities.",
+        "url": "https://ansible.github.io/product-demos/",
+        "cta": "Browse demos"
+      }
+    },
+    {
+      "id": "network-automation",
+      "priority": 40,
+      "kind": "tmm",
+      "match": {
+        "keywords": ["network automation", "napalm", "vlan", "netops", "cisco", "junos"],
+        "topics": ["Network automation"]
+      },
+      "callout": {
+        "label": "Team resource",
+        "title": "Network automation on the TMM blog",
+        "body": "More posts on network automation from the Ansible Technical Marketing team.",
+        "url": "/blog/?author=sean-cavanaugh",
+        "cta": "Browse posts"
+      }
+    },
+    {
+      "id": "kubernetes-automation",
+      "priority": 45,
+      "kind": "tmm",
+      "match": {
+        "keywords": ["kubernetes", "openshift", "k8s", "container", "helm"]
+      },
+      "callout": {
+        "label": "Team resource",
+        "title": "Kubernetes automation content",
+        "body": "Collections, inventories, and patterns from the Ansible TMM team.",
+        "url": "/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/",
+        "cta": "Read the guide"
+      }
+    },
+    {
+      "id": "aap-docs",
+      "priority": 85,
+      "kind": "redhat",
+      "match": {
+        "keywords": ["documentation", "ansible automation platform docs", "product documentation"]
+      },
+      "callout": {
+        "label": "Red Hat",
+        "title": "Ansible Automation Platform documentation",
+        "body": "Official product documentation from Red Hat.",
+        "url": "https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/",
+        "cta": "Read the docs"
+      }
+    },
+    {
+      "id": "aap-trial",
+      "priority": 90,
+      "kind": "redhat",
+      "match": {
+        "keywords": ["ansible automation platform", " try it", "evaluation", "trial"]
+      },
+      "callout": {
+        "label": "Red Hat",
+        "title": "Try Ansible Automation Platform",
+        "body": "60-day trial for hands-on evaluation.",
+        "url": "https://www.redhat.com/en/technologies/management/ansible/try-it",
+        "cta": "Start trial"
+      }
+    }
+  ]
+}

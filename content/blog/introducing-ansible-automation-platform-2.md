@@ -16,6 +16,13 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:20:31Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Introducing Red Hat Ansible Automation Platform 2 and changes to how automation is developed, managed, and operated in large, complex environments.
+
+<!-- blog-enrichment:end -->
+
 [![aap 2-1](https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png)
 
 For the last two years, the Red Hat Ansible Automation Platform product team has been hard at work developing the next major release. We are incredibly excited to introduce Red Hat Ansible Automation Platform 2, which was [just announced](https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators) at [AnsibleFest 2021](http://ansiblefest.com).
@@ -26,6 +33,9 @@ The main focus was to enhance the foundational pieces of the Ansible Automation 
 
 So how did we get here? It’s been years in the making, which included the following changes:
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 *1.* [*Ansible content was separated from the Ansible executable*](https://www.ansible.com/blog/the-future-of-ansible-content-delivery) *in the Ansible Project, creating a new construct called an* [*Ansible Content Collection*](https://www.ansible.com/blog/getting-started-with-ansible-collections)*s to house Ansible modules, plugins, roles and more in a discrete and atomic form.*
 
 The vast majority of time recently has been spent relocating the majority of Ansible content (modules, plugins) into standalone Ansible Collections developed and maintained separately from the [Ansible open source project](https://github.com/ansible/ansible/). The main benefit is that the updating of Ansible content is no longer dependent on updating the Ansible project itself, allowing for continuous and asynchronous releases of content while maintaining stable releases of the Ansible executable.
@@ -33,9 +43,12 @@ The vast majority of time recently has been spent relocating the majority of Ans
 *2. The control plane was separated from the execution plane in Ansible Tower, and renamed these components to automation controller and automation execution environments.*
 
 Ansible Tower was split into two components: automation controller (control plane) and automation execution environments (execution plane) in order to better scale and provide more predictable automation for enterprises. By splitting Tower into two components, you can now have execution running outside of the control node and is more conducive to running your automation in hybrid cloud and container native environments such as Red Hat OpenShift. You’ll also see additional features in the upcoming 2.1 release with a new component called automation mesh (think: a service mesh for Ansible), which replaces isolated nodes in Ansible Tower. This becomes more interesting by enabling new use cases such as automating at or to the edge as well as cloud automation.  
-  
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
+
 *3. New tools were created to better enable enterprise automation developers.*  
-  
+
 Developing Ansible content has largely been up to the individual for building and curating content. New tools such as automation content navigator (ansible-navigator) and execution environment builder (ansible-builder) allow for a more consistent experience for content developed on a workstation that’s destined for an enterprise automation controller instance. This is made possible with  automation execution environments, which are now much more predictable, portable, and scalable compared to traditional Python virtual environments previously.
 
 Ansible Automation Platform 2 introduces an improved architecture and a variety of new tools to scale your automation while still providing a familiar Ansible experience to your teams.  We want to provide you with all the information you need to get your automation teams up to speed on the new features and start developing your migration strategy (if applicable) to best prepare for the forthcoming 2.1 general availability anticipated for later this year. Over the next month, keep an eye on the [Knowledgebase on Red Hat Customer Portal](https://red.ht/AAP-20) for all the latest on documentation, installation, migration and component deep dives.
@@ -56,3 +69,14 @@ There are a number of resources available as you begin to explore Ansible Automa
 If you are interested in hearing more about Ansible Automation Platform 2, please reach out to your Red Hat sales representative. In the meantime, you can log into the [Red Hat Customer Portal](https://red.ht/AAP-20) for official resources around the launch, including migration considerations, getting started blogs, and official documentation which can be found at [the Early Access page](https://red.ht/AAP-20)*. (Note: a Red Hat subscription is required for access)*
 
 Still need assistance? Can’t find your Red Hat Sales representative? Contact [Red Hat Technical support](https://access.redhat.com/support/contact/technicalSupport/) for additional information. Please refer to the [official resources](https://red.ht/AAP-20) that will help you on your automation journey.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [A Deeper Look, Red Hat Named a Leader in the Forrester Wave](/blog/a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave/)
+> - [What's new in Ansible Automation Platform 2.2](/blog/whats-new-in-ansible-automation-platform-2.2/)
+> - [By the numbers: Getting your team on board with IT automation](/blog/team-automation-numbers/)
+
+<!-- blog-enrichment:related-end -->

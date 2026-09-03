@@ -17,6 +17,26 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:21:31Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Implement enterprise-wide automation for proactive vulnerability management with Ansible Automation Platform.
+
+> [!toc]
+> **On this page**
+>
+> - [Building proactive automated approaches to IT vulnerabilities](#building-proactive-automated-approaches-to-it-vulnerabilities)
+> - [1. Accelerated patching cycles](#1-accelerated-patching-cycles)
+> - [2. Deploy automated responses to vulnerabilities](#2-deploy-automated-responses-to-vulnerabilities)
+> - [3. Initiate workarounds prior to patch availability to mitigate impacts](#3-initiate-workarounds-prior-to-patch-availability-to-mitigate-impacts)
+> - [4. Establish strong perimeter defenses](#4-establish-strong-perimeter-defenses)
+> - [5. Explore enterprise-wide risk management](#5-explore-enterprise-wide-risk-management)
+> - [Getting started](#getting-started)
+> - [Automation for security threats in the AI era](#automation-for-security-threats-in-the-ai-era)
+> - [Additional resources](#additional-resources)
+
+<!-- blog-enrichment:end -->
+
 IT operations and security teams receive thousands of alerts every day from threat intelligence sources, such as vulnerability scanners, observability tools, Red Hat Lightspeed, and more. The challenge is identifying, correlating, and addressing impactful alerts from an ongoing, high-volume stream of information as quickly as possible, especially now that vulnerabilities can be exploited in a matter of hours.
 
 Consider IBM's [X-Force Threat Intelligence Index 2026](https://www.ibm.com/think/premium/threat-intelligence-report-security-101-still-lacking#605511086), where researchers found that scanning for vulnerable software is a common attack vector–second only to exploiting incorrectly configured access controls. With powerful AI models exposing identification of new vulnerabilities, manual remediation steps can no longer keep pace with exploitation speed. This is where automation can uniquely strengthen overall defenses and limit the impact of vulnerabilities on IT operations.
@@ -135,6 +155,9 @@ Finally, solidify and fine-tune this new level of security risk automation. For 
 - Continue extending automation across operational domains
 - Rotate keys, passwords and certificates on all systems regularly
 
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
+
 ## Automation for security threats in the AI era
 
 By focusing on these 5 practices and growing the use of security automation across your enterprise, your organization can improve its security and compliance posture to handle an AI-driven threat landscape. Teams will understand the most impactful vulnerabilities and will have the tools and processes to address them. By using controls around automation, teams can act faster and with governance. [Red Hat Services](https://www.redhat.com/en/services) can help you get started or expand your automation to help you stay more secure in this accelerated era of AI.
@@ -150,3 +173,14 @@ Read our blog series:
 Watch an interactive demo: [Automate security with AIOPs](https://app.arcade.software/share/IPZDfNcMdl10jjSpHIdN?ref=share-link)
 
 Join our webinar: [Security automation in the age of AI: Responding to threats at scale](https://www.redhat.com/en/events/webinar/security-automation-in-the-age-of-ai-responding-to-threats-at-scale)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+> - [Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant](/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+
+<!-- blog-enrichment:related-end -->

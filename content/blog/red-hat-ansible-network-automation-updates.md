@@ -17,6 +17,21 @@ read_time_minutes: 11
 synced_at: '2026-09-03T19:21:18Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Red Hat Ansible Networking product updates featuring new network automation modules, improved Ansible Tower user experience, Ansible Tower credential management for network devices, custom Ansible environment support for Ansible Tower and more.
+
+> [!toc]
+> **On this page**
+>
+> - [The HTTPAPI connection plugin](#the-httpapi-connection-plugin)
+> - [Improved Ansible Tower User Experience](#improved-ansible-tower-user-experience)
+> - [Ansible Tower Credential Management for Network Devices](#ansible-tower-credential-management-for-network-devices)
+> - [Thank You](#thank-you)
+
+<!-- blog-enrichment:end -->
+
 With the recent success of the largest AnsibleFest to date I wanted to take a minute to reflect with a network automation perspective on the colossal enhancements the engineering team at Red Hat has done for the Ansible Engine 2.6 release, the Ansible Tower 3.3 release and the recent Ansible Engine 2.7 release. As a reminder for all Ansible lovers there is a [porting guide](https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html) for every release to make upgrades as easy as possible!
 
 For this blog post I am going to cover the following topics:
@@ -158,7 +173,7 @@ netconf\_get, netconf\_rpc and netconf\_config
 - [netconf\_config](https://docs.ansible.com/ansible/latest/modules/netconf_config_module.html#netconf-config-module) - netconf device configuration, module allows the user to send a configuration XML file to a netconf device, and detects if there was a configuration change.
 
 The Network Configuration Protocol (NETCONF) is a network management protocol developed and standardized by the IETF. As defined in RFC 6241, NETCONF can be used to install, manipulate, and delete the configuration of network devices. NETCONF is an alternative to SSH command line (network\_cli) and device APIs like Cisco NX-API and Arista eAPI (httpapi).  
-  
+
 To showcase the new netconf modules, I will first enable netconf on some Juniper routers using the [junos\_netconf](https://docs.ansible.com/ansible/latest/modules/junos_netconf_module.html) module. Not all networking devices support netconf so please check your vendor’s documentation for which specific platforms support it.
 
 ```
@@ -339,7 +354,6 @@ With encryption, the credential can be delegated to groups or individuals withou
 
 For a more detailed description of the new Red Hat Ansible Tower 3.3 release checkout Chris Short’s [blog post here](https://www.ansible.com/blog/ansible-tower-3.3-available-now).
 
-   
 Custom Ansible Environment Support for Tower
 
 What if I want some Ansible Playbooks to run with Ansible Engine 2.4.2 and some playbooks to run with Ansible Engine 2.6.4? To solve this particular use case Tower uses virtualenv. Virtualenv is a tool to create isolated Python environments to avoid problems caused by conflicting dependencies and differing versions. With the Ansible Tower 3.3 release the virtualenv can be set at the Organization, Project or Job Template level. Here is a look at the Job Template we have setup in Ansible Tower for performing backups of our network.
@@ -350,6 +364,20 @@ If,you have a mix of network automation playbooks that were written using the pr
 
 For more information on using virtualenv with Ansible Tower refer to the [re](https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#using-virtualenv-with-at)[levant](https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#using-virtualenv-with-at) [documentation](https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#using-virtualenv-with-at).
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## Thank You
 
 The Ansible Networking team is excited about the forthcoming Ansible 2.7 release, and would like to extend a warm thank you to all networking partners and community members who helped make it possible. We love to hear your feedback, thoughts and ideas, and we welcome you to participate in the[Ansible networking community](https://github.com/ansible/community/tree/master/group-network).
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+> - [Ansible Network Resource Modules: Deep Dive on Return Values](/blog/ansible-network-resource-modules-deep-dive-on-return-values/)
+> - [Porting Ansible Network Playbooks with New Connection Plugins](/blog/porting-ansible-network-playbooks-with-new-connection-plugins/)
+
+<!-- blog-enrichment:related-end -->

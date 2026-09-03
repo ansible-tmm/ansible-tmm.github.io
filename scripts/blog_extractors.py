@@ -96,12 +96,17 @@ def _extract_read_time(soup: BeautifulSoup) -> int | None:
     return int(match.group(1)) if match else None
 
 
+def _clean_blog_title(title: str) -> str:
+    """Red Hat pageTitle/headline sometimes includes a 'blog post |' breadcrumb prefix."""
+    return re.sub(r"^blog\s+post\s*\|\s*", "", title.strip(), flags=re.IGNORECASE).strip()
+
+
 def extract_metadata(html: str, source_url: str) -> BlogMetadata:
     soup = BeautifulSoup(html, "html.parser")
     json_ld = _parse_json_ld(soup) or {}
     page_data = _parse_page_data(soup)
 
-    title = json_ld.get("headline") or page_data.get("pageTitle") or ""
+    title = _clean_blog_title(json_ld.get("headline") or page_data.get("pageTitle") or "")
     description = json_ld.get("description") or ""
 
     published = _normalize_date(json_ld.get("datePublished"))
@@ -122,7 +127,7 @@ def extract_metadata(html: str, source_url: str) -> BlogMetadata:
     read_time = _extract_read_time(soup)
 
     return BlogMetadata(
-        title=title.strip(),
+        title=_clean_blog_title(title.strip()),
         description=description.strip(),
         published=published,
         updated=updated,
@@ -148,6 +153,10 @@ def _detect_code_language(text: str) -> str:
         return "powershell"
     if re.search(r"^(---|\s*-\s+name:|\s*hosts:|\s*tasks:|\s*sources:|\s*rules:)", sample, re.M):
         return "yaml"
+    if re.search(r"^[\w][\w-]*:\s*$", sample, re.M) or re.search(r"^\s+[\w][\w-]*:", sample, re.M):
+        return "yaml"
+    if re.search(r"^\s*-\s+[\w\"'-]+", sample, re.M) and ":" in sample:
+        return "yaml"
     if sample.lstrip().startswith(("{", "[")):
         return "json"
     if re.search(r"^#!|^\s*(sudo |apt |yum |dnf )", sample, re.M):
@@ -157,11 +166,9 @@ def _detect_code_language(text: str) -> str:
 
 def _normalize_code_text(text: str) -> str:
     text = text.replace("\u00a0", " ")
-    text = re.sub(r"^[\s—–-]+", "", text.strip())
+    text = re.sub(r"^[\s\u2014\u2013]+", "", text.strip())
     if "\n" not in text.strip():
         text = _reflow_flat_code(text)
-    else:
-        text = _reflow_nested_keys(text)
     lines = [line.rstrip() for line in text.splitlines()]
     return "\n".join(lines).strip()
 
@@ -196,14 +203,14 @@ def _reflow_flat_code(text: str) -> str:
 def _reflow_nested_keys(text: str) -> str:
     lines: list[str] = []
     for line in text.splitlines():
-        if re.search(r" {2,}\S[\w-]*\s*:", line):
+        trimmed = line.lstrip()
+        leading_spaces = len(line) - len(trimmed)
+        if leading_spaces == 0 and re.search(r" {2,}\S[\w-]*\s*:", line):
             parts = re.split(r" {2,}(?=\S[\w-]*\s*:)", line)
             if len(parts) > 1:
-                base_indent = len(line) - len(line.lstrip())
-                sub_indent = base_indent + 2
                 lines.append(parts[0].rstrip())
                 for part in parts[1:]:
-                    lines.append(f"{' ' * sub_indent}{part.lstrip()}")
+                    lines.append(f"  {part.lstrip()}")
                 continue
         lines.append(line.rstrip())
     return "\n".join(lines)

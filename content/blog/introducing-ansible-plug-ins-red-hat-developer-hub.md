@@ -17,6 +17,21 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:20:35Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Discover Ansible plug-ins for Red Hat Developer Hub, a branded internal developer portal, purpose-built for automation content creation.
+
+> [!toc]
+> **On this page**
+>
+> - [Who benefits from Ansible plug-ins for Red Hat Developer Hub?](#who-benefits-from-ansible-plug-ins-for-red-hat-developer-hub)
+> - [Addressing core organizational challenges](#addressing-core-organizational-challenges)
+> - [Key Features](#key-features)
+> - [How to get started](#how-to-get-started)
+
+<!-- blog-enrichment:end -->
+
 In today’s fast-paced IT landscape, streamlining automation development workflows is paramount. The Red Hat Developer Hub offers an innovative framework for building internal developer portals (IDPs), providing a unified experience that reduces cognitive load and significantly boosts developer productivity.
 
 Today we're announcing the technical preview of Ansible plug-ins for Red Hat Developer Hub, an integration of Ansible Automation Platform with Developer Hub. These plug-ins herald a new era for Ansible users by enabling a seamless, efficient and powerful automation platform experience for [automation developers](https://developers.redhat.com/articles/2024/06/13/demystifying-role-automation-developer-its-not-what-you-think). This union provides a comprehensive platform that offers self-service workflows, guided enablement and standardized best practices, enabling a robust Community of Practice (COP) for automation in your organization.
@@ -44,6 +59,9 @@ Creating Ansible content often involves using various tools such as integrated d
 ### Enhancing discoverability and reusability
 
 Organizations often have a wealth of Ansible content that is purpose-built and tested for reuse. With this in mind, Developer Hub provides a centralized catalog that tracks ownership and metadata, making it easier for developers to find and reuse existing automation resources. This promotes the standardization of automation content and discourages the use of untested, one-off automation scripts.
+
+> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> Collections, inventories, and patterns from the Ansible TMM team.
 
 ## Key Features
 
@@ -83,9 +101,23 @@ Developer Hub offers expanded learning paths to guide users in customizing best 
 
 *Ansible-specific learning paths and labs*
 
+> [!callout type=redhat label="Red Hat" title="Ansible Automation Platform documentation" url="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/" cta="Read the docs"]
+> Official product documentation from Red Hat.
+
 ## How to get started
 
 To get started using the technical preview of Ansible plug-ins for Red Hat Developer Hub:
 
 - Already an Ansible Automation Platform and Red Hat Developer Hub subscriber? [Download the plug-in](https://access.redhat.com/downloads/content/480).
 - Not currently subscribed? Learn how to try it in the [Developer Sandbox](https://developers.redhat.com/learn/ansible/install-and-configure-ansible-plug-ins-red-hat-developer-hub-developer-sandbox-red-hat-openshift?source=sso).
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant](/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant/)
+> - [New reference architecture: Red Hat Ansible Automation Platform 1.2 to 2 Migration Guide](/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

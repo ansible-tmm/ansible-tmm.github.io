@@ -19,6 +19,21 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:20:44Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Learn how to streamline Windows management and automate tasks with the MECM Certified Collection for Red Hat Ansible Automation Platform. This collection offers 26 modules and a plug-in to handle software distribution, patch management, and configuration updates for Windows Servers through Ansible playbooks.
+
+> [!toc]
+> **On this page**
+>
+> - [What Is the MECM Red Hat Ansible Certified Collection?](#what-is-the-mecm-red-hat-ansible-certified-collection)
+> - [Orchestrating safer rollouts](#orchestrating-safer-rollouts)
+> - [Why it matters](#why-it-matters)
+> - [Learn more](#learn-more)
+
+<!-- blog-enrichment:end -->
+
 Automation isn’t just an option, it’s a necessity. Organizations managing complex infrastructures often face a divide between Windows management tools and their broader automation strategy to streamline operations, reduce manual overhead, and ensure consistency across environments. That’s where the [Microsoft Endpoint Configuration Manager (MECM) Certified Collection for Red Hat Ansible Automation Platform](https://console.redhat.com) comes in, offering a bridge between MECM and automation.
 
 ## What Is the MECM Red Hat Ansible Certified Collection?
@@ -32,6 +47,9 @@ The `microsoft.mecm` collection provides a suite of specialized modules that al
 - Patch management and orchestration: The collection offers granular control over Windows updates. Modules such as `software_update_group` and `software_update_deployment` allow you to create update groups and deploy them programmatically. The `install_updates`module can be used to trigger the actual installation process on client devices, so that strict adherence to patching windows is maintained.
 - Client management: Administrators can trigger immediate actions on devices using the `client_action` module. This is critical for tasks that cannot wait for the standard polling cycle, such as forcing a machine policy retrieval and evaluation cycle, or initiating an endpoint protection scan on a specific device or group.
 - Infrastructure health and status: Automation isn't just about changing things. It's about verifying them. The collection includes "info" modules like `dp_status_info` to check distribution points, `wsus_sync_status_info`to verify upstream synchronization, and `site_status_message_info` to query specific site messages, so that the underlying MECM infrastructure is healthy before deployments begin.
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ## Orchestrating safer rollouts
 
@@ -53,6 +71,9 @@ While MECM confirms that a patch has been installed, Ansible Automation Platform
 
 Automatically redirect traffic away from the server and allow active tasks to finish before patching begins so that no connections are lost.
 
+> [!callout type=redhat label="Red Hat" title="Try Ansible Automation Platform" url="https://www.redhat.com/en/technologies/management/ansible/try-it" cta="Start trial"]
+> 60-day trial for hands-on evaluation.
+
 ## Why it matters
 
 - Compliance: MECM can be used as the source of truth for the patching level and configuration status of Windows Servers throughout your environment.
@@ -68,3 +89,14 @@ Check out these resources to learn more:
 - Visit the solution page [Automate Microsoft Windows and Active Directory with Red Hat Ansible Automation Platform](https://catalog.redhat.com/en/solutions/detail/4919c355b3324020a9738fdfe1242ca7?gs=&q=windows+ansible)
 - View the [microsoft.mecm](https://console.redhat.com) Certified Collection
 - See a [demo of the MECM Certified Collection](https://interact.redhat.com/share/idjdi8FjHr3O9jkQkhnf) in action
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+> - [Event-Driven Ansible: Simplified event routing with Event Streams](/blog/event-driven-ansible-simplified-event-routing-event-streams/)
+> - [How Ansible's new self-service automation portal empowers everyone to automate](/blog/empower-everyone-automate-ansibles-self-service-automation-portal/)
+
+<!-- blog-enrichment:related-end -->

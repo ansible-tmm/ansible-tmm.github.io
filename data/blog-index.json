@@ -203,7 +203,7 @@
     },
     {
       "slug": "ansible-and-packer-why-they-are-better-together",
-      "title": "blog post | Using Ansible and Packer, From Provisioning to Orchestration",
+      "title": "Using Ansible and Packer, From Provisioning to Orchestration",
       "description": "Red Hat Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud deployments.",
       "published": "2024-12-05",
       "updated": "2026-01-27",
@@ -221,7 +221,7 @@
     },
     {
       "slug": "taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app",
-      "title": "blog post | Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application",
+      "title": "Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application",
       "description": "One of the great advantages of combining GitOps with Ansible is that you get to streamline the automation delivery and the lifecycle of a containerized application.",
       "published": "2024-12-05",
       "updated": "2026-01-27",
@@ -239,7 +239,7 @@
     },
     {
       "slug": "the-anatomy-of-automation-execution-environments",
-      "title": "blog post | The anatomy of automation execution environments",
+      "title": "The anatomy of automation execution environments",
       "description": "Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.",
       "published": "2024-12-05",
       "updated": "2026-01-27",
@@ -311,7 +311,7 @@
     },
     {
       "slug": "getting-started-with-event-driven-ansible",
-      "title": "blog post | Getting Started with Event-Driven Ansible",
+      "title": "Getting Started with Event-Driven Ansible",
       "description": "As one technology advances, it expands the possibilities for other technologies and offers the solutions of tomorrow for the challenges we face today.",
       "published": "2024-11-27",
       "updated": "2026-01-27",

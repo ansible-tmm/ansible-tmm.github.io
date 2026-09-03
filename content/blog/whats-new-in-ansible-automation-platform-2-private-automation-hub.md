@@ -15,11 +15,21 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:01Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Ansible Automation Platform 2 includes private automation hub 4.3, which makes it easier to collaborate on,  publish, and deliver automation content.
+
+<!-- blog-enrichment:end -->
+
 [![AAP 2 gray rising a](https://www.redhat.com/rhdc/managed-files/ansible/AAP%202%20gray%20rising%20a.png)](https://www.redhat.com/rhdc/managed-files/ansible/AAP%202%20gray%20rising%20a.png)
 
 We are excited to announce that the Ansible Automation Platform 2 release includes [private automation hub 4.3](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.0/html/installing_and_upgrading_private_automation_hub/index). Private automation hub provides automation developers the ability to collaborate and publish their own automation content and streamline delivery of Ansible code within their organization.
 
 Private automation hub in Ansible Automation Platform 2 primarily delivers support for automation execution environments. Execution environments are a standardized way to define, build and distribute the environments that the automation runs in. In a nutshell, automation execution environments are container images that allow for easier administration of Ansible by the platform administrator. If you are unfamiliar with execution environments, please [refer to this blog](https://www.redhat.com/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments?hs_preview=batunIYu-56182547470) written by Technical Marketing manager Anshul Behl.
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 Private automation hub will serve as the on-premises execution environment container image repository for customers who wish to use this feature, aimed at customers who run the platform on physical or virtual environments. Ansible Automation Platform will seamlessly integrate with private automation hub for publishing and pulling execution environment container images.
 
@@ -28,6 +38,9 @@ Private automation hub will serve as the on-premises execution environment conta
 Private automation hub is intended for curating automation content from creators and making it seamlessly accessible to operators. It makes it easy to share these execution environments, which make it simple to package everything into turnkey automation, to other developers or operators for production use cases across your organization. [Automation controller](https://www.redhat.com/products/controller) can sync directly to private automation hub, pull curated execution environments to use and provide governance around what is available.
 
 The intended persona is the administrator or operator that is in charge of curating and distributing automation content across an organization. This is commonly referred to as a distribution engineer or a release engineer. Picture a Venn diagram between your content creator and your operator/administrator; private automation hub is geared for the person that interacts with both circles (or could sit in either box, depending on your organizational structure).
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 - Automation creators develop Ansible Playbooks, roles and modules.
 - Automation architects elevate automation across teams to align with IT processes and streamline adoption.
@@ -189,3 +202,14 @@ Documentation references:
 - To learn more about new Ansible Automation Platform features and components, check out the [updated product overview page on ansible.com](https://www.ansible.com/products/automation-platform). You can also consult our new interactive features guide.
 - Make sure to catch up on announcements, demos, keynotes and more great content from [AnsibleFest 2021](http://ansiblefest.com), which is now available on-demand.
 - [Please reach out to your local Red Hat representative](https://www.ansible.com/contact-us) to assist your organization in getting started with Ansible Automation Platform 2.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

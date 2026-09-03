@@ -15,6 +15,22 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:20:36Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with Red Hat Ansible Automation Platform 2.4.
+
+> [!toc]
+> **On this page**
+>
+> - [Ansible-builder 3.0 enhancements](#ansible-builder-30-enhancements)
+> - [How to install ansible-builder version 3](#how-to-install-ansible-builder-version-3)
+> - [Changes to the definition schema](#changes-to-the-definition-schema)
+> - [Using collections in Ansible automation hub](#using-collections-in-ansible-automation-hub)
+> - [Conclusion](#conclusion)
+
+<!-- blog-enrichment:end -->
+
 [![image (1)](https://www.redhat.com/rhdc/managed-files/ansible/image%20%281%29.png)](https://www.redhat.com/rhdc/managed-files/ansible/image%20%281%29.png)
 
 We recently announced the general availability of [Red Hat Ansible Automation Platform 2.4](https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.4), This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with this latest release.
@@ -31,6 +47,9 @@ In general, an automation execution environment includes:
 
 The execution environment builder tool was built to aid in the creation of execution environments for Ansible customers and users. It provides a definition schema that is based on the above execution environment requirements.
 
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
+
 ## Ansible-builder 3.0 enhancements
 
 ansible-builder version 3.0 introduces some major changes in the definition schema to help customers create execution environments with more efficiency. There were a few design principles that were kept in mind while working on this latest release, some of which came through feedback from users and customers who worked with ansible-builder v1 (included with the initial release of Ansible Automation Platform 2.)
@@ -40,6 +59,9 @@ Let’s talk about these design principles:
 - **Fix common issues of build context hacking** - We wanted to fix the common causes of things that require people to hack the builder context that ansible-builder generates. It is hard to achieve any complex or advanced execution environment images without touching the Containerfile that gets generated in the builder context. We want users to version the builder definition file instead of the Containerfile or the builder context.
 - **Single-file definition** - We offer optional file definition. You can still refer to the other files such as requirements.yml or requirements.txt if you have them or need them, but you should be able to define everything inline as well.
 - **Consolidate ansible-builder components** - ansible-builder 1.x required two sets of images in combination with matching Python and Ansible versions to complete an execution environment build, so we consolidated all the build steps starting from a single base image. This will simplify the builds and result in fewer images to maintain as a side-effect.
+
+> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> Collections, inventories, and patterns from the Ansible TMM team.
 
 ## How to install ansible-builder version 3
 
@@ -203,3 +225,14 @@ You can run the build command again as mentioned above to create your execution 
 Ansible-builder v3 provides you with a rich API to create custom execution environments with improved efficiency. The feature now provides options to cover any and all scenarios so you should never need to hack the Containerfile in the build context.
 
 You can find detailed information on ansible-builder v3 in the [latest builder documentation](https://ansible.readthedocs.io/projects/builder/en/stable/). We also have a hands-on, self-paced lab, "Get started with ansible-builder", which you can find on the [Red Hat interactive labs page for Ansible Automation Platform](https://www.redhat.com/en/interactive-labs/ansible).
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [The anatomy of automation execution environments](/blog/the-anatomy-of-automation-execution-environments/)
+> - [Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2](/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/)
+> - [Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience](/blog/new-red-hat-ansible-development-tools/)
+
+<!-- blog-enrichment:related-end -->

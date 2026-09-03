@@ -50,7 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2022-06-22">June 21, 2022</time> · 6-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png" alt="Digitally signing content in Private Automation Hub"></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.</aside><aside class="blog-toc">
+  <p class="blog-toc__title">On this page</p>
+  <ul><li><a href="#ansible-automation-platform-installer-configuration">Ansible Automation Platform installer configuration</a></li><li><a href="#installing-signed-collections-from-private-automation-hub">Installing signed Collections from private automation hub</a></li><li><a href="#create-automation-execution-environments-with-signed-collections">Create automation execution environments with signed Collections</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#next-steps">Next Steps</a></li></ul>
+</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png" alt="Digitally signing content in Private Automation Hub"></a></p>
 <p>Red Hat Ansible Automation Platform can manage and execute automation made from many different origins, coming from Red Hat product teams, ISV partners, community and private contributors.</p>
 <p>Here is a typical makeup of an automation play that is launched from automation controller:</p>
 <ol>
@@ -64,8 +67,12 @@
 <p>Previously, there was no way to verify that a Collection downloaded from either Ansible automation hub (<a href="http://console.redhat.com/">console.redhat.com</a>) or private automation hub was developed and released by its original Collection maintainer. This is a potential security issue and breaks the supply chain from creator to consumer.</p>
 <p>Providing security-focused features in Ansible Automation Platform 2 continues to be a priority, to enable the execution of certified and supported automation anywhere in your hybrid cloud environment. New in Ansible Automation Platform 2.2  is digital content signing in <a href="https://access.redhat.com/support/offerings/techpreview">technology preview</a>, which is the genesis of a more holistic chain-of-custody security feature going forward. It establishes a new framework for a chain of custody for Ansible Content Collections, with a goal for end-to-end digital content signing and distribution. This feature helps ensure that automation being executed in your enterprise is certified and compliant, even if it originates from varied content sources. While this is starting with digitally signing Collections, similar signing capabilities may be available for execution environments in future releases.</p>
 <p>In the following sections, we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.</p>
-<h2>Ansible Automation Platform installer configuration</h2>
-<p>To successfully sign and publish Ansible Content Collections, private automation hub needs to be configured for signing. The inventory configuration for the installer with signing enabled requires extra key-value pairs in the <code>[all:vars]</code> section like below:</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Workshops and Labs</p>
+  <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
+  <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+</aside><h2 id="ansible-automation-platform-installer-configuration">Ansible Automation Platform installer configuration</h2><p>To successfully sign and publish Ansible Content Collections, private automation hub needs to be configured for signing. The inventory configuration for the installer with signing enabled requires extra key-value pairs in the <code>[all:vars]</code> section like below:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">JSON</span>
@@ -91,8 +98,7 @@
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
   <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">"file"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"filename"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"signature"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"filename.asc"</span><span style="color:#E1E4E8">}</span></span></code></pre>
-</div><h3>How to generate the GnuPG keypair</h3>
-<p>Below is a sample set of bash commands to set up a key pair and export the associated public and private keys. You can use these directly or change the individual parameters based on your requirements.</p>
+</div><h3 id="how-to-generate-the-gnupg-keypair">How to generate the GnuPG keypair</h3><p>Below is a sample set of bash commands to set up a key pair and export the associated public and private keys. You can use these directly or change the individual parameters based on your requirements.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">Text</span>
@@ -118,8 +124,7 @@
 <span class="line"><span>gpg --output ~/galaxy_signing_service.gpg --armor --export-secret-key</span></span>
 <span class="line"><span>gpg --output ~/galaxy_signing_service.asc --armor --export</span></span>
 <span class="line"><span>rm -rf ~/.gnupg</span></span></code></pre>
-</div><h3>Sample digital content signing script</h3>
-<p>Below is a signing script that adheres to the requirements, which you can use as the same script in your setup.</p>
+</div><h3 id="sample-digital-content-signing-script">Sample digital content signing script</h3><p>Below is a signing script that adheres to the requirements, which you can use as the same script in your setup.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">PowerShell</span>
@@ -146,8 +151,7 @@
 <span class="line"><span style="color:#E1E4E8">fi</span></span></code></pre>
 </div><p>You can create the above signing script and key-value pair on the installer node for your Ansible Automation Platform and provide the absolute path of the script and private key to the installer as mentioned in the above section. The public key can be used to verify the downloaded collections to initiate a secure chain of custody from the private automation hub.</p>
 <p>With the above changes complete,  you can now run the Ansible Automation Platform installer to install your Ansible Automation Platform cluster with private automation hub and digital content signing enabled.</p>
-<h3>Private automation hub UI/UX changes</h3>
-<p>Once you deploy a private automation hub with signing enabled to your Ansible Automation Platform cluster, you will see some new UI additions when you interact with Collections. We used two new keys in the deployment configuration as explained in the above sections.</p>
+<h3 id="private-automation-hub-uiux-changes">Private automation hub UI/UX changes</h3><p>Once you deploy a private automation hub with signing enabled to your Ansible Automation Platform cluster, you will see some new UI additions when you interact with Collections. We used two new keys in the deployment configuration as explained in the above sections.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">Text</span>
@@ -164,8 +168,12 @@
 <a href="https://www.redhat.com/rhdc/managed-files/ansible/3JcNShnRnK1bG803UxSEIgmJ7qDc-ynYxwF3KkLqxk4Tm13Hk4dwpNSEDcFynIlTbKmwaimNL6J4gf0fTZEDG9MyUjfhNBSwRh7AxS0q4uSkXbq4C69rrjeRpn7RgCuv-5gmQ0tkTVtUXZ96Pw.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/3JcNShnRnK1bG803UxSEIgmJ7qDc-ynYxwF3KkLqxk4Tm13Hk4dwpNSEDcFynIlTbKmwaimNL6J4gf0fTZEDG9MyUjfhNBSwRh7AxS0q4uSkXbq4C69rrjeRpn7RgCuv-5gmQ0tkTVtUXZ96Pw.png" alt=""></a>
 <a href="https://www.redhat.com/rhdc/managed-files/ansible/L_N97kCBIK_mVB3-VETnFTl_2wEhAU5eL_5I_BrWEGO7jKL02bDTCeLj9_MVnrTcwXPGRrAm6BTmQ3jMmDNzaOgrKzcgN3ZABao6Lc2u9NaJge0cGvP6NsoPi3zQcwuzxD6_UnDYWuUO46UaQQ.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/L_N97kCBIK_mVB3-VETnFTl_2wEhAU5eL_5I_BrWEGO7jKL02bDTCeLj9_MVnrTcwXPGRrAm6BTmQ3jMmDNzaOgrKzcgN3ZABao6Lc2u9NaJge0cGvP6NsoPi3zQcwuzxD6_UnDYWuUO46UaQQ.png" alt=""></a></p>
 <p>Note: Sign community Collections from <a href="http://galaxy.ansible.com/">galaxy.ansible.com</a> using a similar method.</p>
-<h2>Installing signed Collections from private automation hub</h2>
-<p>Using the <code>ansible-galaxy</code> CLI (available with <code>ansible-core</code> v2.13), installed with Ansible Automation Platform 2.2, can now download and verify signed Collections from the private automation hub. You can check the <a href="https://docs.ansible.com/ansible/devel/user_guide/collections_using.html#signature-verification">upstream documentation</a> for more information on how to use signatures with <code>ansible-galaxy</code> CLI.</p>
+<aside class="blog-callout blog-callout--redhat">
+  <span class="blog-callout__label">Red Hat</span>
+  <p class="blog-callout__title">Ansible Automation Platform documentation</p>
+  <p class="blog-callout__body">Official product documentation from Red Hat.</p>
+  <a class="blog-callout__cta" href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/">Read the docs →</a>
+</aside><h2 id="installing-signed-collections-from-private-automation-hub">Installing signed Collections from private automation hub</h2><p>Using the <code>ansible-galaxy</code> CLI (available with <code>ansible-core</code> v2.13), installed with Ansible Automation Platform 2.2, can now download and verify signed Collections from the private automation hub. You can check the <a href="https://docs.ansible.com/ansible/devel/user_guide/collections_using.html#signature-verification">upstream documentation</a> for more information on how to use signatures with <code>ansible-galaxy</code> CLI.</p>
 <p>Using our example above, we will explain how you can use the public key to verify signed Collections from private automation hub.</p>
 <p>To add the public key to a local non-default keyring:</p>
 <div class="blog-code-block">
@@ -182,8 +190,7 @@
   </div>
   <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible-galaxy collection install community.lab_collection --keyring ~/keyring.kbx -c -vvvv</span></span></code></pre>
 </div><p>You will see the signature verification happening to validate the source of this Collection. Verification can also be done on the installed Collections to check if they have been tampered with. All these features enable a secure content supply chain for Collections from private automation hub to a user’s system. We have also created a <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">self-paced lab</a> that explains the digital content signing and verification workflow in more detail.</p>
-<h2>Create automation execution environments with signed Collections</h2>
-<p>With <code>ansible-builder</code> version 1.1.0 that comes with Ansible Automation Platform 2.2, it is possible to supply the keyring as explained in the previous section. If this option is not provided, no signature verification will be performed. If it is provided, and the version of Ansible in the base execution environment is not recent enough (<code>ansible-core</code> &lt; 2.13), an error will occur in the image build process.</p>
+<h2 id="create-automation-execution-environments-with-signed-collections">Create automation execution environments with signed Collections</h2><p>With <code>ansible-builder</code> version 1.1.0 that comes with Ansible Automation Platform 2.2, it is possible to supply the keyring as explained in the previous section. If this option is not provided, no signature verification will be performed. If it is provided, and the version of Ansible in the base execution environment is not recent enough (<code>ansible-core</code> &lt; 2.13), an error will occur in the image build process.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">Text</span>
@@ -191,30 +198,26 @@
   </div>
   <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible-builder create --galaxy-keyring=/path/to/pubring.kbx</span></span>
 <span class="line"><span>ansible-builder build --galaxy-keyring=/path/to/pubring.kbx</span></span></code></pre>
-</div><h2>Conclusion</h2>
-<ul>
+</div><h2 id="conclusion">Conclusion</h2><ul>
 <li>Digital content signing is a technology preview feature in private automation hub in Ansible Automation Platform 2.2</li>
 <li>The <code>ansible-galaxy</code> CLI performs Collection signature verification from private automation hub, which helps build a chain-of-custody for automation consumers in your organization.</li>
 <li>The <code>ansible-builder</code> tool bundled with Ansible Automation Platform 2.2 can also verify signatures based on the version of Ansible present in the base automation execution environment.</li>
 <li>Execution environment signing and signature verification in the automation controller is anticipated for future platform releases.</li>
 </ul>
-<h2>Next Steps</h2>
-<h3>Collection signing self-paced lab</h3>
-<p>Try the self-paced lab designed by us on digitally <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">signing content collections with a private automation hub</a>, which explains the concepts touched upon in this blog in detail by using working examples.</p>
-<h3>More Ansible Automation Platform 2.2 resources</h3>
-<p>Read the <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.2">blog on Ansible Automation Platform 2.2</a>. You can get a rundown of what’s new in this checklist, <a href="https://www.redhat.com/en/resources/whats-new-ansible-automation-platform-2-2-checklist">What’s new: Ansible Automation Platform 2.2</a>. For additional context, including a recap of Ansible Automation Platform 2 releases to date and a look ahead at 2.3, check out the free, on-demand webinar, Ansible Automation Platform 2.2: next generation platform enhancements.</p>
-<h3>Take a video tour</h3>
-<p>This eight-minute <a href="https://youtu.be/7GJjhZoYEus">overview video</a> highlights the components and features in the latest version of Ansible Automation Platform, and how they come together to deliver a comprehensive enterprise automation experience.</p>
-<h3>Try Ansible Automation Platform</h3>
-<p>Get hands-on with our other <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">self-paced, on-demand labs</a>. These interactive learning scenarios provide a preconfigured Ansible Automation Platform environment where you can experiment on how the platform can help you solve real-world challenges.</p>
+<h2 id="next-steps">Next Steps</h2><h3 id="collection-signing-self-paced-lab">Collection signing self-paced lab</h3><p>Try the self-paced lab designed by us on digitally <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">signing content collections with a private automation hub</a>, which explains the concepts touched upon in this blog in detail by using working examples.</p>
+<h3 id="more-ansible-automation-platform-22-resources">More Ansible Automation Platform 2.2 resources</h3><p>Read the <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.2">blog on Ansible Automation Platform 2.2</a>. You can get a rundown of what’s new in this checklist, <a href="https://www.redhat.com/en/resources/whats-new-ansible-automation-platform-2-2-checklist">What’s new: Ansible Automation Platform 2.2</a>. For additional context, including a recap of Ansible Automation Platform 2 releases to date and a look ahead at 2.3, check out the free, on-demand webinar, Ansible Automation Platform 2.2: next generation platform enhancements.</p>
+<h3 id="take-a-video-tour">Take a video tour</h3><p>This eight-minute <a href="https://youtu.be/7GJjhZoYEus">overview video</a> highlights the components and features in the latest version of Ansible Automation Platform, and how they come together to deliver a comprehensive enterprise automation experience.</p>
+<h3 id="try-ansible-automation-platform">Try Ansible Automation Platform</h3><p>Get hands-on with our other <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">self-paced, on-demand labs</a>. These interactive learning scenarios provide a preconfigured Ansible Automation Platform environment where you can experiment on how the platform can help you solve real-world challenges.</p>
 <p>Sign up for an Ansible Automation Platform <a href="https://www.redhat.com/en/technologies/management/ansible/try-it">60-day trial</a> to try it in your environment.</p>
-<h3>Plan your upgrade</h3>
-<p>If you are still operating Ansible Automation Platform 1.2, it is time to start planning your upgrade. </p>
+<h3 id="plan-your-upgrade">Plan your upgrade</h3><p>If you are still operating Ansible Automation Platform 1.2, it is time to start planning your upgrade. </p>
 <ul>
 <li>Get started with this checklist, “5 ways to prepare for migration to Ansible Automation Platform 2.”</li>
 <li>Register for a free webinar, “Migrating to the next generation IT automation platform.”</li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/the-anatomy-of-automation-execution-environments/">The anatomy of automation execution environments</a></li><li><a href="/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/">Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</a></li><li><a href="/blog/new-red-hat-ansible-development-tools/">Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#anshul-behl">Anshul Behl</a></p></footer>
     </article>

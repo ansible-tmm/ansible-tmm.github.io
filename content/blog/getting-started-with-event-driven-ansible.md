@@ -1,5 +1,5 @@
 ---
-title: blog post | Getting Started with Event-Driven Ansible
+title: Getting Started with Event-Driven Ansible
 slug: getting-started-with-event-driven-ansible
 authors:
 - slug: nuno-martins
@@ -14,6 +14,13 @@ topics: []
 read_time_minutes: 5
 synced_at: '2026-09-03T19:21:42Z'
 ---
+
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** As one technology advances, it expands the possibilities for other technologies and offers the solutions of tomorrow for the challenges we face today.
+
+<!-- blog-enrichment:end -->
 
 As one technology advances, it expands the possibilities for other technologies and offers the solutions of tomorrow for the challenges we face today. AnsibleFest 2022 brings us new advances in Ansible automation that are as bright as they are innovative. I am talking about the Event-Driven Ansible developer preview.
 
@@ -30,6 +37,9 @@ The following image illustrates how event-driven automation is used in the suppo
 [![Event-Driven Ansible in the support lifecycle](https://www.redhat.com/rhdc/managed-files/getting-started-eda-eda.png)](https://www.redhat.com/rhdc/managed-files/getting-started-eda-eda.png)
 
 Event-Driven Ansible has the potential to change the way we respond to issues and illuminates many new automation possibilities. So, how do you take the next step with Event-Driven Ansible?
+
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
 
 ## Let's get started!
 
@@ -144,3 +154,14 @@ Whether you are beginning your automation journey or a seasoned veteran, there a
 - Self-paced lab exercises - We have interactive, in-browser exercises to help you get started with Event-Driven Ansible and ansible-rulebook.
 - [Event-Driven Rulebooks](https://youtu.be/PtevBKX1SYI) - Watch another example of Event-Driven Ansible on our YouTube channel.
 - [Event-Driven Ansible and Gitops](https://youtu.be/Bb51DftLbPE) - Watch another example of Event-Driven Ansible, but with GitOps, on our YouTube channel.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

@@ -1,6 +1,5 @@
 ---
-title: blog post | Using Ansible and GitOps to Manage the Lifecycle of a Containerized
-  Application
+title: Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application
 slug: taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app
 authors:
 - slug: roger-lopez
@@ -16,6 +15,25 @@ topics: []
 read_time_minutes: 7
 synced_at: '2026-09-03T19:21:58Z'
 ---
+
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** One of the great advantages of combining GitOps with Ansible is that you get to streamline the automation delivery and the lifecycle of a containerized application.
+
+> [!toc]
+> **On this page**
+>
+> - [Create a GitHub personal access token](#create-a-github-personal-access-token)
+> - [Familiarizing ourselves with the App Demo Repository](#familiarizing-ourselves-with-the-app-demo-repository)
+> - [Creating our Ansible Automation Platform Resources](#creating-our-ansible-automation-platform-resources)
+> - [Enabling GitHub Webhooks for the App Demo Repository](#enabling-github-webhooks-for-the-app-demo-repository)
+> - [Creating the App Demo job template](#creating-the-app-demo-job-template)
+> - [Updating the created App Demo Workflow](#updating-the-created-app-demo-workflow)
+> - [Verify App Demo Setup](#verify-app-demo-setup)
+> - [Conclusion](#conclusion)
+
+<!-- blog-enrichment:end -->
 
 One of the great advantages of combining GitOps with Ansible is that you get to streamline the automation delivery and the lifecycle of a containerized application.
 
@@ -45,6 +63,9 @@ In the following sections of this blog, I'm going to provide the step-by-step pr
 - Setup your Git webhook (using GitHub).
 - Setting up an Ansible workflow that triggers via push events from your GitHub repository.
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## Create a GitHub personal access token
 
 The GitHub personal access token (PAT) is one of the credentials needed to associate the Ansible workflow with your Git repository.
@@ -67,6 +88,9 @@ Click the **Generate Token** button at the bottom of the page.
 Once we have our PAT in place, the next step is to create a Git repository that will be triggered by our GitHub webhooks when changes are made to the repository.
 
 For the purposes of this blog, I'll be using my [App Demo Repository](https://github.com/rlopez133/app_demo). Feel free to use your own or fork this repository to follow along.
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ## Familiarizing ourselves with the App Demo Repository
 
@@ -306,3 +330,14 @@ And all this doesn't even mention the inherited benefits of:
 - Have one source of truth for our applications.
 
 The use cases and abilities that both tools provide together are endless.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Ansible Automation Platform … You’re using it wrong.](/blog/ansible-automation-platform-youre-using-it-wrong/)
+> - [New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift](/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/)
+> - [Monitoring Red Hat Ansible Automation Platform on Red Hat OpenShift - The Easy Way](/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way/)
+
+<!-- blog-enrichment:related-end -->

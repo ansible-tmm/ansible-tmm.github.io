@@ -15,6 +15,24 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:51Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Red Hat Insights for Ansible Automation Platform is an analytics tool to help you identify, troubleshoot, and resolve issues across your entire ecosystem.
+
+> [!toc]
+> **On this page**
+>
+> - [What you’ll need to activate Automation Analytics and Insights for Ansible Automation Platform](#what-youll-need-to-activate-automation-analytics-and-insights-for-ansible-automation-platform)
+> - [Turning on data collection in Automation Analytics and Insights for automation controller](#turning-on-data-collection-in-automation-analytics-and-insights-for-automation-controller)
+> - [Turning on data collection for Red Hat Ansible Tower](#turning-on-data-collection-for-red-hat-ansible-tower)
+> - [Manual data collection within Automation Analytics and Insights](#manual-data-collection-within-automation-analytics-and-insights)
+> - [Verifying data sync with automation controller](#verifying-data-sync-with-automation-controller)
+> - [Putting Automation Analytics and Insights to work in your automation practice](#putting-automation-analytics-and-insights-to-work-in-your-automation-practice)
+> - [Additional resources](#additional-resources)
+
+<!-- blog-enrichment:end -->
+
 Two indispensable but sometimes overlooked tools included with an Ansible Automation Platform subscription are the cloud-based services, Automation Analytics and Red Hat Insights for Ansible Automation Platform.
 
 Automation Analytics and Insights form a suite of reporting and analytics tools to help you identify, troubleshoot, and resolve operational, business, and security issues across your entire ecosystem. You can also track the ROI of your automation investment and plan future automation projects to prioritize your efforts where they will have the biggest impact on your business.
@@ -50,6 +68,9 @@ From the details page, we select “edit and configure the Insights for Ansible 
 
 [![Edit Details](https://www.redhat.com/rhdc/managed-files/ansible/Edit%20Details.png)](https://www.redhat.com/rhdc/managed-files/ansible/Edit%20Details.png)
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## Turning on data collection for Red Hat Ansible Tower
 
 Log in to your Ansible Automation Platform web UI (user interface). The user account must have administrative privileges to turn on data collection. Click on the “Settings” button on the left menu. Note: If the menu is in compact mode, there will only be a small gear representing the settings.
@@ -72,6 +93,9 @@ Here is an example snippet of the Settings > System page:
 [![AA Settings](https://www.redhat.com/rhdc/managed-files/ansible/AA%20Settings.png)](https://www.redhat.com/rhdc/managed-files/ansible/AA%20Settings.png)
 
 Click the “Save” button. Once saved, automation controller will sync to cloud.redhat.com up to four times a day. Currently, this sync frequency setting cannot be adjusted.
+
+> [!callout type=redhat label="Red Hat" title="Ansible Automation Platform documentation" url="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/" cta="Read the docs"]
+> Official product documentation from Red Hat.
 
 ## Manual data collection within Automation Analytics and Insights
 
@@ -129,3 +153,14 @@ Insights has gone through significant changes in recent months, and additional d
 - Checklist: [3 ways IT leaders can measure automation performance](https://www.redhat.com/rhdc/managed-files/ma-3-ways-it-leaders-measure-automation-performance-overview-f31060pr-202202-en_1.pdf)
 - Webinar: Analyze and expand automation with hosted services
 - Graphic: [Automation analytics and Red Hat Insights role-based benefits](https://www.redhat.com/hubfs/RH_INFRA_007862_03_SRC_AnsibleAutomationAnalytics_PersonaBenefitsTable_rh.pdf?hsLang=en-us)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

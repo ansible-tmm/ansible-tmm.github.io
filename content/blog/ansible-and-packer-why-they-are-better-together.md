@@ -1,5 +1,5 @@
 ---
-title: blog post | Using Ansible and Packer, From Provisioning to Orchestration
+title: Using Ansible and Packer, From Provisioning to Orchestration
 slug: ansible-and-packer-why-they-are-better-together
 authors:
 - slug: sean-cavanaugh
@@ -14,6 +14,13 @@ topics: []
 read_time_minutes: 4
 synced_at: '2026-09-03T19:20:54Z'
 ---
+
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Red Hat Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud deployments.
+
+<!-- blog-enrichment:end -->
 
 Red Hat Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud deployments.  In my last public cloud blog, I talked about "Two Simple Ways Automation Can Save You Money on Your AWS Bill" and similarly to Ashton's blog "Bringing Order to the Cloud: Day 2 Operations in AWS with Ansible", we both wanted to look outside the common public cloud use-case of provisioning and deprovisioning resources and instead look at automating common operational tasks.  For this blog post I want to cover how the Technical Marketing team for Ansible orchestrates a pipeline for demos and workshops with Ansible and how we integrate that with custom AMIs (Amazon Machine Images) created with [Packer](https://www.packer.io/).  Packer is an open source tool that allows IT operators to standardize and automate the process of building system images.
 
@@ -46,6 +53,9 @@ This simple provisioner plugin is executing the Ansible Playbook pre\_build\_con
 [![Create pre-built image diagram](https://www.redhat.com/rhdc/managed-files/ansible-packer-blog-two.png)](https://www.redhat.com/rhdc/managed-files/ansible-packer-blog-two.png)
 
 These two processes, building images and serving a demo environment, are actually independent of each other.  Depending on how often a pre-built image needs to be executed, we can schedule that in automation controller, or even generate them on-demand via [webhooks](https://docs.ansible.com/automation-controller/latest/html/userguide/webhooks.html). On-demand generation means as soon as someone changes an Ansible Playbook relevant to anything pre\_build, we can have Ansible Automation Platform create the new image immediately, and even test it!
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## Sharing and copying cloud instances
 
@@ -118,3 +128,14 @@ new_tag: "my test"
 ```
 
 Now you can see one of the many ways that Ansible Automation Platform and Packer can easily and seamlessly work together to accomplish cloud automation tasks.  If you want more blogs on Ansible and Packer or Ansible and Terraform, please let us know!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+
+<!-- blog-enrichment:related-end -->

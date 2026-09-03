@@ -16,6 +16,13 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:24Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Accelerate Network Automation with aggregate resources as a better way to iterate without the need to execute each task one by one.
+
+<!-- blog-enrichment:end -->
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png)](https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png)
 
 One of the major networking features in Red Hat Ansible Engine 2.4 was the addition of **aggregate resources** to the networking modules. The Ansible networking team recently talked about this at the Ask an Expert webinar in November.
@@ -36,6 +43,9 @@ Simply put, aggregate resources are a better way to iterate (or loop) without th
 | --- | --- |
 | 1. Connect via SSH or eAPI 2. Execute eos\_vlan module for VLAN1 3. Execute eos\_vlan module for VLAN2 4. Execute eos\_vlan module for VLAN3 5. Execute eos\_vlan module for VLAN4 . . . 6. Execute eos\_vlan module for VLAN500 7. Disconnect SSH 8. Display Playbook Recap | 1. Connect via SSH or eAPI 2. Execute eos\_vlan module  - Generate VLAN commands for entire set - Execute in one task  3. Disconnect SSH 4. Display Playbook Recap |
 | **503 steps** | **4 steps** |
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 Based on feedback from customers, partners and community members, this post provides more examples and more detail of this important new feature. The simplest way to showcase this is to compare the old way and the new way, and highlight the differences between each.
 
@@ -115,6 +125,9 @@ When it is not used, it only enforced that the VLANs exist in the state the aggr
 
 Where else can I use **aggregate**? Other Arista examples include those such as the [eos\_user](http://docs.ansible.com/ansible/latest/eos_user_module.html) module and the [eos\_vrf](http://docs.ansible.com/ansible/latest/eos_vrf_module.html) module. Users and VRFs can be handled in a single aggregate rather than a collection of looped tasks. Instead of sending configuration user by user, or VRF by VRF with a loop it is now possible to use the aggregate. This will speed up configurations and give an alternative to using os\_config modules with Jinja templating.
 
+> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> More posts on network automation from the Ansible Technical Marketing team.
+
 |  |
 | --- |
 | The aggregate feature is not limited to just the Arista EOS platform. Other networking platforms such as Cisco IOS, Cisco NX-OS and Juniper JunOS also have aggregate enabled in those respective modules. The Red Hat Ansible Engine Networking Add-on includes full support for use of aggregate in the [supported platform modules](http://docs.ansible.com/ansible/latest/modules_support.html). |
@@ -128,3 +141,14 @@ Follow the aggregate resources repository [here](https://github.com/network-auto
 To become a member of the growing community [email us](mailto:ansible-network@redhat.com) with your GitHub ID.
 
 Have more questions? Join our next regularly scheduled Ask an Expert: [Networking Webinar.](https://www.ansible.com/resources/webinars-training/ask-an-expert-ansible-networks)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+> - [Ansible Network Resource Modules: Deep Dive on Return Values](/blog/ansible-network-resource-modules-deep-dive-on-return-values/)
+> - [Red Hat Ansible Network Automation Updates](/blog/red-hat-ansible-network-automation-updates/)
+
+<!-- blog-enrichment:related-end -->

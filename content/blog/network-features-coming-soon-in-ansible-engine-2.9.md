@@ -16,6 +16,25 @@ read_time_minutes: 9
 synced_at: '2026-09-03T19:20:31Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** In this blog post, we discuss the network features coming soon in Ansible Engine 2.9.
+
+> [!toc]
+> **On this page**
+>
+> - [What we’ve learned](#what-weve-learned)
+> - [Facts enhancements](#facts-enhancements)
+> - [Introducing resource modules](#introducing-resource-modules)
+> - [How do the new resource modules differ from previous modules?](#how-do-the-new-resource-modules-differ-from-previous-modules)
+> - [So what does this all mean? Why does this matter?](#so-what-does-this-all-mean-why-does-this-matter)
+> - [Which resource modules were introduced in Ansible Engine 2.9?](#which-resource-modules-were-introduced-in-ansible-engine-29)
+> - [What’s planned for Ansible 2.10 and beyond](#whats-planned-for-ansible-210-and-beyond)
+> - [Resources and getting started](#resources-and-getting-started)
+
+<!-- blog-enrichment:end -->
+
 [![slack-imgs.com-2](https://www.redhat.com/rhdc/managed-files/ansible/slack-imgs.com-2.png)](https://www.redhat.com/rhdc/managed-files/ansible/slack-imgs.com-2.png)
 
 The upcoming Red Hat Ansible Engine 2.9 release has some really exciting improvements, and the following blog highlights just a few of the notable additions. In typical Ansible fashion, development of Ansible Network enhancements are done in the open with the help of the community. You can follow along by watching the [GitHub project board](https://github.com/ansible/ansible/projects/10), as well as the roadmap for the [Red Hat Ansible Engine 2.9 release](https://github.com/ansible/community/wiki/Network%3A-2.9-Roadmap) via the [Ansible Network](https://github.com/ansible/community/wiki/Network%3A-2.9-Roadmap) wiki page.
@@ -31,6 +50,9 @@ As was recently announced, [Red Hat Ansible Automation](https://www.redhat.com/e
 
 A full list of the platforms that are fully supported by Red Hat via an Ansible Automation subscription can be found at the following location: <https://docs.ansible.com/ansible/2.9/modules/network_maintained.html#network-supported>
 
+> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> From chat message to automated action with the TMM team walkthrough.
+
 ## What we’ve learned
 
 In the last four years we’ve learned a lot about developing a platform for network automation. We’ve also learned a lot about how users apply these platform artifacts as consumed in end-user Ansible Playbooks and Roles. In the end, here are a few of the top lessons learned:
@@ -44,6 +66,9 @@ When the long-term roadmap was being discussed over a year ago, our enterprise c
 - Make fact gathering more standardized and part of a more seamless experience to the automation workflow, no matter the device.
 - Make updating of configurations back to the device a more standardized and seamless experience as well, allowing for Ansible Modules to take care of the latter half of the “round trip” after fact gathering.
 - Provide an opinionated and supported means of converting the network device configuration into structured data. This provides the foundational pieces in moving the “source of truth” off the network device.
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## Facts enhancements
 
@@ -153,12 +178,15 @@ For the network automation engineer there are three major differences between th
 
 1. For a given network “resource” (a “resource” can also be thought of a “section” of configuration) modules and facts integration will be developed across all our supported network operating systems at the same time. We believe that if Ansible supports the configuration of a resource on one network platform we should support it across the board. This increases the ease of use for resource modules because a network automation engineer will be able to now configure a resource (e.g.LLDP) on all the network operating systems they use with native and supported modules.
 2. Resource modules now include state values.
+
    1. merged: configuration merged with the provided configuration (default)
    2. replaced: configuration of provided resources will be replaced with the provided configuration
    3. overridden: The configuration of the provided resources will be replaced with the provided configuration, extraneous resource instances will be removed
    4. deleted: The configuration of the provided resources will be deleted/defaulted  
       [![](https://www.redhat.com/rhdc/managed-files/ansible/Coming%20Soon%20Network%20features%20coming%20soon%20in%20Ansible%20Engine%202-2.9.png)](https://www.redhat.com/rhdc/managed-files/ansible/Coming%20Soon%20Network%20features%20coming%20soon%20in%20Ansible%20Engine%202-2.9.png)
+
 3. Resource modules now include consistent return values. After a network resource module has made (or suggested) the necessary changes on a network device it will return the same key/value pairs to the playbook.
+
    1. before: The configuration on the device, as structured data, prior to the task
    2. after: If the device has changed, (or would have when using check-mode) The resulting configuration will be return as structured data
    3. commands: Any configuration commands that were issued on the device to bring it to the desired end-state.
@@ -219,3 +247,14 @@ Once Ansible 2.9 is released the next set of resource modules for Ansible 2.10 w
 [The Future of Ansible Content Delivery](https://www.ansible.com/blog/the-future-of-ansible-content-delivery)
 
 [Thoughts on Restructuring the Ansible Project](https://www.ansible.com/blog/thoughts-on-restructuring-the-ansible-project)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+> - [Event-Driven Ansible - ChatOps - From Chat to Action](/blog/event-driven-ansible-chatops-from-chat-to-action/)
+> - [Addressing NetOps issues with Event-Driven Ansible](/blog/addressing-netops-issues-with-event-driven-ansible/)
+
+<!-- blog-enrichment:related-end -->

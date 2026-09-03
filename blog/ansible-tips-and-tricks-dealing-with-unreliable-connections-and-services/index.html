@@ -50,31 +50,28 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2024-12-02">December 1, 2024</time> · 8-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p>Red Hat Ansible Automation is widely known to automate and configure Linux and Windows hosts, as well as network automation for routers, switches, firewalls and load balancers. Plus, there are a variety of modules that deal with the cloud and the API around it such as Microsoft Azure, Amazon Web Services (AWS) and Google Compute Engine.  And there are other modules that interact with Software as a Service (SaaS) tools like Slack or ServiceNow. Although the downtime for these APIs is very minimal, it does happen, and it is even more likely that the connection between your Ansible control host (where you are running Ansible from) and the cloud-centric API could be down.</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner.</aside><p>Red Hat Ansible Automation is widely known to automate and configure Linux and Windows hosts, as well as network automation for routers, switches, firewalls and load balancers. Plus, there are a variety of modules that deal with the cloud and the API around it such as Microsoft Azure, Amazon Web Services (AWS) and Google Compute Engine.  And there are other modules that interact with Software as a Service (SaaS) tools like Slack or ServiceNow. Although the downtime for these APIs is very minimal, it does happen, and it is even more likely that the connection between your Ansible control host (where you are running Ansible from) and the cloud-centric API could be down.</p>
 <p>In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner. As a technical marketing engineer, I consider my customers the Red Hat field teams, and often Solutions Architects are running playbooks from unreliable hotel wireless, coffee shops and sometimes even airplanes! I have to make sure playbooks have some more robustness built in for these odd situations. It is hair-pulling frustrating to get through a 20 task playbook for it to fail on the 19th task because your wireless went out for a couple seconds. This is especially frustrating if you are at the airport just trying to setup a demo or playground to show something to a client.</p>
-<h3>The Until Loop</h3>
-<p>Many people that use Ansible are very familiar with the loop construct. A loop (previously known as with_items) is very simple and powerful and allows you to iterate over a list or dictionary in an easy fashion. However, I find that many people are not aware of the until loop. Let us look at how this can work.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">Team resource</span>
+  <p class="blog-callout__title">Event-Driven Ansible ChatOps</p>
+  <p class="blog-callout__body">From chat message to automated action with the TMM team walkthrough.</p>
+  <a class="blog-callout__cta" href="/blog/event-driven-ansible-chatops-from-chat-to-action/">Read the guide →</a>
+</aside><h3 id="the-until-loop">The Until Loop</h3><p>Many people that use Ansible are very familiar with the loop construct. A loop (previously known as with_items) is very simple and powerful and allows you to iterate over a list or dictionary in an easy fashion. However, I find that many people are not aware of the until loop. Let us look at how this can work.</p>
 <p>The module <a href="https://docs.ansible.com/ansible/latest/modules/ec2_vpc_net_module.html">ec2_vpc_net</a> allows us to create an AWS Virtual Private Cloud.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: Create AWS VPC sean-vpc</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        ec2_vpc_net:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>          name: "sean-vpc”</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>          cidr_block: "192.168.1.0/16”</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>          region: "us-east-1”</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        register: create_vpc</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        until: create_vpc is not failed</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        retries: 5</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Create AWS VPC sean-vpc</span></span>
+<span class="line"><span style="color:#85E89D">      ec2_vpc_net</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"sean-vpc”</span></span>
+<span class="line"><span style="color:#9ECBFF">        cidr_block: "192.168.1.0/16”</span></span>
+<span class="line"><span style="color:#85E89D">        region</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"us-east-1”</span></span>
+<span class="line"><span style="color:#9ECBFF">      register: create_vpc</span></span>
+<span class="line"><span style="color:#9ECBFF">      until: create_vpc is not failed</span></span>
+<span class="line"><span style="color:#9ECBFF">      retries: 5</span></span></code></pre>
 </div><p>The name, cidr_block and region are module parameters for the ec2_vpc_net module. However the register, until and retries are task level parameters, meaning that you can use these on any module. This task will attempt to create the VPC five times before it gives up and fails.</p>
 <p>Let&#39;s step back a minute to see how this works. Each time we run a task there are some common variables that the task returns to let us know how the task performed:</p>
 <div class="blog-code-block">
@@ -82,184 +79,135 @@
     <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">test local playbook</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">localhost</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        tasks</span><span style="color:#E1E4E8">:</span></span>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">test local playbook</span></span>
+<span class="line"><span style="color:#85E89D">      hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">localhost</span></span>
+<span class="line"><span style="color:#85E89D">      gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#85E89D">      tasks</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">dumb easy command</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">              shell</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ls -la</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">              register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">task_variable</span></span>
+<span class="line"><span style="color:#85E89D">            shell</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ls -la</span></span>
+<span class="line"><span style="color:#85E89D">            register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">task_variable</span></span>
 <span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">debug the var</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">              debug</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">                var</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">task_variable</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">            debug</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">              var</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">task_variable</span></span></code></pre>
 </div><p>When we run this playbook with ansible-playbook test_output.yml we get some standard output (via the debug module) printed to the terminal window (or browser window when using Ansible Tower).</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>TASK [debug the var] **************************************************************</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      ok: [localhost] =></span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>       task_variable:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>            changed: true</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>            cmd: ls -la</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>            delta: '0:00:00.011018'</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>            end: '2018-12-07 09:53:14.595811'</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>            failed: false</span></span>
-<span class="line"><span>    ...</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#9ECBFF">TASK [debug the var] **************************************************************</span></span>
+<span class="line"><span style="color:#85E89D">    ok</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">localhost</span><span style="color:#E1E4E8">] </span><span style="color:#9ECBFF">=></span></span>
+<span class="line"><span style="color:#85E89D">     task_variable</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          changed</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#85E89D">          cmd</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ls -la</span></span>
+<span class="line"><span style="color:#85E89D">          delta</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'0:00:00.011018'</span></span>
+<span class="line"><span style="color:#85E89D">          end</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'2018-12-07 09:53:14.595811'</span></span>
+<span class="line"><span style="color:#85E89D">          failed</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#79B8FF">    ...</span></span></code></pre>
 </div><p>One of the key, value pairs we always get returned from any Ansible task is a <strong>failed</strong> key. If the task completed successfully the task will return a failed: false. If the task failed, the task will return a failed: true. Looking back at the until loop logic for the AWS VPC task:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>register: create_vpc</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      until: create_vpc is not failed</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      retries: 5</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">create_vpc</span></span>
+<span class="line"><span style="color:#85E89D">    until</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">create_vpc is not failed</span></span>
+<span class="line"><span style="color:#85E89D">    retries</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5</span></span></code></pre>
 </div><p>We are registering the result of the task so we can look at the failed key, value pair. The until value is the conditional we are applying. In this case we keep running the task until the create_vpc does not have failed: true. However we don&#39;t want the task to run this for infinity. The default value for &quot;retries&quot; is 3, however I have increased this to 5. The until loop provides significant robustness to the task. There is also a delay parameter that can be combined with the until loop.  The delay is how much time to wait between retries.  The default value for the delay is 5 seconds.  Check out the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html#do-until-loops">documentation</a> for more details and examples of the until loop and the delay parameter.</p>
-<h4>Changing What A Failure Means</h4>
-<p>By default, if Ansible fails the playbook will end on that task, for the respective host it was running on. If I had a playbook running on 10 hosts, and it failed on 1 host on task three out of ten, the 7 subsequent tasks would not run for that host. The other hosts would remain unaffected.</p>
+<h4 id="changing-what-a-failure-means">Changing What A Failure Means</h4><p>By default, if Ansible fails the playbook will end on that task, for the respective host it was running on. If I had a playbook running on 10 hosts, and it failed on 1 host on task three out of ten, the 7 subsequent tasks would not run for that host. The other hosts would remain unaffected.</p>
 <p>With unreliable connections to an outside API we need to think about what is required and not required to define success for a playbook to finish. For example if you had a task spin up a DNS record on AWS&#39;s Route53 service, the DNS can be nice to have, but isn&#39;t required for you to begin using the instance you created. I can use an until loop to make the route53 tasks more reliable, but it might be OK if the Route53 service is down and unusable. I can use the IP address to get some work done done on my instance until I get a more reliable internet connection to re-run the playbook or the Route53 service becomes available again. There are some tasks that are &quot;nice to have&quot; vs. required.</p>
-<p>The way to ignore a failed value is to use the <strong>ignore_errors</strong> parameter which is a task level parameter outlined in the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_error_handling.html">documentation here</a>. I think there is plenty of content in the docs and various blogs about using the ignore_errors so I think it is sufficient to summarize that ignore_errors will show red and report a failed: true key, value pair, but the playbook will continue on.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Workshops and Labs</p>
+  <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
+  <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+</aside><p>The way to ignore a failed value is to use the <strong>ignore_errors</strong> parameter which is a task level parameter outlined in the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_error_handling.html">documentation here</a>. I think there is plenty of content in the docs and various blogs about using the ignore_errors so I think it is sufficient to summarize that ignore_errors will show red and report a failed: true key, value pair, but the playbook will continue on.</p>
 <p>What happens if we want to combine the until loop with an ignore_errors?</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">failure test playbook</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">localhost</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        tasks</span><span style="color:#E1E4E8">:</span></span>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">failure test playbook</span></span>
+<span class="line"><span style="color:#85E89D">      hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">localhost</span></span>
+<span class="line"><span style="color:#85E89D">      gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#85E89D">      tasks</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">purposely fail</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            shell</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">/bin/false</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">task_register_var</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            until</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">task_register_var is not failed</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            retries</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            ignore_errors</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
+<span class="line"><span style="color:#85E89D">          shell</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">/bin/false</span></span>
+<span class="line"><span style="color:#85E89D">          register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">task_register_var</span></span>
+<span class="line"><span style="color:#85E89D">          until</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">task_register_var is not failed</span></span>
+<span class="line"><span style="color:#85E89D">          retries</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5</span></span>
+<span class="line"><span style="color:#85E89D">          ignore_errors</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
 <span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">debug task_register_var</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            debug</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">              msg</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ task_register_var }}"</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">          debug</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">            msg</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ task_register_var }}"</span></span></code></pre>
 </div><p>We actually get the best of both worlds with an unreliable task. We get robustness with the until loop, combined with an ignore_errors which allows the playbook to complete regardless of that task completing successfully. I find myself using this combination of ignore_errors and until loops in conjunction with services like Let&#39;s Encrypt where it&#39;s not 100% required for me to have an SSL cert to start using the web app (I can rely on a self-signed cert until I can figure out the problem).</p>
 <p>The Ansible Playbook outputs like this:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>TASK [purposely fail] *************************************************************</span></span>
-<span class="line"><span>    FAILED - RETRYING: purposely fail (5 retries left).</span></span>
-<span class="line"><span>    FAILED - RETRYING: purposely fail (4 retries left).</span></span>
-<span class="line"><span>    FAILED - RETRYING: purposely fail (3 retries left).</span></span>
-<span class="line"><span>    FAILED - RETRYING: purposely fail (2 retries left).</span></span>
-<span class="line"><span>    FAILED - RETRYING: purposely fail (1 retries left).</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      fatal: [localhost]: FAILED! => changed=true</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        attempts: 5</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        cmd: /bin/false</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        delta: '0:00:00.007936'</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        end: '2018-12-07 13:23:13.277624'</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        msg: non-zero return code</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        rc: 127</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        start: '2018-12-07 13:23:13.269688'</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        stderr: '/bin/sh: /bin/false: No such file or directory'</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        stderr_lines:</span></span>
-<span class="line"><span>      - '/bin/sh: /bin/false: No such file or directory'</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        stdout: ''</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        stdout_lines:</span></span>
-<span class="line"><span>    ...ignoring</span></span>
-<span class="line"><span>    TASK [debug task_register_var] ****************************************************</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        msg:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>          attempts: 5</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>          changed: true</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#9ECBFF">TASK [purposely fail] *************************************************************</span></span>
+<span class="line"><span style="color:#85E89D">    FAILED - RETRYING</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">purposely fail (5 retries left).</span></span>
+<span class="line"><span style="color:#85E89D">    FAILED - RETRYING</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">purposely fail (4 retries left).</span></span>
+<span class="line"><span style="color:#85E89D">    FAILED - RETRYING</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">purposely fail (3 retries left).</span></span>
+<span class="line"><span style="color:#85E89D">    FAILED - RETRYING</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">purposely fail (2 retries left).</span></span>
+<span class="line"><span style="color:#85E89D">    FAILED - RETRYING</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">purposely fail (1 retries left).</span></span>
+<span class="line"><span style="color:#85E89D">    fatal</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">localhost</span><span style="color:#E1E4E8">]: </span><span style="color:#9ECBFF">FAILED! => changed=true</span></span>
+<span class="line"><span style="color:#85E89D">      attempts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5</span></span>
+<span class="line"><span style="color:#85E89D">      cmd</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">/bin/false</span></span>
+<span class="line"><span style="color:#85E89D">      delta</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'0:00:00.007936'</span></span>
+<span class="line"><span style="color:#85E89D">      end</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'2018-12-07 13:23:13.277624'</span></span>
+<span class="line"><span style="color:#85E89D">      msg</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">non-zero return code</span></span>
+<span class="line"><span style="color:#85E89D">      rc</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">127</span></span>
+<span class="line"><span style="color:#85E89D">      start</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'2018-12-07 13:23:13.269688'</span></span>
+<span class="line"><span style="color:#85E89D">      stderr</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'/bin/sh: /bin/false: No such file or directory'</span></span>
+<span class="line"><span style="color:#85E89D">      stderr_lines</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#9ECBFF">'/bin/sh: /bin/false: No such file or directory'</span></span>
+<span class="line"><span style="color:#85E89D">      stdout</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">''</span></span>
+<span class="line"><span style="color:#85E89D">      stdout_lines</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#9ECBFF">    ...ignoring</span></span>
+<span class="line"><span style="color:#9ECBFF">    TASK [debug task_register_var] ****************************************************</span></span>
+<span class="line"><span style="color:#85E89D">      msg</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        attempts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5</span></span>
+<span class="line"><span style="color:#85E89D">        changed</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span></code></pre>
 </div><p>In the Ansible workshops I am actually using this combination of error handling for Let&#39;s Encrypt to make it easy for Ansible users to troubleshoot the issue.  If there are any tasks that have a failure that can be skipped, I can add it to a variable and print it at the end of the workshop playbook (the playbook responsible for provisioning instances for students to use).</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">failure test playbook</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">localhost</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        vars</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          summary_information</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">failure test playbook</span></span>
+<span class="line"><span style="color:#85E89D">      hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">localhost</span></span>
+<span class="line"><span style="color:#85E89D">      gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#85E89D">      vars</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        summary_information</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
 <span class="line"><span style="color:#9ECBFF">          PROVISIONER SUMMARY</span></span>
 <span class="line"><span style="color:#9ECBFF">          *******************</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      tasks</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ISSUE CERT</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            shell</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">certbot certonly --standalone -d student1.testworkshop.rhdemo.io --email ansible-network@redhat.com --noninteractive --agree-tos</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">issue_cert</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            until</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">issue_cert is not failed</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            retries</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            ignore_errors</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
+<span class="line"><span style="color:#85E89D">          shell</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">certbot certonly --standalone -d student1.testworkshop.rhdemo.io --email ansible-network@redhat.com --noninteractive --agree-tos</span></span>
+<span class="line"><span style="color:#85E89D">          register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">issue_cert</span></span>
+<span class="line"><span style="color:#85E89D">          until</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">issue_cert is not failed</span></span>
+<span class="line"><span style="color:#85E89D">          retries</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5</span></span>
+<span class="line"><span style="color:#85E89D">          ignore_errors</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">yes</span></span>
 <span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">set facts for output</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            set_fact</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            summary_information</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
+<span class="line"><span style="color:#85E89D">          set_fact</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          summary_information</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
 <span class="line"><span style="color:#9ECBFF">            {{summary_information}}</span></span>
 <span class="line"><span style="color:#9ECBFF">            - The Lets Encrypt certbot failed, please check https://letsencrypt.status.io/ to make sure the service is running</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#9ECBFF">            when: issue_cert is failed</span></span>
+<span class="line"><span style="color:#85E89D">          when</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">issue_cert is failed</span></span>
 <span class="line"><span style="color:#E1E4E8">        - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">print out summary information</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">            debug</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">              msg</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{summary_information}}"</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">          debug</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">            msg</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{summary_information}}"</span></span></code></pre>
 </div><p>This prints out a very easy to understand message to the terminal window:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/Ansible-Networking-Tips-Tricks-Terminal-Screenshot.png"><img src="https://www.redhat.com/rhdc/managed-files/Ansible-Networking-Tips-Tricks-Terminal-Screenshot.png" alt="Ansible networking tips and tricks terminal"></a></p>
 <p>In conclusion, Ansible is extremely flexible at adding some additional logic when it is necessary. The until loop can add robustness and the ignore_errors allows us to determine success criteria. In combination your Ansible Playbooks can be much more user proof, allowing you to have a proactive vs. a reactive approach to troubleshooting issues. Ansible can&#39;t control if an API or service is down, but we can definitely operate more robustly than home made scripts or DIY API implementations. The playbooks provided are extremely human readable and easy for novice users to understand.</p>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-and-packer-why-they-are-better-together/">Using Ansible and Packer, From Provisioning to Orchestration</a></li><li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>
     </article>

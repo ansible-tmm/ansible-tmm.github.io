@@ -50,14 +50,21 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2020-05-27">May 26, 2020</time> · 6-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p>The <a href="https://www.ansible.com/products/automation-platform">Red Hat Ansible Automation Platform</a> is continually offering enhancements through its hosted services on cloud.redhat.com. At Red Hat Summit 2020 the new <a href="https://www.ansible.com/products/automation-services-catalog">automation services catalog</a> took the spotlight, which provides lifecycle management, provisioning, retirement and cataloging of automation resources to your business. However I wanted to also talk about the additional new  enhancements coming to Automation Analytics! Specifically I have two big things I want to talk about:</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> If you are unfamiliar with Automation Analytics it is included as part of a Red Hat Ansible Automation Platform subscription and allows customers to analyze, aggregate, and report on data for their Red Hat Ansible Automation Platform deployments.</aside><aside class="blog-toc">
+  <p class="blog-toc__title">On this page</p>
+  <ul><li><a href="#automation-calculator">Automation Calculator</a></li><li><a href="#customization">Customization</a></li><li><a href="#notifications-panel">Notifications Panel</a></li><li><a href="#new-notifications">New Notifications</a></li><li><a href="#where-to-go-next">Where to go next?</a></li></ul>
+</aside><p>The <a href="https://www.ansible.com/products/automation-platform">Red Hat Ansible Automation Platform</a> is continually offering enhancements through its hosted services on cloud.redhat.com. At Red Hat Summit 2020 the new <a href="https://www.ansible.com/products/automation-services-catalog">automation services catalog</a> took the spotlight, which provides lifecycle management, provisioning, retirement and cataloging of automation resources to your business. However I wanted to also talk about the additional new  enhancements coming to Automation Analytics! Specifically I have two big things I want to talk about:</p>
 <ul>
 <li>Automations Calculator - a ROI (return on investment) calculator using aggregate data</li>
 <li>Notification improvements and a dedicated panel</li>
 </ul>
 <p>If you are unfamiliar with <a href="https://www.ansible.com/products/automation-analytics">Automation Analytics</a> it is included as part of a Red Hat Ansible Automation Platform subscription and allows customers to analyze, aggregate, and report on data for their Red Hat Ansible Automation Platform deployments. Check out the previous blog I wrote about <a href="https://www.ansible.com/blog/getting-started-with-automation-analytics">Getting Started with Automation Analytics</a>, or if you have concerns around what type of data is being shared with Red Hat check out my blog <a href="https://www.ansible.com/blog/automation-analytics-part-2-looking-at-data-collection">Automation Analytics: Part 2 - Looking at Data Collection</a>.</p>
-<h2>Automation Calculator</h2>
-<p>I am super excited about this new feature of Automation Analytics. A lot of customers I get to meet with are trying to figure out how to measure the success of their automation initiatives.  What does success look like?  How much money and time did automation save me? In many cases automation is a net-new initiative that didn’t have its own budget. Folks leading these initiatives need to be able to communicate this type of information succinctly and effectively with hard data. While many IT engineers may obviously realize that automation is necessary, infrastructure teams still want to measure the value and put dollar amounts to it.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Workshops and Labs</p>
+  <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
+  <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+</aside><h2 id="automation-calculator">Automation Calculator</h2><p>I am super excited about this new feature of Automation Analytics. A lot of customers I get to meet with are trying to figure out how to measure the success of their automation initiatives.  What does success look like?  How much money and time did automation save me? In many cases automation is a net-new initiative that didn’t have its own budget. Folks leading these initiatives need to be able to communicate this type of information succinctly and effectively with hard data. While many IT engineers may obviously realize that automation is necessary, infrastructure teams still want to measure the value and put dollar amounts to it.</p>
 <p>As soon as you login to Automation Analytics and choose automation calculator you are greeted with an easy to read bar graph.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Analytics%20part%203%20p1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Analytics%20part%203%20p1.png" alt="Analytics part 3 p1"></a></p>
 <p>Automation Jobs are ranked from most saved to least saved in units of dollars. The calculation formula is provided on the page as well.</p>
@@ -78,8 +85,12 @@
 <p><strong>Manual</strong> <strong>cost</strong> = (2 hours * 400 hosts * $50) = $40,000</p>
 <p><strong>Automation cost =</strong> ($20 *5 minutes) = $1.66</p>
 <p><strong>Savings = (</strong>$40,000 - 1.65) = $39,998 in savings.</p>
-<h2>Customization</h2>
-<p>Of course every organization is different so we made these calculations very flexible for you to help more accurately represent your cost savings:</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Ansible Product Demos</p>
+  <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
+  <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+</aside><h2 id="customization">Customization</h2><p>Of course every organization is different so we made these calculations very flexible for you to help more accurately represent your cost savings:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Automation%20Analytics%203%20p2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Automation%20Analytics%203%20p2.png" alt="Automation Analytics 3 p2"></a></p>
 <p>In the initial release there is a way to both configure the manual cost for executing the Job by human power alone and the cost of automation for your business. These can be configured and set so that they more accurately represent your costs and time savings in your organization.</p>
 <p>Each Job can be granularly configured to represent the time you estimate it would take your team to execute these Jobs manually. For example my “Configure Red Hat Enterprise Linux web servers” role only takes my engineers 30 minutes to complete, not 60, so I can simply change the value to more accurately represent our time savings.  </p>
@@ -91,8 +102,7 @@
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Analytics%20part%203%20p5.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Analytics%20part%203%20p5.png" alt="Analytics part 3 p5"></a></p>
 <p>The total elapsed sum refers to all Job runs over time in seconds. There was 11 runs, which means if a human did these tasks it would take (11 runs * 30 minutes) 5 ½ hours which equates to (5.5 hours * $50 an hour) $275 dollars. Ansible Automation only took 297.31 seconds to run this job 11 times as shown in the <strong>Total elapsed sum</strong>, which equates to (20 dollars an hour * 297.31 seconds) = ~$1.31 dollars. This is half a percent (or 0.46%) of what it cost me manually to do these tasks before!</p>
 <p>This percentage also lets you quickly identify high ROI tasks versus low ROI tasks which allows you to make educated decisions on which types of automation have the highest return on investment. This means your team can concentrate on highly rewarding automation tasks versus automating things that are not saving you  much time. The coolest part of this entire ROI calculator is that it is using real data from your Ansible clusters. Module by module, job by job, you can get breakdowns of performance, failure rates, cost and ROI.</p>
-<h2>Notifications Panel</h2>
-<p>Health notifications are an important part of the Automation Analytics offering. This takes the aggregated data and provides valuable context around your deployments providing you quick succinct takeaways on your deployed clusters. The notifications now have their own dedicated panel you can reach this by clicking the UI on the left hand menu:</p>
+<h2 id="notifications-panel">Notifications Panel</h2><p>Health notifications are an important part of the Automation Analytics offering. This takes the aggregated data and provides valuable context around your deployments providing you quick succinct takeaways on your deployed clusters. The notifications now have their own dedicated panel you can reach this by clicking the UI on the left hand menu:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Analytics%20part%203%20p6.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Analytics%20part%203%20p6.png" alt="Analytics part 3 p6"></a></p>
 <p>The new dedicated panel provides an intuitive interface with color coding to quickly identify errors, notices and warnings across all of your deployed clusters.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/analytics%20part%203%20p7.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/analytics%20part%203%20p7.png" alt="analytics part 3 p7"></a></p>
@@ -103,8 +113,7 @@
 <p>Notifications also now include a linkout icon tying them with the respective Ansible cluster deployment:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/analytics%20part%203%20p10.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/analytics%20part%203%20p10.png" alt="analytics part 3 p10"></a></p>
 <p>That means as soon as you see a severe notification you can instantly click and be on the respective cluster interface to address the health notification. The panel also now supports paging and will store history of all notifications for users to quickly sort through, keeping a detailed history.</p>
-<h2>New Notifications</h2>
-<p>A beautiful and intuitive panel would be nothing without the actual notifications themselves. We are continually adding new notifications that will help you analyze your clusters. Some of the new ones I want to highlight are:</p>
+<h2 id="new-notifications">New Notifications</h2><p>A beautiful and intuitive panel would be nothing without the actual notifications themselves. We are continually adding new notifications that will help you analyze your clusters. Some of the new ones I want to highlight are:</p>
 <ul>
 <li><p><strong>Node in cluster down -</strong> previously Automation Analytics would only tell you if an entire cluster was down. Now if any individual node within the cluster reports an outage this will be relayed in the notifications panel.</p>
 </li>
@@ -119,14 +128,16 @@
 <li><p><strong>Jobs in Error State -</strong> Notification when any jobs that fail due to reasons other than &#39;task fails&#39; or &#39;host unreachable&#39;. Generally means service errors and problems with automation infrastructure versus an Ansible Playbook or content collection.</p>
 </li>
 </ul>
-<h2>Where to go next?</h2>
-<p>I hope this blog helped outline these upcoming features and functionality that Automation Analytics is providing. We believe that Automation Analytics can help organizations measure performance and success of their automation initiatives. The hosted service offering Automation Analytics is optional and included in the price of the Red Hat Ansible Automation Platform. We do not force any existing customers to use the tool and hand us data, but hope this will provide increased benefits.</p>
+<h2 id="where-to-go-next">Where to go next?</h2><p>I hope this blog helped outline these upcoming features and functionality that Automation Analytics is providing. We believe that Automation Analytics can help organizations measure performance and success of their automation initiatives. The hosted service offering Automation Analytics is optional and included in the price of the Red Hat Ansible Automation Platform. We do not force any existing customers to use the tool and hand us data, but hope this will provide increased benefits.</p>
 <ul>
 <li><a href="https://www.ansible.com/products/automation-analytics">Learn more on Automation Analytics including a video demo</a></li>
 <li><a href="https://www.ansible.com/community/events/workshops">Attend an Ansible Automation Workshop and get hands-on with Ansible Tower</a></li>
 <li><a href="https://www.ansible.com/products/pricing">Contact us to get pricing information on the Ansible Automation Platform</a></li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-and-packer-why-they-are-better-together/">Using Ansible and Packer, From Provisioning to Orchestration</a></li><li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>
     </article>

@@ -15,11 +15,21 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:20:59Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Red Hat Ansible Automation Platform 2.1 is available now! Create, manage and scale automation with more ease and efficiency than ever before.
+
+<!-- blog-enrichment:end -->
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png)](https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png)
 
 We are thrilled to announce the general availability of Red Hat Ansible Automation Platform 2.1. This is the follow-on to the Ansible Automation Platform 2.0 Early Access released this summer, and [announced](https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators) at AnsibleFest 2021. Red Ansible Automation Platform 2.1 introduces major features that allow customers to onboard more easily with even more flexible automation architectures and use cases. Ansible Automation Platform 2.1 is the culmination of many years of reimagining how enterprise automators automate for today and tomorrow.
 
 You can download the latest version directly from the [Red Hat Customer Portal](https://access.redhat.com/downloads/content/480/), or sign up for a free trial at [red.ht/try\_ansible](http://red.ht/try_ansible). Ansible Automation Platform is the Ansible you know and love, designed for the enterprise. I am going to summarize [Andrius Benokraitis’ blog post](https://www.ansible.com/blog/introducing-ansible-automation-platform-2) from September, when Ansible Automation Platform 2 was announced, and expand on some key developments from 2.0 to 2.1.
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 [[![aap 2 ebook copy](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png)](https://www.redhat.com/en/resources/ansible-automation-platform-2-ebook)
 
@@ -45,6 +55,9 @@ You can download the latest version directly from the [Red Hat Customer Portal](
 #### New to Ansible Automation Platform 2.1: automation mesh
 
 [Automation mesh](https://www.ansible.com/products/automation-mesh) ([documentation)](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_automation_mesh_guide/index): This is the newest addition to Ansible Automation Platform, and replaces the isolated nodes feature in 1.2. By combining automation execution environments in version 2.0 with automation mesh in version 2.1, the automation control plane and execution plane are fully decoupled, making it easier to scale automation across the globe. You can now run your automation as close to the source as possible, without being bound to running automation in a single data center. With automation mesh, you can create execution nodes right next to the source (for example, a branch office in Johannesburg, South Africa) while execution is deployed on our automation controller in Durham, NC.
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 [![](https://www.redhat.com/rhdc/managed-files/ansible/HlT3VHI5pW_NCbwu_NAKVi8OhCG74ZX54X7fJXiJti1rF8Aije_HHp3I3KZ29mPccCSFXbOOjDbTkGO4HT2YnRZ2WyYuB6rRKLbSmmX7TXPeMKI8fWn7-Q8pMoC3RcAFZnG-7kqs.png)](https://www.redhat.com/rhdc/managed-files/ansible/HlT3VHI5pW_NCbwu_NAKVi8OhCG74ZX54X7fJXiJti1rF8Aije_HHp3I3KZ29mPccCSFXbOOjDbTkGO4HT2YnRZ2WyYuB6rRKLbSmmX7TXPeMKI8fWn7-Q8pMoC3RcAFZnG-7kqs.png)
 
@@ -132,3 +145,14 @@ Whether you are beginning your automation journey or a seasoned veteran, there a
 |  |
 | --- |
 | subscription-manager repos  --disable=ansible-automation-platform-2.0-early-access-for-rhel-8-x86\_64-rpms  subscription-manager repos --enable=ansible-automation-platform-2.1-for-rhel-8-x86\_64-rpms |
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

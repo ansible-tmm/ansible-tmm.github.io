@@ -15,6 +15,24 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:21:12Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** In this blog post, we go into how to get started with Automation Analytics, a part of Red Hat Ansible Automation Platform.
+
+> [!toc]
+> **On this page**
+>
+> - [What you need to get started:](#what-you-need-to-get-started)
+> - [Ansible Automation Platform terminology](#ansible-automation-platform-terminology)
+> - [Activating Data Collection](#activating-data-collection)
+> - [Manual Data Collection](#manual-data-collection)
+> - [Verifying Ansible Tower is syncing](#verifying-ansible-tower-is-syncing)
+> - [Exploring Automation Analytics](#exploring-automation-analytics)
+> - [Going Further](#going-further)
+
+<!-- blog-enrichment:end -->
+
 [![blog_getting-started_automation-analytics](https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png)](https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png)
 
 With the upcoming release of the Red Hat Ansible Automation Platform there are now included Software as a Service (SaaS) offerings, one of which is [Automation Analytics](https://www.redhat.com/products/automation-analytics).  This application provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire infrastructure.
@@ -22,6 +40,9 @@ With the upcoming release of the Red Hat Ansible Automation Platform there are n
 When talking to the community and our customers, a question that often comes up is: “How do we measure success?”.  Automation Analytics provides key data on Job Template usage, Ansible Module usage, organizational comparisons across your enterprise, and much more.  This data can be used to assess usage, success criteria, and even charge backs between different groups. This blog post will outline how to get started with Automation Analytics and start collecting data right away.
 
 ## 
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## What you need to get started:
 
@@ -43,6 +64,9 @@ There are some terms used in this blog post that may be unfamiliar for folks new
 - **organization** - this refers specifically to the terminology in Red Hat Ansible Tower.  An Ansible Tower organization is a logical collection of Users, Teams, Projects, and Inventories. It is the highest level in the Tower object hierarchy.
 
 ## 
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ## Activating Data Collection
 
@@ -167,3 +191,14 @@ In addition, here are some additional links to help you in your automation journ
 - [Ansible Automates events](https://www.ansible.com/community/events/automates)
 
 Also check out the next post in this series: [Getting Started with Automation Analytics: Part 2](https://www.redhat.com/blog/automation-analytics-part-2-looking-at-data-collection)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

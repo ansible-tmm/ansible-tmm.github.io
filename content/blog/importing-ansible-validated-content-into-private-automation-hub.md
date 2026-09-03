@@ -16,6 +16,13 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:28Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Ansible validated content addresses common automation use cases. Learn how to access it from your cloud deployment to accelerate your automation.
+
+<!-- blog-enrichment:end -->
+
 ## Introduction
 
 Ansible validated content is a set of collections containing pre-built YAML content (such as playbooks or roles) to address the most common automation use cases. You can use Ansible validated content out-of-the-box or as a learning opportunity to develop your automation skills. It's a trusted starting point to bootstrap your automation: use it, customize it and learn from it!
@@ -83,6 +90,9 @@ At this point you will be able to see all the available validated content, and y
 
 [![](https://www.redhat.com/rhdc/managed-files/ansible/eynbo7VF9oaLFHKh-KP9ZSZh4uNIJJrgFT6YiGVncnI5V6pi01p4BKXr2rf20T9P-lcWQgDKxLJ5Fvqa9YNh_vzq1D7vWYJlFqB5m6v3dFaXq51Vy8hZwb0CxOMfdFM4tZQzgKs3PQEqUdD_vO1Vsjw_0.png)](https://www.redhat.com/rhdc/managed-files/ansible/eynbo7VF9oaLFHKh-KP9ZSZh4uNIJJrgFT6YiGVncnI5V6pi01p4BKXr2rf20T9P-lcWQgDKxLJ5Fvqa9YNh_vzq1D7vWYJlFqB5m6v3dFaXq51Vy8hZwb0CxOMfdFM4tZQzgKs3PQEqUdD_vO1Vsjw_0.png)
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## What can I do next?
 
 To learn more about Ansible Automation Platform on hyperscaler clouds, please visit the page [here](https://www.redhat.com/en/technologies/management/ansible).
@@ -94,3 +104,14 @@ Read a brief covering the use cases for validated content for each cloud provide
 - [Google Cloud validated content](https://www.redhat.com/en/engage/migrate-google-cloud-using-red-hat-ansible-automation-platform-20230921)
 
 For hands-on self-paced lab(s) on Ansible Automation Platform, you can [visit here](https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218).
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Red Hat Ansible Automation Platform on Google Cloud Marketplace](/blog/red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace/)
+> - [Easy automation for Microsoft Windows Server and Azure with Ansible Automation Platform](/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform/)
+> - [Unleashing the Potential of Multi-Cloud Automation with Ansible and Terraform](/blog/unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform/)
+
+<!-- blog-enrichment:related-end -->

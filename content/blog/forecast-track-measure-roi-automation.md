@@ -15,6 +15,21 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:49Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Red Hat Insights for Ansible Automation Platform can help CIOs and other IT leaders measure their ROI and validate their automation strategy.
+
+> [!toc]
+> **On this page**
+>
+> - [Tracking how automation is used across teams](#tracking-how-automation-is-used-across-teams)
+> - [Plan and predict your automation savings](#plan-and-predict-your-automation-savings)
+> - [Measuring the ROI of automation](#measuring-the-roi-of-automation)
+> - [How does your automation ROI compare?](#how-does-your-automation-roi-compare)
+
+<!-- blog-enrichment:end -->
+
 Great ideas start with coffee, but business innovation starts with automation. Just like that morning jolt of warm friendly caffeine, Red Hat Ansible Automation Platform has the ability to enhance, optimize and make your technology stack flow like the beloved beverage most of the world consumes on a daily basis.
 
 It is easy to discuss all the technical benefits that Ansible Automation Platform can bring to organizations, but what about the business benefits? How can you observe the state of your automation and return on investment (ROI)? How can you explain the financial impact of automation to key stakeholders? The answer to all of these questions is Automation Analytics.
@@ -23,10 +38,13 @@ Automation Analytics helps you fully measure and understand your automation effo
 
 The most relevant features within Automation Analytics for IT business leaders and decision makers  who want to validate their automation strategy are **Reports**, **Savings** **Planner** and **Automation Calculator**. 
 
+> [!callout type=redhat label="Red Hat" title="Try Ansible Automation Platform" url="https://www.redhat.com/en/technologies/management/ansible/try-it" cta="Start trial"]
+> 60-day trial for hands-on evaluation.
+
 ## Tracking how automation is used across teams
 
 Reports allow you to observe different aspects of your organization’s automation adoption, and are based on feedback from Red Hat customers who are looking to measure their automation performance. For IT leaders, you can quickly retrieve critical information to help you understand where and how you are automating across the organization. They can be downloaded as a PDF and shared widely to help communicate your findings with your stakeholders.   
-  
+
 Reports include:
 
 - Automation run rate
@@ -40,7 +58,7 @@ Reports include:
 ## Plan and predict your automation savings
 
 One of the most important factors of automating your workloads with Ansible Automation Platform is the ability to reduce costs or reduce the amount of time needed for tasks across the organization. Savings Planner provides the mechanism for planning and tracking potential improvements that automation can bring to your organization.   
-  
+
 Savings Planner allows you to define criteria of common tasks performed without automation, and then connect this information back to automation templates on automation controller. With a plan in place, you can quickly make decisions based on which automation jobs will yield the best results for saving time and money
 
 [![Measure Automation ROI Savings](https://www.redhat.com/rhdc/managed-files/ansible/Measure%20Automation%20ROI%20Savings.png)](https://www.redhat.com/rhdc/managed-files/ansible/Measure%20Automation%20ROI%20Savings.png)
@@ -52,11 +70,11 @@ We use risk-adjusted factors to create the 3-year projection of cost and savings
 #### The cost of automation
 
 The cost includes the hours spent in implementation, deployment, training and other expenditures for creating, maintaining and running the automation. These hours (cost of investment) are usually higher at the onset to create the automation and then decline greatly once only maintenance is required.  
-  
+
 For the initial period and the first year, we forecast approximately 10 hours will be spent on each host along with some buffer time, and a 40% risk adjustment to account for unforeseen situations.  
-  
+
 For the two years following, we assume 4 hours spent on each host, as well as a 40% risk adjustment to account for unforeseen situations.  
-  
+
 The formula used to calculate cost for the initial period and year 1 is:
 
 |  |
@@ -72,11 +90,11 @@ The formula used to calculate the cost for years 2 and 3 is:
 #### Automation savings calculation
 
 The savings indicate the time and money saved as a result of automating the plan.  
-  
+
 We assume 50% productivity recapture to account for the productivity that is usually gained by the repeated manual implementation of a task over a period of time. We also add a -5% risk adjustment for unforeseen situations that may arise and need to be handled. We also assume a 15% year-over-year growth in savings.  
-  
+
 There is no monetary savings for the initial period, so there is no formula necessary.  
-  
+
 The formula used to calculate savings for year 0 is:
 
 |  |
@@ -104,7 +122,7 @@ The formula used to calculate savings for year 3 is:
 ## Measuring the ROI of automation
 
 Another dashboard, Automation Calculator, creates savings calculations based on the automation templates currently being used by your organization. By selecting a template, you can specify the costs of a manual process against the cost of an automated process. With this information in place, Automation Calculator is able to estimate the total savings for that specific template or task.   
-  
+
 Automation Calculator uses the following formula to calculate the estimated cost savings:
 
 |  |
@@ -118,7 +136,7 @@ According to an IDC report1, “By improving overall IT infrastructure and appli
 [![Business Value of Automation](https://www.redhat.com/rhdc/managed-files/ansible/Business%20Value%20of%20Automation.png)](https://www.redhat.com/rhdc/managed-files/ansible/Business%20Value%20of%20Automation.png)
 
 While your automation performance may vary, Automation Analytics provides the tools to help you observe and make decisions for your organization’s automation journey using these statistics as a benchmark. Now you can sit back and enjoy your coffee while discovering knowledge into your organization’s innovation.   
-  
+
 Additional resources:
 
 - [Try Ansible Automation Platform free for 60 days](https://www.redhat.com/en/technologies/management/ansible/try-it)
@@ -126,3 +144,14 @@ Additional resources:
 - Blog: [Introducing Ansible Automation Platform 2.1](https://www.redhat.com/blog/introducing-red-hat-ansible-automation-platform-2.1)
 
 1IDC, [The business value of Red Hat Ansible Automation Platform](https://www.redhat.com/rhdc/managed-files/idc-business-value-red-hat-ansible-tower-summary-analyst-paper-f18073-201906-en_0.pdf), Doc #US48678022, Oct. 2021
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

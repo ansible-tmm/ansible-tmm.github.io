@@ -15,6 +15,13 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:47Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Private automation hub provides organizations with a central location for their automation resources.
+
+<!-- blog-enrichment:end -->
+
 If Ansible Automation Platform was compared to the crunchy goodness of a cookie, private automation hub would be the sweet center bringing it all together and making your mouth water!
 
 Private automation hub provides organizations with a central location for their automation resources. Ansible automation hub is part of the hosted services from [console.redhat.com](https://console.redhat.com). This hosted offering provides automation adepts access to Red Hat Ansible Certified Content Collections for several industry-leading technologies and partners.
@@ -92,6 +99,9 @@ We are now able to see the synchronized collections in our private automation hu
 
 [![](https://www.redhat.com/rhdc/managed-files/ansible/h39undJ84Lw7AiaACIcRmmxyzJ2r6ZiVT1RIAUXPemoKGFYeabxN9aX4cMDsdIFMYzAz6IoFxP8g9D-8NOJEATT6ImziqBB_riQj-AzMoIfwEJYG1ZXpJXtoJM1zpnk9y7-I83eL.png)](https://www.redhat.com/rhdc/managed-files/ansible/h39undJ84Lw7AiaACIcRmmxyzJ2r6ZiVT1RIAUXPemoKGFYeabxN9aX4cMDsdIFMYzAz6IoFxP8g9D-8NOJEATT6ImziqBB_riQj-AzMoIfwEJYG1ZXpJXtoJM1zpnk9y7-I83eL.png)
 
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
+
 ## Centralizing and managing automation execution environments
 
 Private automation hub allows us to store, manage and push our automation execution environments to our automation controller. We can connect to external container registries and pull the execution environments we want on our platform.
@@ -132,8 +142,22 @@ Now that we have our execution environment, we can send it to our automation con
 
 Now we have our automation cookie up and running, it's time to indulge in our sweet automation!
 
+> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> Collections, inventories, and patterns from the Ansible TMM team.
+
 ## Additional resources
 
 - Try [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible/try-it) free for 60 days
 - Blog: [How to Activate Insights for Ansible Automation Platform](https://www.ansible.com/blog/activate-insights-for-ansible-automation-platform)
 - Blog: [Introducing Ansible Automation Platform 2.1](https://www.ansible.com/blog/introducing-red-hat-ansible-automation-platform-2.1).
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

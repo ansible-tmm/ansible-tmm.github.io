@@ -14,17 +14,38 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:44Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Learn why event-driven matters and how it can help you.
+
+> [!toc]
+> **On this page**
+>
+> - [Events on the Infrastructure](#events-on-the-infrastructure)
+> - [Events on the Network](#events-on-the-network)
+> - [Events at the edge](#events-at-the-edge)
+> - [The future of events and automation](#the-future-of-events-and-automation)
+
+<!-- blog-enrichment:end -->
+
 [![Event driven automation blog](https://www.redhat.com/rhdc/managed-files/ansible/Event%20driven%20automation%20blog.png)](https://www.redhat.com/rhdc/managed-files/ansible/Event%20driven%20automation%20blog.png)
 
 Life comes down to moments. These events are often how we define our achievements, successes, and failures throughout life. Just like our daily lives, IT organizations and teams can also have these defining moments, where you will often hear phrases like the "great database crash of '98." Many of these memorable IT  moments occur from limiting ourselves to a reactive approach when it comes to managing our IT assets. This is where event-driven automation can help us move from reactive to proactive IT management – well before we have the next great issue or moment in our IT teams.
 
 In an IT context, events come from monitoring or other tools to tell us when something needs attention.  With this event data, we are able respond faster with automated tasks, resolving issues or enhancing observation where needed, often so we can identify and address festering issues before they are full blown problems. A byproduct of this means teams are now able to spend more time innovating, and are able to realize greater work-life balance because  troubleshooting patterns and remediation approaches are automatically initiated based on an initial event in your environments.
 
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
+
 ## Events on the Infrastructure
 
 Consider the ubiquitous, laborious, and manual experience of remediating tickets submitted through IT service management systems. Automating from IT service management system events is one potent way to find savings in the costs of closing out trouble tickets. Historically, tickets require some level of manual touch, even if there is no system issue to resolve. And resolving system issues manually only increases the time and cost. Using event-driven automation to remediate the tickets and, even resolve or partially resolve the incidents themselves, not only helps you reduce your costs and better allocate your resources, it can also improve your customer experience. And your efficiencies can improve as your data grows, allowing you to automate a growing number of issues, and increasing complexity, depending on the ruleset you want to create.
 
 In addition to resolving tickets, [event-driven automation can also be used to automate compliance](https://www.ansible.com/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform) by checking and maintaining patch levels, and remediating and preventing drift. Using a file system watcher, file system changes can be a trigger for remediation. Not only can the remediation be helpful, but the resulting data can be evaluated to identify larger problems that may require manual intervention. On the security side, firewall changes could be used as a trigger for event-driven remediation.
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## Events on the Network
 
@@ -46,3 +67,14 @@ In closing, there is a large amount of event data about your IT systems already 
 - [Check out these advanced automation session at AnsibleFest 2022](https://events.experiences.redhat.com/widget/redhat/rhaf22/SessionCatalog2022?search=event-driven&tab.day=20221019)
 
 Also check out  [AnsibleFest 2022](https://www.ansible.com/ansiblefest) in person in Chicago on October 18 and 19, 2022!  Exciting news will be shared and you can check out additional event driven sessions.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

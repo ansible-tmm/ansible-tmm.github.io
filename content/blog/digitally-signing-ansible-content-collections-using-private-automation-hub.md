@@ -15,6 +15,22 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:20:37Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** In this blog we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.
+
+> [!toc]
+> **On this page**
+>
+> - [Ansible Automation Platform installer configuration](#ansible-automation-platform-installer-configuration)
+> - [Installing signed Collections from private automation hub](#installing-signed-collections-from-private-automation-hub)
+> - [Create automation execution environments with signed Collections](#create-automation-execution-environments-with-signed-collections)
+> - [Conclusion](#conclusion)
+> - [Next Steps](#next-steps)
+
+<!-- blog-enrichment:end -->
+
 [![Digitally signing content in Private Automation Hub](https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png)](https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png)
 
 Red Hat Ansible Automation Platform can manage and execute automation made from many different origins, coming from Red Hat product teams, ISV partners, community and private contributors.
@@ -33,6 +49,9 @@ Previously, there was no way to verify that a Collection downloaded from either 
 Providing security-focused features in Ansible Automation Platform 2 continues to be a priority, to enable the execution of certified and supported automation anywhere in your hybrid cloud environment. New in Ansible Automation Platform 2.2  is digital content signing in [technology preview](https://access.redhat.com/support/offerings/techpreview), which is the genesis of a more holistic chain-of-custody security feature going forward. It establishes a new framework for a chain of custody for Ansible Content Collections, with a goal for end-to-end digital content signing and distribution. This feature helps ensure that automation being executed in your enterprise is certified and compliant, even if it originates from varied content sources. While this is starting with digitally signing Collections, similar signing capabilities may be available for execution environments in future releases.
 
 In the following sections, we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## Ansible Automation Platform installer configuration
 
@@ -141,6 +160,9 @@ You can also pull the Red Hat Ansible Certified Content Collections from the Ans
 
 Note: Sign community Collections from [galaxy.ansible.com](http://galaxy.ansible.com/) using a similar method.
 
+> [!callout type=redhat label="Red Hat" title="Ansible Automation Platform documentation" url="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/" cta="Read the docs"]
+> Official product documentation from Red Hat.
+
 ## Installing signed Collections from private automation hub
 
 Using the `ansible-galaxy` CLI (available with `ansible-core` v2.13), installed with Ansible Automation Platform 2.2, can now download and verify signed Collections from the private automation hub. You can check the [upstream documentation](https://docs.ansible.com/ansible/devel/user_guide/collections_using.html#signature-verification) for more information on how to use signatures with `ansible-galaxy` CLI.
@@ -203,3 +225,14 @@ If you are still operating Ansible Automation Platform 1.2, it is time to start 
 
 - Get started with this checklist, “5 ways to prepare for migration to Ansible Automation Platform 2.”
 - Register for a free webinar, “Migrating to the next generation IT automation platform.”
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [The anatomy of automation execution environments](/blog/the-anatomy-of-automation-execution-environments/)
+> - [Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2](/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/)
+> - [Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience](/blog/new-red-hat-ansible-development-tools/)
+
+<!-- blog-enrichment:related-end -->

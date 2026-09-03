@@ -16,9 +16,19 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:21:16Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner.
+
+<!-- blog-enrichment:end -->
+
 Red Hat Ansible Automation is widely known to automate and configure Linux and Windows hosts, as well as network automation for routers, switches, firewalls and load balancers. Plus, there are a variety of modules that deal with the cloud and the API around it such as Microsoft Azure, Amazon Web Services (AWS) and Google Compute Engine.  And there are other modules that interact with Software as a Service (SaaS) tools like Slack or ServiceNow. Although the downtime for these APIs is very minimal, it does happen, and it is even more likely that the connection between your Ansible control host (where you are running Ansible from) and the cloud-centric API could be down.
 
 In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner. As a technical marketing engineer, I consider my customers the Red Hat field teams, and often Solutions Architects are running playbooks from unreliable hotel wireless, coffee shops and sometimes even airplanes! I have to make sure playbooks have some more robustness built in for these odd situations. It is hair-pulling frustrating to get through a 20 task playbook for it to fail on the 19th task because your wireless went out for a couple seconds. This is especially frustrating if you are at the airport just trying to setup a demo or playground to show something to a client.
+
+> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> From chat message to automated action with the TMM team walkthrough.
 
 ### The Until Loop
 
@@ -83,6 +93,9 @@ We are registering the result of the task so we can look at the failed key, valu
 By default, if Ansible fails the playbook will end on that task, for the respective host it was running on. If I had a playbook running on 10 hosts, and it failed on 1 host on task three out of ten, the 7 subsequent tasks would not run for that host. The other hosts would remain unaffected.
 
 With unreliable connections to an outside API we need to think about what is required and not required to define success for a playbook to finish. For example if you had a task spin up a DNS record on AWS's Route53 service, the DNS can be nice to have, but isn't required for you to begin using the instance you created. I can use an until loop to make the route53 tasks more reliable, but it might be OK if the Route53 service is down and unusable. I can use the IP address to get some work done done on my instance until I get a more reliable internet connection to re-run the playbook or the Route53 service becomes available again. There are some tasks that are "nice to have" vs. required.
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 The way to ignore a failed value is to use the **ignore\_errors** parameter which is a task level parameter outlined in the [documentation here](https://docs.ansible.com/ansible/latest/user_guide/playbooks_error_handling.html). I think there is plenty of content in the docs and various blogs about using the ignore\_errors so I think it is sufficient to summarize that ignore\_errors will show red and report a failed: true key, value pair, but the playbook will continue on.
 
@@ -168,3 +181,14 @@ This prints out a very easy to understand message to the terminal window:
 [![Ansible networking tips and tricks terminal](https://www.redhat.com/rhdc/managed-files/Ansible-Networking-Tips-Tricks-Terminal-Screenshot.png)](https://www.redhat.com/rhdc/managed-files/Ansible-Networking-Tips-Tricks-Terminal-Screenshot.png)
 
 In conclusion, Ansible is extremely flexible at adding some additional logic when it is necessary. The until loop can add robustness and the ignore\_errors allows us to determine success criteria. In combination your Ansible Playbooks can be much more user proof, allowing you to have a proactive vs. a reactive approach to troubleshooting issues. Ansible can't control if an API or service is down, but we can definitely operate more robustly than home made scripts or DIY API implementations. The playbooks provided are extremely human readable and easy for novice users to understand.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+
+<!-- blog-enrichment:related-end -->

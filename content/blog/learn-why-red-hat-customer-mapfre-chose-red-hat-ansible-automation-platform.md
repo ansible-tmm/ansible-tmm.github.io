@@ -18,6 +18,13 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:20:46Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** In this blog, you’ll learn why an automation platform is critical for an AI strategy and how MAPFRE, a global insurance company headquartered in Madrid, is taking advantage of Ansible Automation Platform to do just that.
+
+<!-- blog-enrichment:end -->
+
 IT automation is mission-critical for organizations to maintain a competitive edge. [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) is a comprehensive solution that not only addresses the immediate needs of IT operations, but also lays the groundwork for future advancements, including artificial intelligence (AI). In this post, you’ll learn why an automation platform is critical for an AI strategy and how MAPFRE, a global insurance company headquartered in Madrid, is taking advantage of Ansible Automation Platform to do just that. Let’s explore 4 key aspects that make Ansible Automation Platform indispensable for modern enterprises like MAPFRE.
 
 ## Automation is mission-critical
@@ -28,6 +35,9 @@ Automation is no longer a luxury; it’s a necessity for innovation. With the in
 
 Ansible Automation Platform can amplify the impact of AI by orchestrating the tools in your stack to get the most from AI capabilities. This includes use cases like coordinating infrastructure and services, and optimizing your infrastructure by integrating AI to make it more intelligent and resilient for tasks like optimizing storage and compute. AI workloads can burden IT teams responsible for constructing, securing, scaling and maintaining infrastructure. As AI models grow more intricate and data volumes surge, the demand for AI-optimized cloud infrastructure increases. With the rising need for custom model training, businesses require enhanced computing power. New systems must be deployed and maintained to ensure accessibility for AI/ML engineers. As organizations look to integrate AI into their operations, a robust automation foundation is essential. Ansible Automation Platform provides this foundation by standardizing and automating IT processes, making it easier to implement AI-driven solutions. This synergy between automation and AI accelerates innovation and the value these tools deliver. Consider using AI solutions for IT infrastructure, as well. Ideally, AI solutions would help to proactively identify issues, re-reroute network traffic and increase storage capacity. However, without an automation platform to communicate with all the different disparate IT infrastructure, AI won’t be able to actually execute these scenarios.
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ### Security-hardened and reliable automation
 
 Security and reliability are paramount in any IT environment. Ansible Automation Platform is designed with these principles at its core. It offers a security-hardened enterprise platform that enforces consistent security policies and configurations. Automated security monitoring and response capabilities help quickly identify and mitigate threats, reducing the risk of security breaches. With Ansible Automation Platform, organizations can trust that their automation processes are both safe and dependable. Ansible Automation Platform provides access to signed content from Red Hat, with the ability to sign your own content and allow only signed content to be executed. This enables an end-to-end automation pipeline that allows you to execute only security-hardened automation into your environment.
@@ -36,6 +46,20 @@ Security and reliability are paramount in any IT environment. Ansible Automation
 
 Managing policies manually can be cumbersome and error-prone. Ansible Automation Platform introduced [automated policy as code](https://www.redhat.com/en/about/press-releases/red-hat-introduces-policy-code-help-address-ai-complexities-scale), enabling organizations to define and enforce policies through code. This approach applies policies consistently across all environments and can be easily audited and updated. By treating policies as code, businesses can achieve greater compliance and governance, reducing the risk of policy violations and enhancing overall IT governance. Automated policy as code also allows an organization to put guard rails on generative AI solutions. For example, if you were using Red Hat Ansible Lightspeed to autogenerate Ansible Playbooks, you could use automated policy as code to help ensure your playbooks are only using modules and best practices that have been approved by your organization for production.
 
+> [!callout type=redhat label="Red Hat" title="Try Ansible Automation Platform" url="https://www.redhat.com/en/technologies/management/ansible/try-it" cta="Start trial"]
+> 60-day trial for hands-on evaluation.
+
 To see these principles in action, [watch a video featuring MAPFRE](https://youtu.be/cJgcBTlu69k), who discusses their experience with Ansible Automation Platform. MAPFRE highlights how they use Ansible Automation Platform to enhance their automation capabilities, improve security and lay the groundwork for AI integration. Their journey underscores the transformative impact of Ansible Automation Platform on modern IT operations.
 
 Want to learn more? Check out a blog on the subject [here](https://www.redhat.com/en/blog/it-automation-key-enabler-enterprise-ai-adoption).
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [What you need to know about VMware Automation with Red Hat Ansible Automation Platform](/blog/what-you-need-know-about-vmware-automation-red-hat-ansible/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+> - [Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform](/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/)
+
+<!-- blog-enrichment:related-end -->

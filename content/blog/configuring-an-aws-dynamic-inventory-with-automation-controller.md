@@ -16,6 +16,13 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:47Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Automation controller, the control plane and webUI for Red Hat Ansible Automation Platform, uses this IAM credential to build an inventory and execute automated tasks on your AWS account.
+
+<!-- blog-enrichment:end -->
+
 One of the core components of Ansible is [inventories](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html). In its most basic form, an inventory provides host information to Ansible so it can trigger the tasks on the right host or system. In most environments, the static inventory is sufficient for the Ansible control node to work from, however as we expand our use of automation, we need to transition to more effective methods of gathering ever-changing environment details.
 
 This is where the use of a [dynamic inventory](https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html) is beneficial. This allows the platform to gather information for the inventory from environments that are not static sources. A prime example of this is using a dynamic inventory plugin to gather inventory information from a cloud provider or hypervisor, enabling you to keep an inventory up to date with instance details.
@@ -23,6 +30,9 @@ This is where the use of a [dynamic inventory](https://docs.ansible.com/ansible/
 Amazon Web Services (AWS) is one of the biggest public cloud providers used around the world. Organizations use their Elastic Compute Cloud services (EC2) for their workflows, however managing an inventory for your instances running on AWS would typically have to be done manually, which is problematic and time consuming. Using the AWS Identity and Access Management interface (IAM), we are able to get programmatic access to the AWS account. Automation controller, the control plane and webUI for Red Hat Ansible Automation Platform, uses this IAM credential to build an inventory and execute automated tasks on your AWS account.
 
 So let's dive in!
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## Preparing Amazon Web Services
 
@@ -39,6 +49,9 @@ Next we need to set permissions for this user account. Set the permissions polic
 You can also add tags to this credential for better management.
 
 Once the credential has been created, you will receive a token and secret key to use in our automation controller.
+
+> [!callout type=redhat label="Red Hat" title="Try Ansible Automation Platform" url="https://www.redhat.com/en/technologies/management/ansible/try-it" cta="Start trial"]
+> 60-day trial for hands-on evaluation.
 
 ## Configuring Automation Controller
 
@@ -95,3 +108,14 @@ Whether you are beginning your automation journey or a seasoned veteran, there a
 - [Developer license](https://developers.redhat.com/about) - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.
 - [Subscribe to the Red Hat Ansible Automation Platform YouTube channel.](https://www.youtube.com/ansibleautomation) Be sure to check out our new web series, [Automated Live hosted by Colin McNaughton.](https://www.redhat.com/en/technologies/management/ansible/automated-live-videos)
 - [Follow Red Hat Ansible](https://twitter.com/ansible) [Automation Platform](https://www.youtube.com/ansibleautomation) [on Twitter](https://twitter.com/ansible) - Do you have questions or an automation project you want to show off? Tweet at us!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

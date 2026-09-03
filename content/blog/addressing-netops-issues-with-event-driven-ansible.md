@@ -16,6 +16,13 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:42Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Explore network events and what you could potentially do with something like Event-Driven Ansible. Read the blog to see examples.
+
+<!-- blog-enrichment:end -->
+
 ## A simple example - No Shut, No Problem
 
 Since the announcement of [Event-Driven Ansible](https://www.ansible.com/use-cases/event-driven-automation), I cannot stop thinking about potential use cases. Can I get events to automate scaling? Could I use a filesystem event to trigger filesystem integrity checks? Could I get a slackbot to trigger my choice of heavy metal playlist based on a “mood” event? It's all possible! But let’s not go too crazy, not yet.
@@ -23,6 +30,9 @@ Since the announcement of [Event-Driven Ansible](https://www.ansible.com/use-cas
 I started having a look at the fantastic work that one of our engineers, [Nilashish Chakraborty](https://www.linkedin.com/in/nilashishchakraborty/) has been doing around network telemetry and Ansible. This led me down the path to explore network events and what I could potentially do with something like Event-Driven Ansible. So let’s start with a super simple interface example.
 
 Reaching out to the team at [Arista](https://www.arista.com/en/), we started discussing and looking at the mechanisms they are using to get telemetry data. With Arista we are able to use gNMI, gNMI is an open source protocol [specification](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md) created by the OpenConfig working group that is used to stream data to and from network devices. The OpenConfig working group operates as an open source project with contributions from network operators, equipment vendors in providing vendor-neutral software to manage network devices. I configured gNMI on my Arista switches and queried the interface with the gNMI client on my machine to make sure I was able to get what I needed.
+
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
 
 ```
 …
@@ -155,6 +165,9 @@ So, with Event-Driven Ansible we are able to respond to events we gather from th
 
 Arista has created an awesome [source plugin](https://github.com/arista-netdevops-community/Ansible-Event-Driven-Automation-Examples/tree/main/nats) that we can use instead of Telegraf and Kafka. [Daniel Hertzberg](https://www.linkedin.com/in/dhertzberg/) and [Julio Perez](https://www.linkedin.com/in/julioperez-pdx/) really grasped Event-Driven Ansible concepts and created this magical source plugin in a week. This plugin utilizes [NATS](https://nats.io/), and if you are like me and haven't heard of NATS, It is similar to Kafka in the sense that it is a messaging queue, but there are some differences and you can read up a bit more about them [here](https://docs.nats.io/nats-concepts/overview/compare-nats). This plugin simplifies and reduces the toolset needed to get all-important telemetry data to ansible-rulebook. 
 
+> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> From chat message to automated action with the TMM team walkthrough.
+
 Watch for another blog that is coming soon around using the Arista source plugin and a juicy network automation use case. 
 
 # Call to Action
@@ -164,3 +177,14 @@ Watch for another blog that is coming soon around using the Arista source plugin
 - Check out the [Event-Driven Ansible playlist](https://www.youtube.com/playlist?list=PLdu06OJoEf2a3fFl6uaoyGV526ilwD97R) on YouTube
 - Check out the [Best of AnsibleFest 2022](https://www.ansible.com/blog/best-of-fest-2022)
 - Try [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible/try-it) free for 60 days
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Event-Driven Ansible - ChatOps - From Chat to Action](/blog/event-driven-ansible-chatops-from-chat-to-action/)
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+> - [Ansible Network Resource Modules: Deep Dive on Return Values](/blog/ansible-network-resource-modules-deep-dive-on-return-values/)
+
+<!-- blog-enrichment:related-end -->

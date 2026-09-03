@@ -16,6 +16,25 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:21:57Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** This blog post demonstrates how to monitor the API metrics provided by an Ansible Automation Platform environment when deployed within Red Hat OpenShift.
+
+> [!toc]
+> **On this page**
+>
+> - [What will we use to monitor the API metrics?](#what-will-we-use-to-monitor-the-api-metrics)
+> - [What can we expect?](#what-can-we-expect)
+> - [What metrics can I expect to see in the pre-built dashboard?](#what-metrics-can-i-expect-to-see-in-the-pre-built-dashboard)
+> - [Automating with an Ansible Playbook](#automating-with-an-ansible-playbook)
+> - [Prerequisites](#prerequisites)
+> - [Prerequisites](#prerequisites-2)
+> - [Installing & configuring Grafana](#installing-configuring-grafana)
+> - [What can I do next?](#what-can-i-do-next)
+
+<!-- blog-enrichment:end -->
+
 [![monitoring ansible on ocp blog](https://www.redhat.com/rhdc/managed-files/ansible/monitoring%20ansible%20on%20ocp%20blog.png)](https://www.redhat.com/rhdc/managed-files/ansible/monitoring%20ansible%20on%20ocp%20blog.png)
 
 As Red Hat Ansible Automation Platform enables teams and organizations to drive their automation from across the cloud and on-premise, keeping Ansible Automation Platform healthy with the ability to monitor key metrics becomes paramount.
@@ -150,11 +169,12 @@ Within your Ansible Automation Platform dashboard,
 
 For completeness and understanding of the entire process, the manual steps are captured in the following sections.
 
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
+
 ## Prerequisites
 
 The steps performed in this blog require access to an OpenShift cluster that has deployed the Ansible Automation Platform Operator and you can access your automation controller dashboard.
-
- 
 
 ### Create Bearer Token to capture metrics
 
@@ -171,8 +191,6 @@ In order to capture the /api/v2/metrics from an Ansible Automation Platform inst
 3. Write down the token; you will need it in a future step and it will no longer be displayable after you see the **Token information** pop-up.
 
 [![](https://www.redhat.com/rhdc/managed-files/ansible/kJGCt78mw3TzHFK2MRtIHn6xfhR_wwY_JF-ImIKx54otpDZkd7mnt7kTVzEBjUjn1835o74cDM95ilucLDLecm7wbNZXVPZ_KRDMKxpLtkeUhHJIhjdwfDRfcL7h2yfyPVyHz2oohYsjVa9iTxZXzTc.png)](https://www.redhat.com/rhdc/managed-files/ansible/kJGCt78mw3TzHFK2MRtIHn6xfhR_wwY_JF-ImIKx54otpDZkd7mnt7kTVzEBjUjn1835o74cDM95ilucLDLecm7wbNZXVPZ_KRDMKxpLtkeUhHJIhjdwfDRfcL7h2yfyPVyHz2oohYsjVa9iTxZXzTc.png)
-
- 
 
 ### Installing & configuring Prometheus
 
@@ -296,7 +314,7 @@ oc get routes -n prometheus-operator
 [![](https://www.redhat.com/rhdc/managed-files/ansible/O-A4lNdVawc98KJ3A8L7dQAAFlYf4Zj4LZLI5yH4avhl6iv1z9VWXSCiUmkFu3RSIlkkSv0snC4r0jxEsOo9FMNVCac0DeEFfbDVD6ppo9cZHYnoqkPn01CDxyFjmx1dvksDNOTXRujmjatqcxd0n_A.png)](https://www.redhat.com/rhdc/managed-files/ansible/O-A4lNdVawc98KJ3A8L7dQAAFlYf4Zj4LZLI5yH4avhl6iv1z9VWXSCiUmkFu3RSIlkkSv0snC4r0jxEsOo9FMNVCac0DeEFfbDVD6ppo9cZHYnoqkPn01CDxyFjmx1dvksDNOTXRujmjatqcxd0n_A.png)
 
 2. With the installation of the Grafana operator complete, provide the Prometheus service and port as shown in the [*grafana-datasources.yaml*](https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/grafana-datasources.yaml) file.  
-  
+
 3. Apply the *grafana-datasources.yaml* file:
 
 ```
@@ -312,7 +330,7 @@ oc apply -f grafana-instance.yaml -n prometheus-operator
 ```
 
 6. Use the pre-built Grafana dashboard, [grafana-dashboard.yaml](https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/grafana-dashboard.yaml), that displays the different automation controller metrics.  
-  
+
 **NOTE:** This Grafana dashboard may be customized to better fit your needs on the metrics you wish to capture.
 
 7. Apply the *grafana-dashboard.yaml* file:
@@ -348,3 +366,14 @@ And remember, no matter where you are in your automation journey, we have a vari
 - [AnsibleFest 2022](https://www.ansible.com/ansiblefest) - Come hang out and learn about all the new automation tools and features being added to Ansible Automation Platform! This year it will be held in the windy city of Chicago on October 18-19, 2022.
 - [Subscribe to the Red Hat Ansible Automation Platform YouTube channel.](https://www.youtube.com/ansibleautomation) Be sure to check out our web series, [Automated Live hosted by Colin McNaughton.](https://www.redhat.com/en/technologies/management/ansible/automated-live-videos)
 - [Follow Red Hat Ansible](https://twitter.com/ansible) [Automation Platform](https://www.youtube.com/ansibleautomation) [on Twitter](https://twitter.com/ansible) - Do you have questions or an automation project you want to show off? Tweet at us!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application](/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/)
+> - [Ansible Automation Platform … You’re using it wrong.](/blog/ansible-automation-platform-youre-using-it-wrong/)
+> - [New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift](/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/)
+
+<!-- blog-enrichment:related-end -->

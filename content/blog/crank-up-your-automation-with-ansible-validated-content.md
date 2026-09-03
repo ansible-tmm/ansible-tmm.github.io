@@ -16,6 +16,13 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:42Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Ansible validated content is expert-built automation content packaged as Collections that contain Ansible roles and playbooks that you can use “out-the-box” through Ansible Automation Platform.
+
+<!-- blog-enrichment:end -->
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/L0SaYOYFPRRB8oUzhGJC9V7qE0uBTVzNkDf8IE0efQ2x3M3R6ROcFqPdmrqChWM_4VZ25uifzd1Fjl9eQCWB7rh0QyS83fwOq5bGXxk7VSyZe2JwKm9cfLaZq--ykmuNR9_QBVSB2X7RwdaN2cRPI5QF8QrLKWOT1zkh3epnO5s3Somwm_I383gT6RC6KQ.png)](https://www.redhat.com/rhdc/managed-files/ansible/L0SaYOYFPRRB8oUzhGJC9V7qE0uBTVzNkDf8IE0efQ2x3M3R6ROcFqPdmrqChWM_4VZ25uifzd1Fjl9eQCWB7rh0QyS83fwOq5bGXxk7VSyZe2JwKm9cfLaZq--ykmuNR9_QBVSB2X7RwdaN2cRPI5QF8QrLKWOT1zkh3epnO5s3Somwm_I383gT6RC6KQ.png)
 
 *“Dear Aunt Automation,*
@@ -29,6 +36,9 @@ synced_at: '2026-09-03T19:21:42Z'
 We can understand these concerns, as this is something that many customers experience when they start their journey into automation. Red Hat Ansible Automation Platform has many tools to assist organizations from savings planner to Red Hat Insights, however, actually getting started still requires you to jump into some YAML and build your first production-ready playbook. You want to start automating, but you don’t know where to start. At AnsibleFest 2022, we announced a new addition to the content ecosystem offered through the platform. Drumroll please...this is Ansible validated content.
 
 Ansible validated content is expert-built automation content packaged as Collections that contain Ansible roles and playbooks that you can use “out-the-box” through Ansible Automation Platform. So, if you are just getting started and you have used tools like savings planner to decide on the use cases you want to focus on, you can grab Ansible validated content and either use the roles or copy what you need to build your automation. This greatly reduces the time needed to get started and also gives you a great reference point instead of reinventing the automation wheel yourself.
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## So how can you use Ansible validated content?
 
@@ -71,8 +81,22 @@ If you want to disable publishing an Ansible validated content to the private au
 
 Although the content is currently installed this way through the bundle installer, there are plans to bring Ansible validated content into console.redhat.com. This would allow you to automatically synchronize the latest content from Ansible automation hub on console.redhat.com much as you do with certified content.
 
+> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> More posts on network automation from the Ansible Technical Marketing team.
+
 ## Additional resources
 
 - Sean’s [Whats new in Ansible Automation Platform 2.3](https://www.ansible.com/blog/whats-new-in-red-hat-ansible-automation-platform-2.3)
 - Check out the [Best of AnsibleFest 2022](https://www.ansible.com/blog/best-of-fest-2022)
 - Try [Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible/try-it) free for 60 days
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

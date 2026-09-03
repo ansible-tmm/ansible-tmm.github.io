@@ -50,7 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2024-08-02">August 1, 2024</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p>Automating VMware infrastructure with Red Hat Ansible Automation Platform is an extremely common use-case for numerous customers across many different verticals. Ansible Automation Platform is well known for automating Linux and Windows operating systems, but it can also automate VMware vSphere itself, allowing you to automate and orchestrate an entire virtual machine lifecycle. In this blog, we’ll explore how Ansible Automation Platform can automate virtual machine lifecycles, how this fits into the wider hybrid cloud environment, and next steps to take to learn more.</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Automating your VMware infrastructure with Ansible is more important than ever. This is a common use case that delivers instant value.</aside><p>Automating VMware infrastructure with Red Hat Ansible Automation Platform is an extremely common use-case for numerous customers across many different verticals. Ansible Automation Platform is well known for automating Linux and Windows operating systems, but it can also automate VMware vSphere itself, allowing you to automate and orchestrate an entire virtual machine lifecycle. In this blog, we’ll explore how Ansible Automation Platform can automate virtual machine lifecycles, how this fits into the wider hybrid cloud environment, and next steps to take to learn more.</p>
 <p><strong>Automating the Virtual Machine Lifecycle</strong></p>
 <p>Ansible Automation Platform isn’t just for OS-level tasks; it can orchestrate the entire lifecycle of VMware virtual machines.</p>
 <p>From provisioning and configuration to scaling and decommissioning, Ansible Automation Platform streamlines operations. You may ask yourself what are the benefits of this? While there are three main ones:</p>
@@ -69,14 +69,21 @@
 <p>Ansible Automation Platform bridges the gap, allowing VMware and hyperscaler environments to coexist harmoniously. Through unified orchestration, Ansible Automation Platform’s vast ecosystem of integrations enables consistent orchestration across diverse cloud platforms. Whether it’s AWS, Azure, OpenShift Virt or your on-premises VMware setup, Ansible Automation Platform can coordinate and help <a href="https://www.redhat.com/en/blog/move-virtual-machines-openshift-scale-red-hats-migration-toolkit-virtualization">migrate workloads</a> across your hybrid cloud.</p>
 <p><strong>How do I get started?</strong></p>
 <p>Check out the VMware validated content on Ansible automation hub: <a href="https://console.redhat.com/ansible/automation-hub/repo/validated/cloud/vmware_ops">cloud.vmware_ops</a>. Ansible <a href="https://www.redhat.com/en/blog/automate-expert-ansible-validated-content">validated content</a> is a new set of collections containing pre-built YAML content (such as playbooks or roles) to address the most common automation use cases. Ansible validated content’s opinionated approach to what foundational use cases you should focus on first.</p>
-<h2>Next steps: VMware Explore</h2>
-<p>We are super excited to announce that we will be at VMware Explore at the Venetian Conference Center from August 26-29, 2024! This is my first VMware explore event and I am super excited to chat with engineers about automation for everything. Whether you are automating virtual machines, network equipment, public clouds or VMware vSphere, we would love to chat with you. We will also be having four great mini-theatre sessions in our booth. Mini theater sessions are 10-15 minute presentations that you can attend at our booth and learn how to get started and how we can integrate with your existing infrastructure. Our four talk are:</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Solution Guides</p>
+  <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
+  <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+</aside><h2 id="next-steps-vmware-explore">Next steps: VMware Explore</h2><p>We are super excited to announce that we will be at VMware Explore at the Venetian Conference Center from August 26-29, 2024! This is my first VMware explore event and I am super excited to chat with engineers about automation for everything. Whether you are automating virtual machines, network equipment, public clouds or VMware vSphere, we would love to chat with you. We will also be having four great mini-theatre sessions in our booth. Mini theater sessions are 10-15 minute presentations that you can attend at our booth and learn how to get started and how we can integrate with your existing infrastructure. Our four talk are:</p>
 <ul>
-<li><p><strong>5 Great use-cases to automate your VMware infrastructure efficiently</strong><br>Automation is essential for managing complex infrastructure efficiently. Ansible Automation Platform offers a powerful solution for automating VMware environments. In this talk, we’ll explore five compelling use-cases where Ansible Automation Platform can transform your VMware infrastructure and help you automate and manage your Linux and Windows virtual machines.</p>
+<li><p><strong>5 Great use-cases to automate your VMware infrastructure efficiently</strong>  </p>
+<p>Automation is essential for managing complex infrastructure efficiently. Ansible Automation Platform offers a powerful solution for automating VMware environments. In this talk, we’ll explore five compelling use-cases where Ansible Automation Platform can transform your VMware infrastructure and help you automate and manage your Linux and Windows virtual machines.</p>
 </li>
-<li><p><strong>Multi-cloud automation with Ansible Automation Platform</strong><br>Numerous organizations are using a mix of private and public clouds for their IT infrastructure demands. In this talk we will showcase how Ansible Automation Platform can help automate, orchestrate and manage your VMware infrastructure as well as your hyperscaler infrastructure and allow them to seamlessly co-exist, with a vast ecosystem of integrations.</p>
+<li><p><strong>Multi-cloud automation with Ansible Automation Platform</strong>  </p>
+<p>Numerous organizations are using a mix of private and public clouds for their IT infrastructure demands. In this talk we will showcase how Ansible Automation Platform can help automate, orchestrate and manage your VMware infrastructure as well as your hyperscaler infrastructure and allow them to seamlessly co-exist, with a vast ecosystem of integrations.</p>
 </li>
-<li><p><strong>Multi-cloud automation with Ansible Automation Platform</strong><br>This introductory 101 talk will focus on fundamentals, so come learn VMware automation with Ansible Automation Platform! No prior knowledge of Ansible is required!</p>
+<li><p><strong>Multi-cloud automation with Ansible Automation Platform</strong>  </p>
+<p>This introductory 101 talk will focus on fundamentals, so come learn VMware automation with Ansible Automation Platform! No prior knowledge of Ansible is required!</p>
 <ul>
 <li>Inventory: Efficiently manage VMware inventory.</li>
 <li>Modules: Understand and learn how to use an Ansible module</li>
@@ -84,15 +91,22 @@
 <li>Surveys: Learn how to make easy forms in a user-friendly question and answer way for your job templates</li>
 </ul>
 </li>
-<li><p><strong>How automating your VMware environments can save you time and money</strong><br>By leveraging Ansible Automation Platform, organizations can achieve more with less effort. This powerful tool allows you to automate tasks such as configuration management, application deployment, interservice orchestration, and provisioning. Specifically, when it comes to VMware infrastructure, Ansible Automation Platform enables you to automate ESXi installations, configurations, network setups, and more. By doing so, you’ll save time, reduce manual errors, and enable a consistent and repeatable process for infrastructure provisioning.</p>
+<li><p><strong>How automating your VMware environments can save you time and money</strong>  </p>
+<p>By leveraging Ansible Automation Platform, organizations can achieve more with less effort. This powerful tool allows you to automate tasks such as configuration management, application deployment, interservice orchestration, and provisioning. Specifically, when it comes to VMware infrastructure, Ansible Automation Platform enables you to automate ESXi installations, configurations, network setups, and more. By doing so, you’ll save time, reduce manual errors, and enable a consistent and repeatable process for infrastructure provisioning.</p>
 </li>
 </ul>
-<h2></h2>
-<h2>How to find us at VMware Explore!</h2>
-<p>We will be right near the entrance to the exposition hall at the Red Hat booth. The Red Hat booth is #1530 in the event app. If you have any trouble finding us, message <a href="https://linktr.ee/roger_lopez">Roger Lopez</a> or <a href="https://linktr.ee/ipvsean">myself</a> on the social media platform of your choice!</p>
+<h2 id="section"></h2><aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Ansible Product Demos</p>
+  <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
+  <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+</aside><h2 id="how-to-find-us-at-vmware-explore">How to find us at VMware Explore!</h2><p>We will be right near the entrance to the exposition hall at the Red Hat booth. The Red Hat booth is #1530 in the event app. If you have any trouble finding us, message <a href="https://linktr.ee/roger_lopez">Roger Lopez</a> or <a href="https://linktr.ee/ipvsean">myself</a> on the social media platform of your choice!</p>
 <p>You can also follow <a href="https://x.com/redhatevents">@RedHatEvents</a> and <a href="https://x.com/ansible">@Ansible</a> to get the latest updates, as well as <a href="https://www.youtube.com/@AnsibleAutomation?sub_confirmation=1">subscribe to our YouTube Channel</a>.</p>
 <p>We will also be at more events this year! For example there will be Ansible experts at AWS re:Invent 2024!</p>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li><li><a href="/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/">Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>
     </article>

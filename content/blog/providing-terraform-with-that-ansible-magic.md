@@ -15,6 +15,13 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:41Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** We are adding more value to infrastructure as code with an addition to the Ansible Certified Content Collection: The Ansible provider for Terraform.
+
+<!-- blog-enrichment:end -->
+
 Late last year, we introduced a Red Hat Ansible Certified Collection Collection for Terraform. This was an important step in automation, as these two tools really are great together and leveraging Ansible\'s ability to orchestrate other tools in the enterprise made this a no-brainer. Terraform with its infrastructure as code (IaC) provisioning and Ansible's strength in configuration as code are a synergy that cannot be ignored - we are better together! Organizations are now in the position to utilize their existing infrastructure as code manifests and extend their automation with Terraform and Ansible together.
 
 Now, we are back with help from our partners at Kyndryl and XLAB and adding more value and magic to infrastructure as code - This time we have some extra muscle with an addition to the Red Hat Ansible Certified Content Collection: The Ansible provider for Terraform.
@@ -121,3 +128,14 @@ ec2-18-130-240-228.eu-west-2.compute.amazonaws.com : ok=4    changed=1    unreac
 ```
 
 This new provider is extremely useful when you are using Terraform for deployments while leveraging Ansible for cloud operations like application deployments and CI/CD pipelines, Lifecycle management and enforcement, OS patching and maintenance. With this provider being part of the Red Hat Ansible Certified Content Collection, we also have ongoing maintenance and support available!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

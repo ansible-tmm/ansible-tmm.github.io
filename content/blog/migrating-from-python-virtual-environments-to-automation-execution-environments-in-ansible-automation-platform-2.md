@@ -17,6 +17,22 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:20:40Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** The new capabilities of Ansible Platform 2 enable easier to scale automation across the globe and allow you to run your automation as close to the source as possible without being bound to running automation in a single data center.
+
+> [!toc]
+> **On this page**
+>
+> - [Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2](#migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2)
+> - [Why should you upgrade?](#why-should-you-upgrade)
+> - [The manual process of upgrading](#the-manual-process-of-upgrading)
+> - [The automated process of upgrading](#the-automated-process-of-upgrading)
+> - [Key takeaways](#key-takeaways)
+
+<!-- blog-enrichment:end -->
+
 ## Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2
 
 Red Hat Ansible Tower (included in Ansible Automation Platform 1.x) used Python virtual environments to manage dependencies and implement consistent automation execution across multiple Red Hat Ansible Automation Platform instances. This method of managing dependencies came with its own set of limitations:
@@ -36,6 +52,9 @@ If you are an existing Red Hat customer using Ansible Automation Platform 1.2 (A
 
 We will now explain this specific migration consideration and provide you with some best practices on how to migrate to automation execution environments.
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## The manual process of upgrading
 
 As outlined in this [document](https://docs.ansible.com/automation-controller/4.1.0/html/upgrade-migration-guide/upgrade_to_ees.html), the manual process of upgrading to automation execution environments would go something like this:
@@ -50,6 +69,9 @@ Looking at the above process there can be two enhancements to this flow, which w
 
 1. Exported requirements from step 3 above can be compared with the list of Python packages already present in the automation execution environment that will serve as the base layer for the newly created ones. This will be helpful, because there are dependencies that will already be resolved by the base automation execution environment and it will help customers if they can focus on **what's needed** when they start creating automation execution environments for their clusters.
 2. Since we love Ansible, why not just automate the above process, right? :)
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ## The automated process of upgrading
 
@@ -141,3 +163,14 @@ Briefly summing things up:
 
 - Using this new Ansible Role in combination with the ee\_builder role can be used to automate the migration from custom virtual environments to automation execution environments.
 - These roles are currently part of a community project and not officially supported by Red Hat. However, they can provide details in the understanding of the migration process.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [The anatomy of automation execution environments](/blog/the-anatomy-of-automation-execution-environments/)
+> - [Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience](/blog/new-red-hat-ansible-development-tools/)
+> - [Introducing Ansible plug-ins for Red Hat Developer Hub](/blog/introducing-ansible-plug-ins-red-hat-developer-hub/)
+
+<!-- blog-enrichment:related-end -->

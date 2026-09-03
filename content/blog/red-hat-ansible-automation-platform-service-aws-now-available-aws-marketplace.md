@@ -18,9 +18,28 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:28Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Red Hat has released the latest cloud offering for Red Hat Ansible Automation Platform. Ansible Automation Platform Service on AWS is a Red Hat managed service available in AWS Marketplace.
+
+> [!toc]
+> **On this page**
+>
+> - [AWS Marketplace deployment](#aws-marketplace-deployment)
+> - [AWS integrations](#aws-integrations)
+> - [Automation content](#automation-content)
+> - [Is Ansible Automation Platform just for automating in AWS?](#is-ansible-automation-platform-just-for-automating-in-aws)
+> - [What can I do next?](#what-can-i-do-next)
+
+<!-- blog-enrichment:end -->
+
 Red Hat has released the latest cloud offering for [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible). Ansible Automation Platform Service on AWS is a Red Hat managed service available in AWS Marketplace. This new offer saves customers time and money by enabling them to focus on innovation through automation instead of managing the platform. The Red Hat Ansible Automation Platform Service on AWS scales to meet the demands of enterprises, simplifies networking, and brings automation closer to workloads. Additionally, when purchased in AWS Marketplace, it applies to committed spend agreements (EDP - AWS Enterprise Discount Program).
 
 As [hybrid cloud](https://www.redhat.com/en/topics/cloud-computing/what-is-hybrid-cloud) environments within organizations grow more complex, the need for greater efficiency and speed intensifies. To address these challenges, organizations can leverage the centralized control plane of the Ansible Automation Platform Service on AWS, enabling them to develop, manage and scale automation initiatives across their entire [IT infrastructure](https://www.redhat.com/en/topics/cloud-computing/what-is-it-infrastructure). Ansible Automation Platform acts as a powerful force multiplier, orchestrating and scaling automation across all IT domains, including directly within your AWS Cloud environment.
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## AWS Marketplace deployment
 
@@ -36,6 +55,9 @@ The diagram below shows why this service is powerful in supporting your automati
 [![AWS Marketplace deployment_img01](https://www.redhat.com/rhdc/managed-files/AWS%20Marketplace%20deployment_img01.png)](https://www.redhat.com/rhdc/managed-files/AWS%20Marketplace%20deployment_img01.png)
 
 How do you get started with Automation Platform Service on AWS? Simply visit the [AWS Marketplace](https://aws.amazon.com/marketplace) and search for “Red Hat Ansible Automation Platform Service on AWS” or visit the [Red Hat landing page](https://www.redhat.com/en/technologies/management/ansible/aws) for more information. Subscribe to the offering, and initiating the deployment will quickly provide you access to the solution.
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## AWS integrations
 
@@ -90,3 +112,14 @@ Try the hands on self-paced Ansible Automation Platform on AWS labs. There’s m
 - Infrastructure Visibility (Infrastructure awareness and reporting on AWS)
 
 For hands-on self-paced labs on Ansible Automation Platform, you can [visit here](https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218). You can also take a look at the Ansible Automation Platform Service on AWS [documentation](https://docs.redhat.com/en/documentation/ansible_on_clouds/2.x/html/red_hat_ansible_automation_platform_service_on_aws/saas-intro).
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [How Ansible's new self-service automation portal empowers everyone to automate](/blog/empower-everyone-automate-ansibles-self-service-automation-portal/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+> - [Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform](/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/)
+
+<!-- blog-enrichment:related-end -->

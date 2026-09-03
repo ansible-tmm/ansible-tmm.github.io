@@ -15,6 +15,13 @@ read_time_minutes: 1
 synced_at: '2026-09-03T19:20:30Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** This week, we announced that Red Hat has been named a leader in The Forrester Wave Infrastructure Automation, Q1 2023
+
+<!-- blog-enrichment:end -->
+
 This week, [we announced](https://www.redhat.com/en/about/press-releases/red-hat-named-leader-infrastructure-automation-industry-research-firm) that Red Hat has been named a leader in The Forrester Wave Infrastructure Automation, Q1 2023. In an effort to help explain this result from our point of view, the following blog answers some of the most frequently asked questions.
 
 ### What is The Forrester Wave?
@@ -26,6 +33,9 @@ This week, [we announced](https://www.redhat.com/en/about/press-releases/red-hat
 ### What were the results?
 
 Red Hat, specifically focused on Ansible Automation Platform, [has been named a leader](https://www.redhat.com/en/about/press-releases/red-hat-named-leader-infrastructure-automation-industry-research-firm) in the Q1, 2023 Forrester Wave™ Infrastructure Automation report.
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 Refer to the following graphic, that can be viewed in the [final report](https://www.redhat.com/en/resources/forrester-wave-infrastructure-automation-analyst-asset).
 
@@ -40,3 +50,17 @@ Forrester used a comprehensive method for administering the Wave with a delibera
 ### Why were some popular automation solutions not included in the Wave?
 
 Based on [The Forrester Wave Vendor Participation Policy](https://www.forrester.com/policies/wave-vendor-nonparticipation-policy/) page, the vendor either did not qualify or did not meet inclusion criteria to be considered. You'll notice that there were vendors that did qualify and were invited but that they declined to participate (noted with a gray circle on the graphic).
+
+> [!callout type=redhat label="Red Hat" title="Try Ansible Automation Platform" url="https://www.redhat.com/en/technologies/management/ansible/try-it" cta="Start trial"]
+> 60-day trial for hands-on evaluation.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [What's new in Ansible Automation Platform 2.2](/blog/whats-new-in-ansible-automation-platform-2.2/)
+> - [Introducing Ansible Automation Platform 2](/blog/introducing-ansible-automation-platform-2/)
+> - [By the numbers: Getting your team on board with IT automation](/blog/team-automation-numbers/)
+
+<!-- blog-enrichment:related-end -->

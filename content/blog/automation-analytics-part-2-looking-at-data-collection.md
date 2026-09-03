@@ -15,6 +15,13 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:21:10Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Part 2 of the Automation Analytics blog post expanding on what data is collected and how to gain access to that data.
+
+<!-- blog-enrichment:end -->
+
 [![blog_getting-started-Automation-Analytics-Part-2](https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png)](https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png)
 
 We recently released [Red Hat Ansible Automation Platform](https://www.ansible.com/products/automation-platform) which now includes multiple Software-as-a-Service (SaaS) offerings, one of which is Automation Analytics.  This offering provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire automation infrastructure.
@@ -54,6 +61,9 @@ In a previous blog I wrote about [Getting Started with Automation Analytics](htt
 [unified\_job\_template\_table.csv](#unified_job_template_table.csv)
 
 [Where to go next?](#Where-to-go-next)
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## Retrieving the data:
 
@@ -252,6 +262,9 @@ This file includes information about the job runs (any job template that was exe
 
 This file contains information about the Job Templates themselves (versus the Job Runs in the unified\_job\_table.csv file linked above).  This includes the id, polymorphic\_ctype\_id, when it was created, modified, the name of the job template and more. To see an example of this file check out my [public gist here](https://gist.github.com/IPvSean/18f06125f854a0adece060ce35275959).
 
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
+
 ## Where to go next?
 
 I hope this blog helps outline what type of data is sent to Red Hat to help alleviate any security concerns or data questions.  When I am talking to folks about the Red Hat Ansible Automation Platform I like to explain that they get all the Ansible they know and love today, but we are now bundling everything together in one simple platform for our customers.  The SaaS offering Automation Analytics is optional and included in the price of what folks were paying previously. We do not force any existing customers to use the tool and hand us data, but hope this will provide increased benefits.
@@ -259,3 +272,14 @@ I hope this blog helps outline what type of data is sent to Red Hat to help alle
 - [Learn more on Automation Analytics including a video demo](https://www.ansible.com/products/automation-analytics)
 - [Attend an Ansible Automation Workshop and get hands-on with Ansible Tower](https://www.ansible.com/community/events/workshops)
 - [Contact us to get pricing information on the Ansible Automation Platform](https://www.ansible.com/products/pricing)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

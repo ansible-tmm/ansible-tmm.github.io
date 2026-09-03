@@ -17,6 +17,22 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:20:35Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** In this post, we’ll dive into the key features of this new release, explore the benefits of the accompanying Ansible development container, and discuss how this update lays the foundation for a broader Ansible developer experience.
+
+> [!toc]
+> **On this page**
+>
+> - [What’s new in Ansible development tools](#whats-new-in-ansible-development-tools)
+> - [Introducing the Ansible development container](#introducing-the-ansible-development-container)
+> - [Building the future of Ansible tooling](#building-the-future-of-ansible-tooling)
+> - [Conclusion](#conclusion)
+> - [Next steps and resources](#next-steps-and-resources)
+
+<!-- blog-enrichment:end -->
+
 As automation becomes increasingly essential for modern enterprises, the experience of creating and scaling automation is more important than ever. A smooth, efficient automation creation process helps organizations realize the full value of [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) faster, leading to better return on investment. The latest release of Ansible development tools addresses this by consolidating core Ansible tools into a single package, reducing tool sprawl, and embedding best practices into the automation creation experience. Whether you’re a seasoned Ansible user or just starting out, this release simplifies setup, improves consistency, and lays the groundwork for deeper integrations into the Ansible ecosystem.
 
 In this post, we’ll dive into the key features of this new release, explore the benefits of the accompanying Ansible development container, and discuss how this update lays the foundation for a broader Ansible developer experience.
@@ -44,6 +60,9 @@ In this section, we’ll dive into the new [Ansible development tools](https://
 
 This package simplifies the management of Ansible development capabilities by bundling them into a single, supported package within the **Ansible Automation Platform**. Instead of dealing with separate packages, versions, and dependencies, all tools are now updated and maintained consistently. This not only saves time and reduces complexity but also verifies that all components are aligned and supported within Ansible Automation Platform, making it easier to build and scale automation across your enterprise.
 
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
+
 ## Introducing the Ansible development container
 
 Alongside the Ansible development tools package, a new **Ansible development container** is now available, offering a powerful, consistent environment for Ansible development. One of the key advantages of this container is its support for non-RHEL users, including those on Windows systems, making it accessible to a broader audience. This container is designed to integrate smoothly with modern development workflows and has a number of significant advantages.
@@ -67,6 +86,9 @@ This is particularly beneficial for customers looking for a simplified approach 
 One of the most significant updates with the new Ansible development container is that it now offers official support for **users who aren’t on Red Hat Enterprise Linux (RHEL).** This includes users on **Windows** (Podman or Docker with WSL) and **macOS**, as well as those on other Linux distributions. The container provides a fully supported method for these users to leverage the full suite of Ansible development tools.
 
 This greatly expands the accessibility of Ansible tooling, ensuring that even non-RHEL users on **Windows** and **macOS** can enjoy a consistent, reliable, and fully supported Ansible development environment.
+
+> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> Collections, inventories, and patterns from the Ansible TMM team.
 
 ## Building the future of Ansible tooling
 
@@ -104,3 +126,14 @@ Whether you’re working on RHEL, another Linux distribution, or even macOS or W
   - [Red Hat Ansible Lightspeed with IBM watsonx Code Assistant](https://www.redhat.com/en/technologies/management/ansible/automation-intelligent-assistant)
   - [Ansible development tools](https://www.redhat.com/en/technologies/management/ansible/development-tools)
   - [Ansible plug-ins for Red Hat Developer Hub](https://www.redhat.com/en/technologies/management/ansible/developer-hub-plugins)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [The anatomy of automation execution environments](/blog/the-anatomy-of-automation-execution-environments/)
+> - [Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2](/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/)
+> - [Introducing Ansible plug-ins for Red Hat Developer Hub](/blog/introducing-ansible-plug-ins-red-hat-developer-hub/)
+
+<!-- blog-enrichment:related-end -->

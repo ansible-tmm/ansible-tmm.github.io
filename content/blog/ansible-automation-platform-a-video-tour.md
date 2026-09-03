@@ -16,6 +16,13 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:20:58Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** We released our latest version Ansible Automation Platform 2.1 and there are a ton of new components, features and capabilities - so the technical marketing team put together a video tour.
+
+<!-- blog-enrichment:end -->
+
 Many people are familiar with the community version of Ansible, the command line automation tool, but I wanted to elaborate on how our enterprise offering, Red Hat Ansible Automation Platform, and how it expands the possibilities of Ansible for our customers in Red Hat's most recent release.
 
 Red Hat Ansible Automation Platform forges that open source innovation into a single, secure enterprise solution. We released our latest version Ansible Automation Platform 2.1 in December 2021, and there are a ton of new components, features and capabilities. So the technical marketing team put together [a video tour of Ansible Automation Platform 2](https://www.youtube.com/watch?v=7GJjhZoYEus&t=94s). It’s an 8 minute overview that we hope will provide automators with a useful guide to all of the new tools available to them, and how all the parts of Ansible Automation Platform fit together.
@@ -44,6 +51,9 @@ And while you’re exploring Ansible Automation Platform 2, here are some additi
 - Roger Lopez put a blog together on our newest reference architecture on [deploying Red Hat Ansible Automation Platform 2.1](https://www.ansible.com/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1). This reference architecture focuses on providing a step-by-step deployment procedure to install and configure a highly available Ansible Automation Platform environment from start to finish.
 - Last but not least, Dafné Mendoza wrote about [what's new: network automation using Red Hat Ansible Automation Platform 2.1](https://www.ansible.com/blog/whats-new-network-automation-using-red-hat-ansible-automation-platform-2.1). Dafné, who has a deep technical background on all things networking, covers all our newest network automation content and how it integrates seamlessly with automation execution environments.
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## What can I do next?
 
 Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:
@@ -53,3 +63,14 @@ Whether you are beginning your automation journey or a seasoned veteran, there a
 - [Developer license](https://developers.redhat.com/about) - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.
 - [Subscribe to the Red Hat Ansible Automation Platform YouTube channel.](https://www.youtube.com/ansibleautomation) Be sure to check out our new web series, [Automated Live hosted by Colin McNaughton.](https://www.redhat.com/en/technologies/management/ansible/automated-live-videos)
 - [Follow Red Hat Ansible](https://twitter.com/ansible) [Automation Platform](https://www.youtube.com/ansibleautomation) [on Twitter](https://twitter.com/ansible) - Do you have questions or an automation project you want to show off? Tweet at us!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

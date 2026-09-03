@@ -16,6 +16,13 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:20:52Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** In this blog, we will look at how to employ Ansible, a powerful automation tool, to tap into the immense potential of multi-cloud environments.
+
+<!-- blog-enrichment:end -->
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/K16eLSpf-OiuYmYSkshiYKFiA2OtHa4jAZv-ces2vmkphiLSdv8OkgWInyg6-7dWfHT164OTugpZ9qyLcG3Ey9pC28ty1bMiAPy_5paBTEzWZvSEIfp5_I_GvYugu1ikTXX0liBv_u8SeBzwp441Xdc_0.png)](https://www.redhat.com/rhdc/managed-files/ansible/K16eLSpf-OiuYmYSkshiYKFiA2OtHa4jAZv-ces2vmkphiLSdv8OkgWInyg6-7dWfHT164OTugpZ9qyLcG3Ey9pC28ty1bMiAPy_5paBTEzWZvSEIfp5_I_GvYugu1ikTXX0liBv_u8SeBzwp441Xdc_0.png)
 
 In today's rapidly evolving digital landscape, businesses are dependent on streamlined processes and efficient systems more than ever. One such revolutionary pathway towards a more efficient and flexible IT infrastructure is multi-cloud automation. In this blog, we will look at how to employ Ansible, a powerful automation tool, to tap into the immense potential of multi-cloud environments. We take you on a journey behind the scenes of our interactive labs, where our customers and prospects acquire hands-on experience with Ansible while exploring its newest features. In our labs, public clouds such as Google Cloud, AWS, and Microsoft Azure are showcased. Using Ansible we can orchestrate a symphony of seamless provisioning and optimal multi-cloud management. So, buckle up for a deep dive into the realm of multi-cloud automation, where complexity is simplified, and potential is unleashed.
@@ -72,6 +79,9 @@ Now the lab simply walks the student through how to create automation jobs in au
 
 Using Ansible Automation Platform, your organization can enact read-only operations that provide insight into what is running on your clouds and deliver immediate value without the risk of use cases that require production changes. Ansible Automation Platform makes it possible to aggregate information from your various environments and cloud services into a single, customizable management interface to help you understand your entire cloud environment. Through this unified management interface, you can use that information to create inventories and data reports to better inform your hybrid cloud management decisions.
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## Where do I go next?
 
 Check out these resources to learn more:
@@ -79,3 +89,14 @@ Check out these resources to learn more:
 - This 2 page datasheet: Get started with infrastructure visibility for your hybrid cloud
 - This IDC spotlight sponsored by Red Hat: Cloud automation delivers business value, Doc #US49289622, June 2022
 - Red Hat Ansible Interactive Labs: <https://red.ht/ansible_labs>
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Easy automation for Microsoft Windows Server and Azure with Ansible Automation Platform](/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform/)
+> - [Importing Ansible Validated Content into Private Automation Hub](/blog/importing-ansible-validated-content-into-private-automation-hub/)
+> - [Red Hat Ansible Automation Platform on Google Cloud Marketplace](/blog/red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace/)
+
+<!-- blog-enrichment:related-end -->

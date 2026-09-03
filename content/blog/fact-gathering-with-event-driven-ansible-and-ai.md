@@ -15,6 +15,13 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:40Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Event-Driven Ansible is changing the automation landscape and AI is changing how we work with technology. What happens when we use both for fact gathering ?
+
+<!-- blog-enrichment:end -->
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png)](https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png)
 
 The use of Event-Driven Ansible to enable fact gathering from events is considered a “Getting Started” type of use case, but it can be extremely powerful. This use case is simple and it is what we consider a “Read Only” type of action, meaning that we are not making any changes, but we are using the event to trigger a fact gathering process which we can later publish to the IT Service Management system.
@@ -22,6 +29,9 @@ The use of Event-Driven Ansible to enable fact gathering from events is consider
 The benefit with this is we are able to provide consistent automated troubleshooting and fact gathering which is used to enrich the ticketing systems, so when our engineers have a look at the incident, they have all the information they need to decide on the next steps to resolve the issue or situation. This can potentially save many hours of toil and ultimately save an organization money from reduced down time and faster resolutions. But, we are assuming that our technical teams will know what to do with this event data.
 
 What if we could assist with filling the gap when an incident takes place, and we could receive information or even options on how to resolve the issues? This is where we could use Event-Driven Ansible with the power of AI to enhance our team's approach to an incident.
+
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
 
 ## Event - Condition - Action!
 
@@ -159,6 +169,9 @@ To see these examples in action please click on the demo below!
 
 - Demo: [Windows and Event-Driven Ansible w/ ServiceNow](https://youtu.be/0vQACe3shW0?si=yzQF84YWSbakFLjj)
 
+> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> From chat message to automated action with the TMM team walkthrough.
+
 ## Additional resources and next steps
 
 **Want to learn more about Event-Driven Ansible?**
@@ -167,3 +180,14 @@ To see these examples in action please click on the demo below!
 - Video: [NetOps, ChatOps, and Event-Driven Ansible](https://youtu.be/Dj7dhZdnRIY?si=hXS7cb3otvnYFezo)
 - Event-Driven Ansible [web page](http://ansible.com/event-driven)
 - Follow Nuno @<https://twitter.com/NunoMart11>
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

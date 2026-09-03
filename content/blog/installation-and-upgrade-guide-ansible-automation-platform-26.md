@@ -20,6 +20,24 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:30Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Learn about the supported installation methods for Ansible Automation Platform 2.6, including containerized and RPM installations on Red Hat Enterprise Linux and OpenShift Operator installations. Understand the difference between upgrades and migrations, and get guidance on upgrade planning, deployment type migrations, and underlying Red Hat Enterprise Linux version and database migrations.
+
+> [!toc]
+> **On this page**
+>
+> - [New installations of Ansible Automation Platform 2.6](#new-installations-of-ansible-automation-platform-26)
+> - [Installing on RHEL](#installing-on-rhel)
+> - [Installing on Red Hat OpenShift](#installing-on-red-hat-openshift)
+> - [Upgrade and migration paths to Ansible Automation Platform 2.6](#upgrade-and-migration-paths-to-ansible-automation-platform-26)
+> - [Upgrading from Ansible Automation Platform 2.4 to 2.6](#upgrading-from-ansible-automation-platform-24-to-26)
+> - [Upgrading from Ansible Automation Platform 2.5 to 2.6](#upgrading-from-ansible-automation-platform-25-to-26)
+> - [Additional resources](#additional-resources)
+
+<!-- blog-enrichment:end -->
+
 Red Hat Ansible Automation Platform 2.6 introduces powerful capabilities for managing, scaling, and deploying automation across your enterprise. Whether you're a new user planning your first deployment or an existing customer upgrading from a previous version, understanding the available installation and upgrade methods is critical. This guide provides a high-level overview of the supported paths to Ansible Automation Platform 2.6.
 
 ## New installations of Ansible Automation Platform 2.6
@@ -39,6 +57,9 @@ Containerized installations are the recommended approach for new installations a
 The Ansible Automation Platform 2.6 RPM-based install is only available on RHEL 9. We suggest using the RHEL RPM install method only for specific upgrade scenarios, not for net new installations.  [Read the documentation to learn more.](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/rpm_installation/index)
 
 When we released Ansible Automation Platform 2.5, we announced that the RPM install method was being deprecated. 2.6 will be the last version with an RPM installer and will only be available for RHEL 9. There will be no RPM-based installer for RHEL 8 or RHEL 10. Ansible Automation Platform  2.7 will not include the RPM installer for any version of RHEL. [Learn more](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/release_notes/index#rpm_installation).
+
+> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> Collections, inventories, and patterns from the Ansible TMM team.
 
 ## Installing on Red Hat OpenShift
 
@@ -82,6 +103,9 @@ PostgreSQL databases managed by the Ansible Automation Platform installer get up
 
 A strict requirement for a successful upgrade to Ansible Automation Platform 2.6 is that the PostgreSQL database must be running versions 15, 16, or 17. If your current environment is currently using an external PostgreSQL 13 or earlier database, then you must upgrade to version 15, 16, or 17 before attempting an upgrade to Ansible Automation Platform 2.6.  Red Hat recommends using PostgreSQL 15 whenever possible.
 
+> [!callout type=redhat label="Red Hat" title="Ansible Automation Platform documentation" url="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/" cta="Read the docs"]
+> Official product documentation from Red Hat.
+
 ## Upgrading from Ansible Automation Platform 2.4 to 2.6
 
 This path spans two major versions, and skips the middle step of upgrading to 2.5. You can upgrade directly from Ansible Automation Platform 2.4 to 2.6 when your current install is based on RPM on RHEL 9 or OpenShift. [Read the release notes to learn more.](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/release_notes/index#upgrade_paths)
@@ -122,3 +146,14 @@ Learn more about Ansible Automation Platform 2.6:
 - **Release notes**: [Ansible Automation Platform 2.6](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/release_notes/index)
 - **Video**: [What's new with Ansible Automation Platform 2.6](https://youtu.be/aHw2qyD9NOY?si=ykUVQhreMtEsGNWu)
 - **Documentation**: [Ansible Automation Platform 2.6](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/release_notes/index#platform-introduction)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+> - [Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform](/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/)
+> - [Event-Driven Ansible: Simplified event routing with Event Streams](/blog/event-driven-ansible-simplified-event-routing-event-streams/)
+
+<!-- blog-enrichment:related-end -->

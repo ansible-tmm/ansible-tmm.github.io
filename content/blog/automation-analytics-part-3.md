@@ -16,12 +16,31 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:21:06Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** If you are unfamiliar with Automation Analytics it is included as part of a Red Hat Ansible Automation Platform subscription and allows customers to analyze, aggregate, and report on data for their Red Hat Ansible Automation Platform deployments.
+
+> [!toc]
+> **On this page**
+>
+> - [Automation Calculator](#automation-calculator)
+> - [Customization](#customization)
+> - [Notifications Panel](#notifications-panel)
+> - [New Notifications](#new-notifications)
+> - [Where to go next?](#where-to-go-next)
+
+<!-- blog-enrichment:end -->
+
 The [Red Hat Ansible Automation Platform](https://www.ansible.com/products/automation-platform) is continually offering enhancements through its hosted services on cloud.redhat.com. At Red Hat Summit 2020 the new [automation services catalog](https://www.ansible.com/products/automation-services-catalog) took the spotlight, which provides lifecycle management, provisioning, retirement and cataloging of automation resources to your business. However I wanted to also talk about the additional new  enhancements coming to Automation Analytics! Specifically I have two big things I want to talk about:
 
 - Automations Calculator - a ROI (return on investment) calculator using aggregate data
 - Notification improvements and a dedicated panel
 
 If you are unfamiliar with [Automation Analytics](https://www.ansible.com/products/automation-analytics) it is included as part of a Red Hat Ansible Automation Platform subscription and allows customers to analyze, aggregate, and report on data for their Red Hat Ansible Automation Platform deployments. Check out the previous blog I wrote about [Getting Started with Automation Analytics](https://www.ansible.com/blog/getting-started-with-automation-analytics), or if you have concerns around what type of data is being shared with Red Hat check out my blog [Automation Analytics: Part 2 - Looking at Data Collection](https://www.ansible.com/blog/automation-analytics-part-2-looking-at-data-collection).
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## Automation Calculator
 
@@ -38,7 +57,7 @@ Automation Jobs are ranked from most saved to least saved in units of dollars. T
 - **Savings** =Sum of (manual cost - automation cost) across all templates
 
 To make this easy to understand, I will walkthrough an example:  
-  
+
 Job Template called “Configure NGINX”.  Lets make some quick assumptions:
 
 - This normally took an engineer 2 hours to configure manually
@@ -53,6 +72,9 @@ Job Template called “Configure NGINX”.  Lets make some quick assumptions:
 
 **Savings = (**$40,000 - 1.65) = $39,998 in savings.
 
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
+
 ## Customization
 
 Of course every organization is different so we made these calculations very flexible for you to help more accurately represent your cost savings:
@@ -62,7 +84,7 @@ Of course every organization is different so we made these calculations very fle
 In the initial release there is a way to both configure the manual cost for executing the Job by human power alone and the cost of automation for your business. These can be configured and set so that they more accurately represent your costs and time savings in your organization.
 
 Each Job can be granularly configured to represent the time you estimate it would take your team to execute these Jobs manually. For example my “Configure Red Hat Enterprise Linux web servers” role only takes my engineers 30 minutes to complete, not 60, so I can simply change the value to more accurately represent our time savings.  
-  
+
 The initial default value looked like this:
 
 [![Analytics part 3 p3](https://www.redhat.com/rhdc/managed-files/ansible/Analytics%20part%203%20p3.png)](https://www.redhat.com/rhdc/managed-files/ansible/Analytics%20part%203%20p3.png)
@@ -125,3 +147,14 @@ I hope this blog helped outline these upcoming features and functionality that A
 - [Learn more on Automation Analytics including a video demo](https://www.ansible.com/products/automation-analytics)
 - [Attend an Ansible Automation Workshop and get hands-on with Ansible Tower](https://www.ansible.com/community/events/workshops)
 - [Contact us to get pricing information on the Ansible Automation Platform](https://www.ansible.com/products/pricing)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

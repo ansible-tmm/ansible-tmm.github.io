@@ -50,8 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2024-12-04">December 3, 2024</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <h2>Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</h2>
-<p>Red Hat Ansible Tower (included in Ansible Automation Platform 1.x) used Python virtual environments to manage dependencies and implement consistent automation execution across multiple Red Hat Ansible Automation Platform instances. This method of managing dependencies came with its own set of limitations:</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> The new capabilities of Ansible Platform 2 enable easier to scale automation across the globe and allow you to run your automation as close to the source as possible without being bound to running automation in a single data center.</aside><aside class="blog-toc">
+  <p class="blog-toc__title">On this page</p>
+  <ul><li><a href="#migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2">Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</a></li><li><a href="#why-should-you-upgrade">Why should you upgrade?</a></li><li><a href="#the-manual-process-of-upgrading">The manual process of upgrading</a></li><li><a href="#the-automated-process-of-upgrading">The automated process of upgrading</a></li><li><a href="#key-takeaways">Key takeaways</a></li></ul>
+</aside><h2 id="migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2">Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</h2><p>Red Hat Ansible Tower (included in Ansible Automation Platform 1.x) used Python virtual environments to manage dependencies and implement consistent automation execution across multiple Red Hat Ansible Automation Platform instances. This method of managing dependencies came with its own set of limitations:</p>
 <ul>
 <li>Managing Python virtual environments across multiple Ansible Tower instances.</li>
 <li>Confirming custom dependencies across Ansible Tower instances grew in complexity as more end-users interacted with it.</li>
@@ -59,12 +61,15 @@
 <li>There were no tools supported and maintained by Red Hat to manage custom dependencies across Ansible Automation Platform deployments.</li>
 </ul>
 <p>Ansible Automation Platform 2 introduced automation execution environments. These are container images in which all automation is packaged and run, which includes components such as Ansible Core, Ansible Content Collections, a version of Python, Red Hat Enterprise Linux UBI 8, and any additional package dependencies.</p>
-<h2>Why should you upgrade?</h2>
-<p>Ansible Automation Platform 2, <a href="https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators">announced at AnsibleFest 2021</a>, comes with a re-imagined architecture that fully decouples the automation control plane and execution plane. The new capabilities enable easier to scale automation across the globe and allow you to run your automation as close to the source as possible without being bound to running automation in a single data center. It&#39;s more dynamic, scalable, resilient and secure compared to Ansible Automation Platform 1.2.</p>
+<h2 id="why-should-you-upgrade">Why should you upgrade?</h2><p>Ansible Automation Platform 2, <a href="https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators">announced at AnsibleFest 2021</a>, comes with a re-imagined architecture that fully decouples the automation control plane and execution plane. The new capabilities enable easier to scale automation across the globe and allow you to run your automation as close to the source as possible without being bound to running automation in a single data center. It&#39;s more dynamic, scalable, resilient and secure compared to Ansible Automation Platform 1.2.</p>
 <p>If you are an existing Red Hat customer using Ansible Automation Platform 1.2 (Ansible Tower 3.8), an important migration recommendation is to convert any custom Python virtual environments in your cluster to automation execution environments. This one-time effort opens the door to take advantage of the latest Ansible Automation Platform 2 capabilities and the ability to execute consistent automation across multiple platforms with lower long-term maintenance.</p>
 <p>We will now explain this specific migration consideration and provide you with some best practices on how to migrate to automation execution environments.</p>
-<h2>The manual process of upgrading</h2>
-<p>As outlined in this <a href="https://docs.ansible.com/automation-controller/4.1.0/html/upgrade-migration-guide/upgrade_to_ees.html">document</a>, the manual process of upgrading to automation execution environments would go something like this:</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Solution Guides</p>
+  <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
+  <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+</aside><h2 id="the-manual-process-of-upgrading">The manual process of upgrading</h2><p>As outlined in this <a href="https://docs.ansible.com/automation-controller/4.1.0/html/upgrade-migration-guide/upgrade_to_ees.html">document</a>, the manual process of upgrading to automation execution environments would go something like this:</p>
 <ol>
 <li>Prerequisite is a running Ansible Automation Platform 1.2 cluster where customers have configured one or more custom Python virtual environments in addition to the default one.</li>
 <li>Use the <code>awx-manage</code> command line utility present on the Ansible Tower node to get the list of custom Python virtual environments using the <code>list_custom_venvs</code> subcommand.</li>
@@ -77,8 +82,12 @@
 <li>Exported requirements from step 3 above can be compared with the list of Python packages already present in the automation execution environment that will serve as the base layer for the newly created ones. This will be helpful, because there are dependencies that will already be resolved by the base automation execution environment and it will help customers if they can focus on <strong>what&#39;s needed</strong> when they start creating automation execution environments for their clusters.</li>
 <li>Since we love Ansible, why not just automate the above process, right? :)</li>
 </ol>
-<h2>The automated process of upgrading</h2>
-<p>The intent of this section is to explain how you can automate this process using Ansible. We have a few example Ansible Content Collections and roles that can be used to achieve this automation. The playbook would look something like this at a high level:</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Ansible Product Demos</p>
+  <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
+  <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+</aside><h2 id="the-automated-process-of-upgrading">The automated process of upgrading</h2><p>The intent of this section is to explain how you can automate this process using Ansible. We have a few example Ansible Content Collections and roles that can be used to achieve this automation. The playbook would look something like this at a high level:</p>
 <ol>
 <li>Pull the list of packages from all the custom Python virtual environments present on the Ansible Tower node in Ansible Automation Platform 1.2.</li>
 <li>Compare the package lists from step 1 with the package list in the automation execution environment you decide to use as basis (ansible-2.9 in our example), to find the packages that are not present in the base.</li>
@@ -108,21 +117,16 @@
     <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Review custom virtualenvs and diff packages from base EE</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">tower</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    become</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    vars</span><span style="color:#E1E4E8">:</span></span>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">---</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Review custom virtualenvs and diff packages from base EE</span></span>
+<span class="line"><span style="color:#85E89D">  hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">tower</span></span>
+<span class="line"><span style="color:#85E89D">  become</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#85E89D">  vars</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">venv_migrate_ee_python_list</span><span style="color:#E1E4E8">: []</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  tasks</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Include venv_migrate role</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        include_role</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">redhat_cop.ee_utilities.virtualenv_migrate</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">      include_role</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">redhat_cop.ee_utilities.virtualenv_migrate</span></span></code></pre>
 </div><div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">JSON</span>
@@ -170,12 +174,14 @@
 <li>We ran a playbook against the Ansible Tower node to gather Python packages (from custom Python virtual environments) that are not in the base automation execution environment.</li>
 <li>Output from above can help the creation of custom automation execution environments using the ee_builder role that automates execution environment creation.</li>
 </ul>
-<h2>Key takeaways</h2>
-<ul>
+<h2 id="key-takeaways">Key takeaways</h2><ul>
 <li>Using this new Ansible Role in combination with the ee_builder role can be used to automate the migration from custom virtual environments to automation execution environments.</li>
 <li>These roles are currently part of a community project and not officially supported by Red Hat. However, they can provide details in the understanding of the migration process.</li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/the-anatomy-of-automation-execution-environments/">The anatomy of automation execution environments</a></li><li><a href="/blog/new-red-hat-ansible-development-tools/">Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience</a></li><li><a href="/blog/introducing-ansible-plug-ins-red-hat-developer-hub/">Introducing Ansible plug-ins for Red Hat Developer Hub</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#anshul-behl">Anshul Behl</a></p></footer>
     </article>

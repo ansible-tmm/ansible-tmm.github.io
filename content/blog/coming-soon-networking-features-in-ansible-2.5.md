@@ -16,6 +16,23 @@ read_time_minutes: 10
 synced_at: '2026-09-03T19:21:22Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** The upcoming Ansible 2.5 open source project release has some really exciting improvements. Here we highlight a few of the notable additions.
+
+> [!toc]
+> **On this page**
+>
+> - [New Connection Types: network\_cli and NETCONF](#new-connection-types-network-cli-and-netconf)
+> - [Ansible Fact Improvements](#ansible-fact-improvements)
+> - [Improved Logging](#improved-logging)
+> - [Continued Enablement for Declarative Intent](#continued-enablement-for-declarative-intent)
+> - [Persistent SSH Connection Improvements](#persistent-ssh-connection-improvements)
+> - [Additional Platforms and Modules](#additional-platforms-and-modules)
+
+<!-- blog-enrichment:end -->
+
 [![Ansible 2.5 Networking Features](https://www.redhat.com/rhdc/managed-files/ansible/Ansible-2-5-Coming-Soon-Networking.png)](https://www.redhat.com/rhdc/managed-files/ansible/Ansible-2-5-Coming-Soon-Networking.png)
 
 The upcoming Ansible 2.5 open source project release has some really exciting improvements, and the following blog highlights just a few of the notable additions. In typical Ansible fashion, development of networking enhancements is done in the open with the help of the community. You can follow along by watching the [networking GitHub project board](https://github.com/ansible/ansible/projects/10), as well as the roadmap for Ansible 2.5 via the [networking wiki page](https://github.com/ansible/community/wiki/Network%3ACore-roadmap-2.5).
@@ -170,6 +187,9 @@ For both network\_cli and netconf connection methods the ansible\_network\_os va
 | VyOS | vyos |
 
 There are many more platforms available for use via [community modules](http://docs.ansible.com/ansible/latest/list_of_network_modules.html), but for simplicity and convenience we have detailed networking platforms that are supported as part of the [Red Hat Ansible Engine Networking Add-on](https://www.ansible.com/products/engine/pricing).
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ## Ansible Fact Improvements
 
@@ -371,3 +391,17 @@ The following new platforms have been added to date:
 - [Nokia NetAct](http://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html#netact)
 
 The Ansible Networking team is excited for the forthcoming Ansible 2.5 release, and would like to extend a warm thank you to all networking partners and community members that helped make it possible. We love to hear your feedback, thoughts and ideas, and we welcome you to participate in the [Ansible networking community](https://github.com/ansible/community/tree/master/group-network).
+
+> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> More posts on network automation from the Ansible Technical Marketing team.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+> - [Ansible Network Resource Modules: Deep Dive on Return Values](/blog/ansible-network-resource-modules-deep-dive-on-return-values/)
+> - [Red Hat Ansible Network Automation Updates](/blog/red-hat-ansible-network-automation-updates/)
+
+<!-- blog-enrichment:related-end -->

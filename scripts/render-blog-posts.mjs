@@ -5,6 +5,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import { marked } from 'marked';
@@ -45,14 +46,15 @@ const LANG_LABELS = {
 function reflowNestedKeys(text) {
   const lines = [];
   for (const line of text.split('\n')) {
-    if (/ {2,}\S[\w-]*\s*:/.test(line)) {
+    const trimmed = line.trimStart();
+    const leadingSpaces = line.length - trimmed.length;
+    // Only reflow collapsed table cells where multiple keys share one line.
+    if (leadingSpaces === 0 && / {2,}\S[\w-]*\s*:/.test(line)) {
       const parts = line.split(/ {2,}(?=\S[\w-]*\s*:)/);
       if (parts.length > 1) {
-        const baseIndent = line.length - line.trimStart().length;
-        const subIndent = baseIndent + 2;
         lines.push(parts[0].trimEnd());
         for (const part of parts.slice(1)) {
-          lines.push(`${' '.repeat(subIndent)}${part.trimStart()}`);
+          lines.push(`  ${part.trimStart()}`);
         }
         continue;
       }
@@ -63,7 +65,7 @@ function reflowNestedKeys(text) {
 }
 
 function normalizeCodeText(text) {
-  let normalized = String(text).replace(/\u00a0/g, ' ').replace(/^[\s—–-]+/, '').trim();
+  let normalized = String(text).replace(/\u00a0/g, ' ').replace(/^[\s\u2014\u2013]+/, '').trim();
   if (!normalized.includes('\n')) {
     const splitBefore = [
       /---\s+collections:/,
@@ -90,8 +92,6 @@ function normalizeCodeText(text) {
     }
     normalized = normalized.replace(/\s+(- )/g, '\n$1');
     normalized = reflowNestedKeys(normalized);
-  } else {
-    normalized = reflowNestedKeys(normalized);
   }
   return normalized
     .split('\n')
@@ -106,13 +106,16 @@ function detectLang(text, explicitLang) {
   if (/\bpackage\s+\w+/.test(sample) || sample.includes('rego.v1')) return 'rego';
   if (/\b(Enable-|New-|Get-|Set-)\w+/.test(sample) || sample.includes('$')) return 'powershell';
   if (/^(---|\s*-\s+name:|\s*hosts:|\s*tasks:|\s*sources:|\s*rules:)/m.test(sample)) return 'yaml';
+  if (/^[\w][\w-]*:\s*$/m.test(sample) || /^\s+[\w][\w-]*:/m.test(sample)) return 'yaml';
+  if (/^\s*-\s+[\w"'-]+/m.test(sample) && /:/.test(sample)) return 'yaml';
   if (/^\s*[{[]/.test(sample)) return 'json';
   if (/^#!|^\s*(sudo |apt |yum |dnf )/m.test(sample)) return 'bash';
   return 'text';
 }
 
 function normalizeSyncedMarkdown(markdown) {
-  let normalized = markdown.replace(
+  let normalized = markdown.replace(/<!-- blog-enrichment:[^>]+ -->\n?/g, '');
+  normalized = normalized.replace(
     /^- \[Back to all posts\]\([^)]+\)\s*\n+(?:---\s*\n+)?/gim,
     '',
   );
@@ -211,6 +214,79 @@ function escapeHtml(value) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+function slugifyHeading(text) {
+  const slug = String(text)
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .trim()
+    .replace(/[\s_-]+/g, '-');
+  return slug || 'section';
+}
+
+function parseCalloutAttrs(line) {
+  const attrs = {};
+  const attrPattern = /(\w+)="([^"]*)"/g;
+  let match = attrPattern.exec(line);
+  while (match) {
+    attrs[match[1]] = match[2];
+    match = attrPattern.exec(line);
+  }
+  const typeMatch = line.match(/type=(\w+)/);
+  if (typeMatch) attrs.type = typeMatch[1];
+  return attrs;
+}
+
+function renderCalloutBlock(firstLine, bodyText) {
+  const attrs = parseCalloutAttrs(firstLine);
+  const type = attrs.type || 'tmm';
+  if (type === 'summary') {
+    const summaryHtml = marked.parseInline(bodyText);
+    return `<aside class="blog-callout blog-callout--summary">${summaryHtml}</aside>`;
+  }
+  const label = attrs.label || 'Resource';
+  const title = attrs.title || '';
+  const url = attrs.url || '#';
+  const cta = attrs.cta || 'Learn more';
+  const body = bodyText || '';
+  return `<aside class="blog-callout blog-callout--${escapeHtml(type)}">
+  <span class="blog-callout__label">${escapeHtml(label)}</span>
+  <p class="blog-callout__title">${escapeHtml(title)}</p>
+  ${body ? `<p class="blog-callout__body">${escapeHtml(body)}</p>` : ''}
+  <a class="blog-callout__cta" href="${escapeHtml(url)}">${escapeHtml(cta)} →</a>
+</aside>`;
+}
+
+function renderListAside(lines, className, title) {
+  const items = lines
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith('- '))
+    .map((line) => {
+      const linkMatch = line.match(/^- \[(.+?)\]\((.+?)\)/);
+      if (!linkMatch) return '';
+      return `<li><a href="${escapeHtml(linkMatch[2])}">${escapeHtml(linkMatch[1])}</a></li>`;
+    })
+    .filter(Boolean)
+    .join('');
+  if (!items) return '';
+  return `<aside class="${className}">
+  <p class="${className}__title">${escapeHtml(title)}</p>
+  <ul>${items}</ul>
+</aside>`;
+}
+
+function runMarkdownEnrichment() {
+  const python = path.join(__dirname, '.venv', 'bin', 'python');
+  const script = path.join(__dirname, 'blog_enrichment.py');
+  const result = spawnSync(python, [script, '--all'], {
+    cwd: ROOT,
+    encoding: 'utf8',
+  });
+  if (result.status !== 0) {
+    console.warn('Blog enrichment step failed; continuing with existing markdown.');
+    if (result.stderr) console.warn(result.stderr);
+  }
 }
 
 function formatDate(isoDate) {
@@ -373,6 +449,32 @@ function pageShell({ title, description, canonical, bodyHtml, attributionHtml, m
 async function renderMarkdown(markdown, highlighter) {
   const normalizedMarkdown = normalizeSyncedMarkdown(normalizeMarkdownCodeBlocks(markdown));
   const renderer = new marked.Renderer();
+  const headingSlugs = new Map();
+
+  renderer.heading = function ({ text, depth }) {
+    const base = slugifyHeading(text);
+    const count = headingSlugs.get(base) || 0;
+    headingSlugs.set(base, count + 1);
+    const id = count === 0 ? base : `${base}-${count + 1}`;
+    return `<h${depth} id="${escapeHtml(id)}">${text}</h${depth}>`;
+  };
+
+  renderer.blockquote = function ({ text }) {
+    const trimmed = String(text).trim();
+    const lines = trimmed.split('\n');
+    const firstLine = lines[0]?.trim() || '';
+    if (firstLine.startsWith('[!callout')) {
+      return renderCalloutBlock(firstLine, lines.slice(1).join('\n').trim());
+    }
+    if (firstLine === '[!toc]') {
+      return renderListAside(lines.slice(1), 'blog-toc', 'On this page');
+    }
+    if (firstLine === '[!related]') {
+      return renderListAside(lines.slice(1), 'blog-related', 'More from the team');
+    }
+    const inner = marked.parse(trimmed);
+    return `<blockquote>${inner}</blockquote>`;
+  };
 
   renderer.code = function ({ text, lang }) {
     const normalizedText = normalizeCodeText(text);
@@ -396,6 +498,8 @@ async function renderMarkdown(markdown, highlighter) {
 }
 
 async function main() {
+  runMarkdownEnrichment();
+
   const highlighter = await createHighlighter({
     themes: ['github-dark'],
     langs: [

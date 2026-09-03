@@ -20,11 +20,32 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:21:34Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Learn how Red Hat Ansible Automation Platform helps organizations adopt zero trust security by automating policy enforcement and reducing the impact of security breaches. Discover the benefits of centralized enforcement with distributed execution and the dual-ring enforcement model.
+
+> [!toc]
+> **On this page**
+>
+> - [The AI attack surface shift](#the-ai-attack-surface-shift)
+> - [Defense needs an automated operational layer](#defense-needs-an-automated-operational-layer)
+> - [Ansible Automation Platform as the Policy Enforcement Point](#ansible-automation-platform-as-the-policy-enforcement-point)
+> - [Shrinking potential impact with dynamic credentials and micro-segmentation](#shrinking-potential-impact-with-dynamic-credentials-and-micro-segmentation)
+> - [Incident response at machine speed](#incident-response-at-machine-speed)
+> - [Multiple layers, one defense](#multiple-layers-one-defense)
+> - [Resources](#resources)
+
+<!-- blog-enrichment:end -->
+
 Recently, Red Hat's Vincent Danen [highlighted](https://www.redhat.com/en/blog/when-ai-finds-bugs-why-defense-depth-was-always-answer) how AI models found 271 real security defects in Firefox in a single pass during Mozilla's collaboration with Anthropic. If AI can do that for defenders, it can do the same for attackers. As Danen put it, "if your security strategy is solely predicated on the assumption that software will be vulnerability-free, you've already lost."
 
 Vulnerabilities in code are only the entry point. The real damage comes after—lateral movement through misconfigured networks, overprivileged credentials, unrotated secrets, and services that blindly trust each other. No patch cycle can keep up with that. This underscores the need for more "[defense in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing))" across enterprises—a cultural shift that assumes a compromise will inevitably occur, and focusing on reducing the impact of the exposure itself.
 
 This is the definition of [zero trust](https://www.redhat.com/en/topics/security/what-is-zero-trust). This first tidal wave of security vulnerabilities has a second and third coming behind it, and organizations need to adopt zero trust to move from pure prevention to containing the breach—enforcing least privilege across identity, secrets, network segmentation, and policy at every layer. Organizations require automated enforcement that executes at the velocity of these AI-driven threats. [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) helps make this possible.
+
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
 
 ## The AI attack surface shift
 
@@ -39,6 +60,9 @@ These seemingly small weaknesses add up, and not for your benefit. For example:
 None of these are overly dangerous alone. Individually each would sit in a backlog as "low priority," but chained together, they could let an attacker brute-force a password, hijack the session before it expires, and land inside the settings page as an administrator. Three minor bugs, yet you get a functional break-in.
 
 These advanced AI models write, compile, and execute exploit code, using failure outputs to iteratively refine and retry their attacks. While organizations use this to their advantage by finding and fixing previously unknown vulnerabilities at speed, the uncomfortable truth is that this capability is also available to attackers. As Danen wrote, "the same tools that help defenders find bugs will inevitably help attackers find them too." The attacker skill ceiling just dropped. Faster patching is part of the answer, but it must be supplemented by good defenses.
+
+> [!callout type=tmm label="TMM tool" title="AAP CVE Report" url="https://ansible-tmm.github.io/aap_cve_report/" cta="Open tool"]
+> Explore CVE information relevant to Ansible Automation Platform.
 
 ## Defense needs an automated operational layer
 
@@ -154,3 +178,14 @@ Most organizations have platform hardening. Many are adopting zero trust princip
 - E-book: [Red Hat Ansible Automation Platform, a beginner’s guide](https://www.redhat.com/en/resources/ansible-automation-platform-beginners-guide-ebook)
 - Interactive walk-through: [IT automation including security automation](https://www.redhat.com/en/interactive-experiences)
 - Web page: [Security automation](https://www.redhat.com/en/technologies/management/ansible/security-automation)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant](/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant/)
+> - [Event-Driven Ansible: Simplified event routing with Event Streams](/blog/event-driven-ansible-simplified-event-routing-event-streams/)
+
+<!-- blog-enrichment:related-end -->

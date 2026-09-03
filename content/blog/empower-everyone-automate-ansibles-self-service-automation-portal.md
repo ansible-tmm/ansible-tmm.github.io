@@ -18,6 +18,22 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:21:24Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Discover how the new self-service automation portal in Ansible Automation Platform 2.6 simplifies automation for all users, enabling the core team to build value and empowering SMEs to apply it in their daily tasks. Increase consistency, control over automation, and autonomy for teams across the organization.
+
+> [!toc]
+> **On this page**
+>
+> - [Reaching the subject matter expert](#reaching-the-subject-matter-expert)
+> - [What is the self-service automation portal?](#what-is-the-self-service-automation-portal)
+> - [Why it matters](#why-it-matters)
+> - [Conclusion](#conclusion)
+> - [What can I do next?](#what-can-i-do-next)
+
+<!-- blog-enrichment:end -->
+
 The benefits of automation with Red Hat Ansible Automation Platform are clear, but gaining organization-wide adoption can still be challenging. Although the core automation platform team manages the platform and develops automation content, the real value comes from extending automation to a broader group of IT professionals. These individuals, who may not possess deep Ansible expertise, bring valuable use cases and stand to gain immensely from the platform, without needing to get bogged down in its technical details.
 
 The success of Ansible Automation Platform hinges not just on platform administrators and developers, but on the widespread adoption of automation across the entire organization.
@@ -47,6 +63,9 @@ This self-service approach broadens the reach and usage of Ansible Automation Pl
 
 [![portal user interface](https://www.redhat.com/rhdc/managed-files/Ansible%20self-service%20automation.png)](https://www.redhat.com/rhdc/managed-files/Ansible%20self-service%20automation.png)
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## Why it matters
 
 Some organizations try to achieve organization-wide adoption of automation by integrating third-party systems or building a bespoke solution. These options can be complex, time-consuming, and costly. The self-service automation portal from Ansible Automation Platform is designed to bring this capability to the Ansible Automation Platform ecosystem, empowering everyone to automate.
@@ -67,3 +86,14 @@ Try this interactive demonstration.
 - Visit the [documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest) site for more information on Ansible Automation Platform and self-service automation.
 - Practice with hands-on [self-paced lab(s) on Ansible Automation Platform](https://www.redhat.com/en/interactive-labs/ansible) and Terraform.
 - Trial [Ansible Automation Platform](https://www.redhat.com/en/products/trials).
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Red Hat Ansible Automation Platform Service on AWS now available in the AWS Marketplace](/blog/red-hat-ansible-automation-platform-service-aws-now-available-aws-marketplace/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+> - [Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform](/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/)
+
+<!-- blog-enrichment:related-end -->

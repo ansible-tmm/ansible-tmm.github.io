@@ -16,6 +16,22 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:26Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Breaking news! Red Hat just announced Ansible Automation Platform’s availability on Google Cloud Marketplace.
+
+> [!toc]
+> **On this page**
+>
+> - [Introduction](#introduction)
+> - [Google Cloud Marketplace deployment](#google-cloud-marketplace-deployment)
+> - [Google Cloud integrations](#google-cloud-integrations)
+> - [Automation content](#automation-content)
+> - [What can I do next?](#what-can-i-do-next)
+
+<!-- blog-enrichment:end -->
+
 ## Introduction
 
 As organization’s hybrid cloud environments continue to grow in complexity, so does the need to increase efficiency and speed. The solution is to take advantage of an automation platform that can help any organization create, manage and scale their automation efforts across the entire IT infrastructure. Red Hat Ansible Automation Platform enables organizations to coordinate and scale automation across all IT domains and fosters a culture of collaboration between disparate teams.
@@ -72,6 +88,9 @@ Figure 3
 
 With the infrastructure all in place, the next step is to install Ansible Automation Platform. Download the latest version of Ansible Automation Platform from Red Hat Customer Portal.  Remember to [plan the installation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/planning_your_installation/index), and set up a [tested / supported environment](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/tested_deployment_models).
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 ## Google Cloud integrations
 
 For many organizations using Google Cloud today, there’s a huge benefit in taking advantage of Ansible Automation Platform on Google Cloud Marketplace. It runs in your Google Cloud account and integrates efficiently with many of the Google Cloud services, including Google billing. Additionally, if you have Google Cloud committed use discounts (CUDs), this solution will count towards that spend agreement and will be reflected on your Google Cloud bill.
@@ -81,6 +100,9 @@ Speaking of integration, you’ll have access to Red Hat Ansible Certified [Goo
 Once you’ve deployed Ansible Automation Platform with a few simple configuration steps, you can integrate with identity providers of your choice to provide single sign-on, in addition to being able to take advantage of Ansible Automation Platforms role-based access control (RBAC) capabilities.
 
 [![role-based access control](https://www.redhat.com/rhdc/managed-files/role-based%20access%20control.gif)](https://www.redhat.com/rhdc/managed-files/role-based%20access%20control.gif)
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## Automation content
 
@@ -117,3 +139,14 @@ Automation use cases are endless, and there are so many efficiencies and savings
 - Consider trying other Red Hat products from the Google Cloud Marketplace, as shown below (Figure 8).
 
 [![Google Cloud Marketplace](https://www.redhat.com/rhdc/managed-files/image6_45.png)](https://www.redhat.com/rhdc/managed-files/image6_45.png)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Importing Ansible Validated Content into Private Automation Hub](/blog/importing-ansible-validated-content-into-private-automation-hub/)
+> - [Easy automation for Microsoft Windows Server and Azure with Ansible Automation Platform](/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform/)
+> - [Unleashing the Potential of Multi-Cloud Automation with Ansible and Terraform](/blog/unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform/)
+
+<!-- blog-enrichment:related-end -->

@@ -21,6 +21,24 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:20:33Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** In this blog, we’ll walk through the steps to get Ansible Lightspeed with IBM watsonx Code Assistant up and running for your organization. We’ll share how end users can set up the service in their Visual Studio Code (VS Code) environment. We’ll also share more on what to expect from the experience and supplemental tools available to turbocharge your Ansible creator journey with generative AI capabilities built on a foundation of transparency, accuracy, and choice
+
+> [!toc]
+> **On this page**
+>
+> - [Bringing AI to Ansible content creation through collaboration between Red Hat and IBM](#bringing-ai-to-ansible-content-creation-through-collaboration-between-red-hat-and-ibm)
+> - [How to access Ansible Lightspeed](#how-to-access-ansible-lightspeed)
+> - [Create](#create)
+> - [Adopt](#adopt)
+> - [Maintain](#maintain)
+> - [Ansible code bot](#ansible-code-bot)
+> - [Additional resources](#additional-resources)
+
+<!-- blog-enrichment:end -->
+
 **Note from the editor:**This blog post was originally published in November 2023 and has been updated to include the latest feature enhancements for Red Hat Ansible Automation Platform subscribers.
 
 [Red Hat Ansible Lightspeed with IBM watsonx Code Assistant](https://www.redhat.com/en/about/press-releases/red-hat-launches-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant-ai-driven-enterprise-it-automation) is a generative AI (gen AI) service within Red Hat Ansible Automation Platform that is engineered to help automation teams create, adopt and maintain Ansible content more efficiently.
@@ -40,6 +58,9 @@ The service consists of three components:
 3. Gen AI: [IBM watsonx Code Assistant](https://www.ibm.com/products/watsonx-code-assistant-ansible-lightspeed) provides access to Ansible-specific watsonx.ai foundation model that generates Ansible content recommendations. This is the “AI guts'' of the solution.
 
 Ansible Lightspeed with IBM watsonx Code Assistant can be deployed as a software-as-a-service (SaaS) deployment or on-premise in your datacenter.
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## How to access Ansible Lightspeed
 
@@ -66,6 +87,9 @@ Once you're connected,  it's time to experience its AI-enhanced content creatio
 ### Hybrid deployment
 
 You can also deploy Red Hat Ansible Lightspeed on-premise and connect to the IBM watsonx Code Assistant model in the cloud. A hybrid deployment gives you more flexibility to run the Red Hat Ansible Lightspeed service in your regional datacenter while connecting to WCA hosted in an [IBM-supported location](https://cloud.ibm.com/catalog/services/ibm-watsonx-code-assistant). It also allows you to use Ansible Automation Platform for user authentication, eliminating the need to log into the Red Hat Ansible Lightspeed cloud-based service.
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ## Create
 
@@ -154,7 +178,9 @@ Our goal with Ansible code bot is to extend Ansible content quality improvement 
 1. Log in to your GitHub by using an account associated with your organization.
 2. Install the GitHub app for the organization that you are a member of.
 3. Go to the Ansible code bot GitHub app:
+
    1. [Ansible code bot - GitHub Apps](https://github.com/apps/ansible-code-bot)
+
 4. Select the repositories on which you want to install the Ansible code bot.
 5. Click Install & Authorize.
 6. When prompted, log in to your Red Hat SSO account.
@@ -172,3 +198,14 @@ After the Ansible code bot is installed for the Git repositories you selected, y
 - Datasheet: [Ansible Lightspeed with IBM watsonx Code Assistant](https://www.redhat.com/en/engage/ansible-lightspeed-ibm-watsonx-code-assistant-datasheet)
 
 Thanks for reading and happy automating.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+> - [Introducing Ansible plug-ins for Red Hat Developer Hub](/blog/introducing-ansible-plug-ins-red-hat-developer-hub/)
+> - [New reference architecture: Red Hat Ansible Automation Platform 1.2 to 2 Migration Guide](/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide/)
+
+<!-- blog-enrichment:related-end -->

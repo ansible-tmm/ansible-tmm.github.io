@@ -50,7 +50,10 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2021-01-12">January 11, 2021</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p>The Red Hat Ansible Network Automation engineering team is continually adding new resource modules <a href="https://access.redhat.com/articles/5531421">to its supported network platforms</a>.  Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production. The goal for resource modules is to avoid creating and maintaining overly complex jinja2 templates for rendering and pushing network configuration, as well as having to maintain complex fact gathering and parsing methodologies.  For this blog post, we will cover standard return values that are the same across all supported network platforms (e.g. Arista EOS, Cisco IOS, NXOS, IOS-XR, and Juniper Junos) and all resource modules.</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production.</aside><aside class="blog-toc">
+  <p class="blog-toc__title">On this page</p>
+  <ul><li><a href="#what-are-resource-module-return-values">What are resource module return values?</a></li><li><a href="#a-practical-example">A practical example</a></li><li><a href="#using-return-values">Using return values</a></li><li><a href="#where-do-i-go-next">Where do I go next?</a></li></ul>
+</aside><p>The Red Hat Ansible Network Automation engineering team is continually adding new resource modules <a href="https://access.redhat.com/articles/5531421">to its supported network platforms</a>.  Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production. The goal for resource modules is to avoid creating and maintaining overly complex jinja2 templates for rendering and pushing network configuration, as well as having to maintain complex fact gathering and parsing methodologies.  For this blog post, we will cover standard return values that are the same across all supported network platforms (e.g. Arista EOS, Cisco IOS, NXOS, IOS-XR, and Juniper Junos) and all resource modules.</p>
 <p>Before we get started, I wanted to call out three previous blog posts covering resource modules. If you are unfamiliar with resource modules, check any of these out:</p>
 <ul>
 <li><p>acls - the resource module for configuring access control lists on network devices. For example: <a href="https://docs.ansible.com/ansible/latest/collections/junipernetworks/junos/junos_acls_module.html">junos_acls</a> on Juniper Junos  </p>
@@ -64,8 +67,12 @@
 </li>
 </ul>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-01-12%20at%202.56.22%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-01-12%20at%202.56.22%20PM.png" alt="Screen Shot 2021-01-12 at 2.56.22 PM"></a></p>
-<h2>What are resource module return values?</h2>
-<p>Return values are what are returned from the resource modules when it finishes execution. Let’s cover when you would use them, how to use them, and why you should care!</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Ansible Product Demos</p>
+  <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
+  <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+</aside><h2 id="what-are-resource-module-return-values">What are resource module return values?</h2><p>Return values are what are returned from the resource modules when it finishes execution. Let’s cover when you would use them, how to use them, and why you should care!</p>
 <p>So let&#39;s get started: All currently released resource modules have the exact same return values to make it easy to automate consistently across any network resource module. They are the following:</p>
 <table>
 <thead>
@@ -88,29 +95,29 @@
 </tr>
 </tbody></table>
 <p>Why are return values important? They give you state <em>before and after</em> modifications happen. The before value lets you know the state of the device before you do any modification.  This makes it easy to revert changes or simply compare the before and after of any particular resource.  The commands return value will actually be in the network platform’s device syntax, so if you are automating an Arista EOS switch, you will get Arista commands.  This is important because it allows a network operator to quickly see what the automation actually did, and in the syntax that is expected of the operator.  There is no abstraction happening that impacts the network operator from the tool, so trust is gained with automation, which can help with establishing a positive culture between network automation engineers and folks that might just be starting their automation journey.</p>
-<h2>A practical example</h2>
-<p>Let&#39;s look at a practical example using the Arista <a href="https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_l2_interfaces_module.html">eos_l2_interfaces module</a> from the Arista Network Collection. The quick summary for those that don’t know what a Collection is: it’s how content is packaged, including Ansible Modules. The modules that you know and love still work exactly the same way you are used to but packaged in a more portable and flexible format.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">Team resource</span>
+  <p class="blog-callout__title">Network automation on the TMM blog</p>
+  <p class="blog-callout__body">More posts on network automation from the Ansible Technical Marketing team.</p>
+  <a class="blog-callout__cta" href="/blog/?author=sean-cavanaugh">Browse posts →</a>
+</aside><h2 id="a-practical-example">A practical example</h2><p>Let&#39;s look at a practical example using the Arista <a href="https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_l2_interfaces_module.html">eos_l2_interfaces module</a> from the Arista Network Collection. The quick summary for those that don’t know what a Collection is: it’s how content is packaged, including Ansible Modules. The modules that you know and love still work exactly the same way you are used to but packaged in a more portable and flexible format.</p>
 <p>The l2_interfaces resource modules configure layer 2 access and trunk ports on network devices.  Lets look at an Ansible Playbook example:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">l2_interfaces example for blog</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">---</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">l2_interfaces example for blog</span></span>
+<span class="line"><span style="color:#85E89D">  hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
+<span class="line"><span style="color:#85E89D">  gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#85E89D">  tasks</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">merge configuration</span></span>
 <span class="line"><span style="color:#85E89D">      arista.eos.eos_l2_interfaces</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">       config</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">       - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Ethernet1</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">           mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">trunk</span></span></code></pre>
+<span class="line"><span style="color:#85E89D">         mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">trunk</span></span></code></pre>
 </div><p>This Ansible Playbook turns network port Ethernet1 into a 802.1q trunk port.  We can run this with verbosity turned on using the -v option to see the return values quickly in our terminal window:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -134,12 +141,12 @@
 </div><p>The commands return value shows us the actual command that Ansible executes to enforce the configuration we specified in our Ansible Playbook.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>commands:</span></span>
-<span class="line"><span>  - interface Ethernet1</span></span>
-<span class="line"><span>  - switchport mode trunk</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">commands</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">interface Ethernet1</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">switchport mode trunk</span></span></code></pre>
 </div><p>Finally, we can look at the after return value, which will show us the new data model on the network device, after we ran the commands specified above.</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -148,38 +155,29 @@
   </div>
   <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">after</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Ethernet1</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">      mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">trunk</span></span></code></pre>
-</div><h2>Using return values</h2>
-<p>The above example only shows verbosity of return values to the terminal window.  The return values can also be stored and used in subsequent tasks.  Let&#39;s look at the following example playbook:</p>
+<span class="line"><span style="color:#85E89D">    mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">trunk</span></span></code></pre>
+</div><h2 id="using-return-values">Using return values</h2><p>The above example only shows verbosity of return values to the terminal window.  The return values can also be stored and used in subsequent tasks.  Let&#39;s look at the following example playbook:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">l2_interfaces example for blog</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">    tasks</span><span style="color:#E1E4E8">:</span></span>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">---</span></span>
+<span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">l2_interfaces example for blog</span></span>
+<span class="line"><span style="color:#85E89D">  hosts</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arista</span></span>
+<span class="line"><span style="color:#85E89D">  gather_facts</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#85E89D">  tasks</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">merge configuration</span></span>
 <span class="line"><span style="color:#85E89D">      arista.eos.eos_l2_interfaces</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">         config</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">       config</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">       - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Ethernet1</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">           mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">trunk</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">example</span></span>
+<span class="line"><span style="color:#85E89D">         mode</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">trunk</span></span>
+<span class="line"><span style="color:#85E89D">      register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">example</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">display output</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">        debug</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#85E89D">          msg</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      debug</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">        msg</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">"before:"</span></span>
 <span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">"{{ example.before | to_nice_yaml }}"</span></span>
 <span class="line"><span style="color:#E1E4E8">          - </span><span style="color:#9ECBFF">""</span></span>
@@ -191,8 +189,7 @@
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%202.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%202.png" alt="sean module blog 2"></a></p>
 <p>(output is also provided in <a href="https://gist.github.com/IPvSean/93490212e528e7607c4e6e76da52d9b6">Public Gist</a>)</p>
 <p>In summary, the return values can be stored and used for auditing, logging or simply helping network engineers understand what has changed, what commands were used to make the change, and what the final configuration looks like post execution.  The most important takeaway from these return values are that they are the same across all platforms and all network resource modules, making the experience predictable and stable for folks using Ansible Network Automation.</p>
-<h2>Where do I go next?</h2>
-<p><strong>Where can I get a trial?</strong></p>
+<h2 id="where-do-i-go-next">Where do I go next?</h2><p><strong>Where can I get a trial?</strong></p>
 <p>If you want to get a trial to Red Hat Ansible Automation Platform, please visit <a href="http://red.ht/try_ansible">red.ht/try_ansible</a></p>
 <p><strong>Where can I learn Ansible?</strong></p>
 <p>Are you new to Ansible automation and want to learn?  Check out our getting started guide lessons on developers.redhat.com: <a href="https://developers.redhat.com/products/ansible/getting-started">developers.redhat.com/products/ansible/getting-started</a></p>
@@ -202,7 +199,10 @@
 <p><strong>I missed AnsibleFest 2020. where is the content?</strong></p>
 <p>We got you covered, check out this video: <a href="https://www.youtube.com/watch?v=YjEPR9jjSD0&t=2s">AnsibleFest 2020! I missed it! Where is the content?</a>  </p>
 <p>Explore everything on-demand for free on <a href="https://www.ansible.com/ansiblefest">www.ansible.com/ansiblefest</a></p>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li><li><a href="/blog/red-hat-ansible-network-automation-updates/">Red Hat Ansible Network Automation Updates</a></li><li><a href="/blog/porting-ansible-network-playbooks-with-new-connection-plugins/">Porting Ansible Network Playbooks with New Connection Plugins</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>
     </article>

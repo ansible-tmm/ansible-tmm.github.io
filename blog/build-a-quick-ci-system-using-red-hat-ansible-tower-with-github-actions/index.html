@@ -50,14 +50,18 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2019-05-16">May 15, 2019</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg"><img src="https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg" alt="RH-Ansible-TowerAPI-with-Github-Actions-Blog"></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> This blog post from Sean Cavanaugh covers his journey of getting Github Actions to work with Red Hat Ansible Tower.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg"><img src="https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg" alt="RH-Ansible-TowerAPI-with-Github-Actions-Blog"></a></p>
 <p>Red Hat Ansible Tower can be considered the API (Application Programmatic Interface) for your Ansible Playbooks. Even if you don’t take advantage of the Web UI (User Interface) many Ansible users still benefit from using Ansible Tower because they can fit it in their existing ecosystem of tools. Are you new to using the API on Ansible Tower and want to learn how to get started? This blog post will cover my own journey of getting Github Actions to work with Red Hat Ansible Tower. My goal was to be able to have Github PRs (Pull Requests) to trigger a workflow template to perform some automated testing using an Ansible <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html">Tower workflow</a>. The popularity of <a href="https://github.com/network-automation/linklight">some Ansible Playbooks I wrote</a> is on the rise, so I thought I’d add some automated testing – just to make sure I didn’t accidentally break something the community was using.</p>
 <p>I created a workflow in Red Hat Ansible Tower to provision instances into AWS (Amazon Web Services), run some Ansible Playbooks on the provisioned Red Hat Enterprise Linux control nodes, then perform a teardown and remove the instances, VPCs and any other artifacts from AWS. This provisioning, testing and teardown allows me to help ensure changes to my Github repo are tested methodically before anything is merged into the master branch. This also helps save time, and that is what automation is all about.</p>
 <p>I think the best approach to building an automated workflow is to reduce the test cases to discrete items and test each one to make sure they work repeatedly before adding the next. This blog post won’t cover my existing Ansible Tower workflow, but we will assume that the workflow works before I start using the API. The second thing I want to do is make sure the API requests are working before I start using Github Actions. I can use the browsable API on Ansible Tower to figure out the exact command I need. I will navigate to https://&lt;my_tower&gt;.<testing>.com/api and find exactly what I want to do. In my case I want to kick off a job template launch, which makes Ansible Tower run the entire workflow.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image4.png" alt="image4"></a></p>
 <p>There is an example of using curl to talk to the Ansible Tower API located in the documentation: <a href="https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#launching-jobs-with-curl">https://docs.ansible.com/ansible-tower/latest/html/administration/tipsandtricks.html#launching-jobs-with-curl</a></p>
-<h2>HTTPie</h2>
-<p>There is another popular open source command line HTTP client called HTTPie. Its goal is to make CLI interaction with web services as human-friendly as possible. For example, this is what an API request to Ansible Tower could look like using HTTPie:</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Solution Guides</p>
+  <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
+  <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+</aside><h2 id="httpie">HTTPie</h2><p>There is another popular open source command line HTTP client called HTTPie. Its goal is to make CLI interaction with web services as human-friendly as possible. For example, this is what an API request to Ansible Tower could look like using HTTPie:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
     <span class="blog-code-block__lang">Text</span>
@@ -65,11 +69,8 @@
   </div>
   <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>~ http POST https://ansible.io/api/v2/job_templates/84/launch/ --auth seanc:password123!</span></span></code></pre>
 </div><p>The above HTTPie command will launch job 84, which is a unique identifier for my workflow job template. You can see what job id represents your job by using the browsable API and listing the jobs out or using the Web UI and looking at the browser window address bar.</p>
-<blockquote>
-<p><strong>Quick note on authentication:</strong> HTTPie supports a variety of authentication plugins including OAuth. In the simple example, we are showing a fake password in plain text. More details on authentication can be found here: <a href="https://github.com/jakubroztocil/httpie#11authentication">https://github.com/jakubroztocil/httpie#11authentication</a></p>
-</blockquote>
-<h2>GitHub Actions</h2>
-<p>I bring up HTTPie because it is already an available Action within Github Actions, so I needed to make sure I knew how HTTPie worked, what parameters I needed, and how to authenticate my requests. It is simple to use and even worked on my older MacOS laptop. It is not because curl is better or worse, I was just trying to use something that had clear examples working in Github Actions. I am sure there are numerous ways I could accomplish the same task.  </p>
+<blockquote><p><strong>Quick note on authentication:</strong> HTTPie supports a variety of authentication plugins including OAuth. In the simple example, we are showing a fake password in plain text. More details on authentication can be found here: <a href="https://github.com/jakubroztocil/httpie#11authentication">https://github.com/jakubroztocil/httpie#11authentication</a></p>
+</blockquote><h2 id="github-actions">GitHub Actions</h2><p>I bring up HTTPie because it is already an available Action within Github Actions, so I needed to make sure I knew how HTTPie worked, what parameters I needed, and how to authenticate my requests. It is simple to use and even worked on my older MacOS laptop. It is not because curl is better or worse, I was just trying to use something that had clear examples working in Github Actions. I am sure there are numerous ways I could accomplish the same task.  </p>
 <p>Now that I have HTTPie working I can start building my Github Actions workflow. When you first click on the Github Actions tab on a repo, you will get a blank page with a “Create a new workflow” green button:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image3-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image3-1.png" alt="image3-1"></a></p>
 <p>Click the green button and name your workflow file (I just used the default). Then click on the blue text “create a new workflow”. This will default you into the Visual editor. You can name the workflow here. For this blog post I am not going to use the Visual editor any further, and preferred to use the &lt;&gt; Edit file tab at the top.</p>
@@ -95,9 +96,16 @@
 <p>Now I simply created a test repo in my organization to play around with my new Github Action workflow. I submitted a test PR from one test branch to another one and it shows up after only 4-5 seconds!</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image2-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image2-2.png" alt="image2-2"></a></p>
 <p>The call httpbin is the name from my Github Action workflow file. You can click on the Details link and see API request and how Red Hat Ansible Tower responded. I hope to show a more feature complete demonstration in the future, but I was able to accomplish my original goal pretty easily after just looking at a few examples! Super big thanks to <a href="https://www.redhat.com/blog/author/chris-short">Chris Short</a> who educated me about Github Actions and encouraged me to sign up for the beta.</p>
-<h2>AnsibleFest 2019</h2>
-<p>Want to talk to the folks writing the blog posts? Come join us in Atlanta, GA September 24-26 at <a href="https://www.redhat.com/ansiblefest">AnsibleFest 2019</a>!</p>
-
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Ansible Product Demos</p>
+  <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
+  <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+</aside><h2 id="ansiblefest-2019">AnsibleFest 2019</h2><p>Want to talk to the folks writing the blog posts? Come join us in Atlanta, GA September 24-26 at <a href="https://www.redhat.com/ansiblefest">AnsibleFest 2019</a>!</p>
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li><li><a href="/blog/ansible-and-packer-why-they-are-better-together/">Using Ansible and Packer, From Provisioning to Orchestration</a></li><li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>
     </article>

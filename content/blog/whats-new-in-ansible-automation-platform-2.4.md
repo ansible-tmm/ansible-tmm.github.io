@@ -15,6 +15,26 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:20:54Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** An overview of new features found in the Ansible Automation Platform 2.4 release
+
+> [!toc]
+> **On this page**
+>
+> - [Event-Driven Ansible](#event-driven-ansible)
+> - [Collection repository management](#collection-repository-management)
+> - [Validated content integration](#validated-content-integration)
+> - [Ansible Builder 3.0](#ansible-builder-30)
+> - [Platform install support for ARM](#platform-install-support-for-arm)
+> - [Platform install support for Linux on Power and Z are in Technology Preview support](#platform-install-support-for-linux-on-power-and-z-are-in-technology-preview-support)
+> - [Updated user interface in Technology Preview support](#updated-user-interface-in-technology-preview-support)
+> - [The Ansible Lightspeed with IBM Watson Code Assistant Technical Preview is now available](#the-ansible-lightspeed-with-ibm-watson-code-assistant-technical-preview-is-now-available)
+> - [Wrap-up, next steps and resources](#wrap-up-next-steps-and-resources)
+
+<!-- blog-enrichment:end -->
+
 [![2.4 banner](https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png)](https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png)
 
 We are excited to announce the general availability of Red Hat Ansible Automation Platform 2.4, which continues to build on our core promise to help customers “Create, Manage, and Scale” their automation.
@@ -68,6 +88,9 @@ NOTE: Ansible partner Event-Driven Ansible source plugins can be certified async
 - [Demo: Using Event-Driven Ansible with Elasticsearch logs!](https://www.youtube.com/watch?v=emHLD4_YcLw&t=5s)
 - [Demo: Respond to DNS events with Event-Driven Ansible!](https://www.youtube.com/watch?v=RBKKgawZiqI&t=1s)
 
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
+
 ## Collection repository management
 
 The goal of the private automation hub in Ansible Automation Platform is to help organizations better control and manage their automation content (and by automation content, we specifically mean [Ansible Content Collections](https://www.ansible.com/products/content-collections) and [Automation execution environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html)). Whether you are producing private content, need to access trusted and fully supported content, or want to integrate community content, the private automation hub can allow an on-premises solution to help manage what teams get access to what content.
@@ -81,6 +104,9 @@ The new collection repository management feature found in Ansible Automation Pla
 Repositories view in private automation hub
 
 This new capability will make it much easier for customers and partners to securely distribute the automation content to the correct teams, which in turn will help them get even more value out of Ansible Automation Platform. Click [here](https://www.redhat.com/products/automation-hub) for more info about Ansible automation hub and private automation hub. 
+
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
 
 ## Validated content integration
 
@@ -172,3 +198,14 @@ Ansible Automation Platform 2.4 is built to be trusted, flexible, and easy to us
 And **platform support on an expanded set of CPU architectures** will ensure more flexibility - and more possibilities.
 
 That’s all for now. Thanks for reading and stay tuned for additional blogs going deeper on some of the new features outlined here today. And as always - happy automating.
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform](/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/)
+> - [Using Ansible and Packer, From Provisioning to Orchestration](/blog/ansible-and-packer-why-they-are-better-together/)
+> - [Ansible Tips and Tricks, Dealing with Unreliable Connections and Services](/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/)
+
+<!-- blog-enrichment:related-end -->

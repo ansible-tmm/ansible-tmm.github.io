@@ -16,6 +16,21 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:21:45Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Red Hat Ansible Automation Platform can assist you here with not only keeping your infrastructure in check, but also giving your teams the peace of mind that systems are running as they should.
+
+> [!toc]
+> **On this page**
+>
+> - [Event-driven automation with systemd](#event-driven-automation-with-systemd)
+> - [Starting with a simple use case](#starting-with-a-simple-use-case)
+> - [Taking it to another level](#taking-it-to-another-level)
+> - [What can I do next?](#what-can-i-do-next)
+
+<!-- blog-enrichment:end -->
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/6irqaHobfUU02G7Z8V0DiCYPGub92sK6UeKSl-Wep_teiIjeAwJ4Ip8ekLzzoGUNrusx0eU1nFtXfs2v6HiC5_KCL1O4_knpTAzdwzK3xiyRGLGFpwISmvUaNZKJ1OQaNKEz_WXv.png)](https://www.redhat.com/rhdc/managed-files/ansible/6irqaHobfUU02G7Z8V0DiCYPGub92sK6UeKSl-Wep_teiIjeAwJ4Ip8ekLzzoGUNrusx0eU1nFtXfs2v6HiC5_KCL1O4_knpTAzdwzK3xiyRGLGFpwISmvUaNZKJ1OQaNKEz_WXv.png)
 
 Over the many years of working as an engineer and architect with a particular interest in storage, I have learned that donuts and energy drinks can really bring you some joy in trying situations. When it seems that your infrastructure is on fire and you need an exorcist to help you find the ghost in the machine, a humble box of glazed donuts can give you and your team a much-needed break and allow you to refocus.
@@ -23,6 +38,9 @@ Over the many years of working as an engineer and architect with a particular in
 Now, the issue with this habit is that it might help you in the moment, but over time this can become a real health issue. Configuration drift, technical issues, and technical debt can all have similar effects on your health, increasing your heart rate and causing sleepless nights. Red Hat Ansible Automation Platform can assist you here with not only keeping your infrastructure in check, but also giving your teams the peace of mind that systems are running as they should.
 
 Being able to schedule compliance checks on your systems with Ansible Automation Platform enables you to preserve configuration and system states, and keep them running the way you prefer. But sometimes this is not proactive enough. What if you have a security breach? Or if your application data is removed in error? In some instances, you cannot afford to wait for the regular maintenance schedule to trigger remediation. Enabling your systems to self-remediate or trigger self-compliance is an awesome way of keeping you cozy in your bed dreaming about the next Ansible Automation Platform release with all its magic and wizardry.
+
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
 
 ## Event-driven automation with systemd
 
@@ -174,6 +192,9 @@ The following demo video will be monitoring components with systemd and use the 
 
 ## 
 
+> [!callout type=tmm label="TMM tool" title="AAP CVE Report" url="https://ansible-tmm.github.io/aap_cve_report/" cta="Open tool"]
+> Explore CVE information relevant to Ansible Automation Platform.
+
 ## What can I do next?
 
 Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:
@@ -182,3 +203,14 @@ Whether you are beginning your automation journey or a seasoned veteran, there a
 - [Trial subscription](http://red.ht/try_ansible) - Are you ready to install on-premises? Get your own trial subscription for unlimited access to all the components of Ansible Automation Platform.
 - [Subscribe to the Red Hat Ansible Automation Platform YouTube channel.](https://www.youtube.com/ansibleautomation) Be sure to check out our new web series, [Automated Live hosted by Colin McNaughton.](https://www.redhat.com/en/technologies/management/ansible/automated-live-videos)
 - [Follow Red Hat Ansible](https://twitter.com/ansible) [Automation Platform](https://www.youtube.com/ansibleautomation) [on Twitter](https://twitter.com/ansible) - Do you have questions or an automation project you want to show off? Tweet at us!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
+> - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+
+<!-- blog-enrichment:related-end -->

@@ -16,6 +16,13 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:39Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Learn how to connect Windows servers with Ansible Automation Platform to help simplify, standardize, and scale your IT environment.
+
+<!-- blog-enrichment:end -->
+
 “We are the Borg. Lower your shields and surrender your ships. We will add your technological distinctiveness to our own and add it to our Red Hat Ansible Automation Platform inventory.”
 
 Okay, so I added the last part but I am certain that in that sci-fi universe the Borg and Federation would be big users of Ansible.
@@ -25,6 +32,9 @@ Spock once said, “Superior ability breeds superior ambition.” One of the b
 Now Windows–we all love Windows. We love it even more since it can also be automated with Ansible. Windows automation with Ansible is becoming increasingly popular. In this blog, I hope to add some “technical distinctiveness to our own” and show you how to “assimilate” Windows hosts using Ansible.
 
 Windows administrators around the galaxy have a number of tools they use to manage their enterprise. These tools might serve the purpose for Windows administration but they inherently create a silo and rely on specialized expertise which we want to avoid. Imagine not being able to get the USS Enterprise to bring its shields up because we don’t have the correct tool or a specific engineer to do the job. Using a centralized platform with shared skill sets that can control the shields, the warp drive, the Holodeck, and the captain’s massage chair just makes practical and business sense. In an IT environment, Red Hat Ansible Automation Platform does exactly this.
+
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
 
 ## Captains Log: Connecting to Windows
 
@@ -38,6 +48,7 @@ The execution environment I'm using for my Windows automation has the following 
 
 |  |  |
 | --- | --- |
+
 ```yaml
 requirements.yml
 --- collections:
@@ -123,3 +134,14 @@ Whether you are beginning your automation journey or a seasoned veteran, there a
 - [Trial subscription](http://red.ht/try_ansible) - Are you ready to install on-premises? Get 60 days of unlimited access to all the components of Ansible Automation Platform.
 - [Subscribe to the Red Hat Ansible Automation Platform YouTube channel.](https://www.youtube.com/ansibleautomation)
 - [Follow Red Hat Ansible Automation Platform on Twitter](https://twitter.com/ansible) - Do you have questions or an automation project you want to show off? Tweet at us!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
+> - [Event-Driven Ansible: Simplified event routing with Event Streams](/blog/event-driven-ansible-simplified-event-routing-event-streams/)
+> - [Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform](/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/)
+
+<!-- blog-enrichment:related-end -->

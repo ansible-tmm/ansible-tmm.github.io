@@ -16,6 +16,13 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:21:40Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Implement Automated ChatOps: Learn how to use event-driven automation to take action from chat information.
+
+<!-- blog-enrichment:end -->
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/pszGMvKzusRlBORTiEl3U2nfqYiLB-CnvtSqfV0pRJLcMAZs3UuJJDM7xTZB5owVZ_wlUawLqid-WJpYfaL__-MB3KX5VynTDwv5Nn2BpT2OBIc9Cb0eUL44kGnpSrWJo3Hi1CSldqrL06ZcyiW--YQ_0.png)](https://www.redhat.com/rhdc/managed-files/ansible/pszGMvKzusRlBORTiEl3U2nfqYiLB-CnvtSqfV0pRJLcMAZs3UuJJDM7xTZB5owVZ_wlUawLqid-WJpYfaL__-MB3KX5VynTDwv5Nn2BpT2OBIc9Cb0eUL44kGnpSrWJo3Hi1CSldqrL06ZcyiW--YQ_0.png)
 
 Like any well-rounded individual, in times of intense concentration, you will find me talking to myself in search of some hidden knowledge that I might have received in a dream, or perhaps quoting something from a fantasy novel about wizards and creatures in an attempt to fix a problem. Unfortunately, wearing a robe and shouting “Repairo Network!” while pointing my pen toward the device has yet to help in any situation.
@@ -23,6 +30,9 @@ Like any well-rounded individual, in times of intense concentration, you will fi
 At the 2023 AnsibleFest, as part of the main stage demonstration, I used the magic of Event-Driven Ansible to integrate ChatOps in our fictional infrastructure drama. ChatOps is not new, but I think it's a pretty cool way to make changes or interact with your infrastructure.
 
 We know that Event-Driven Ansible requires a source for events, a list of conditions which we call rulesets, and ultimately an action to match those conditions, which makes it perfect to use as a chatbot-type system.
+
+> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> Step-by-step guide from the Ansible TMM team.
 
 For me to have a heart-to-heart with my beloved network, I will need to configure my chat as a source of events for Event-Driven Ansible, and to do this, I will use the webhook source plugin, which is part of the [ansible.eda](https://galaxy.ansible.com/ansible/eda) collection. Many enterprise chat platforms provide a method to send and receive webhooks to trigger words in the chat, which is perfect for what we want to do.
 
@@ -36,6 +46,9 @@ For me to have a heart-to-heart with my beloved network, I will need to configur
 - Feedback notification will be sent from the action as an incoming webhook to the chat.
 
 Now that the fundamentals are done, let's look at how we could use this.
+
+> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> From chat message to automated action with the TMM team walkthrough.
 
 I have a network configured with three interconnected switches, got my chat system up and have Event-Driven Ansible listening with my rulebooks activated!
 
@@ -223,3 +236,14 @@ There you have it! We have been able to use incoming and outgoing webhooks as so
 - Grab these code examples on the [GitHub repo](https://github.com/nmartins0611/eda_chatops_blog)
 - Learn more about [Event-Driven Ansible](https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible)
 - Join the [Ansible Community Forum](https://forum.ansible.com/) to discuss this [blog post](https://forum.ansible.com/t/event-driven-ansible-chatops-from-chat-to-action/279)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Addressing NetOps issues with Event-Driven Ansible](/blog/addressing-netops-issues-with-event-driven-ansible/)
+> - [Join Red Hat Ansible Automation Platform at AutoCon 2](/blog/red-hat-ansible-will-be-autocon2/)
+> - [Ansible Network Resource Modules: Deep Dive on Return Values](/blog/ansible-network-resource-modules-deep-dive-on-return-values/)
+
+<!-- blog-enrichment:related-end -->

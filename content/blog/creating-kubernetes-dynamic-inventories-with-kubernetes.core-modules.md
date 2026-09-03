@@ -15,6 +15,13 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:21:58Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** A quick start guide on how you can create an Ansible Playbook to retrieve your pods within a namespace and generate a Kubernetes dynamic inventory.
+
+<!-- blog-enrichment:end -->
+
 [![roger kube.core blog aug 5 22](https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png)](https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png)
 
 When managing infrastructure, there are times when a dynamic inventory is essential. Kubernetes is a perfect example of this where you may create multiple applications within a namespace but you will not be able to create a static inventory due to Kubernetes appending a systems-generated string to uniquely identify objects.
@@ -36,7 +43,7 @@ While this task would capture every pod within that namespace, you could further
 This would target only the automation controller pods from within my `ansible-automation-platform` namespace.
 
 Once the pods are registered, take your list and use the `add_host` module to dynamically add those pods to your inventory. One key piece from this `add_host` module is that I’ve included the `ansible_kubectl_namespace` var within the task. When adding pods to your host list, you need to provide their namespace, because without adding this variable it assumes the namespace is the default namespace.  
-  
+
 **NOTE**: If you want to use [kubernetes connection plugin parameters](https://docs.ansible.com/ansible/latest/collections/kubernetes/core/kubectl_connection.html), you need to prefix `ansible_` to them. In this example, I used the `kubectl_namespace` and prefixed ansible to get `ansible_kubectl_namespace`.
 
 [![Screen Shot 2022-08-05 at 3.26.09 PM](https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.26.09%20PM.png)](https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.26.09%20PM.png)
@@ -51,6 +58,9 @@ Now with your dynamically built inventory, you can run tasks against this pod in
 
 And there it is! One method of creating an inventory of your pods that you can then run tasks against.
 
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
+
 ## What can I do next?
 
 Whether you are beginning your automation journey or are a seasoned veteran, there are a variety of resources to enhance your automation knowledge:
@@ -59,3 +69,14 @@ Whether you are beginning your automation journey or are a seasoned veteran, the
 - [Self-paced exercises](https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218) - Check out our interactive, in-browser exercises to learn and dive into Ansible Automation Platform
 - [Subscribe to the Red Hat Ansible Automation Platform YouTube channel.](https://www.youtube.com/ansibleautomation) Be sure to check out our web series, [Automated Live hosted by Colin McNaughton.](https://www.redhat.com/en/technologies/management/ansible/automated-live-videos)
 - [Follow Red Hat Ansible](https://twitter.com/ansible) [Automation Platform](https://www.youtube.com/ansibleautomation) [on Twitter](https://twitter.com/ansible) and myself [@Lopez](https://twitter.com/Lopez) - Do you have questions or an automation project you want to show off? Tweet at us!
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application](/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/)
+> - [Ansible Automation Platform … You’re using it wrong.](/blog/ansible-automation-platform-youre-using-it-wrong/)
+> - [New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift](/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/)
+
+<!-- blog-enrichment:related-end -->

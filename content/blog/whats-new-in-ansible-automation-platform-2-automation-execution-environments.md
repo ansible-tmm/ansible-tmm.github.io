@@ -15,6 +15,13 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:20:43Z'
 ---
 
+<!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Ansible Automation Platform 2 introduces “automation execution environments.” These are atomic images on which all automation is run.
+
+<!-- blog-enrichment:end -->
+
 [![aap 2 gray flying as-1](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png)
 
 Red Hat Ansible Automation Platform 2 is now available to customers. This release expands the possibilities of automation across your organization, with a more secure, flexible foundation to build and deploy automation with greater acceleration, orchestration and innovation.
@@ -31,6 +38,9 @@ As automation usage/practices/etc. spreads throughout an organization, managing 
 
 Having consistent, reliable automation is key to a successful automation initiative. One Ansible Automation Platform customer had their internal administration team maintaining over 40 different virtual environments for various teams. Some used different versions of Ansible; network teams required different automation content (and dependencies) for their specific devices, and developers built their own environments for testing.
 
+> [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
+> Outcome-focused guides for infrastructure and IT automation challenges.
+
 There were no platform tools to support and maintain these environments other than documentation pointing to the de facto solution of specific python virtual environments. This caused custom environments to proliferate, drift to happen between development and production, and an increase in the cost and complexity of automation. Furthermore, this burden landed on the platform administrator to keep track of while maintaining everything as operational.
 
 Ansible Automation Platform 2 introduces a new construct called automation execution environments. These are atomic images on which all automation is run. Automation execution environments contain the following:
@@ -46,6 +56,9 @@ This provides a standardized way to define, build and distribute the environment
 #### **Role of automation execution environments in Ansible Automation Platform 2.0**
 
 [![](https://www.redhat.com/rhdc/managed-files/ansible/ABU%20Blog%20%7C%20Whats%20new%20in%20Ansible%20Automation%20Platform%202%20automation%20execution%20environments-1.png)](https://www.redhat.com/rhdc/managed-files/ansible/ABU%20Blog%20%7C%20Whats%20new%20in%20Ansible%20Automation%20Platform%202%20automation%20execution%20environments-1.png)
+
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 *Automation controller 4.0 architecture*
 
@@ -84,3 +97,14 @@ The Ansible Automation Platform 2 release includes a myriad of new features that
 - If you’re ready to get hands-on, we have [self-paced interactive labs available](https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218) to explore new Ansible Automation Platform 2 technologies.
 - If you are a Red Hat customer, please visit the[Ansible Automation Platform 2 landing page](https://red.ht/AAP-20) in the Red Hat Customer Portal that consolidates all our documentation and guidance available to you.
 - [Please reach out to your local Red Hat representative to assist your organization in getting started with Ansible Automation Platform 2.0](https://www.ansible.com/contact-us)
+
+<!-- blog-enrichment:related -->
+
+> [!related]
+> **More from the team**
+>
+> - [The anatomy of automation execution environments](/blog/the-anatomy-of-automation-execution-environments/)
+> - [Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2](/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/)
+> - [Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience](/blog/new-red-hat-ansible-development-tools/)
+
+<!-- blog-enrichment:related-end -->

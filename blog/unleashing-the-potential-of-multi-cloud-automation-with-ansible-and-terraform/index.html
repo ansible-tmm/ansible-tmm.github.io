@@ -50,7 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2023-07-27">July 26, 2023</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/K16eLSpf-OiuYmYSkshiYKFiA2OtHa4jAZv-ces2vmkphiLSdv8OkgWInyg6-7dWfHT164OTugpZ9qyLcG3Ey9pC28ty1bMiAPy_5paBTEzWZvSEIfp5_I_GvYugu1ikTXX0liBv_u8SeBzwp441Xdc_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/K16eLSpf-OiuYmYSkshiYKFiA2OtHa4jAZv-ces2vmkphiLSdv8OkgWInyg6-7dWfHT164OTugpZ9qyLcG3Ey9pC28ty1bMiAPy_5paBTEzWZvSEIfp5_I_GvYugu1ikTXX0liBv_u8SeBzwp441Xdc_0.png" alt=""></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog, we will look at how to employ Ansible, a powerful automation tool, to tap into the immense potential of multi-cloud environments.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/K16eLSpf-OiuYmYSkshiYKFiA2OtHa4jAZv-ces2vmkphiLSdv8OkgWInyg6-7dWfHT164OTugpZ9qyLcG3Ey9pC28ty1bMiAPy_5paBTEzWZvSEIfp5_I_GvYugu1ikTXX0liBv_u8SeBzwp441Xdc_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/K16eLSpf-OiuYmYSkshiYKFiA2OtHa4jAZv-ces2vmkphiLSdv8OkgWInyg6-7dWfHT164OTugpZ9qyLcG3Ey9pC28ty1bMiAPy_5paBTEzWZvSEIfp5_I_GvYugu1ikTXX0liBv_u8SeBzwp441Xdc_0.png" alt=""></a></p>
 <p>In today&#39;s rapidly evolving digital landscape, businesses are dependent on streamlined processes and efficient systems more than ever. One such revolutionary pathway towards a more efficient and flexible IT infrastructure is multi-cloud automation. In this blog, we will look at how to employ Ansible, a powerful automation tool, to tap into the immense potential of multi-cloud environments. We take you on a journey behind the scenes of our interactive labs, where our customers and prospects acquire hands-on experience with Ansible while exploring its newest features. In our labs, public clouds such as Google Cloud, AWS, and Microsoft Azure are showcased. Using Ansible we can orchestrate a symphony of seamless provisioning and optimal multi-cloud management. So, buckle up for a deep dive into the realm of multi-cloud automation, where complexity is simplified, and potential is unleashed.</p>
 <p>The Ansible Technical Marketing team uses a variety of tools to create training labs and technical sales workshops for our field teams and customers. One of our training platforms includes Instruqt, an as-a-service learning platform, to help us create <a href="https://www.redhat.com/en/interactive-labs/ansible">sandbox environments that can be run in your browser window</a>. For technical tools behind the scenes, we use a combination of Ansible and Packer to build cloud images, while we use Terraform to help provision images and containers onto Google Cloud, then use Ansible to customize our labs on a per-lab basis. You might be wondering, Ansible <strong>and</strong> Terraform? Ansible and Terraform are two very powerful but unique open source IT tools that are often compared. I have <a href="https://www.ansible.com/blog/ansible-vs.-terraform-demystified">wrote about them before in a previous blog</a>, but it is sufficient to say that the two tools are better together and can work in harmony to create a better experience for developers and operations teams. We also employ GitHub as our source of truth, so you can look at our secret sauce <a href="https://github.com/ansible/instruqt">online here</a>.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/E_GEh9A03CPVhCkgJDG-LyMrf_c_ox0xCbVOV2y7PaBbpWJewcSYwRABL6rf9J5RkFxJruKaUzHqwtZeyhJpvU2gR0lQbIZni7HHYtAy6A2-Q-p8NPjZdU-75otbTbrUmPYaFyMBFaRMNkeModDg6Eg_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/E_GEh9A03CPVhCkgJDG-LyMrf_c_ox0xCbVOV2y7PaBbpWJewcSYwRABL6rf9J5RkFxJruKaUzHqwtZeyhJpvU2gR0lQbIZni7HHYtAy6A2-Q-p8NPjZdU-75otbTbrUmPYaFyMBFaRMNkeModDg6Eg_0.png" alt=""></a></p>
@@ -63,41 +63,26 @@
 <p>In the second tab we have access to an ephemeral AWS public cloud account. Instruqt will set environment variables for automation controller for us to use how we see fit. As soon as a lab launches, we launch an Ansible Playbook to further customize the lab. Let’s see an example of how we can immediately take advantage of these environment variables:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">YAML</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>name: add aws credential to automation controller</span></span>
-<span class="line"><span>  awx.awx.credential:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      name: aws_credential</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      description: Amazon Web Services</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      organization: "Default"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      state: present</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      credential_type: "Amazon Web Services"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      controller_username: "{{ username }}"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      controller_password: "{{ admin_password }}"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      controller_host: "https://{{ ansible_host }}"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      validate_certs: false</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>      inputs:</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        username: "{{ lookup('env','INSTRUQT_AWS_ACCOUNT_AWSACCOUNT_AWS_ACCESS_KEY_ID') }}"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>        password: "{{ lookup('env','INSTRUQT_AWS_ACCOUNT_AWSACCOUNT_AWS_SECRET_ACCESS_KEY') }}"</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    register: controller_try</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    retries: 5</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>    until: controller_try is not failed</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">- </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">add aws credential to automation controller</span></span>
+<span class="line"><span style="color:#85E89D">  awx.awx.credential</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">aws_credential</span></span>
+<span class="line"><span style="color:#85E89D">    description</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Amazon Web Services</span></span>
+<span class="line"><span style="color:#85E89D">    organization</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Default"</span></span>
+<span class="line"><span style="color:#85E89D">    state</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">present</span></span>
+<span class="line"><span style="color:#85E89D">    credential_type</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Amazon Web Services"</span></span>
+<span class="line"><span style="color:#85E89D">    controller_username</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ username }}"</span></span>
+<span class="line"><span style="color:#85E89D">    controller_password</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ admin_password }}"</span></span>
+<span class="line"><span style="color:#85E89D">    controller_host</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"https://{{ ansible_host }}"</span></span>
+<span class="line"><span style="color:#85E89D">    validate_certs</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#85E89D">    inputs</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">      username</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ lookup('env','INSTRUQT_AWS_ACCOUNT_AWSACCOUNT_AWS_ACCESS_KEY_ID') }}"</span></span>
+<span class="line"><span style="color:#85E89D">      password</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"{{ lookup('env','INSTRUQT_AWS_ACCOUNT_AWSACCOUNT_AWS_SECRET_ACCESS_KEY') }}"</span></span>
+<span class="line"><span style="color:#85E89D">  register</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">controller_try</span></span>
+<span class="line"><span style="color:#85E89D">  retries</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">5</span></span>
+<span class="line"><span style="color:#85E89D">  until</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">controller_try is not failed</span></span></code></pre>
 </div><p>When a student goes through the lab, they can see the credential is already pre-setup for them in automation controller:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ctPqsW_31t0NfZbirSq4H9B6xPkDlU_fzKJg5eZj-NPKb1i-DVf8pXctBdXGeJFwCYfHA9baXPuXZXlDwj074GOpy2LdHxWJyPDz5r5Wvs1TTUDXGXdl4-QXAz1gERhNhFdnEsCumidts910WWp4s5A_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ctPqsW_31t0NfZbirSq4H9B6xPkDlU_fzKJg5eZj-NPKb1i-DVf8pXctBdXGeJFwCYfHA9baXPuXZXlDwj074GOpy2LdHxWJyPDz5r5Wvs1TTUDXGXdl4-QXAz1gERhNhFdnEsCumidts910WWp4s5A_0.png" alt=""></a></p>
 <p>In addition, Ansible Automation Platform will auto-provision two RHEL instances into AWS cloud. This effectively means, although we don’t advertise it, you are performing multi-cloud automation every time one of our hybrid cloud demos is performed. Automation controller is running on RHEL 9 on Google Cloud, but the virtual machines we are automating, as well as some operational cloud automation, are all on AWS. Here is a look at a simple diagram illustrating this point:</p>
@@ -105,14 +90,21 @@
 <p>Now the lab simply walks the student through how to create automation jobs in automation controller to create some dynamic documentation:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/B8JdaG6PK-vB_eMpaaQ5ExKOmRwbVcJISv7BjGjlRpPjC2HmYcmJSVTSStH6nImWvqdqf-eWCNpUM2QluWWMyZ5js6QxCS2YRnlt9vx8KrXM4BAZGIGzYn6CBwG1gaTJ9KMz8xOVp40C6NQGsczDm0A_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/B8JdaG6PK-vB_eMpaaQ5ExKOmRwbVcJISv7BjGjlRpPjC2HmYcmJSVTSStH6nImWvqdqf-eWCNpUM2QluWWMyZ5js6QxCS2YRnlt9vx8KrXM4BAZGIGzYn6CBwG1gaTJ9KMz8xOVp40C6NQGsczDm0A_0.png" alt=""></a></p>
 <p>Using Ansible Automation Platform, your organization can enact read-only operations that provide insight into what is running on your clouds and deliver immediate value without the risk of use cases that require production changes. Ansible Automation Platform makes it possible to aggregate information from your various environments and cloud services into a single, customizable management interface to help you understand your entire cloud environment. Through this unified management interface, you can use that information to create inventories and data reports to better inform your hybrid cloud management decisions.</p>
-<h2>Where do I go next?</h2>
-<p>Check out these resources to learn more:</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Solution Guides</p>
+  <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
+  <a class="blog-callout__cta" href="https://ansible-tmm.github.io/solution-guides/">Browse guides →</a>
+</aside><h2 id="where-do-i-go-next">Where do I go next?</h2><p>Check out these resources to learn more:</p>
 <ul>
 <li>This 2 page datasheet: Get started with infrastructure visibility for your hybrid cloud</li>
 <li>This IDC spotlight sponsored by Red Hat: Cloud automation delivers business value, Doc #US49289622, June 2022</li>
 <li>Red Hat Ansible Interactive Labs: <a href="https://red.ht/ansible_labs">https://red.ht/ansible_labs</a></li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform/">Easy automation for Microsoft Windows Server and Azure with Ansible Automation Platform</a></li><li><a href="/blog/importing-ansible-validated-content-into-private-automation-hub/">Importing Ansible Validated Content into Private Automation Hub</a></li><li><a href="/blog/red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace/">Red Hat Ansible Automation Platform on Google Cloud Marketplace</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#sean-cavanaugh">Sean Cavanaugh</a></p></footer>
     </article>

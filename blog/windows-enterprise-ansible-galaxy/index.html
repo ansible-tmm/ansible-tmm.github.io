@@ -50,13 +50,17 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2024-03-04">March 3, 2024</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <p>“We are the Borg. Lower your shields and surrender your ships. We will add your technological distinctiveness to our own and add it to our Red Hat Ansible Automation Platform inventory.”</p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Learn how to connect Windows servers with Ansible Automation Platform to help simplify, standardize, and scale your IT environment.</aside><p>“We are the Borg. Lower your shields and surrender your ships. We will add your technological distinctiveness to our own and add it to our Red Hat Ansible Automation Platform inventory.”</p>
 <p>Okay, so I added the last part but I am certain that in that sci-fi universe the Borg and Federation would be big users of Ansible.</p>
 <p>Spock once said, “Superior ability breeds superior ambition.” One of the biggest benefits of Ansible is that it is use case friendly, meaning that it is able to provide automation to almost every part of the technology stack. Multi-vendor network appliances, hybrid cloud, infrastructure–these are all common projects for Ansible automation. With the latest addition of Event-Driven Ansible to the platform, we have the ability to automate those mission critical platforms and applications. Ansible has the superior ability to your superior ambition.</p>
 <p>Now Windows–we all love Windows. We love it even more since it can also be automated with Ansible. Windows automation with Ansible is becoming increasingly popular. In this blog, I hope to add some “technical distinctiveness to our own” and show you how to “assimilate” Windows hosts using Ansible.</p>
 <p>Windows administrators around the galaxy have a number of tools they use to manage their enterprise. These tools might serve the purpose for Windows administration but they inherently create a silo and rely on specialized expertise which we want to avoid. Imagine not being able to get the USS Enterprise to bring its shields up because we don’t have the correct tool or a specific engineer to do the job. Using a centralized platform with shared skill sets that can control the shields, the warp drive, the Holodeck, and the captain’s massage chair just makes practical and business sense. In an IT environment, Red Hat Ansible Automation Platform does exactly this.</p>
-<h2>Captains Log: Connecting to Windows</h2>
-<p>To connect to Windows hosts and automate them, we need to use WinRM (instead of SSH) and create an execution environment to run our automation tasks with the collections we use for Windows. Yes, we have certified and supported content collections for Windows as well as for tools like Chocolatey that can be used to deploy applications on Windows hosts.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">Team resource</span>
+  <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
+  <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
+  <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
+</aside><h2 id="captains-log-connecting-to-windows">Captains Log: Connecting to Windows</h2><p>To connect to Windows hosts and automate them, we need to use WinRM (instead of SSH) and create an execution environment to run our automation tasks with the collections we use for Windows. Yes, we have certified and supported content collections for Windows as well as for tools like Chocolatey that can be used to deploy applications on Windows hosts.</p>
 <p>If you are new to Ansible Automation Platform, execution environments are purpose-built containers that contain everything you need to automate with Ansible. You create these execution environments with the required collections that Ansible will need to run your job templates.</p>
 <p><strong>Note:</strong> To find out more about execution environments, have a look at: <a href="https://www.ansible.com/blog/the-anatomy-of-automation-execution-environments">The anatomy of automation execution environments</a></p>
 <p>The execution environment I&#39;m using for my Windows automation has the following requirement.yml:</p>
@@ -111,8 +115,7 @@
 <span class="line"><span style="color:#6A737D">## Regedit to filter access tokens</span></span>
 <span class="line"><span style="color:#E1E4E8">$regInfo </span><span style="color:#F97583">=</span><span style="color:#F97583"> @</span><span style="color:#E1E4E8">{    Path         </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"</span><span style="color:#E1E4E8">    Name         </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "LocalAccountTokenFilterPolicy"</span><span style="color:#E1E4E8">    Value        </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">    PropertyType </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "DWord"</span><span style="color:#E1E4E8">    Force        </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> $true</span><span style="color:#E1E4E8"> }</span></span>
 <span class="line"><span style="color:#79B8FF">New-ItemProperty</span><span style="color:#E1E4E8"> @regInfo</span></span></code></pre>
-</div><h2>Windows: Engage!</h2>
-<p>We have our execution environment with our Windows collections and we have our hosts configured with WinRM. Now We need to configure these hosts in our inventory on Ansible Automation Platform and, since it&#39;s Windows, a bit more information around these hosts is needed. In my inventory, I have Windows hosts managed within a group and I have used group variables to define some of the details.</p>
+</div><h2 id="windows-engage">Windows: Engage!</h2><p>We have our execution environment with our Windows collections and we have our hosts configured with WinRM. Now We need to configure these hosts in our inventory on Ansible Automation Platform and, since it&#39;s Windows, a bit more information around these hosts is needed. In my inventory, I have Windows hosts managed within a group and I have used group variables to define some of the details.</p>
 <p><img src="https://lh7-us.googleusercontent.com/zXNoRpQtZZlt2DETgf8E8iXFksOz1SDdAM4UsOrIGYSMmL7MfkZXFb6mrnQPnhKuEK1KVg_7JbCxbWXGGWwZNQG8D7C7HObyFO_y_sHvw1_dgI2CWFLlqXQUYjV6nsk_TioLYKI2HpQP36jOgIW8U34" alt=""></p>
 <p>We will use these details when we attempt to connect to the Windows systems. We can now add our hosts to this group so they inherit the inventory variables we have defined at the group level. In my example, just like a totally logical Vulcan, my host is called windows.</p>
 <p><img src="https://lh7-us.googleusercontent.com/qKfyYQ-zqUz7XTk1nl00v-aYUDgBbbYbHLDGvpRSb19St5sME4W20HCaJC-hICqnIamp0_m7SkZ9XgjuQbTRfXBMxI5NTxwGIeiystrm2WWzC2zDn2yuitgpRigwQgEC5l_MAY8PCvmq_gHdearg_yo" alt=""></p>
@@ -129,15 +132,17 @@
 <p>We can then engage, I mean, launch. Our module should return a ”pong” for our “ping” if connectivity is successful. This means we are ready to automate!</p>
 <p><img src="https://lh7-us.googleusercontent.com/zilR81etZWSy0GgrYbv0VbYfgKBuHMG6WWJW2TQWr9zLRFdS0f9OPTbiLUP0dpDHEx25rJRHCrF23T1A6kX7d-EcPDctaA5az8W4iCv9ont9GAMSceptLDSh7ymot-uNDStzPW-vy9841xd2gDUXz9A" alt=""></p>
 <p>We are ready to automate!</p>
-<h2>What can I do next?</h2>
-<p>Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
+<h2 id="what-can-i-do-next">What can I do next?</h2><p>Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
 <ul>
 <li>Self-paced exercises - We have interactive, in-browser exercises to learn and dive into Ansible Automation Platform.</li>
 <li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to install on-premises? Get 60 days of unlimited access to all the components of Ansible Automation Platform.</li>
 <li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a></li>
 <li><a href="https://twitter.com/ansible">Follow Red Hat Ansible Automation Platform on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li><li><a href="/blog/event-driven-ansible-simplified-event-routing-event-streams/">Event-Driven Ansible: Simplified event routing with Event Streams</a></li><li><a href="/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/">Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#nuno-martins">Nuno Martins</a></p></footer>
     </article>

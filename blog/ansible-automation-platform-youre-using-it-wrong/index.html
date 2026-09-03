@@ -50,45 +50,42 @@
         <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2023-04-03">April 2, 2023</time> · 3-minute read</p>
       </header>
       <div class="blog-post-content">
-        <h2>5 things you didn’t know your Red Hat Ansible Automation Platform could do</h2>
-<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png" alt="5 things blog post"></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Discover 5 lesser-known features of Red Hat Ansible Automation Platform, like callback plugins &amp; job slicing, to optimize your automation experience.</aside><h2 id="5-things-you-didnt-know-your-red-hat-ansible-automation-platform-could-do">5 things you didn’t know your Red Hat Ansible Automation Platform could do</h2><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png" alt="5 things blog post"></a></p>
 <p>When we think about automation, we tend to focus on efficiency. Automating simple or even complex tasks to streamline our processes - It’s one of the reasons organizations adopt and implement Red Hat Ansible Automation Platform.</p>
 <p>But what if we can take our automation abilities to the next level?</p>
 <p>In this blog post, I’m going to highlight 5 things you didn’t know your Ansible Automation Platform could do.</p>
-<h3>Callback Plugins</h3>
-<p>Ever need a job to notify you, log events, or capture the performance of a playbook?</p>
+<h3 id="callback-plugins">Callback Plugins</h3><p>Ever need a job to notify you, log events, or capture the performance of a playbook?</p>
 <p>Say hello to callback plugins. These plugins provide a way for Ansible to respond to particular events. In order to enable callback plugins, you&#39;ll need to tweak your job settings and supply the directory location in the Ansible callback plugins section. </p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/hvme1ryAl_H_QiRC3XwmQEMddOI-2Xkwe_QR1RMosWAXa5vEAtxtUF8Ca-qiDfU-z4M_kbHqX5l9VNqMSKJWb_CkuLa5FSoAClmKREz01eySAa_4ZkJDcgnRf_I0XSoWfOQQXdT7JEKJ_U9_SrWctws_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/hvme1ryAl_H_QiRC3XwmQEMddOI-2Xkwe_QR1RMosWAXa5vEAtxtUF8Ca-qiDfU-z4M_kbHqX5l9VNqMSKJWb_CkuLa5FSoAClmKREz01eySAa_4ZkJDcgnRf_I0XSoWfOQQXdT7JEKJ_U9_SrWctws_0.png" alt=""></a></p>
 <p>For example, the <a href="https://docs.ansible.com/ansible/latest/collections/community/general/log_plays_callback.html#ansible-collections-community-general-log-plays-callback">log_plays</a> callback plugin records playbook events to a log file, while the <a href="https://docs.ansible.com/ansible/latest/collections/community/general/mail_callback.html#ansible-collections-community-general-mail-callback">mail</a> callback plugin can send emails on playbook failures. </p>
 <p>A list of available callback plugins can be found within the <a href="https://t.co/Pcpug18nfL">Ansible documentation</a>. </p>
-<h3>JSON Output</h3>
-<p>Looking for an easy way to view your Ansible output in JSON format? Take advantage of the Ansible API.</p>
+<h3 id="json-output">JSON Output</h3><p>Looking for an easy way to view your Ansible output in JSON format? Take advantage of the Ansible API.</p>
 <p>When a job runs within Ansible Automation Platform, it contains a job ID.</p>
 <p>If you visit the job events URL for that particular job ID (<code>https://&lt;controller-server-name&gt;/api/v2/jobs/&lt;job_id&gt;/job_events</code>), you get instant access to your playbook output in JSON format!</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/veizmKgWg_IreDRsP-uGQ7HfiwNbqhXBZT9rjkRX1ByxC2n8SQQ2HqGs7dsA9uQnoQ0y5SswKDrY4VfGK2DT62_6sMO-qFr3_pzHRFbHKWe3WnXq40L4OX-Y3CssOhq71T90K73NL9cEWTMzCNTf3e4_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/veizmKgWg_IreDRsP-uGQ7HfiwNbqhXBZT9rjkRX1ByxC2n8SQQ2HqGs7dsA9uQnoQ0y5SswKDrY4VfGK2DT62_6sMO-qFr3_pzHRFbHKWe3WnXq40L4OX-Y3CssOhq71T90K73NL9cEWTMzCNTf3e4_0.png" alt=""></a></p>
-<h3>Dynamic Inventories</h3>
-<p>Do you ever use a dynamic inventory but only need to access a few servers from the list?</p>
+<h3 id="dynamic-inventories">Dynamic Inventories</h3><p>Do you ever use a dynamic inventory but only need to access a few servers from the list?</p>
 <p>Use the Limit field within your Job templates. This ensures that only the specific host(s) or group(s) specified within the Limit field apply to your Ansible Job.</p>
 <p>For example, if I want to make only changes to <code>webservers</code> and <code>dbservers</code> groups, add <code>webservers:dbservers</code> in the Limit field within your Ansible Job Template.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/b9dY6c4gr_sg4bafKvdMlsDSFgmzkDLCEnn9ZAO6XIQ7vuWvWQluYGuEvSwYYrYj7OBJEvQa3IlMJdY_Zuqo_xFeGhTwizF-E5TcFFc84ceGHQYYpt4nd4i9v-v_GED-N_LMwNthFfH6mh69oG7GGIc_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/b9dY6c4gr_sg4bafKvdMlsDSFgmzkDLCEnn9ZAO6XIQ7vuWvWQluYGuEvSwYYrYj7OBJEvQa3IlMJdY_Zuqo_xFeGhTwizF-E5TcFFc84ceGHQYYpt4nd4i9v-v_GED-N_LMwNthFfH6mh69oG7GGIc_0.png" alt=""></a></p>
-<h3>Managing the lifecycle of a containerized application via Git</h3>
-<p>One of the great things about Ansible Automation Platform is how it can integrate with other tools. This is especially useful when you integrate Ansible Automation Platform with GitHub Webhooks. </p>
+<h3 id="managing-the-lifecycle-of-a-containerized-application-via-git">Managing the lifecycle of a containerized application via Git</h3><p>One of the great things about Ansible Automation Platform is how it can integrate with other tools. This is especially useful when you integrate Ansible Automation Platform with GitHub Webhooks. </p>
 <p>When you combine GitHub Webhooks and Ansible workflows, you can trigger changes to your application automatically. </p>
 <p>A perfect scenario for this is when you&#39;re running containerized apps at the Edge but want an automated way to manage those apps.</p>
 <p>Here is a <a href="https://www.youtube.com/watch?v=NSuZrdsT1nk">YouTube video I made on managing the lifecycle of a Podman container</a></p>
-<h3>Improving Execution Time on Large-Scale Jobs</h3>
-<p>Running a job on 1000s of servers and it’s taking forever to complete?Increase your forks!</p>
+<h3 id="improving-execution-time-on-large-scale-jobs">Improving Execution Time on Large-Scale Jobs</h3><p>Running a job on 1000s of servers and it’s taking forever to complete?Increase your forks!</p>
 <p>Forks are used to determine how many hosts to automate against in parallel (default is 5). But be careful not to overcommit the value!</p>
 <p>One way to ensure you don’t overcommit is checking your Capacity Adjustment value. Within Instance Groups -&gt; <Your Group> -&gt; Instances, under Capacity Adjustment you’ll see what each server on that group can handle.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Ijk0ZQ0fNa-7GsA-6DhqJuvScrFhAFQChBAK28JVZLI7ro7rjxNtPJCz73B3fyD4mUXSEXfni6jopSCP5AXAi811TFSdeNbH2LxLWBnBt09uxEsQnc__35so_h3j_kxzqT08X_brb8U1S6K3xAqpOBo_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Ijk0ZQ0fNa-7GsA-6DhqJuvScrFhAFQChBAK28JVZLI7ro7rjxNtPJCz73B3fyD4mUXSEXfni6jopSCP5AXAi811TFSdeNbH2LxLWBnBt09uxEsQnc__35so_h3j_kxzqT08X_brb8U1S6K3xAqpOBo_0.png" alt=""></a></p>
-<h3>Optimizing Execution Performance with Multiple Nodes and Job Slicing</h3>
-<p>Do you have multiple execution nodes in your Ansible Automation Platform environment? Combine the increasing of forks with job slicing!</p>
+<h3 id="optimizing-execution-performance-with-multiple-nodes-and-job-slicing">Optimizing Execution Performance with Multiple Nodes and Job Slicing</h3><p>Do you have multiple execution nodes in your Ansible Automation Platform environment? Combine the increasing of forks with job slicing!</p>
 <p>Job slicing breaks a job (“slices”) and places a slice per execution node. It allows you to split a single job to run across multiple execution nodes providing faster performance.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/1TOEzoflTvjsuNadhaYh2hx9oQdQBhoUNROpgVwNqQSgQb2C7ZrLAA-3rPU6yqBfJDxaQffRmRPaZ6_F7mODE2cHDGSJl-XgB3T9QWT5nHng8CaPm09LeaYJCPe-Xvjv3U2rZEfNf2CxijlEhGbX03s_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/1TOEzoflTvjsuNadhaYh2hx9oQdQBhoUNROpgVwNqQSgQb2C7ZrLAA-3rPU6yqBfJDxaQffRmRPaZ6_F7mODE2cHDGSJl-XgB3T9QWT5nHng8CaPm09LeaYJCPe-Xvjv3U2rZEfNf2CxijlEhGbX03s_0.png" alt=""></a></p>
 <p>And there you have it! 5 things to take your automation to the next level!</p>
 <p>I hope you found these top 5 tips valuable in discovering new ways to leverage the power of Ansible Automation Platform.</p>
-<h2>What can I do next?</h2>
-<p>Whether you are beginning your automation journey or are a seasoned veteran, there are a variety of resources to enhance your automation knowledge.</p>
+<aside class="blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Workshops and Labs</p>
+  <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
+  <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
+</aside><h2 id="what-can-i-do-next">What can I do next?</h2><p>Whether you are beginning your automation journey or are a seasoned veteran, there are a variety of resources to enhance your automation knowledge.</p>
 <ul>
 <li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - Check out the interactive in-browser exercises to learn and dive into Ansible Automation Platform.</li>
 <li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to go? Get your own trial subscription for unlimited access to all the components of Ansible Automation Platform.</li>
@@ -96,7 +93,10 @@
 <li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a></li>
 <li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
 </ul>
-
+<aside class="blog-related">
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/">Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application</a></li><li><a href="/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/">New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift</a></li><li><a href="/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way/">Monitoring Red Hat Ansible Automation Platform on Red Hat OpenShift - The Easy Way</a></li></ul>
+</aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#roger-lopez">Roger Lopez</a></p></footer>
     </article>
