@@ -439,6 +439,18 @@
     loadMemberBlogPosts(member);
   }
 
+  function formatDate(isoDate) {
+    if (!isoDate) return '';
+    const parts = String(isoDate).split('-');
+    if (parts.length === 3) {
+      const date = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    const date = new Date(isoDate);
+    if (Number.isNaN(date.getTime())) return isoDate;
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+
   function loadMemberBlogPosts(member) {
     const blogsSection = document.getElementById('team-profile-blogs');
     const blogsList = document.getElementById('team-profile-blog-list');
@@ -460,13 +472,7 @@
 
         blogsList.innerHTML = posts
           .map(function (post) {
-            const date = post.published
-              ? new Date(post.published).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                })
-              : '';
+            const date = formatDate(post.published);
             return (
               '<li>' +
               '<a href="/blog/' + escapeAttr(post.slug) + '/">' + escapeHtml(post.title) + '</a>' +

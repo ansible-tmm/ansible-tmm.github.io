@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import html
 import json
 import os
 import re
@@ -33,6 +34,9 @@ DATA_DIR = ROOT / "data"
 INDEX_PATH = DATA_DIR / "blog-index.json"
 STATE_PATH = DATA_DIR / "blog-sync-state.json"
 SOURCES_PATH = DATA_DIR / "blog-sources.json"
+BLOG_INDEX_HTML = ROOT / "blog" / "index.html"
+NOSCRIPT_START = "<!-- BLOG_NOSCRIPT_START -->"
+NOSCRIPT_END = "<!-- BLOG_NOSCRIPT_END -->"
 
 MIN_DATE = "2018-01-01"
 SOLR_URL = "https://www.redhat.com/rhdc/jsonapi/solr_search/blog_author_list"
@@ -399,6 +403,34 @@ def save_index(posts: list[dict[str, Any]]) -> None:
     INDEX_PATH.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
+def update_blog_index_noscript(posts: list[dict[str, Any]]) -> None:
+    if not BLOG_INDEX_HTML.exists():
+        return
+
+    lines = [
+        "<noscript>",
+        '  <p class="blog-noscript-intro">Enable JavaScript for search and filters, or browse posts below:</p>',
+        '  <ul class="blog-noscript-list">',
+    ]
+    for post in posts:
+        title = html.escape(post.get("title", ""))
+        slug = html.escape(post.get("slug", ""))
+        lines.append(f'    <li><a href="/blog/{slug}/">{title}</a></li>')
+    lines.extend(["  </ul>", "</noscript>"])
+    noscript_block = "\n".join(lines)
+
+    text = BLOG_INDEX_HTML.read_text(encoding="utf-8")
+    pattern = re.compile(
+        re.escape(NOSCRIPT_START) + r".*?" + re.escape(NOSCRIPT_END),
+        re.DOTALL,
+    )
+    replacement = f"{NOSCRIPT_START}\n      {noscript_block}\n      {NOSCRIPT_END}"
+    if not pattern.search(text):
+        log("Warning: could not update blog noscript fallback in blog/index.html")
+        return
+    BLOG_INDEX_HTML.write_text(pattern.sub(replacement, text, count=1), encoding="utf-8")
+
+
 def update_team_js_nids(member_nids: dict[str, str]) -> None:
     if not member_nids:
         return
@@ -479,10 +511,12 @@ def main() -> int:
             log(f"Error syncing {post.url}: {exc}")
 
     save_state(state)
-    save_index(build_index_from_markdown())
+    posts = build_index_from_markdown()
+    save_index(posts)
+    update_blog_index_noscript(posts)
     update_team_js_nids(member_nids)
 
-    log(f"Done. Synced {synced_count} post(s). Index has {len(build_index_from_markdown())} post(s).")
+    log(f"Done. Synced {synced_count} post(s). Index has {len(posts)} post(s).")
     return 0
 
 

@@ -43,21 +43,126 @@
   <main id="main-content" class="blog-page">
     <header class="blog-hero">
       <p class="hero__eyebrow">Ansible Technical Marketing</p>
-      <h1 class="blog-hero__title">Blog</h1>
-      <p class="blog-hero__subtitle" id="blog-hero-subtitle">
-        Technical writing from our team — republished here with links to the original posts on Red Hat.
+      <h1 class="blog-hero__title">Team blog</h1>
+      <p class="blog-hero__subtitle">
+        Posts from the Ansible Technical Marketing team — browsable by author, with links back to the original articles on Red Hat.
       </p>
+      <p class="blog-hero__stats" id="blog-stats" aria-live="polite"></p>
     </header>
 
     <div class="blog-container">
+      <div class="blog-toolbar">
+        <label class="blog-search" for="blog-search">
+          <span class="visually-hidden">Search posts</span>
+          <input
+            type="search"
+            id="blog-search"
+            class="blog-search__input"
+            placeholder="Search by title, topic, or author…"
+            autocomplete="off"
+          >
+        </label>
+      </div>
+
+      <section class="blog-authors" id="blog-authors" aria-label="Browse by author" hidden>
+        <h2 class="blog-authors__title">Browse by author</h2>
+        <div class="blog-authors__chips" id="blog-author-chips"></div>
+      </section>
+
       <div id="blog-filter" class="blog-filter" hidden>
         <p class="blog-filter__label">
           Showing posts by <strong id="blog-filter-author"></strong>.
           <a href="/blog/" class="blog-filter__clear">Show all</a>
         </p>
       </div>
+
+      <div id="blog-featured" class="blog-featured" hidden></div>
+
       <div id="blog-list" class="blog-list" aria-live="polite">
-        <p class="blog-empty">Loading posts…</p>
+        <p class="blog-empty" id="blog-loading">Loading posts…</p>
+      </div>
+
+      <!-- BLOG_NOSCRIPT_START -->
+      <noscript>
+  <p class="blog-noscript-intro">Enable JavaScript for search and filters, or browse posts below:</p>
+  <ul class="blog-noscript-list">
+    <li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li>
+    <li><a href="/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/">Navigating AI vulnerability discovery and achieving operational resilience with automation</a></li>
+    <li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li>
+    <li><a href="/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/">Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform</a></li>
+    <li><a href="/blog/event-driven-ansible-simplified-event-routing-event-streams/">Event-Driven Ansible: Simplified event routing with Event Streams</a></li>
+    <li><a href="/blog/empower-everyone-automate-ansibles-self-service-automation-portal/">How Ansible&#x27;s new self-service automation portal empowers everyone to automate</a></li>
+    <li><a href="/blog/installation-and-upgrade-guide-ansible-automation-platform-26/">What to know before you install or upgrade to Red Hat Ansible Automation Platform 2.6</a></li>
+    <li><a href="/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform/">Easy automation for Microsoft Windows Server and Azure with Ansible Automation Platform</a></li>
+    <li><a href="/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/">Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform</a></li>
+    <li><a href="/blog/a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave/">A Deeper Look, Red Hat Named a Leader in the Forrester Wave</a></li>
+    <li><a href="/blog/ansible-and-packer-why-they-are-better-together/">blog post | Using Ansible and Packer, From Provisioning to Orchestration</a></li>
+    <li><a href="/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/">blog post | Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application</a></li>
+    <li><a href="/blog/the-anatomy-of-automation-execution-environments/">blog post | The anatomy of automation execution environments</a></li>
+    <li><a href="/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/">Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</a></li>
+    <li><a href="/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</a></li>
+    <li><a href="/blog/providing-terraform-with-that-ansible-magic/">Providing Terraform with that Ansible Magic</a></li>
+    <li><a href="/blog/getting-started-with-event-driven-ansible/">blog post | Getting Started with Event-Driven Ansible</a></li>
+    <li><a href="/blog/red-hat-ansible-automation-platform-service-aws-now-available-aws-marketplace/">Red Hat Ansible Automation Platform Service on AWS now available in the AWS Marketplace</a></li>
+    <li><a href="/blog/red-hat-ansible-will-be-autocon2/">Join Red Hat Ansible Automation Platform at AutoCon 2</a></li>
+    <li><a href="/blog/new-red-hat-ansible-development-tools/">Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience</a></li>
+    <li><a href="/blog/what-you-need-know-about-vmware-automation-red-hat-ansible/">What you need to know about VMware Automation with Red Hat Ansible Automation Platform</a></li>
+    <li><a href="/blog/introducing-ansible-plug-ins-red-hat-developer-hub/">Introducing Ansible plug-ins for Red Hat Developer Hub</a></li>
+    <li><a href="/blog/automating-your-centos-linux-rhel-migration/">Automating your CentOS Linux to RHEL migration</a></li>
+    <li><a href="/blog/windows-enterprise-ansible-galaxy/">The Windows enterprise in an Ansible galaxy</a></li>
+    <li><a href="/blog/fact-gathering-with-event-driven-ansible-and-ai/">Fact-Gathering with Event-Driven Ansible for Microsoft Windows ITSM</a></li>
+    <li><a href="/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant/">Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant</a></li>
+    <li><a href="/blog/importing-ansible-validated-content-into-private-automation-hub/">Importing Ansible Validated Content into Private Automation Hub</a></li>
+    <li><a href="/blog/event-driven-ansible-chatops-from-chat-to-action/">Event-Driven Ansible - ChatOps - From Chat to Action</a></li>
+    <li><a href="/blog/unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform/">Unleashing the Potential of Multi-Cloud Automation with Ansible and Terraform</a></li>
+    <li><a href="/blog/unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0/">Unlocking efficiency: Harnessing the capabilities of ansible-builder 3.0</a></li>
+    <li><a href="/blog/whats-new-in-ansible-automation-platform-2.4/">What&#x27;s new in Ansible Automation Platform 2.4</a></li>
+    <li><a href="/blog/ansible-automation-platform-youre-using-it-wrong/">Ansible Automation Platform … You’re using it wrong.</a></li>
+    <li><a href="/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/">New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift</a></li>
+    <li><a href="/blog/red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace/">Red Hat Ansible Automation Platform on Google Cloud Marketplace</a></li>
+    <li><a href="/blog/addressing-netops-issues-with-event-driven-ansible/">Addressing NetOps issues with Event-Driven Ansible</a></li>
+    <li><a href="/blog/crank-up-your-automation-with-ansible-validated-content/">Crank up your automation with Ansible validated content</a></li>
+    <li><a href="/blog/why-event-driven-matters/">Why Event-Driven Automation Matters</a></li>
+    <li><a href="/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way/">Monitoring Red Hat Ansible Automation Platform on Red Hat OpenShift - The Easy Way</a></li>
+    <li><a href="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/">Creating Kubernetes Dynamic Inventories with kubernetes.core Modules</a></li>
+    <li><a href="/blog/peeling-back-the-layers-and-understanding-automation-mesh/">Peeling back the layers and understanding automation mesh</a></li>
+    <li><a href="/blog/digitally-signing-ansible-content-collections-using-private-automation-hub/">Digitally signing Ansible Content Collections using private automation hub</a></li>
+    <li><a href="/blog/whats-new-in-ansible-automation-platform-2.2/">What&#x27;s new in Ansible Automation Platform 2.2</a></li>
+    <li><a href="/blog/ask-me-anything-recap-april/">Ask me Anything Recap - April</a></li>
+    <li><a href="/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform/">Event-driven remediation with systemd and Red Hat Ansible Automation Platform</a></li>
+    <li><a href="/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide/">New reference architecture: Red Hat Ansible Automation Platform 1.2 to 2 Migration Guide</a></li>
+    <li><a href="/blog/configuring-an-aws-dynamic-inventory-with-automation-controller/">Configuring an AWS dynamic inventory with Automation controller</a></li>
+    <li><a href="/blog/whats-new-in-the-ansible-content-collection-for-kubernetes-2.3/">What’s New in the Ansible Content Collection for Kubernetes 2.3</a></li>
+    <li><a href="/blog/the-ansible-cookie-magic-in-the-middle/">The Ansible cookie: Magic in the middle</a></li>
+    <li><a href="/blog/forecast-track-measure-roi-automation/">Forecasting and tracking the ROI of automation</a></li>
+    <li><a href="/blog/ansible-automation-platform-a-video-tour/">Ansible Automation Platform - A video tour</a></li>
+    <li><a href="/blog/activate-insights-for-ansible-automation-platform/">How to Activate Automation Analytics and Red Hat Insights</a></li>
+    <li><a href="/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1/">New reference architecture: Deploying Red Hat Ansible Automation Platform 2.1</a></li>
+    <li><a href="/blog/introducing-red-hat-ansible-automation-platform-2.1/">Introducing Red Hat Ansible Automation Platform 2.1</a></li>
+    <li><a href="/blog/automation-for-the-cloud-cloud-field-day-12-recap/">Automation for the cloud: Cloud Field Day 12 recap</a></li>
+    <li><a href="/blog/whats-new-in-ansible-automation-platform-2-private-automation-hub/">What&#x27;s new in Ansible Automation Platform 2: private automation hub</a></li>
+    <li><a href="/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments/">What&#x27;s new in Ansible Automation Platform 2: automation execution environments</a></li>
+    <li><a href="/blog/introducing-ansible-automation-platform-2/">Introducing Ansible Automation Platform 2</a></li>
+    <li><a href="/blog/team-automation-numbers/">By the numbers: Getting your team on board with IT automation</a></li>
+    <li><a href="/blog/ansible-network-resource-modules-deep-dive-on-return-values/">Ansible Network Resource Modules: Deep Dive on Return Values</a></li>
+    <li><a href="/blog/now-available-red-hat-ansible-automation-platform-1.2/">Now Available: Red Hat Ansible Automation Platform 1.2</a></li>
+    <li><a href="/blog/control-your-content-with-private-automation-hub/">Control your content with private Automation Hub</a></li>
+    <li><a href="/blog/automation-analytics-part-3/">Automation Analytics - ROI Calculator and Notifications enhancements</a></li>
+    <li><a href="/blog/automation-analytics-part-2-looking-at-data-collection/">Automation Analytics: Part 2 - Looking at Data Collection</a></li>
+    <li><a href="/blog/getting-started-with-automation-analytics/">Getting Started With Automation Analytics</a></li>
+    <li><a href="/blog/network-features-coming-soon-in-ansible-engine-2.9/">Network Features Coming Soon in Ansible Engine 2.9</a></li>
+    <li><a href="/blog/build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions/">Build a quick CI system using Red Hat Ansible Tower with GitHub Actions</a></li>
+    <li><a href="/blog/red-hat-ansible-network-automation-updates/">Red Hat Ansible Network Automation Updates</a></li>
+    <li><a href="/blog/porting-ansible-network-playbooks-with-new-connection-plugins/">Porting Ansible Network Playbooks with New Connection Plugins</a></li>
+    <li><a href="/blog/coming-soon-networking-features-in-ansible-2.5/">Coming Soon: Networking Features in Ansible 2.5</a></li>
+    <li><a href="/blog/accelerate-ansible-networking-aggregate-resources/">Accelerate Network Automation with Aggregate Resources</a></li>
+  </ul>
+</noscript>
+      <!-- BLOG_NOSCRIPT_END -->
+
+      <div class="blog-pagination" id="blog-pagination" hidden>
+        <p class="blog-pagination__status" id="blog-pagination-status"></p>
+        <button type="button" class="btn btn--secondary" id="blog-load-more">Load more posts</button>
       </div>
     </div>
   </main>
@@ -69,6 +174,8 @@
         <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
         <p class="site-footer__links">
           <a href="../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
           <span class="site-footer__sep" aria-hidden="true">·</span>
           <a href="/team/">Team</a>
           <span class="site-footer__sep" aria-hidden="true">·</span>
@@ -83,6 +190,9 @@
   <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
     <symbol id="icon-github" viewBox="0 0 24 24">
       <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+    <symbol id="icon-external" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zm-2 2H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-7h-2v7H5V5h7z"/>
     </symbol>
   </svg>
 
