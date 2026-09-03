@@ -56,33 +56,3 @@ There are a number of resources available as you begin to explore Ansible Automa
 If you are interested in hearing more about Ansible Automation Platform 2, please reach out to your Red Hat sales representative. In the meantime, you can log into the [Red Hat Customer Portal](https://red.ht/AAP-20) for official resources around the launch, including migration considerations, getting started blogs, and official documentation which can be found at [the Early Access page](https://red.ht/AAP-20)*. (Note: a Red Hat subscription is required for access)*
 
 Still need assistance? Can’t find your Red Hat Sales representative? Contact [Red Hat Technical support](https://access.redhat.com/support/contact/technicalSupport/) for additional information. Please refer to the [official resources](https://red.ht/AAP-20) that will help you on your automation journey.
-
----
-
-### About the author
-
-[![Andrius Benokraitis](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Andrius-Benokraitis.jpg?itok=bGBYkaZb)](https://www.redhat.com/en/authors/andrius-benokraitis)
-
-[### Andrius Benokraitis
-
-Senior Manager, Technical Marketing for Ansible Automation Platform](https://www.redhat.com/en/authors/andrius-benokraitis)
-
-Andrius is a Senior Manager, Technical Marketing for Ansible Automation Platform. He brings over 20 years in the computer software industry from companies such as IBM, Nortel, and Cumulus Networks. Andrius is skilled in Network Automation, Enterprise Linux, Business Analytics, Technical Writing, and Strategic Alliances.
-
-[More from this author](https://www.redhat.com/en/authors/andrius-benokraitis)
-
-Enter keywords here to search blogs
-
-UI\_Icon-Red\_Hat-Close-A-Black-RGB
-
-Search
-
-## More like this
-
-Blog post
-
-### [The agentic paradox and the case for hybrid AI](https://www.redhat.com/en/blog/agentic-paradox-and-case-hybrid-ai)
-
-Blog post
-
-### [Save the date: Red Hat Summit 2027 is coming to Boston](https://www.redhat.com/en/blog/save-date-red-hat-summit-2027-coming-boston)

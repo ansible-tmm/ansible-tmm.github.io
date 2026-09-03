@@ -219,37 +219,3 @@ Once Ansible 2.9 is released the next set of resource modules for Ansible 2.10 w
 [The Future of Ansible Content Delivery](https://www.ansible.com/blog/the-future-of-ansible-content-delivery)
 
 [Thoughts on Restructuring the Ansible Project](https://www.ansible.com/blog/thoughts-on-restructuring-the-ansible-project)
-
----
-
-### About the author
-
-[![Andrius Benokraitis](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Andrius-Benokraitis.jpg?itok=bGBYkaZb)](https://www.redhat.com/en/authors/andrius-benokraitis)
-
-[### Andrius Benokraitis
-
-Senior Manager, Technical Marketing for Ansible Automation Platform](https://www.redhat.com/en/authors/andrius-benokraitis)
-
-Andrius is a Senior Manager, Technical Marketing for Ansible Automation Platform. He brings over 20 years in the computer software industry from companies such as IBM, Nortel, and Cumulus Networks. Andrius is skilled in Network Automation, Enterprise Linux, Business Analytics, Technical Writing, and Strategic Alliances.
-
-[More from this author](https://www.redhat.com/en/authors/andrius-benokraitis)
-
-Enter keywords here to search blogs
-
-UI\_Icon-Red\_Hat-Close-A-Black-RGB
-
-Search
-
-## More like this
-
-Blog post
-
-### [Architecting true autonomy with a level 4/5 network](https://www.redhat.com/en/blog/architecting-true-autonomy-level-45-network)
-
-Blog post
-
-### [Solve multi-controller contention with Red Hat OpenShift networking](https://www.redhat.com/en/blog/solve-multi-controller-contention-red-hat-openshift-networking)
-
-Original podcast
-
-### [Untangling Networks | Compiler](https://www.redhat.com/en/compiler-podcast/untangling-networks)

@@ -112,10 +112,29 @@ function detectLang(text, explicitLang) {
 }
 
 function normalizeSyncedMarkdown(markdown) {
-  return markdown.replace(
+  let normalized = markdown.replace(
     /^- \[Back to all posts\]\([^)]+\)\s*\n+(?:---\s*\n+)?/gim,
     '',
   );
+  normalized = normalized.replace(/\n---\s*\n+(?=#{2,3}\s+About the authors?\b)/gi, '\n');
+  normalized = normalized.replace(/\n+#{2,3}\s+About the authors?\b[\s\S]*$/gi, '');
+  normalized = normalized.replace(/\n+#{2,3}\s+More like this\b[\s\S]*$/gi, '');
+  normalized = normalized.replace(/\n+#{2,3}\s+Keep exploring\b[\s\S]*$/gi, '');
+  return normalized.trim() + '\n';
+}
+
+function authorFooterHtml(authors) {
+  if (!authors?.length) return '';
+  const label = authors.length > 1 ? 'authors' : 'author';
+  const links = authors
+    .map((author) => {
+      if (author.slug) {
+        return `<a href="/team/#${escapeHtml(author.slug)}">${escapeHtml(author.name)}</a>`;
+      }
+      return escapeHtml(author.name);
+    })
+    .join(', ');
+  return `<footer class="blog-post-author-footer"><p>About the ${label}: ${links}</p></footer>`;
 }
 
 function normalizeMarkdownCodeBlocks(markdown) {
@@ -219,7 +238,7 @@ function authorLinks(authors) {
     .join(', ');
 }
 
-function pageShell({ title, description, canonical, bodyHtml, attributionHtml, metaLine }) {
+function pageShell({ title, description, canonical, bodyHtml, attributionHtml, metaLine, authorFooter }) {
   const metaDescription = escapeHtml(description || title);
   return `<!DOCTYPE html>
 <html lang="en">
@@ -275,6 +294,7 @@ function pageShell({ title, description, canonical, bodyHtml, attributionHtml, m
       <div class="blog-post-content">
         ${bodyHtml}
       </div>
+      ${authorFooter}
     </article>
   </main>
 
@@ -424,6 +444,7 @@ async function main() {
       bodyHtml,
       attributionHtml,
       metaLine,
+      authorFooter: authorFooterHtml(data.authors),
     });
 
     const outputDir = path.join(OUTPUT_DIR, slug);

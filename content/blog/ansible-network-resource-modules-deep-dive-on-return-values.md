@@ -165,37 +165,3 @@ If you are unfamiliar with Ansible Collections, check out our [YouTube playlist 
 We got you covered, check out this video: [AnsibleFest 2020! I missed it! Where is the content?](https://www.youtube.com/watch?v=YjEPR9jjSD0&t=2s)  
 
 Explore everything on-demand for free on [www.ansible.com/ansiblefest](https://www.ansible.com/ansiblefest)
-
----
-
-### About the author
-
-[![Sean Cavanaugh](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S)](https://www.redhat.com/en/authors/sean-cavanaugh)
-
-[### Sean Cavanaugh
-
-Principal Technical Marketing Manager](https://www.redhat.com/en/authors/sean-cavanaugh)
-
-Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from [@IPvSean](https://twitter.com/ipvsean).
-
-[More from this author](https://www.redhat.com/en/authors/sean-cavanaugh)
-
-Enter keywords here to search blogs
-
-UI\_Icon-Red\_Hat-Close-A-Black-RGB
-
-Search
-
-## More like this
-
-Blog post
-
-### [Architecting true autonomy with a level 4/5 network](https://www.redhat.com/en/blog/architecting-true-autonomy-level-45-network)
-
-Blog post
-
-### [Solve multi-controller contention with Red Hat OpenShift networking](https://www.redhat.com/en/blog/solve-multi-controller-contention-red-hat-openshift-networking)
-
-Original podcast
-
-### [Untangling Networks | Compiler](https://www.redhat.com/en/compiler-podcast/untangling-networks)

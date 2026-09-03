@@ -287,6 +287,51 @@ def _strip_redhat_nav(element: Tag) -> None:
             link.decompose()
 
 
+def _strip_redhat_footer_html(element: Tag) -> None:
+    footer_pattern = re.compile(r"^(about the authors?|more like this|keep exploring)$", re.IGNORECASE)
+    for heading in list(element.find_all(["h2", "h3", "h4"])):
+        if not footer_pattern.match(heading.get_text(strip=True)):
+            continue
+        prev = heading.find_previous_sibling()
+        if prev and prev.name == "hr":
+            prev.decompose()
+        node = heading
+        while node:
+            nxt = node.find_next_sibling()
+            node.decompose()
+            node = nxt
+        return
+
+
+def strip_redhat_footer(markdown: str) -> str:
+    """Remove Red Hat author bios, related posts, and promo blocks."""
+    markdown = re.sub(
+        r"\n---\s*\n+(?=#{2,3}\s+About the authors?\b)",
+        "\n",
+        markdown,
+        flags=re.IGNORECASE,
+    )
+    markdown = re.sub(
+        r"\n+#{2,3}\s+About the authors?\b[\s\S]*$",
+        "",
+        markdown,
+        flags=re.IGNORECASE,
+    )
+    markdown = re.sub(
+        r"\n+#{2,3}\s+More like this\b[\s\S]*$",
+        "",
+        markdown,
+        flags=re.IGNORECASE,
+    )
+    markdown = re.sub(
+        r"\n+#{2,3}\s+Keep exploring\b[\s\S]*$",
+        "",
+        markdown,
+        flags=re.IGNORECASE,
+    )
+    return markdown.rstrip() + "\n"
+
+
 def normalize_synced_markdown(markdown: str) -> str:
     """Remove Red Hat blog navigation we replace with our own back link."""
     markdown = re.sub(
@@ -295,6 +340,7 @@ def normalize_synced_markdown(markdown: str) -> str:
         markdown,
         flags=re.IGNORECASE | re.MULTILINE,
     )
+    markdown = strip_redhat_footer(markdown)
     return markdown
 
 
@@ -360,6 +406,7 @@ def extract_body_html(html: str, source_url: str) -> str:
 
     _unwrap_code_tables(body)
     _strip_redhat_nav(body)
+    _strip_redhat_footer_html(body)
 
     for tag in body.find_all(["pre"]):
         _preserve_code_blocks(tag)

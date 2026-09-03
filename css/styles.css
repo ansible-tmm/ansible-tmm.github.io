@@ -2217,6 +2217,27 @@ a:hover {
   color: var(--color-text-muted);
 }
 
+.blog-post-author-footer {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.blog-post-author-footer p {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--color-text-muted);
+}
+
+.blog-post-author-footer a {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.blog-post-author-footer a:hover {
+  color: var(--color-accent-hover);
+}
+
 .blog-post-content table {
   width: 100%;
   margin: 1.25rem 0;
