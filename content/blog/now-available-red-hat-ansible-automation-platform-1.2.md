@@ -18,9 +18,6 @@ synced_at: '2026-09-03T19:21:04Z'
 
 <!-- blog-enrichment:start -->
 
-> [!callout type=summary]
-> **Summary:** Red Hat Ansible Automation Platform 1.2 is now generally available with increased focus on improving efficiency, increasing productivity and controlling risk and expenses.
-
 > [!toc]
 > **On this page**
 >

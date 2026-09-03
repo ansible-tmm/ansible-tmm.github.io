@@ -17,13 +17,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:20:31Z'
 ---
 
-<!-- blog-enrichment:start -->
-
-> [!callout type=summary]
-> **Summary:** Automation enthusiasts are often born out of the results that teams achieve through successful automation projects. For many of us, "sleep more" is perha...
-
-<!-- blog-enrichment:end -->
-
 Automation enthusiasts are often born out of the results that teams achieve through successful automation projects. For many of us, "sleep more" is perhaps the most compelling benefit when updates can be done consistently, correctly, and rapidly across hundreds or more systems, networks, and cloud implementations. No one really enjoys midnight calls to resolve an issue.
 
 And when it comes to security and compliance needs, we have seen teams face pressures to resolve risks quickly. When you can create the proper fix in an automation playbook, it can be executed across all impacted solutions in the global infrastructure. This solution can be fast and effective, so the risk is remediated quickly, without the human error that can occasionally creep in when you are doing the same things repeatedly.

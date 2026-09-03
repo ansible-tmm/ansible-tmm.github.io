@@ -19,9 +19,6 @@ synced_at: '2026-09-03T19:21:02Z'
 
 <!-- blog-enrichment:start -->
 
-> [!callout type=summary]
-> **Summary:** Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production.
-
 > [!toc]
 > **On this page**
 >

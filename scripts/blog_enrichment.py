@@ -162,9 +162,41 @@ def blocks_to_markdown(blocks: list[Block]) -> str:
     return "\n\n".join(parts).strip()
 
 
-def summary_callout(description: str) -> str:
+def _normalize_plain_text(text: str) -> str:
+    text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+    text = re.sub(r"\\([\\`*_\[\]])", r"\1", text)
+    text = re.sub(r"[`*_]", "", text)
+    text = re.sub(r"\s+", " ", text).strip().lower()
+    return text.rstrip(".,;:!?")
+
+
+def _first_paragraph_text(blocks: list[Block]) -> str:
+    for block in blocks:
+        if block.kind == "paragraph":
+            return block.text
+    return ""
+
+
+def summary_duplicates_opening(description: str, blocks: list[Block]) -> bool:
+    normalized_description = _normalize_plain_text(description)
+    normalized_opening = _normalize_plain_text(_first_paragraph_text(blocks))
+    if not normalized_description or not normalized_opening:
+        return False
+    if normalized_description == normalized_opening:
+        return True
+    shorter, longer = (
+        (normalized_description, normalized_opening)
+        if len(normalized_description) <= len(normalized_opening)
+        else (normalized_opening, normalized_description)
+    )
+    return len(shorter) >= 40 and shorter in longer
+
+
+def summary_callout(description: str, blocks: list[Block] | None = None) -> str:
     cleaned = description.strip()
     if not cleaned:
+        return ""
+    if blocks is not None and summary_duplicates_opening(cleaned, blocks):
         return ""
     return "\n".join(
         [
@@ -413,12 +445,12 @@ def enrich_markdown_body(
     blocks = parse_blocks(body)
 
     h2_headings = [block.text for block in blocks if block.kind == "heading" and block.level == 2]
+    description = frontmatter.get("description", "")
+    summary = summary_callout(description, blocks)
     blocks = insert_promo_callouts(blocks, slug, frontmatter, rules)
     body = blocks_to_markdown(blocks)
 
     prefix_parts: list[str] = []
-    description = frontmatter.get("description", "")
-    summary = summary_callout(description)
     if summary:
         prefix_parts.append(summary)
     toc = toc_callout(h2_headings)

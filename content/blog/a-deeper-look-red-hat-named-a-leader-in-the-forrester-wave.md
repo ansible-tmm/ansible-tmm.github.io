@@ -15,13 +15,6 @@ read_time_minutes: 1
 synced_at: '2026-09-03T19:20:30Z'
 ---
 
-<!-- blog-enrichment:start -->
-
-> [!callout type=summary]
-> **Summary:** This week, we announced that Red Hat has been named a leader in The Forrester Wave Infrastructure Automation, Q1 2023
-
-<!-- blog-enrichment:end -->
-
 This week, [we announced](https://www.redhat.com/en/about/press-releases/red-hat-named-leader-infrastructure-automation-industry-research-firm) that Red Hat has been named a leader in The Forrester Wave Infrastructure Automation, Q1 2023. In an effort to help explain this result from our point of view, the following blog answers some of the most frequently asked questions.
 
 ### What is The Forrester Wave?

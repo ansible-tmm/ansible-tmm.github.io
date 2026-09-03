@@ -19,9 +19,6 @@ synced_at: '2026-09-03T19:20:36Z'
 
 <!-- blog-enrichment:start -->
 
-> [!callout type=summary]
-> **Summary:** Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.
-
 > [!toc]
 > **On this page**
 >

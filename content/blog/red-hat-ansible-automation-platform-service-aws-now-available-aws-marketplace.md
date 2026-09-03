@@ -20,9 +20,6 @@ synced_at: '2026-09-03T19:21:28Z'
 
 <!-- blog-enrichment:start -->
 
-> [!callout type=summary]
-> **Summary:** Red Hat has released the latest cloud offering for Red Hat Ansible Automation Platform. Ansible Automation Platform Service on AWS is a Red Hat managed service available in AWS Marketplace.
-
 > [!toc]
 > **On this page**
 >

@@ -18,9 +18,6 @@ synced_at: '2026-09-03T19:21:58Z'
 
 <!-- blog-enrichment:start -->
 
-> [!callout type=summary]
-> **Summary:** One of the great advantages of combining GitOps with Ansible is that you get to streamline the automation delivery and the lifecycle of a containerized application.
-
 > [!toc]
 > **On this page**
 >

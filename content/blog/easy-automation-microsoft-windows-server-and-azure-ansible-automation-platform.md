@@ -20,9 +20,6 @@ synced_at: '2026-09-03T19:21:35Z'
 
 <!-- blog-enrichment:start -->
 
-> [!callout type=summary]
-> **Summary:** The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections.
-
 > [!toc]
 > **On this page**
 >
