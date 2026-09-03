@@ -127,6 +127,10 @@
     return '<span class="blog-card__topic">' + escapeHtml(topic) + '</span>';
   }
 
+  function postUrl(post) {
+    return '/blog/' + escapeAttr(post.slug) + '/';
+  }
+
   function cardFooter(post) {
     const topic = primaryTopicHtml(post);
     return (
@@ -138,37 +142,41 @@
   }
 
   function renderCard(post) {
+    const url = postUrl(post);
     return (
       '<article class="blog-card">' +
-      '<a href="/blog/' + escapeAttr(post.slug) + '/" class="blog-card__link">' +
       '<div class="blog-card__body">' +
       '<div class="blog-card__author-row">' +
       authorAvatar(post.authors, 'blog-card__avatar--inline') +
       postMetaLine(post) +
       '</div>' +
+      '<a href="' + url + '" class="blog-card__content-link">' +
       '<h2 class="blog-card__title">' + escapeHtml(post.title) + '</h2>' +
       (post.description ? '<p class="blog-card__excerpt">' + escapeHtml(post.description) + '</p>' : '') +
+      '</a>' +
       cardFooter(post) +
       '</div>' +
-      '</a>' +
       '</article>'
     );
   }
 
   function renderFeaturedCard(post) {
     const topics = topicsHtml(post);
+    const url = postUrl(post);
     return (
       '<article class="blog-featured-card">' +
       '<div class="blog-featured-card__layout">' +
       authorAvatar(post.authors, 'blog-card__avatar--featured') +
       '<div class="blog-featured-card__content">' +
       '<p class="blog-featured__label">Latest post</p>' +
-      '<h2 class="blog-featured-card__title">' + escapeHtml(post.title) + '</h2>' +
       postMetaLine(post) +
+      '<a href="' + url + '" class="blog-featured-card__content-link">' +
+      '<h2 class="blog-featured-card__title">' + escapeHtml(post.title) + '</h2>' +
       (post.description ? '<p class="blog-featured-card__excerpt">' + escapeHtml(post.description) + '</p>' : '') +
+      '</a>' +
       (topics ? '<div class="blog-featured-card__topics">' + topics + '</div>' : '') +
       '<div class="blog-featured-card__actions">' +
-      '<a href="/blog/' + escapeAttr(post.slug) + '/" class="btn">Read post</a>' +
+      '<a href="' + url + '" class="btn">Read post</a>' +
       '</div>' +
       '</div>' +
       '</div>' +
