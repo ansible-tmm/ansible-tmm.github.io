@@ -15,10 +15,6 @@ read_time_minutes: 9
 synced_at: '2026-09-03T19:20:56Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Red Hat Ansible Automation Platform 2 features an awesome new way to scale out your automation workloads: automation mesh.  If you are unfamiliar with automation mesh, I highly recommend reading Craig Brandt’s blog post [What's new: an introduction to automation mesh](https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.1-automation-mesh) which outlines how automation mesh can simplify your operations and scale your automation globally.  For this blog post, I want to focus on the technical implementation of automation mesh, what network ports it is using and how you can secure it.
 
 To quickly summarize both Craig’s blog post and our documentation, we separated the control plane (which includes the webUI and API) from the execution plane (where an Ansible Playbook is executed) in Ansible Automation Platform 2.  This allows you to choose where jobs run across execution nodes, so you can deliver and run automation closer to the devices that need it. In our implementation, there is four different types of nodes:

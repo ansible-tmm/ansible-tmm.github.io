@@ -15,10 +15,6 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:55Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 ## 5 things you didn’t know your Red Hat Ansible Automation Platform could do
 
 [![5 things blog post](https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png)](https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png)

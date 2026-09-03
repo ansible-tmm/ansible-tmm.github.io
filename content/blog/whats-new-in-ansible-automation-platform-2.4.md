@@ -15,10 +15,6 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:20:54Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![2.4 banner](https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png)](https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png)
 
 We are excited to announce the general availability of Red Hat Ansible Automation Platform 2.4, which continues to build on our core promise to help customers “Create, Manage, and Scale” their automation.

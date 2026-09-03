@@ -16,10 +16,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:39Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 “We are the Borg. Lower your shields and surrender your ships. We will add your technological distinctiveness to our own and add it to our Red Hat Ansible Automation Platform inventory.”
 
 Okay, so I added the last part but I am certain that in that sci-fi universe the Borg and Federation would be big users of Ansible.

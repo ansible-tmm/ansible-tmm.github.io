@@ -18,10 +18,6 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:20:46Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 IT automation is mission-critical for organizations to maintain a competitive edge. [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) is a comprehensive solution that not only addresses the immediate needs of IT operations, but also lays the groundwork for future advancements, including artificial intelligence (AI). In this post, you’ll learn why an automation platform is critical for an AI strategy and how MAPFRE, a global insurance company headquartered in Madrid, is taking advantage of Ansible Automation Platform to do just that. Let’s explore 4 key aspects that make Ansible Automation Platform indispensable for modern enterprises like MAPFRE.
 
 ## Automation is mission-critical

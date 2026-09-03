@@ -18,10 +18,6 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:21:20Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![](https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png)](https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png)
 
 The Ansible Networking Team is excited about the release of [Ansible 2.5](https://www.redhat.com/blog/ansible-2.5-traveling-space-and-time). Back in February, I wrote about new [Networking Features in Ansible 2.5](https://www.redhat.com/blog/coming-soon-networking-features-in-ansible-2.5), and one of the biggest areas of feedback was around the network\_cli connection plugin. For more background on this connection plugin, please refer to the previous blog post.

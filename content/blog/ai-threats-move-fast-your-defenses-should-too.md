@@ -20,10 +20,6 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:21:34Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Recently, Red Hat's Vincent Danen [highlighted](https://www.redhat.com/en/blog/when-ai-finds-bugs-why-defense-depth-was-always-answer) how AI models found 271 real security defects in Firefox in a single pass during Mozilla's collaboration with Anthropic. If AI can do that for defenders, it can do the same for attackers. As Danen put it, "if your security strategy is solely predicated on the assumption that software will be vulnerability-free, you've already lost."
 
 Vulnerabilities in code are only the entry point. The real damage comes after—lateral movement through misconfigured networks, overprivileged credentials, unrotated secrets, and services that blindly trust each other. No patch cycle can keep up with that. This underscores the need for more "[defense in depth](https://en.wikipedia.org/wiki/Defense_in_depth_(computing))" across enterprises—a cultural shift that assumes a compromise will inevitably occur, and focusing on reducing the impact of the exposure itself.

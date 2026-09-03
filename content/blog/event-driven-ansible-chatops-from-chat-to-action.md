@@ -16,10 +16,6 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:21:40Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![](https://www.redhat.com/rhdc/managed-files/ansible/pszGMvKzusRlBORTiEl3U2nfqYiLB-CnvtSqfV0pRJLcMAZs3UuJJDM7xTZB5owVZ_wlUawLqid-WJpYfaL__-MB3KX5VynTDwv5Nn2BpT2OBIc9Cb0eUL44kGnpSrWJo3Hi1CSldqrL06ZcyiW--YQ_0.png)](https://www.redhat.com/rhdc/managed-files/ansible/pszGMvKzusRlBORTiEl3U2nfqYiLB-CnvtSqfV0pRJLcMAZs3UuJJDM7xTZB5owVZ_wlUawLqid-WJpYfaL__-MB3KX5VynTDwv5Nn2BpT2OBIc9Cb0eUL44kGnpSrWJo3Hi1CSldqrL06ZcyiW--YQ_0.png)
 
 Like any well-rounded individual, in times of intense concentration, you will find me talking to myself in search of some hidden knowledge that I might have received in a dream, or perhaps quoting something from a fantasy novel about wizards and creatures in an attempt to fix a problem. Unfortunately, wearing a robe and shouting “Repairo Network!” while pointing my pen toward the device has yet to help in any situation.

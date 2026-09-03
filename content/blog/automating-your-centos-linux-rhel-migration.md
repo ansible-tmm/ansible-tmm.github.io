@@ -16,10 +16,6 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:21:37Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 The end of life (EOL) for CentOS Linux 7 is approaching, with updates ending on **June 30, 2024**. This impending deadline signifies the end of security updates and maintenance, posing significant risks for organizations that continue to rely on the outdated operating system. Upgrading to a more current and supported platform, such as [Red Hat Enterprise Linux](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) (RHEL), is needed to maintain an up-to-date security posture and  continued functionality.
 
 Migrating these systems, which may play a critical role in your organization’s IT infrastructure, is not trivial. [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) can help streamline and automate this process, however, reducing the complexity, while enabling scalability and the ability to orchestrate changes to the surrounding infrastructure to support the migration.

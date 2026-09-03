@@ -16,10 +16,6 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:20:48Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 I’m heading to Denver, CO the week of November 18th to participate in [AutoCon 2](https://networkautomation.forum/autocon2), an event dedicated to network automation. Although this is my first time at AutoCon 2, I’m already familiar with many of the names on the agenda from the network engineering community. It’s going to be an incredible opportunity to connect with fellow engineers and operators, exchange insights, and dive into topics around automation, orchestration, and observability.
 
 On November 19th, I will join two of my Red Hat colleagues to lead a workshop titled “Network resiliency with event-driven automation using Ansible”. We’ll give participants hands-on examples of how generative AI (via [Red Hat Ansible Lightspeed with IBM watsonx Code Assistant](https://www.redhat.com/en/technologies/management/ansible/ansible-lightspeed)) can help lower the barrier of entry for adopting network automation via Ansible Playbook generation. Participants will also learn how to use [Event-Driven Ansible for networks](https://www.youtube.com/watch?v=jBn2-lTHjEQ) that notifies users of specific events in real time, allowing them to take actions based upon those events.

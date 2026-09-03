@@ -17,10 +17,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:20:50Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Automating VMware infrastructure with Red Hat Ansible Automation Platform is an extremely common use-case for numerous customers across many different verticals. Ansible Automation Platform is well known for automating Linux and Windows operating systems, but it can also automate VMware vSphere itself, allowing you to automate and orchestrate an entire virtual machine lifecycle. In this blog, we’ll explore how Ansible Automation Platform can automate virtual machine lifecycles, how this fits into the wider hybrid cloud environment, and next steps to take to learn more.
 
 **Automating the Virtual Machine Lifecycle**

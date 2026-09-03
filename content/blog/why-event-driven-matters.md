@@ -14,10 +14,6 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:44Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![Event driven automation blog](https://www.redhat.com/rhdc/managed-files/ansible/Event%20driven%20automation%20blog.png)](https://www.redhat.com/rhdc/managed-files/ansible/Event%20driven%20automation%20blog.png)
 
 Life comes down to moments. These events are often how we define our achievements, successes, and failures throughout life. Just like our daily lives, IT organizations and teams can also have these defining moments, where you will often hear phrases like the "great database crash of '98." Many of these memorable IT  moments occur from limiting ourselves to a reactive approach when it comes to managing our IT assets. This is where event-driven automation can help us move from reactive to proactive IT management – well before we have the next great issue or moment in our IT teams.

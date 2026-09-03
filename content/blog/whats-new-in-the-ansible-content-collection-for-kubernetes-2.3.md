@@ -15,10 +15,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:22:00Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 With increased adoption of container automation, IT organizations continue to expand their requirements when it comes to deploying and managing their Kubernetes clusters. As such, we at Red Hat continue to add new features and capabilities to meet those demands by announcing the availability of `kubernetes.core` version 2.3, our Red Hat Ansible Certified Content Collection for Kubernetes and Helm.
 
 In this blog post, we’ll go over what’s new and what’s different in this release of our Kubernetes Collection.

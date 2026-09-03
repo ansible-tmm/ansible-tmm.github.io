@@ -15,10 +15,6 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:21:00Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![cfd12](https://www.redhat.com/rhdc/managed-files/ansible/cfd12.png)](https://www.redhat.com/rhdc/managed-files/ansible/cfd12.png)
 
 I recently had the opportunity to present our Red Hat Ansible Automation Platform cloud strategy at Cloud Field Day 12.   

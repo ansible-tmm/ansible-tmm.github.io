@@ -16,10 +16,6 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:42Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![](https://www.redhat.com/rhdc/managed-files/ansible/L0SaYOYFPRRB8oUzhGJC9V7qE0uBTVzNkDf8IE0efQ2x3M3R6ROcFqPdmrqChWM_4VZ25uifzd1Fjl9eQCWB7rh0QyS83fwOq5bGXxk7VSyZe2JwKm9cfLaZq--ykmuNR9_QBVSB2X7RwdaN2cRPI5QF8QrLKWOT1zkh3epnO5s3Somwm_I383gT6RC6KQ.png)](https://www.redhat.com/rhdc/managed-files/ansible/L0SaYOYFPRRB8oUzhGJC9V7qE0uBTVzNkDf8IE0efQ2x3M3R6ROcFqPdmrqChWM_4VZ25uifzd1Fjl9eQCWB7rh0QyS83fwOq5bGXxk7VSyZe2JwKm9cfLaZq--ykmuNR9_QBVSB2X7RwdaN2cRPI5QF8QrLKWOT1zkh3epnO5s3Somwm_I383gT6RC6KQ.png)
 
 *“Dear Aunt Automation,*

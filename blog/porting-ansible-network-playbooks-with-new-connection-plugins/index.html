@@ -50,11 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2018-04-19">April 18, 2018</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <ul>
-<li><a href="/blog/">Back to all posts</a></li>
-</ul>
-<hr>
-<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png" alt=""></a></p>
+        <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png" alt=""></a></p>
 <p>The Ansible Networking Team is excited about the release of <a href="https://www.redhat.com/blog/ansible-2.5-traveling-space-and-time">Ansible 2.5</a>. Back in February, I wrote about new <a href="https://www.redhat.com/blog/coming-soon-networking-features-in-ansible-2.5">Networking Features in Ansible 2.5</a>, and one of the biggest areas of feedback was around the network_cli connection plugin. For more background on this connection plugin, please refer to the previous blog post.</p>
 <p>In this post, I convert existing networking playbooks that use <code>connection: local</code> to use <code>connection: network_cli</code>. Please note that the passwords are in plain text for demonstration purposes only. Refer to the following Ansible Networking documentation page recommendation for using Ansible Vault for secure password storage and usage.  </p>
 <p>To demonstrate, let’s use an existing GitHub repository with working playbooks using the legacy connection local method. NOTE: The connection local method will continue to be supported for quite some time, and has not been announced as deprecated yet. This repository has several examples using Ansible and NAPALM but we are highlighting the Ansible Playbooks in this post.  The GitHub repository can be <a href="https://github.com/network-automation/ansible-napalm-samples">found here</a>.</p>

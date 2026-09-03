@@ -16,10 +16,6 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:21:57Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![monitoring ansible on ocp blog](https://www.redhat.com/rhdc/managed-files/ansible/monitoring%20ansible%20on%20ocp%20blog.png)](https://www.redhat.com/rhdc/managed-files/ansible/monitoring%20ansible%20on%20ocp%20blog.png)
 
 As Red Hat Ansible Automation Platform enables teams and organizations to drive their automation from across the cloud and on-premise, keeping Ansible Automation Platform healthy with the ability to monitor key metrics becomes paramount.

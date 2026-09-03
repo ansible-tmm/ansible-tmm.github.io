@@ -18,10 +18,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:28Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Red Hat has released the latest cloud offering for [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible). Ansible Automation Platform Service on AWS is a Red Hat managed service available in AWS Marketplace. This new offer saves customers time and money by enabling them to focus on innovation through automation instead of managing the platform. The Red Hat Ansible Automation Platform Service on AWS scales to meet the demands of enterprises, simplifies networking, and brings automation closer to workloads. Additionally, when purchased in AWS Marketplace, it applies to committed spend agreements (EDP - AWS Enterprise Discount Program).
 
 As [hybrid cloud](https://www.redhat.com/en/topics/cloud-computing/what-is-hybrid-cloud) environments within organizations grow more complex, the need for greater efficiency and speed intensifies. To address these challenges, organizations can leverage the centralized control plane of the Ansible Automation Platform Service on AWS, enabling them to develop, manage and scale automation initiatives across their entire [IT infrastructure](https://www.redhat.com/en/topics/cloud-computing/what-is-it-infrastructure). Ansible Automation Platform acts as a powerful force multiplier, orchestrating and scaling automation across all IT domains, including directly within your AWS Cloud environment.

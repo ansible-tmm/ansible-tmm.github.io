@@ -15,10 +15,6 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:20:36Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![image (1)](https://www.redhat.com/rhdc/managed-files/ansible/image%20%281%29.png)](https://www.redhat.com/rhdc/managed-files/ansible/image%20%281%29.png)
 
 We recently announced the general availability of [Red Hat Ansible Automation Platform 2.4](https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.4), This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with this latest release.

@@ -15,10 +15,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:40Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![](https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png)](https://www.redhat.com/rhdc/managed-files/ansible/o5ujQcjRbm0d-yVoHFcY2UZeQrF1CihIz5oFCcWeh4gryMjFoXsSiiXM2gt3nIgb3tkRrqvN0smg7LRagd6imYzfLa7CZccN8W_sRUrvLh3TtuXkAHN4Um4cqqGvbpAtQpeATAIEmLTbHqpBf6Ld4kU_0.png)
 
 The use of Event-Driven Ansible to enable fact gathering from events is considered a “Getting Started” type of use case, but it can be extremely powerful. This use case is simple and it is what we consider a “Read Only” type of action, meaning that we are not making any changes, but we are using the event to trigger a fact gathering process which we can later publish to the IT Service Management system.

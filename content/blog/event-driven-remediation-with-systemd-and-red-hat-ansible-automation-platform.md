@@ -16,10 +16,6 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:21:45Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![](https://www.redhat.com/rhdc/managed-files/ansible/6irqaHobfUU02G7Z8V0DiCYPGub92sK6UeKSl-Wep_teiIjeAwJ4Ip8ekLzzoGUNrusx0eU1nFtXfs2v6HiC5_KCL1O4_knpTAzdwzK3xiyRGLGFpwISmvUaNZKJ1OQaNKEz_WXv.png)](https://www.redhat.com/rhdc/managed-files/ansible/6irqaHobfUU02G7Z8V0DiCYPGub92sK6UeKSl-Wep_teiIjeAwJ4Ip8ekLzzoGUNrusx0eU1nFtXfs2v6HiC5_KCL1O4_knpTAzdwzK3xiyRGLGFpwISmvUaNZKJ1OQaNKEz_WXv.png)
 
 Over the many years of working as an engineer and architect with a particular interest in storage, I have learned that donuts and energy drinks can really bring you some joy in trying situations. When it seems that your infrastructure is on fire and you need an exorcist to help you find the ghost in the machine, a humble box of glazed donuts can give you and your team a much-needed break and allow you to refocus.

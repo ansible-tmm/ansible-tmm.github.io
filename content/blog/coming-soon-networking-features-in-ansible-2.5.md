@@ -16,10 +16,6 @@ read_time_minutes: 10
 synced_at: '2026-09-03T19:21:22Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![Ansible 2.5 Networking Features](https://www.redhat.com/rhdc/managed-files/ansible/Ansible-2-5-Coming-Soon-Networking.png)](https://www.redhat.com/rhdc/managed-files/ansible/Ansible-2-5-Coming-Soon-Networking.png)
 
 The upcoming Ansible 2.5 open source project release has some really exciting improvements, and the following blog highlights just a few of the notable additions. In typical Ansible fashion, development of networking enhancements is done in the open with the help of the community. You can follow along by watching the [networking GitHub project board](https://github.com/ansible/ansible/projects/10), as well as the roadmap for Ansible 2.5 via the [networking wiki page](https://github.com/ansible/community/wiki/Network%3ACore-roadmap-2.5).

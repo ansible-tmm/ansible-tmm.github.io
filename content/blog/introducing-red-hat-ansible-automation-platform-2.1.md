@@ -15,10 +15,6 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:20:59Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![](https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png)](https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png)
 
 We are thrilled to announce the general availability of Red Hat Ansible Automation Platform 2.1. This is the follow-on to the Ansible Automation Platform 2.0 Early Access released this summer, and [announced](https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators) at AnsibleFest 2021. Red Ansible Automation Platform 2.1 introduces major features that allow customers to onboard more easily with even more flexible automation architectures and use cases. Ansible Automation Platform 2.1 is the culmination of many years of reimagining how enterprise automators automate for today and tomorrow.

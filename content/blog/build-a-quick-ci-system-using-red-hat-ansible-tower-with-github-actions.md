@@ -15,10 +15,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:14Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![RH-Ansible-TowerAPI-with-Github-Actions-Blog](https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg)](https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg)
 
 Red Hat Ansible Tower can be considered the API (Application Programmatic Interface) for your Ansible Playbooks. Even if you don’t take advantage of the Web UI (User Interface) many Ansible users still benefit from using Ansible Tower because they can fit it in their existing ecosystem of tools. Are you new to using the API on Ansible Tower and want to learn how to get started? This blog post will cover my own journey of getting Github Actions to work with Red Hat Ansible Tower. My goal was to be able to have Github PRs (Pull Requests) to trigger a workflow template to perform some automated testing using an Ansible [Tower workflow](https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html). The popularity of [some Ansible Playbooks I wrote](https://github.com/network-automation/linklight) is on the rise, so I thought I’d add some automated testing – just to make sure I didn’t accidentally break something the community was using.

@@ -1982,11 +1982,12 @@ a:hover {
   gap: 0.35rem;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
-  color: var(--color-text-muted);
+  font-weight: 600;
+  color: var(--color-accent);
 }
 
 .blog-post-back:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
 .blog-attribution {

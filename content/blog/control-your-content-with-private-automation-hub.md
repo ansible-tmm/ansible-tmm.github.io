@@ -16,10 +16,6 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:21:06Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Private Automation Hub will be included as part of [Red Hat Ansible Automation Platform](https://www.redhat.com/en/about/press-releases/red-hat-accelerates-hybrid-cloud-automation-catalog-ready-use-certified-and-supported-ansible-automation?source=pressreleaselisting&f%5B0%5D=taxonomy_region_tid%3A4521) release 1.2, providing an easier way for our customers to manage their Ansible content. Whether they produce private content, access trusted and supported content from Red Hat or obtain content from third party or other community sources, an internally controlled capability is essential to support the continued growth of automation. As automation becomes critical to managing IT activities, so too becomes the need to have a focal point where collaboration can be encouraged, content shared and trust reinforced.
 
 Private Automation Hub is a self-hosted Ansible content management system. Organizations can host private hubs on their own infrastructure and manage it themselves. Similar to how Red Hat Satellite enables Red Hat Enterprise Linux customers to manage operating system content, private Automation Hub enables automation teams to manage Ansible automation content.  Private Automation Hub allows curation and distribution of Ansible content as close as possible to Ansible Automation Platform clusters. Private Automation Hub is included in the Red Hat Ansible Automation Platform subscription.

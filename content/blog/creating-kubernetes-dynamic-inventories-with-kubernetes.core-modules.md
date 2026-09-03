@@ -15,10 +15,6 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:21:58Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![roger kube.core blog aug 5 22](https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png)](https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png)
 
 When managing infrastructure, there are times when a dynamic inventory is essential. Kubernetes is a perfect example of this where you may create multiple applications within a namespace but you will not be able to create a static inventory due to Kubernetes appending a systems-generated string to uniquely identify objects.

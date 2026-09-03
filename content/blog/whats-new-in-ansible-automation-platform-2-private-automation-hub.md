@@ -15,10 +15,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:01Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![AAP 2 gray rising a](https://www.redhat.com/rhdc/managed-files/ansible/AAP%202%20gray%20rising%20a.png)](https://www.redhat.com/rhdc/managed-files/ansible/AAP%202%20gray%20rising%20a.png)
 
 We are excited to announce that the Ansible Automation Platform 2 release includes [private automation hub 4.3](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.0/html/installing_and_upgrading_private_automation_hub/index). Private automation hub provides automation developers the ability to collaborate and publish their own automation content and streamline delivery of Ansible code within their organization.

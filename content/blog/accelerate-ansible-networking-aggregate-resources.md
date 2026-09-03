@@ -16,10 +16,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:24Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![](https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png)](https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png)
 
 One of the major networking features in Red Hat Ansible Engine 2.4 was the addition of **aggregate resources** to the networking modules. The Ansible networking team recently talked about this at the Ask an Expert webinar in November.

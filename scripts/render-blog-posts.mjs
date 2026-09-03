@@ -113,8 +113,8 @@ function detectLang(text, explicitLang) {
 
 function normalizeSyncedMarkdown(markdown) {
   return markdown.replace(
-    /\[Back to all posts\]\([^)]+\)/gi,
-    '[Back to all posts](/blog/)',
+    /^- \[Back to all posts\]\([^)]+\)\s*\n+(?:---\s*\n+)?/gim,
+    '',
   );
 }
 

@@ -21,10 +21,6 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:20:33Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 **Note from the editor:**This blog post was originally published in November 2023 and has been updated to include the latest feature enhancements for Red Hat Ansible Automation Platform subscribers.
 
 [Red Hat Ansible Lightspeed with IBM watsonx Code Assistant](https://www.redhat.com/en/about/press-releases/red-hat-launches-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant-ai-driven-enterprise-it-automation) is a generative AI (gen AI) service within Red Hat Ansible Automation Platform that is engineered to help automation teams create, adopt and maintain Ansible content more efficiently.

@@ -16,10 +16,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:20:31Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![aap 2-1](https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png)
 
 For the last two years, the Red Hat Ansible Automation Platform product team has been hard at work developing the next major release. We are incredibly excited to introduce Red Hat Ansible Automation Platform 2, which was [just announced](https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators) at [AnsibleFest 2021](http://ansiblefest.com).

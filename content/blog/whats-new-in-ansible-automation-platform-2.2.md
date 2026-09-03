@@ -15,10 +15,6 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:20:31Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![aap2.2](https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png)
 
 The Ansible product team at Red Hat is thrilled to announce the general availability of Red Hat Ansible Automation Platform 2.2, which includes numerous features and bug fixes that further solidify Ansible Automation Platform as the *de facto* enterprise IT automation solution for developers to operations teams in data centers, clouds, and at the edge. A few of the most noteworthy features in this release include:

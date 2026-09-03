@@ -16,10 +16,6 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:20:58Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Many people are familiar with the community version of Ansible, the command line automation tool, but I wanted to elaborate on how our enterprise offering, Red Hat Ansible Automation Platform, and how it expands the possibilities of Ansible for our customers in Red Hat's most recent release.
 
 Red Hat Ansible Automation Platform forges that open source innovation into a single, secure enterprise solution. We released our latest version Ansible Automation Platform 2.1 in December 2021, and there are a ton of new components, features and capabilities. So the technical marketing team put together [a video tour of Ansible Automation Platform 2](https://www.youtube.com/watch?v=7GJjhZoYEus&t=94s). It’s an 8 minute overview that we hope will provide automators with a useful guide to all of the new tools available to them, and how all the parts of Ansible Automation Platform fit together.

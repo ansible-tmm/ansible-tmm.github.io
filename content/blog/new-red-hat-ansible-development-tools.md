@@ -17,10 +17,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:20:35Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 As automation becomes increasingly essential for modern enterprises, the experience of creating and scaling automation is more important than ever. A smooth, efficient automation creation process helps organizations realize the full value of [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) faster, leading to better return on investment. The latest release of Ansible development tools addresses this by consolidating core Ansible tools into a single package, reducing tool sprawl, and embedding best practices into the automation creation experience. Whether you’re a seasoned Ansible user or just starting out, this release simplifies setup, improves consistency, and lays the groundwork for deeper integrations into the Ansible ecosystem.
 
 In this post, we’ll dive into the key features of this new release, explore the benefits of the accompanying Ansible development container, and discuss how this update lays the foundation for a broader Ansible developer experience.

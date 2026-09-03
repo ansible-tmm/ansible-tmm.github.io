@@ -15,10 +15,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:51Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Two indispensable but sometimes overlooked tools included with an Ansible Automation Platform subscription are the cloud-based services, Automation Analytics and Red Hat Insights for Ansible Automation Platform.
 
 Automation Analytics and Insights form a suite of reporting and analytics tools to help you identify, troubleshoot, and resolve operational, business, and security issues across your entire ecosystem. You can also track the ROI of your automation investment and plan future automation projects to prioritize your efforts where they will have the biggest impact on your business.

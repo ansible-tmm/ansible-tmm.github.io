@@ -273,13 +273,27 @@ def _extract_pre_blocks_to_placeholders(html: str) -> tuple[str, dict[str, str]]
     return str(soup), placeholders
 
 
+def _strip_redhat_nav(element: Tag) -> None:
+    for link in list(element.find_all("a")):
+        if link.get_text(strip=True).lower() != "back to all posts":
+            continue
+        parent = link.parent
+        if parent and parent.name == "li":
+            list_parent = parent.parent
+            parent.decompose()
+            if list_parent and list_parent.name in {"ul", "ol"} and not list_parent.get_text(strip=True):
+                list_parent.decompose()
+        else:
+            link.decompose()
+
+
 def normalize_synced_markdown(markdown: str) -> str:
-    """Rewrite Red Hat navigation links for our mirrored blog."""
+    """Remove Red Hat blog navigation we replace with our own back link."""
     markdown = re.sub(
-        r"\[Back to all posts\]\([^)]+\)",
-        "[Back to all posts](/blog/)",
+        r"^- \[Back to all posts\]\([^)]+\)\s*\n+(?:---\s*\n+)?",
+        "",
         markdown,
-        flags=re.IGNORECASE,
+        flags=re.IGNORECASE | re.MULTILINE,
     )
     return markdown
 
@@ -345,6 +359,7 @@ def extract_body_html(html: str, source_url: str) -> str:
         comment.extract()
 
     _unwrap_code_tables(body)
+    _strip_redhat_nav(body)
 
     for tag in body.find_all(["pre"]):
         _preserve_code_blocks(tag)

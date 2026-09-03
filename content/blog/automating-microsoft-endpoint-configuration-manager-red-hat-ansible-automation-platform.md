@@ -19,10 +19,6 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:20:44Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Automation isn’t just an option, it’s a necessity. Organizations managing complex infrastructures often face a divide between Windows management tools and their broader automation strategy to streamline operations, reduce manual overhead, and ensure consistency across environments. That’s where the [Microsoft Endpoint Configuration Manager (MECM) Certified Collection for Red Hat Ansible Automation Platform](https://console.redhat.com) comes in, offering a bridge between MECM and automation.
 
 ## What Is the MECM Red Hat Ansible Certified Collection?

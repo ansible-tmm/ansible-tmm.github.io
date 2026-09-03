@@ -15,10 +15,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:20:43Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![aap 2 gray flying as-1](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png)
 
 Red Hat Ansible Automation Platform 2 is now available to customers. This release expands the possibilities of automation across your organization, with a more secure, flexible foundation to build and deploy automation with greater acceleration, orchestration and innovation.

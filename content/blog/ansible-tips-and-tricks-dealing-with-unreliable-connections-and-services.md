@@ -16,10 +16,6 @@ read_time_minutes: 8
 synced_at: '2026-09-03T19:21:16Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Red Hat Ansible Automation is widely known to automate and configure Linux and Windows hosts, as well as network automation for routers, switches, firewalls and load balancers. Plus, there are a variety of modules that deal with the cloud and the API around it such as Microsoft Azure, Amazon Web Services (AWS) and Google Compute Engine.  And there are other modules that interact with Software as a Service (SaaS) tools like Slack or ServiceNow. Although the downtime for these APIs is very minimal, it does happen, and it is even more likely that the connection between your Ansible control host (where you are running Ansible from) and the cloud-centric API could be down.
 
 In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner. As a technical marketing engineer, I consider my customers the Red Hat field teams, and often Solutions Architects are running playbooks from unreliable hotel wireless, coffee shops and sometimes even airplanes! I have to make sure playbooks have some more robustness built in for these odd situations. It is hair-pulling frustrating to get through a 20 task playbook for it to fail on the 19th task because your wireless went out for a couple seconds. This is especially frustrating if you are at the airport just trying to setup a demo or playground to show something to a client.

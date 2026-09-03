@@ -16,10 +16,6 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:28Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 ## Introduction
 
 Ansible validated content is a set of collections containing pre-built YAML content (such as playbooks or roles) to address the most common automation use cases. You can use Ansible validated content out-of-the-box or as a learning opportunity to develop your automation skills. It's a trusted starting point to bootstrap your automation: use it, customize it and learn from it!

@@ -20,10 +20,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:30Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Red Hat Ansible Automation Platform 2.6 introduces powerful capabilities for managing, scaling, and deploying automation across your enterprise. Whether you're a new user planning your first deployment or an existing customer upgrading from a previous version, understanding the available installation and upgrade methods is critical. This guide provides a high-level overview of the supported paths to Ansible Automation Platform 2.6.
 
 ## New installations of Ansible Automation Platform 2.6

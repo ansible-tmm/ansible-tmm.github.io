@@ -17,10 +17,6 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:20:39Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![](https://www.redhat.com/rhdc/managed-files/ansible/svFddIqV7xPFilaUztr4wit2zyRiToanGQacqtyBYkprP1SUAoApyoV89LI0mwv-FK4ijQeT3MARtXYO8Wl0oBCKHY44bdd09eo9XuBIEFBgLBbpzT9WHEqmJqfc-UTKGisvDeur.png)](https://www.redhat.com/rhdc/managed-files/ansible/svFddIqV7xPFilaUztr4wit2zyRiToanGQacqtyBYkprP1SUAoApyoV89LI0mwv-FK4ijQeT3MARtXYO8Wl0oBCKHY44bdd09eo9XuBIEFBgLBbpzT9WHEqmJqfc-UTKGisvDeur.png)
 
 Side-by-Side migration to Ansible Automation Platform 2

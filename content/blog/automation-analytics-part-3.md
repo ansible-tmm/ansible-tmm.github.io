@@ -16,10 +16,6 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:21:06Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 The [Red Hat Ansible Automation Platform](https://www.ansible.com/products/automation-platform) is continually offering enhancements through its hosted services on cloud.redhat.com. At Red Hat Summit 2020 the new [automation services catalog](https://www.ansible.com/products/automation-services-catalog) took the spotlight, which provides lifecycle management, provisioning, retirement and cataloging of automation resources to your business. However I wanted to also talk about the additional new  enhancements coming to Automation Analytics! Specifically I have two big things I want to talk about:
 
 - Automations Calculator - a ROI (return on investment) calculator using aggregate data

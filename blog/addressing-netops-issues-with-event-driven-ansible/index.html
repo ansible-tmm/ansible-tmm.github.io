@@ -50,11 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2023-01-12">January 11, 2023</time> · 4-minute read</p>
       </header>
       <div class="blog-post-content">
-        <ul>
-<li><a href="/blog/">Back to all posts</a></li>
-</ul>
-<hr>
-<h2>A simple example - No Shut, No Problem</h2>
+        <h2>A simple example - No Shut, No Problem</h2>
 <p>Since the announcement of <a href="https://www.ansible.com/use-cases/event-driven-automation">Event-Driven Ansible</a>, I cannot stop thinking about potential use cases. Can I get events to automate scaling? Could I use a filesystem event to trigger filesystem integrity checks? Could I get a slackbot to trigger my choice of heavy metal playlist based on a “mood” event? It&#39;s all possible! But let’s not go too crazy, not yet.</p>
 <p>I started having a look at the fantastic work that one of our engineers, <a href="https://www.linkedin.com/in/nilashishchakraborty/">Nilashish Chakraborty</a> has been doing around network telemetry and Ansible. This led me down the path to explore network events and what I could potentially do with something like Event-Driven Ansible. So let’s start with a super simple interface example.</p>
 <p>Reaching out to the team at <a href="https://www.arista.com/en/">Arista</a>, we started discussing and looking at the mechanisms they are using to get telemetry data. With Arista we are able to use gNMI, gNMI is an open source protocol <a href="https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md">specification</a> created by the OpenConfig working group that is used to stream data to and from network devices. The OpenConfig working group operates as an open source project with contributions from network operators, equipment vendors in providing vendor-neutral software to manage network devices. I configured gNMI on my Arista switches and queried the interface with the gNMI client on my machine to make sure I was able to get what I needed.</p>

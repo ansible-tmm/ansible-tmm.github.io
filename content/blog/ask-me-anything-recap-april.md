@@ -16,10 +16,6 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:20:56Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![ask me anything](https://www.redhat.com/rhdc/managed-files/ansible/ask%20me%20anything.png)](https://www.redhat.com/rhdc/managed-files/ansible/ask%20me%20anything.png)
 
 I recently had the opportunity to emcee an Ask me Anything webinar in April 12, These sessions are a good opportunity for the community, customers, partners and more to talk directly to Red Hat employees about what is happening on Red Hat Ansible Automation Platform and beyond. For this webinar, we had an awesome group of individuals with a diverse talent range across multiple skill sets from Product Management, Technical Marketing and Engineering:

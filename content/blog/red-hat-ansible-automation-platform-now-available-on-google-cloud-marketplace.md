@@ -16,10 +16,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:26Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 ## Introduction
 
 As organization’s hybrid cloud environments continue to grow in complexity, so does the need to increase efficiency and speed. The solution is to take advantage of an automation platform that can help any organization create, manage and scale their automation efforts across the entire IT infrastructure. Red Hat Ansible Automation Platform enables organizations to coordinate and scale automation across all IT domains and fosters a culture of collaboration between disparate teams.

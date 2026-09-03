@@ -18,10 +18,6 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:21:35Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections. Additionally, the new `Microsoft.iis` collection includes comprehensive support for configuring Internet Information Services (IIS), and the `ansible.windows` collection has been updated with additional modules to support Windows server management. Furthermore, Ansible Automation Platform extends its reach to cloud and hybrid environments with new support for managing Azure Arc resources, enabling consistent and unified management across on-premises, multi-cloud and edge environments.
 
 ## OpenSSH support

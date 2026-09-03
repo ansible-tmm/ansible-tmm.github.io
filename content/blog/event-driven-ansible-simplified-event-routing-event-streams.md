@@ -18,10 +18,6 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:21:35Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 The systems running an organization's infrastructure and applications are interconnected, creating an environment of controlled chaos where events in one area can ripple unpredictably through others. Red Hat Ansible Automation Platform features Event-Driven Ansible as an automation mechanism for reacting to these ripples. Event-Driven Ansible listens to external event or alert sources so you can design automated responses for these events, enabling faster response to problems with consistency and accuracy.
 
 A foundational use case that can be used almost anywhere to provide a great deal of value to the technical team is ticket enrichment. With Event-Driven Ansible, an alert from an observability or monitoring tool can drive a workflow of automated troubleshooting, fact gathering and reporting with ticket creation in an IT service management (ITSM) solution. This places valuable data in the hands of the support teams, saving them time and reducing mean time to resolution (MTTR).  Event-Driven Ansible automates remediation for known low severity issues, such as restarting a container or rotating expired certificates from a pending expiration alert. This not only lets you sleep more, but can help enable resilient systems through automated response and remediation.

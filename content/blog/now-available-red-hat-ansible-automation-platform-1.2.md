@@ -16,10 +16,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:04Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Red Hat Ansible Automation Platform 1.2 is now generally available with increased focus on improving efficiency, increasing productivity and controlling risk and expenses.  While many IT infrastructure engineers are familiar with automating compute platforms, Ansible Automation Platform is the first holistic automation platform to help manage, automate and orchestrate everything in your IT infrastructure from edge to datacenter.  To download the newest release or get a trial license, please sign up on <http://red.ht/try_ansible>.
 
 [![Image One](https://www.redhat.com/rhdc/managed-files/ansible/Image%20One.jpg)](https://www.redhat.com/rhdc/managed-files/ansible/Image%20One.jpg)

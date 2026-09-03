@@ -16,10 +16,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:47Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 One of the core components of Ansible is [inventories](https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html). In its most basic form, an inventory provides host information to Ansible so it can trigger the tasks on the right host or system. In most environments, the static inventory is sufficient for the Ansible control node to work from, however as we expand our use of automation, we need to transition to more effective methods of gathering ever-changing environment details.
 
 This is where the use of a [dynamic inventory](https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html) is beneficial. This allows the platform to gather information for the inventory from environments that are not static sources. A prime example of this is using a dynamic inventory plugin to gather inventory information from a cloud provider or hypervisor, enabling you to keep an inventory up to date with instance details.

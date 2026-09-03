@@ -50,11 +50,7 @@
         <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2022-08-10">August 9, 2022</time> · 2-minute read</p>
       </header>
       <div class="blog-post-content">
-        <ul>
-<li><a href="/blog/">Back to all posts</a></li>
-</ul>
-<hr>
-<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png" alt="roger kube.core blog aug 5 22"></a></p>
+        <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png" alt="roger kube.core blog aug 5 22"></a></p>
 <p>When managing infrastructure, there are times when a dynamic inventory is essential. Kubernetes is a perfect example of this where you may create multiple applications within a namespace but you will not be able to create a static inventory due to Kubernetes appending a systems-generated string to uniquely identify objects.</p>
 <p>Recently, I decided to play with using a Kubernetes dynamic inventory to manage pods, but finding the details on how to use and apply it was a bit scarce. As such, I wanted to write a quick start guide on how you can create an Ansible Playbook to retrieve your pods within a namespace and generate a Kubernetes dynamic inventory.</p>
 <p>This is much easier to do when you take advantage of the <code>kubernetes.core.k8s_info</code> module.</p>

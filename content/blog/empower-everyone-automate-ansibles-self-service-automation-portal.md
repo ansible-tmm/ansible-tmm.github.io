@@ -18,10 +18,6 @@ read_time_minutes: 2
 synced_at: '2026-09-03T19:21:24Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 The benefits of automation with Red Hat Ansible Automation Platform are clear, but gaining organization-wide adoption can still be challenging. Although the core automation platform team manages the platform and develops automation content, the real value comes from extending automation to a broader group of IT professionals. These individuals, who may not possess deep Ansible expertise, bring valuable use cases and stand to gain immensely from the platform, without needing to get bogged down in its technical details.
 
 The success of Ansible Automation Platform hinges not just on platform administrators and developers, but on the widespread adoption of automation across the entire organization.

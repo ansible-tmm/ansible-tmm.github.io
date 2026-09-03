@@ -17,10 +17,6 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:20:35Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 In today’s fast-paced IT landscape, streamlining automation development workflows is paramount. The Red Hat Developer Hub offers an innovative framework for building internal developer portals (IDPs), providing a unified experience that reduces cognitive load and significantly boosts developer productivity.
 
 Today we're announcing the technical preview of Ansible plug-ins for Red Hat Developer Hub, an integration of Ansible Automation Platform with Developer Hub. These plug-ins herald a new era for Ansible users by enabling a seamless, efficient and powerful automation platform experience for [automation developers](https://developers.redhat.com/articles/2024/06/13/demystifying-role-automation-developer-its-not-what-you-think). This union provides a comprehensive platform that offers self-service workflows, guided enablement and standardized best practices, enabling a robust Community of Practice (COP) for automation in your organization.

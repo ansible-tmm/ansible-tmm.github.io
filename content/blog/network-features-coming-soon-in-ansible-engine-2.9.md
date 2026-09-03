@@ -16,10 +16,6 @@ read_time_minutes: 9
 synced_at: '2026-09-03T19:20:31Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![slack-imgs.com-2](https://www.redhat.com/rhdc/managed-files/ansible/slack-imgs.com-2.png)](https://www.redhat.com/rhdc/managed-files/ansible/slack-imgs.com-2.png)
 
 The upcoming Red Hat Ansible Engine 2.9 release has some really exciting improvements, and the following blog highlights just a few of the notable additions. In typical Ansible fashion, development of Ansible Network enhancements are done in the open with the help of the community. You can follow along by watching the [GitHub project board](https://github.com/ansible/ansible/projects/10), as well as the roadmap for the [Red Hat Ansible Engine 2.9 release](https://github.com/ansible/community/wiki/Network%3A-2.9-Roadmap) via the [Ansible Network](https://github.com/ansible/community/wiki/Network%3A-2.9-Roadmap) wiki page.

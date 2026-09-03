@@ -17,10 +17,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:02Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 The Red Hat Ansible Network Automation engineering team is continually adding new resource modules [to its supported network platforms](https://access.redhat.com/articles/5531421).  Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production. The goal for resource modules is to avoid creating and maintaining overly complex jinja2 templates for rendering and pushing network configuration, as well as having to maintain complex fact gathering and parsing methodologies.  For this blog post, we will cover standard return values that are the same across all supported network platforms (e.g. Arista EOS, Cisco IOS, NXOS, IOS-XR, and Juniper Junos) and all resource modules.
 
 Before we get started, I wanted to call out three previous blog posts covering resource modules. If you are unfamiliar with resource modules, check any of these out:

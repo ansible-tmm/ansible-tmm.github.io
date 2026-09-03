@@ -17,10 +17,6 @@ read_time_minutes: 11
 synced_at: '2026-09-03T19:21:18Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 With the recent success of the largest AnsibleFest to date I wanted to take a minute to reflect with a network automation perspective on the colossal enhancements the engineering team at Red Hat has done for the Ansible Engine 2.6 release, the Ansible Tower 3.3 release and the recent Ansible Engine 2.7 release. As a reminder for all Ansible lovers there is a [porting guide](https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html) for every release to make upgrades as easy as possible!
 
 For this blog post I am going to cover the following topics:

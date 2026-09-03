@@ -16,10 +16,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:42Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 ## A simple example - No Shut, No Problem
 
 Since the announcement of [Event-Driven Ansible](https://www.ansible.com/use-cases/event-driven-automation), I cannot stop thinking about potential use cases. Can I get events to automate scaling? Could I use a filesystem event to trigger filesystem integrity checks? Could I get a slackbot to trigger my choice of heavy metal playlist based on a “mood” event? It's all possible! But let’s not go too crazy, not yet.

@@ -15,10 +15,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:41Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Late last year, we introduced a Red Hat Ansible Certified Collection Collection for Terraform. This was an important step in automation, as these two tools really are great together and leveraging Ansible\'s ability to orchestrate other tools in the enterprise made this a no-brainer. Terraform with its infrastructure as code (IaC) provisioning and Ansible's strength in configuration as code are a synergy that cannot be ignored - we are better together! Organizations are now in the position to utilize their existing infrastructure as code manifests and extend their automation with Terraform and Ansible together.
 
 Now, we are back with help from our partners at Kyndryl and XLAB and adding more value and magic to infrastructure as code - This time we have some extra muscle with an addition to the Red Hat Ansible Certified Content Collection: The Ansible provider for Terraform.

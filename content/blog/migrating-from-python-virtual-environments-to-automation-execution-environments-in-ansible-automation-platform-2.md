@@ -17,10 +17,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:20:40Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 ## Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2
 
 Red Hat Ansible Tower (included in Ansible Automation Platform 1.x) used Python virtual environments to manage dependencies and implement consistent automation execution across multiple Red Hat Ansible Automation Platform instances. This method of managing dependencies came with its own set of limitations:

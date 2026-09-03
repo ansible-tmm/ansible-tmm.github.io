@@ -17,10 +17,6 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:21:31Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 IT operations and security teams receive thousands of alerts every day from threat intelligence sources, such as vulnerability scanners, observability tools, Red Hat Lightspeed, and more. The challenge is identifying, correlating, and addressing impactful alerts from an ongoing, high-volume stream of information as quickly as possible, especially now that vulnerabilities can be exploited in a matter of hours.
 
 Consider IBM's [X-Force Threat Intelligence Index 2026](https://www.ibm.com/think/premium/threat-intelligence-report-security-101-still-lacking#605511086), where researchers found that scanning for vulnerable software is a common attack vector–second only to exploiting incorrectly configured access controls. With powerful AI models exposing identification of new vulnerabilities, manual remediation steps can no longer keep pace with exploitation speed. This is where automation can uniquely strengthen overall defenses and limit the impact of vulnerabilities on IT operations.

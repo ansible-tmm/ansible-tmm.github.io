@@ -15,10 +15,6 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:21:10Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![blog_getting-started-Automation-Analytics-Part-2](https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png)](https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png)
 
 We recently released [Red Hat Ansible Automation Platform](https://www.ansible.com/products/automation-platform) which now includes multiple Software-as-a-Service (SaaS) offerings, one of which is Automation Analytics.  This offering provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire automation infrastructure.

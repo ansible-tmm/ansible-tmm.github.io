@@ -17,10 +17,6 @@ read_time_minutes: 7
 synced_at: '2026-09-03T19:20:36Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.
 
 Automation execution environments are container images that act as Ansible runtimes for automation controller jobs. Ansible Automation Platform also includes a command-line tool called ansible-builder(execution environment builder)that lets you create automation execution environments by specifying Ansible Content Collections and Python dependencies.

@@ -15,10 +15,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:21:47Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 If Ansible Automation Platform was compared to the crunchy goodness of a cookie, private automation hub would be the sweet center bringing it all together and making your mouth water!
 
 Private automation hub provides organizations with a central location for their automation resources. Ansible automation hub is part of the hosted services from [console.redhat.com](https://console.redhat.com). This hosted offering provides automation adepts access to Red Hat Ansible Certified Content Collections for several industry-leading technologies and partners.

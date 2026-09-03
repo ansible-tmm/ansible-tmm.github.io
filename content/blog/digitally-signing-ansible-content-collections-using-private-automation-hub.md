@@ -15,10 +15,6 @@ read_time_minutes: 6
 synced_at: '2026-09-03T19:20:37Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![Digitally signing content in Private Automation Hub](https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png)](https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png)
 
 Red Hat Ansible Automation Platform can manage and execute automation made from many different origins, coming from Red Hat product teams, ISV partners, community and private contributors.

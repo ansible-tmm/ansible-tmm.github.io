@@ -16,10 +16,6 @@ read_time_minutes: 3
 synced_at: '2026-09-03T19:22:00Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![RA 2.1](https://www.redhat.com/rhdc/managed-files/ansible/RA%202.1.png)](https://www.redhat.com/rhdc/managed-files/ansible/RA%202.1.png)
 
 With the release of [Red Hat Ansible Automation Platform 2.1](https://www.ansible.com/blog/introducing-red-hat-ansible-automation-platform-2.1), we are proud to deliver the latest reference architecture on the best practices for [deploying a highly available Ansible Automation Platform environment](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html-single/deploying_ansible_automation_platform_2.1/index). 

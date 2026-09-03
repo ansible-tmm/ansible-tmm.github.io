@@ -15,10 +15,6 @@ read_time_minutes: 4
 synced_at: '2026-09-03T19:20:54Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Red Hat Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud deployments.  In my last public cloud blog, I talked about "Two Simple Ways Automation Can Save You Money on Your AWS Bill" and similarly to Ashton's blog "Bringing Order to the Cloud: Day 2 Operations in AWS with Ansible", we both wanted to look outside the common public cloud use-case of provisioning and deprovisioning resources and instead look at automating common operational tasks.  For this blog post I want to cover how the Technical Marketing team for Ansible orchestrates a pipeline for demos and workshops with Ansible and how we integrate that with custom AMIs (Amazon Machine Images) created with [Packer](https://www.packer.io/).  Packer is an open source tool that allows IT operators to standardize and automate the process of building system images.
 
 For some of our [self-paced interactive hands-on labs on Ansible.com](https://red.ht/ansible_labs), we can quickly spin up images in seconds.  In an example automation pipeline we will:

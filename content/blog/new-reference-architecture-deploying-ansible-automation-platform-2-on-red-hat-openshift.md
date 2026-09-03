@@ -16,10 +16,6 @@ read_time_minutes: 1
 synced_at: '2026-09-03T19:21:55Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 [![Ansible 2 on OCP blog](https://www.redhat.com/rhdc/managed-files/ansible/Ansible%202%20on%20OCP%20blog.png)](https://www.redhat.com/rhdc/managed-files/ansible/Ansible%202%20on%20OCP%20blog.png)
 
 It has arrived! The latest reference architecture showcasing the best practices for deploying [Red Hat Ansible Automation Platform 2.3 on Red Hat OpenShift](https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.4/html-single/deploying_ansible_automation_platform_2_on_red_hat_openshift/index)! 

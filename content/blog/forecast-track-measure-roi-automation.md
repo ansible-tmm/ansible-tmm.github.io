@@ -15,10 +15,6 @@ read_time_minutes: 5
 synced_at: '2026-09-03T19:21:49Z'
 ---
 
-- [Back to all posts](/blog/)
-
----
-
 Great ideas start with coffee, but business innovation starts with automation. Just like that morning jolt of warm friendly caffeine, Red Hat Ansible Automation Platform has the ability to enhance, optimize and make your technology stack flow like the beloved beverage most of the world consumes on a daily basis.
 
 It is easy to discuss all the technical benefits that Ansible Automation Platform can bring to organizations, but what about the business benefits? How can you observe the state of your automation and return on investment (ROI)? How can you explain the financial impact of automation to key stakeholders? The answer to all of these questions is Automation Analytics.
