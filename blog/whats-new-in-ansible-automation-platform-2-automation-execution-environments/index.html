@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What's new in Ansible Automation Platform 2: automation execution environments — Ansible TMM Blog</title>
+  <meta name="description" content="Ansible Automation Platform 2 introduces “automation execution environments.” These are atomic images on which all automation is run.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments">
+  <meta property="og:title" content="What's new in Ansible Automation Platform 2: automation execution environments">
+  <meta property="og:description" content="Ansible Automation Platform 2 introduces “automation execution environments.” These are atomic images on which all automation is run.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on October 3, 2021.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">What's new in Ansible Automation Platform 2: automation execution environments</h1>
+        <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2021-10-04">October 3, 2021</time> · 5-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20gray%20flying%20as-1.png" alt="aap 2 gray flying as-1"></a></p>
+<p>Red Hat Ansible Automation Platform 2 is now available to customers. This release expands the possibilities of automation across your organization, with a more secure, flexible foundation to build and deploy automation with greater acceleration, orchestration and innovation.</p>
+<p>As automation usage/practices/etc. spreads throughout an organization, managing multiple automation environments for different teams and use cases become challenging. This is even more true as automation starts to scale across the IT organization. As automation continues to be part of critical workflows, the following enhancements have been made in Ansible Automation Platform 2:</p>
+<ul>
+<li>Enables the Ansible Automation Platform administrator with the ability to provide and manage automation execution environments (see below) to differing groups, like networking and cloud teams. Each has specific content needs for their roles  instead of addressing different environments as an individual.</li>
+<li>Provide the automation developers with a consistent Ansible environment that’s the same as production, so they can stop worrying about the automation environment and dependencies and focus more on the automation content itself.</li>
+<li>Enable automation teams to define, build and update their automation environments without requiring them to contact the platform administrator for changes to the platform.</li>
+<li>Build and distribute automation execution environments via private automation hub, allowing consistency and usability across teams in an organization.</li>
+<li>Enable third-party developers and partners to create their own automation execution environments for their users and customers using the newly released ansible-builder command line tool.</li>
+</ul>
+<h4><strong>What are automation execution environments?</strong></h4>
+<p>Having consistent, reliable automation is key to a successful automation initiative. One Ansible Automation Platform customer had their internal administration team maintaining over 40 different virtual environments for various teams. Some used different versions of Ansible; network teams required different automation content (and dependencies) for their specific devices, and developers built their own environments for testing.</p>
+<p>There were no platform tools to support and maintain these environments other than documentation pointing to the de facto solution of specific python virtual environments. This caused custom environments to proliferate, drift to happen between development and production, and an increase in the cost and complexity of automation. Furthermore, this burden landed on the platform administrator to keep track of while maintaining everything as operational.</p>
+<p>Ansible Automation Platform 2 introduces a new construct called automation execution environments. These are atomic images on which all automation is run. Automation execution environments contain the following:</p>
+<ul>
+<li>RHEL UBI 8</li>
+<li>Ansible 2.9 or Ansible Core 2.11</li>
+<li>Python 3.8</li>
+<li>Any Ansible Content Collections</li>
+<li>Collection python or binary dependencies.</li>
+</ul>
+<p>This provides a standardized way to define, build and distribute the environments that the automation runs in. In a nutshell, automation execution environments are container images that allow for easier administration of Ansible by the platform administrator.</p>
+<h4><strong>Role of automation execution environments in Ansible Automation Platform 2.0</strong></h4>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ABU%20Blog%20%7C%20Whats%20new%20in%20Ansible%20Automation%20Platform%202%20automation%20execution%20environments-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ABU%20Blog%20%7C%20Whats%20new%20in%20Ansible%20Automation%20Platform%202%20automation%20execution%20environments-1.png" alt=""></a></p>
+<p><em>Automation controller 4.0 architecture</em></p>
+<p>The move to automation execution environments is part of Red Hat’s approach to separate the control plane from execution plane for better scalability for automation developers and administrators. Automation teams require that their automation runs consistently across multiple platforms. All custom dependencies are now defined at the development phase and are no longer defined at the administration/deployment phase. Having the automation execution decoupled from the control plane enables faster development cycles, scalability, reliability and portability across environments. Automation execution environments have enabled Ansible Automation Platform to move to a distributed architecture, so customers can scale automation across their organization.</p>
+<h4><strong>What is</strong> <strong>ansible-builder</strong><strong>?</strong></h4>
+<p>Now that you are aware of automation execution environments, the benefits they offer and the role they play in Ansible Automation Platform 2 release, how do you actually build one?</p>
+<p>To enable Ansible content creators and Ansible Automation Platform administrators to take advantage of automation execution environments, ansible-builder was created. It creates these by using the dependency information defined in various Ansible Content Collections, as well as by the user.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ABU%20Blog%20%7C%20Whats%20new%20in%20Ansible%20Automation%20Platform%202%20automation%20execution%20environments.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ABU%20Blog%20%7C%20Whats%20new%20in%20Ansible%20Automation%20Platform%202%20automation%20execution%20environments.png" alt=""></a>
+With the release of Ansible Automation Platform 2, there are a set of prebuilt, supported automation execution environments available on the Red Hat Container Registry. These images can be used in different capacities in your organization’s environment and are provided as part of the Ansible Automation Platform subscription. The supported automation execution environments are hosted in a parent repository called <em>ansible-automation-platform-20-early-access</em> on registry.access.redhat.com. The following pre-built environments are now available:</p>
+<ul>
+<li>Minimal (ee-minimal-rhel8) - Contains Ansible-2.11 built on top of <a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">UBI8</a> and python-3.8. This image doesn’t contain any Collections. You can use this image as the base image to build additional automation execution environments with your custom collections or the Ansible Certified Content Collections available on the automation hub.</li>
+<li>Supported (ee-supported-rhel8) - This is the default image available with the automation controller. It is built on top of the minimal image and contains <a href="https://access.redhat.com/articles/4993781">Ansible Content Collections supported by Red Hat</a>.</li>
+<li>Ansible 2.9 (ee-29-rhel8) - Contains Ansible-2.9 and all the required Ansible dependencies. This image is best for customers who are planning to migrate to Ansible Automation Platform 2.0 from Ansible Automation Platform 1.2.</li>
+</ul>
+<p>The execution environment builder (ansible-builder) is used to build custom automation execution environments by layering on top of the images provided with Ansible Automation Platform 2.</p>
+<p>Please check the <a href="https://330046.hubspotpreview-na1.com/blog/introduction-to-ansible-builder">upstream blog</a> on ansible-builder, and check out <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.0-ea/html-single/ansible_builder_guide/index?lb_target=production#proc-customize-ee-image">this section</a> of the customer documentation to understand how to build your own automation execution environment on top of the default ones provided by Ansible Automation Platform.</p>
+<h4><strong>Who will use</strong> <strong>ansible-builder</strong><strong>?</strong></h4>
+<p>An automation execution environment is the common artifact between the Ansible content creator and the automation platform administrator. They both should understand how to build them using ansible-builder. Content creators provide the platform administrator with automation execution environments or vice versa, but the common theme to keep in mind here is that the ultimate goal is to graduate the same automation execution environment from the content creator’s development machine to the production environment. The result is no longer managing the multiple python virtual environments in a manual way.</p>
+<h4><strong>Key takeaways</strong></h4>
+<p>The Ansible Automation Platform 2 release includes a myriad of new features that are built to complement the concept of automation execution environments. With the new release, you can do the following:</p>
+<ul>
+<li>Build and distribute automation execution environments via <a href="https://access.redhat.com/articles/6145072">private automation hub</a>, allowing consistency and usability across teams in an organization.</li>
+<li>Enable third-party developers and partners to create their own automation execution environments for their users and customers using the newly released ansible-builder command line tool.</li>
+</ul>
+<h4><strong>Where to go next</strong></h4>
+<ul>
+<li>If you’re ready to get hands-on, we have <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">self-paced interactive labs available</a> to explore new Ansible Automation Platform 2 technologies.</li>
+<li>If you are a Red Hat customer, please visit the<a href="https://red.ht/AAP-20">Ansible Automation Platform 2 landing page</a> in the Red Hat Customer Portal that consolidates all our documentation and guidance available to you.</li>
+<li><a href="https://www.ansible.com/contact-us">Please reach out to your local Red Hat representative to assist your organization in getting started with Ansible Automation Platform 2.0</a></li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/wa_profile%20-%20Anshul%20Behl.jpeg?itok=vYDgCAJj" alt="Anshul Behl, Principal Technical Marketing Manager, Red Hat"></a></p>
+<p>[### Anshul Behl</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/anshul-behl">https://www.redhat.com/en/authors/anshul-behl</a>)</p>
+<p>Anshul is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform&#39;s adoption experience for customers by producing technical content on all aspects of the product.</p>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

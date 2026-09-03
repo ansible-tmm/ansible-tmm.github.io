@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introducing Red Hat Ansible Automation Platform 2.1 — Ansible TMM Blog</title>
+  <meta name="description" content="Red Hat Ansible Automation Platform 2.1 is available now! Create, manage and scale automation with more ease and efficiency than ever before.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/introducing-red-hat-ansible-automation-platform-2.1">
+  <meta property="og:title" content="Introducing Red Hat Ansible Automation Platform 2.1">
+  <meta property="og:description" content="Red Hat Ansible Automation Platform 2.1 is available now! Create, manage and scale automation with more ease and efficiency than ever before.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/introducing-red-hat-ansible-automation-platform-2.1">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/introducing-red-hat-ansible-automation-platform-2.1" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on December 1, 2021.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Introducing Red Hat Ansible Automation Platform 2.1</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2021-12-02">December 1, 2021</time> · 8-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png" alt=""></a></p>
+<p>We are thrilled to announce the general availability of Red Hat Ansible Automation Platform 2.1. This is the follow-on to the Ansible Automation Platform 2.0 Early Access released this summer, and <a href="https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators">announced</a> at AnsibleFest 2021. Red Ansible Automation Platform 2.1 introduces major features that allow customers to onboard more easily with even more flexible automation architectures and use cases. Ansible Automation Platform 2.1 is the culmination of many years of reimagining how enterprise automators automate for today and tomorrow.</p>
+<p>You can download the latest version directly from the <a href="https://access.redhat.com/downloads/content/480/">Red Hat Customer Portal</a>, or sign up for a free trial at <a href="http://red.ht/try_ansible">red.ht/try_ansible</a>. Ansible Automation Platform is the Ansible you know and love, designed for the enterprise. I am going to summarize <a href="https://www.ansible.com/blog/introducing-ansible-automation-platform-2">Andrius Benokraitis’ blog post</a> from September, when Ansible Automation Platform 2 was announced, and expand on some key developments from 2.0 to 2.1.</p>
+<p>[<a href="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png" alt="aap 2 ebook copy"></a>](<a href="https://www.redhat.com/en/resources/ansible-automation-platform-2-ebook">https://www.redhat.com/en/resources/ansible-automation-platform-2-ebook</a>)</p>
+<p><em>Take a look at our latest e-book to learn what common automation roles you can expect from Red Hat Ansible Automation Platform 2.</em></p>
+<p><strong>First, some general information</strong>:</p>
+<ul>
+<li>The Ansible Automation Platform <a href="https://access.redhat.com/support/policy/updates/ansible-automation-platform">life cycle page</a> has been updated.</li>
+<li>Moving forward, every Ansible Automation Platform minor release will now have its own unique Red Hat Subscription Management repo, which requires an Ansible Automation Platform subscription.</li>
+</ul>
+<p><strong>Now, some official product documentation updates:</strong></p>
+<ul>
+<li>The following are the new guides developed and released in 2.1:  <ul>
+<li><a href="http://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html-single/installing_and_configuring_central_authentication_for_the_ansible_automation_platform/">Installing and Configuring Central Authentication Guide</a></li>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_automation_mesh_guide">Automation mesh Guide</a></li>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_operator_installation_guide">Ansible Platform Operator Installation Guide</a></li>
+</ul>
+</li>
+<li>The following are the existing guides with major additions:<ul>
+<li><a href="http://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html-single/deploying_a_high_availability_automation_hub/">Ansible automation hub: How to deploy a high availability automation hub</a></li>
+<li><a href="http://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html-single/viewing_reports_about_your_ansible_automation_environment/">Red Hat Insights for Ansible Automation Platform: Introduction to Reports</a></li>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_security_automation_guide">Ansible Security Automation Guide: How to automate network intrusion detection and prevention systems</a></li>
+</ul>
+</li>
+<li>All Documentation updates can also be found <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/">online</a>, including the updated release notes.</li>
+</ul>
+<h4>New to Ansible Automation Platform 2.1: automation mesh</h4>
+<p><a href="https://www.ansible.com/products/automation-mesh">Automation mesh</a> (<a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_automation_mesh_guide/index">documentation)</a>: This is the newest addition to Ansible Automation Platform, and replaces the isolated nodes feature in 1.2. By combining automation execution environments in version 2.0 with automation mesh in version 2.1, the automation control plane and execution plane are fully decoupled, making it easier to scale automation across the globe. You can now run your automation as close to the source as possible, without being bound to running automation in a single data center. With automation mesh, you can create execution nodes right next to the source (for example, a branch office in Johannesburg, South Africa) while execution is deployed on our automation controller in Durham, NC.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/HlT3VHI5pW_NCbwu_NAKVi8OhCG74ZX54X7fJXiJti1rF8Aije_HHp3I3KZ29mPccCSFXbOOjDbTkGO4HT2YnRZ2WyYuB6rRKLbSmmX7TXPeMKI8fWn7-Q8pMoC3RcAFZnG-7kqs.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/HlT3VHI5pW_NCbwu_NAKVi8OhCG74ZX54X7fJXiJti1rF8Aije_HHp3I3KZ29mPccCSFXbOOjDbTkGO4HT2YnRZ2WyYuB6rRKLbSmmX7TXPeMKI8fWn7-Q8pMoC3RcAFZnG-7kqs.png" alt=""></a></p>
+<p>Automation mesh adds:</p>
+<ul>
+<li><strong>Dynamic cluster capacity</strong>. You can increase the amount of execution capacity as you need it.</li>
+<li><strong>Global scalability</strong>. The execution plane is now resilient to network latency and connection interruptions and improves communications.</li>
+<li><strong>Secure automation</strong>. Bi-directional communication between execution nodes and control nodes that include full TLS authentication and end-to-end encryption.</li>
+</ul>
+<p>Check out this <a href="https://events.ansiblefest.redhat.com/widget/redhat/ansible21/sessioncatalog/session/1627933288858001bAH4">automation mesh demo</a> by Shane McDonald and Craig Brandt performed at AnsibleFest 2021 (skip to 22:38). Also, stay tuned for a forthcoming blog that will explore automation mesh in greater depth.</p>
+<h4>Updated automation execution environments</h4>
+<p>Recently, <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments">automation execution environments</a> replaced Ansible Engine in 1.2 in a much more portable and flexible package.</p>
+<p>In Ansible Automation Platform 2.1, there is an updated set of prebuilt, supported automation execution environments now available in the Red Hat container registry. These images can be used in different capacities in your environment and are provided as part of the Ansible Automation Platform subscription. All supported automation execution environments are hosted in a parent repository called <a href="https://catalog.redhat.com/software/containers/search?q=ansible&p=1&build_categories_list=Automation%20Execution%20Environment">ansible-automation-platform-2</a>. For convenience, all three automation execution environments are now included as part of the bundled 2.1 installer.</p>
+<p><strong>The following pre-built environments have been updated:</strong></p>
+<ul>
+<li>Minimal (ee-minimal-rhel8) - Contains Ansible Core 2.12 built on top of UBI8 and python-3.8. This image doesn’t contain any Collections; you can use this as the base image to build additional automation execution environments with your custom Collections or the Red Hat Ansible Certified Content Collections available on Ansible automation hub.</li>
+<li>Supported (ee-supported-rhel8) - This is the default image available with the automation controller. It is built on top of the minimal image and contains all updated Ansible Content Collections officially supported by Red Hat.</li>
+<li>Ansible 2.9 (ee-29-rhel8) - Contains Ansible-2.9 and all the required Ansible dependencies. This image is best for customers who are planning to migrate to Ansible Automation Platform 2.1 from Ansible Automation Platform 1.2.</li>
+</ul>
+<h4>Updated for disconnected environments</h4>
+<p>With the Ansible Automation Platform 2.1 release, installation in a disconnected environment now supports the Red Hat Ansible Automation Platform Operator for Red Hat OpenShift. For more information on this, please refer to the <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/">official product documentation</a>.</p>
+<h4>Added central authentication functionality</h4>
+<p>With any enterprise software solution, the need for single sign-on (SSO) becomes increasingly important. As Ansible Automation Platform 2 continues to release additional related components, so is the need to easily authenticate between them in a standardized way. The first of many components to leverage SSO is private automation hub, including the Red Hat Ansible Automation Platform Operator. This enhancement lays the groundwork for additional parts of Ansible Automation Platform to also be SSO-enabled in future releases.</p>
+<h4>A recap: Ansible Automation Platform 2 component overview</h4>
+<p>Ansible Automation Platform 2 introduced an entire suite of tools and components that enables enterprises to scale automation across their organizations. Ansible Automation Platform is no longer just an upstream command line Ansible package with support, nor is the platform simply just a graphical user interface for Ansible. Let&#39;s look at a high level diagram that details the different components available:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/QmISgEecN9su4FHpnfPBvcXlwrzz7la8KsUaFlVQmX_TPd_2Sn2Q5CLVukilgWINUF6c3F467z78fyIbMF2GN8rx0ez0l6MWXdp-4xJQRvxcJv3_0Tjq67s61chjNQXGL1rJ2OuQ.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/QmISgEecN9su4FHpnfPBvcXlwrzz7la8KsUaFlVQmX_TPd_2Sn2Q5CLVukilgWINUF6c3F467z78fyIbMF2GN8rx0ez0l6MWXdp-4xJQRvxcJv3_0Tjq67s61chjNQXGL1rJ2OuQ.png" alt=""></a></p>
+<p>There are a lot of components besides just the well known “ansible-*” binary command line tools. Red Hat has developed multiple components to help customers create, manage and scale their automation. Let’s break these down and highlight what has been released!</p>
+<p><strong>Execution environment builder</strong> (<a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/ansible_builder_guide">documentation</a>)<strong>:</strong> This is a command line tool that helps automation creators quickly package together their automation into containerized images called automation execution environments .</p>
+<p><strong>Ansible content tools:</strong> This refers to fully supported components that help people create automation content. For example, the command line tool “ansible-test” helps IT automators test their automation content (<a href="https://docs.ansible.com/ansible/latest/dev_guide/testing.html#developing-testing">documentation</a>). We’re working towards adding full support for the <a href="https://www.ansible.com/resources/webinars-training/using-new-vs-code-extension-for-ansible">Ansible VS code extension</a>, as well as other creator tools.</p>
+<p><strong>Ansible Content Collections:</strong> With Ansible Automation Platform 2, we have disaggregated automation content (roles, playbooks, modules, plugins, etc.) from the execution component ansible-core (e.g. ansible-playbook, etc). A good analogy for this is that I don’t have to upgrade my phone to grab the newest version of my favorite mobile game. By disaggregating automation content, it allows us to asynchronously release Ansible Content Collection updates and continually improve automation. If you need help on understanding what a Collection is, check out this <a href="https://www.youtube.com/watch?v=WOcqhk7TdYc">YouTube video</a>. We have continually added new automation content for multiple domains, including:</p>
+<ul>
+<li>Infrastructure (<a href="https://console.redhat.com/ansible/automation-hub/repo/published/redhat/">Red Hat</a>, <a href="https://console.redhat.com/ansible/automation-hub/repo/published/ansible/windows">Windows</a>)</li>
+<li>Cloud Native (<a href="https://console.redhat.com/ansible/automation-hub/repo/published/kubernetes/core">Kubernetes</a> and <a href="https://console.redhat.com/ansible/automation-hub/repo/published/redhat/openshift">Red Hat OpenShift</a>)</li>
+<li>Public Cloud (<a href="https://console.redhat.com/ansible/automation-hub/repo/published/amazon/aws">AWS</a>, <a href="https://console.redhat.com/ansible/automation-hub/repo/published/azure">Azure</a>, <a href="https://console.redhat.com/ansible/automation-hub/repo/published/google/cloud">GCP</a>)</li>
+<li>Private Cloud (<a href="https://console.redhat.com/ansible/automation-hub/repo/published/vmware">VMware</a>)</li>
+<li>Network Automation (<a href="https://console.redhat.com/ansible/automation-hub/repo/published/ansible/network">Arista, Cisco, Juniper, Vyos</a>)</li>
+<li>Security Automation (<a href="https://console.redhat.com/ansible/automation-hub/repo/published/check_point">Checkpoint</a>, <a href="https://console.redhat.com/ansible/automation-hub/repo/published/cisco/asa">Cisco</a>, <a href="https://console.redhat.com/ansible/automation-hub/repo/published/ibm/qradar">IBM</a>)</li>
+</ul>
+<p>You can check out all the certified and fully supported Collections on <a href="https://console.redhat.com/ansible/automation-hub">Ansible automation hub on console.redhat.com</a>.</p>
+<p><strong>Automation content navigator</strong> (<a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/ansible_navigator_creator_guide/index">documentation</a>): A new command-line component for automation creators that includes an interactive text-based user interface (TUI).  Automation content navigator (ansible-navigator) allows Ansible experts to easily reuse their operational knowledge of traditional Ansible commands and methodologies (e.g. ansible-playbook) with support for automation execution environments. Automation content navigator also allows the ability to quickly zoom in and out of plays and filter output on the fly, enhancing the play recap experience that automation engineers have come to know and love.  I also highly recommend watching my colleague’s YouTube video <a href="https://youtu.be/Upisw3Pv294">Authoring content quickly using ansible-navigator</a>.</p>
+<p><strong>Automation controller</strong> (<a href="https://docs.ansible.com/automation-controller/latest/html/administration/index.html">documentation</a>): the Web User Interface (webUI) and API (Application Programming Interface) for Ansible Automation Platform. This replaces the component formerly known as Red Hat Ansible Tower. However, it goes above and beyond the old architecture by decoupling the control plane and execution plane so the execution capacity is no longer tied to the same node as the graphical interface. For more information on this architectural change, I recommend reading Craig Brandt’s blog post, <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2-automation-controller">What&#39;s new in Ansible Automation Platform 2: automation controller</a>.</p>
+<p><strong>Automation execution environments</strong> (<a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/">documentation</a>): Simply put, these are container images that can be utilized as Ansible control nodes. They contain the Python package dependencies (e.g. boto3 for Amazon Web Services), <a href="https://docs.opendev.org/opendev/bindep/latest/readme.html">system level dependencies</a> (e.g. Linux packages gcc, jq) and Ansible Content Collections bundled with a version of ansible-core to create a self-contained runtime environment for your Ansible Playbooks. Both command-line ansible-navigator and the WebUI/API driven automation controller can perform execution environments, making it easier to go from creating and testing your automation playbooks to operatilizing and putting them into production quicker and more effortlessly. For more information on automation execution environments, please check out the blog post, <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments">What’s new in Ansible Automation Platform 2: automation execution environments</a>.</p>
+<p><strong>Private automation hub</strong> (<a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/managing_red_hat_certified_and_ansible_galaxy_collections_in_automation_hub/index">documentation</a>): Allows automation creators to collaborate and publish their own automation content and streamline Ansible code within their own organizations. Organizations can now manage and control the lifecycle of their Ansible content as their needs scale across the hybrid cloud. This component is completely self-hosted and can service both Ansible Content Collections and execution environments to automation creators and operators. I encourage you to read <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2-private-automation-hub">my blog on private automation hub</a> for a deep dive.</p>
+<p><strong>Automation hub</strong> (<a href="https://console.redhat.com/ansible/ansible-dashboard">console</a>): This is the counterpart to private automation hub. This is a publicly hosted and curated automation content repository on console.redhat.com for all the fully supported and certified Ansible Content Collections. IT Operators can sync specific Collections from Ansible automation hub to their on-premises private automation hub and control which content they want to use.</p>
+<p><strong>Red Hat Insights for Ansible Automation Platform</strong> (<a href="https://console.redhat.com/ansible/insights/reports">console</a> and <a href="https://www.redhat.com/products/insights-for-ansible">product page</a>): This optional hosted service is available on console.redhat.com. It allows automation architects to aggregate data from multiple Ansible Automation Platform clusters to a single visual dashboard, so architects can analyze and discover trends across multiple automation initiatives. Red Hat Insights for Ansible Automation Platform is a hosted service constantly adding new features and abilities asynchronous from Ansible Automation Platform. However, there is a new feature coinciding with 2.1, called reports. Reports offer analytical data and downloadable PDFs for consumption. For example, you can see which hosts were changed by which job template over time, hosts broken down by organizations, jobs and tasks broken out by organization, and more.</p>
+<p><strong>Automation services catalog</strong> (<a href="https://console.redhat.com/ansible/catalog/products">console</a>): Another hosted service on console.redhat.com included in your Ansible Automation Platform subscription. Automation services catalog acts as a lightweight IT service management, where automation consumers can order automation as catalog items. Automation services catalog allows you to aggregate multiple automation controllers into a single push-button WebUI abstracting any site-specific complexity. This allows new personas to adopt automation in a consumable turn-key fashion across your organization.  It also has approvals and checkout systems, adding a level of governance to your enterprise automation.</p>
+<p><strong>Ansible Automation Platform Operator</strong> (<a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_operator_installation_guide/index">documentation</a>): A native and fully supported Operator for Red Hat OpenShift, allowing easy installation of Ansible components onto Red Hat OpenShift through Operator Hub. Both automation controller and private automation hub are included in a single consumable operator.  Watch this in action in our light hearted series, <a href="https://youtu.be/nl9Wc6kw8qc?t=327">Automated Live, Episode 03</a> (skip to 5:29).</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-12-01%20at%203.07.21%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-12-01%20at%203.07.21%20PM.png" alt="Screen Shot 2021-12-01 at 3.07.21 PM"></a></p>
+<h4>What can I do next?</h4>
+<p>Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - We have interactive in-browser exercises to learn and dive into Ansible Automation Platform.</li>
+<li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to install on-premises? Get your own trial subscription for unlimited access to all the components of Ansible Automation Platform.</li>
+<li><a href="https://developers.redhat.com/about">Developer license</a> - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel .</a> Be sure to check out our new web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<p><em>The following is a command line snippet example of disabling the Ansible Automation Platform 2.0 Early Access repository, and enabling the Ansible Automation Platform 2.1 subscription management repository.</em></p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>subscription-manager repos  --disable=ansible-automation-platform-2.0-early-access-for-rhel-8-x86_64-rpms  subscription-manager repos --enable=ansible-automation-platform-2.1-for-rhel-8-x86_64-rpms</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/introducing-red-hat-ansible-automation-platform-2.1">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

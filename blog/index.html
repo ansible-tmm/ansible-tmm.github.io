@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Ansible TMM</title>
+  <meta name="description" content="Technical blog posts from the Ansible Technical Marketing team — automation, Ansible Automation Platform, and hands-on guidance.">
+  <meta property="og:title" content="Blog — Ansible TMM">
+  <meta property="og:description" content="Technical blog posts from the Ansible Technical Marketing team.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ansible-tmm.github.io/blog/">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../#product-demos">Product Demos</a></li>
+        <li><a href="../#tools-and-utilities">Tools</a></li>
+        <li><a href="../#games">Games</a></li>
+        <li><a href="../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-page">
+    <header class="blog-hero">
+      <p class="hero__eyebrow">Ansible Technical Marketing</p>
+      <h1 class="blog-hero__title">Blog</h1>
+      <p class="blog-hero__subtitle" id="blog-hero-subtitle">
+        Technical writing from our team — republished here with links to the original posts on Red Hat.
+      </p>
+    </header>
+
+    <div class="blog-container">
+      <div id="blog-filter" class="blog-filter" hidden>
+        <p class="blog-filter__label">
+          Showing posts by <strong id="blog-filter-author"></strong>.
+          <a href="/blog/" class="blog-filter__clear">Show all</a>
+        </p>
+      </div>
+      <div id="blog-list" class="blog-list" aria-live="polite">
+        <p class="blog-empty">Loading posts…</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script src="../js/team.js"></script>
+  <script src="../js/blog-page.js"></script>
+</body>
+</html>

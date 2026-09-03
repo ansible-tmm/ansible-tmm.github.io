@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience — Ansible TMM Blog</title>
+  <meta name="description" content="In this post, we’ll dive into the key features of this new release, explore the benefits of the accompanying Ansible development container, and discuss how this update lays the foundation for a broader Ansible developer experience.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/new-red-hat-ansible-development-tools">
+  <meta property="og:title" content="Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience">
+  <meta property="og:description" content="In this post, we’ll dive into the key features of this new release, explore the benefits of the accompanying Ansible development container, and discuss how this update lays the foundation for a broader Ansible developer experience.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/new-red-hat-ansible-development-tools">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/new-red-hat-ansible-development-tools" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on October 2, 2024.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience</h1>
+        <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2024-10-03">October 2, 2024</time> · 5-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>As automation becomes increasingly essential for modern enterprises, the experience of creating and scaling automation is more important than ever. A smooth, efficient automation creation process helps organizations realize the full value of <a href="https://www.redhat.com/en/technologies/management/ansible">Red Hat Ansible Automation Platform</a> faster, leading to better return on investment. The latest release of Ansible development tools addresses this by consolidating core Ansible tools into a single package, reducing tool sprawl, and embedding best practices into the automation creation experience. Whether you’re a seasoned Ansible user or just starting out, this release simplifies setup, improves consistency, and lays the groundwork for deeper integrations into the Ansible ecosystem.</p>
+<p>In this post, we’ll dive into the key features of this new release, explore the benefits of the accompanying Ansible development container, and discuss how this update lays the foundation for a broader Ansible developer experience.</p>
+<h2>What’s new in Ansible development tools</h2>
+<p>In this section, we’ll dive into the new <a href="https://www.redhat.com/en/technologies/management/ansible/development-tools">Ansible development tools</a> package, which is designed to streamline the development and testing process for Ansible content. This curated package includes a comprehensive suite of enterprise-grade  automation development capabilities to simplify Ansible content creation, reduce complexity, and bring consistency to your automation projects. By consolidating these capabilities into a single, supported package within Ansible Automation Platform , it enables seamless updates and maintenance, while eliminating the need to juggle individual installations from upstream and downstream sources.</p>
+<h3>Included Capabilities</h3>
+<ul>
+<li><strong>ansible-builder:</strong> Execution environment builder automates the process of building execution environments using the schemas and tooling defined in various Ansible Collections and by the user.</li>
+<li><strong>ansible-core:</strong> Ansible Core is a powerful, agentless automation engine that simplifies IT processes like deployment, configuration, and cloud management using a human-readable YAML syntax, supporting a wide range of modules for scalable automation. It integrates with Ansible Automation Platform to provide enterprise-level orchestration, automation, and analytics capabilities.</li>
+<li><strong>ansible-creator*:</strong> The fastest way to scaffold your Ansible Playbook or collection projects with Ansible recommended practices.</li>
+<li><strong>ansible-dev-environment*:</strong> A utility for building and managing a virtual environment for Ansible content development.</li>
+<li><strong>ansible-lint:</strong> A utility to identify and correct stylistic errors and anti-patterns in Ansible Playbooks and roles.</li>
+<li><strong>ansible-navigator:</strong> A text-based user interface (TUI) for developing and troubleshooting Ansible content with execution environments.</li>
+<li><strong>ansible-sign:</strong> A utility for signing and verifying Ansible content.</li>
+<li><strong>Molecule:</strong> a functional test runner for Ansible Collections, playbooks and roles.</li>
+<li><strong>pytest-ansible*:</strong> A pytest testing framework extension that provides additional functionality for testing Ansible modules and plugin Python code.</li>
+<li><strong>tox-ansible*:</strong> An extension to the tox testing utility that provides additional functionality to check Ansible modules and plugin Python code under different Python interpreters and Ansible core versions.</li>
+</ul>
+<p>* Net new tools available to help improve the Ansible creator experience.</p>
+<h3>Why it matters</h3>
+<p>This package simplifies the management of Ansible development capabilities by bundling them into a single, supported package within the <strong>Ansible Automation Platform</strong>. Instead of dealing with separate packages, versions, and dependencies, all tools are now updated and maintained consistently. This not only saves time and reduces complexity but also verifies that all components are aligned and supported within Ansible Automation Platform, making it easier to build and scale automation across your enterprise.</p>
+<h2>Introducing the Ansible development container</h2>
+<p>Alongside the Ansible development tools package, a new <strong>Ansible development container</strong> is now available, offering a powerful, consistent environment for Ansible development. One of the key advantages of this container is its support for non-RHEL users, including those on Windows systems, making it accessible to a broader audience. This container is designed to integrate smoothly with modern development workflows and has a number of significant advantages.</p>
+<h3>Key benefits of the development container</h3>
+<h4>Easy setup with dev container support in VS Code</h4>
+<p>For many developers, setting up a consistent development environment can be a time-consuming process. The new Ansible development container offers <strong>native support for Dev Containers in VS Code</strong>. Combined with the <strong>Ansible extension</strong> for VS Code, this allows you to quickly spin up an Ansible development environment with all the required tooling pre-installed. With just a few clicks, you’re ready to start automating.</p>
+<p>This greatly simplifies the onboarding process for new team members and minimizes the time spent configuring local development environments. Everything you need for Ansible development is bundled into the container, ensuring you can focus on writing automation, not assembling environments.</p>
+<h4>An alternative for RPM users</h4>
+<p>Traditionally, customers relying on Ansible tooling RPMs had to install and maintain these tools individually on their systems. The new container offers a modern, flexible alternative by providing a <strong>containerized environment</strong> that contains all necessary Ansible tooling, freeing users from system-level dependencies and providing them a standardized cross platform development environment.</p>
+<p>This is particularly beneficial for customers looking for a simplified approach to managing their Ansible development workflows, or for customers working in environments where installing RPMs may not be the most efficient solution.</p>
+<h4>Support for users on Windows and macOS</h4>
+<p>One of the most significant updates with the new Ansible development container is that it now offers official support for <strong>users who aren’t on Red Hat Enterprise Linux (RHEL).</strong> This includes users on <strong>Windows</strong> (Podman or Docker with WSL) and <strong>macOS</strong>, as well as those on other Linux distributions. The container provides a fully supported method for these users to leverage the full suite of Ansible development tools.</p>
+<p>This greatly expands the accessibility of Ansible tooling, ensuring that even non-RHEL users on <strong>Windows</strong> and <strong>macOS</strong> can enjoy a consistent, reliable, and fully supported Ansible development environment.</p>
+<h2>Building the future of Ansible tooling</h2>
+<p>The release of Ansible development tools and the Ansible development container is just the beginning. This update lays a solid foundation for deeper integration between Ansible tooling and the broader Ansible creator experience.</p>
+<h3>Scaffolding with Ansible plug-ins for Red Hat Developer Hub (RHDH)</h3>
+<p>The integration of <a href="https://www.redhat.com/en/technologies/management/ansible/developer-hub-plugins">Ansible plug-ins for Red Hat Developer Hub (RHDH)</a> is a perfect example of this forward-looking approach. These plug-ins allow developers to quickly scaffold new projects—whether it’s an Ansible Collection or playbook project—using the ansible-creator tool, all within the Ansible development container.</p>
+<p>Ansible plug-ins for Red Hat Developer Hub delivers a portal experience with curated learning paths, push-button content creation, integrated <a href="https://www.redhat.com/en/technologies/management/ansible/development-tools">development tools</a>, and other opinionated resources to help users who are new to Ansible learn quickly while supporting experienced teams with the resources they need to be more productive.</p>
+<h3>Red Hat Ansible Lightspeed: Generative AI at your fingertips</h3>
+<p><a href="https://www.redhat.com/en/technologies/management/ansible/automation-intelligent-assistant">Ansible Lightspeed</a>, as part of the Ansible extension in VS Code, supercharges the creation process by providing AI-assisted recommendations for Ansible Playbooks. By learning from the user’s context and automating the mundane tasks of playbook creation, Ansible Lightspeed helps developers focus on more strategic tasks, enabling them to scale automation rapidly across their organizations. With the full support of the <strong>Ansible development tools package</strong>, VS Code becomes a single, powerful platform where the entire Ansible creation experience comes together.</p>
+<p>This seamless integration makes it much easier for users to build and deploy automation solutions that scale effortlessly across their environments. With all the tools, including Ansible Lightspeed, available within the VS Code extension, users can create, test, and deploy automation content with confidence, knowing that the ecosystem is fully integrated and ready to support them.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/image1_191.png"><img src="https://www.redhat.com/rhdc/managed-files/image1_191.png" alt="Dev 2.5 blog image 1"></a></p>
+<p><em>Figure 1: Ansible content creator view in VS Code</em></p>
+<h2>Conclusion</h2>
+<p>The new release of Ansible development tools is a game-changer for automation creators and enterprises alike. By consolidating all the essential tools into one package and introducing a flexible, supported development container, Ansible development tools makes Ansible development more accessible, efficient, and integrated than ever before.</p>
+<p>Whether you’re working on RHEL, another Linux distribution, or even macOS or Windows, the new development container offers everything you need to automate with Ansible. As this tooling continues to evolve, we can look forward to even more seamless integrations and enhancements to the Ansible creation experience.</p>
+<h2>Next steps and resources</h2>
+<ul>
+<li>Upcoming webinar: Unlock your Automation Advantage with Red Hat Ansible Automation Platform 2.5</li>
+<li>Explore the <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5">documentation</a></li>
+<li>Blog: <a href="http://redhat.com/en/blog/whats-new-event-driven-ansible-part-ansible-automation-platform-25">What&#39;s new with Event-Driven Ansible</a></li>
+<li>Overview Video: <a href="https://youtu.be/x95UPeJVm-E">What&#39;s new: Red Hat Ansible Automation Platform 2.5</a></li>
+<li>Get started with<ul>
+<li><a href="https://www.redhat.com/en/technologies/management/ansible/automation-intelligent-assistant">Red Hat Ansible Lightspeed with IBM watsonx Code Assistant</a></li>
+<li><a href="https://www.redhat.com/en/technologies/management/ansible/development-tools">Ansible development tools</a></li>
+<li><a href="https://www.redhat.com/en/technologies/management/ansible/developer-hub-plugins">Ansible plug-ins for Red Hat Developer Hub</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/wa_profile%20-%20Anshul%20Behl.jpeg?itok=vYDgCAJj" alt="Anshul Behl, Principal Technical Marketing Manager, Red Hat"></a></p>
+<p>[### Anshul Behl</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/anshul-behl">https://www.redhat.com/en/authors/anshul-behl</a>)</p>
+<p>Anshul is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform&#39;s adoption experience for customers by producing technical content on all aspects of the product.</p>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+<h2>Keep exploring</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/services/training/learning-subscription?intcmp=7013a000003Sq0iAAC" title="Red Hat Learning Subscription">Free trial: Red Hat Learning SubscriptionTrial</a></li>
+<li><a href="https://www.redhat.com/en/products/trials?intcmp=7013a000003Sq0iAAC" title="All Red Hat product trials">Start your no-cost product trialTrial</a></li>
+<li><a href="https://tv.redhat.com/?intcmp=7013a000003Sq0iAAC">Subscribe to Red Hat TV at no costVideo</a></li>
+</ul>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/new-red-hat-ansible-development-tools">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

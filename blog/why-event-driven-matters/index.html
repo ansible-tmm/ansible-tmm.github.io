@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Event-Driven Automation Matters — Ansible TMM Blog</title>
+  <meta name="description" content="Learn why event-driven matters and how it can help you.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/why-event-driven-matters">
+  <meta property="og:title" content="Why Event-Driven Automation Matters">
+  <meta property="og:description" content="Learn why event-driven matters and how it can help you.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/why-event-driven-matters">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/why-event-driven-matters" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on September 20, 2022.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Why Event-Driven Automation Matters</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2022-09-21">September 20, 2022</time> · 3-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Event%20driven%20automation%20blog.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Event%20driven%20automation%20blog.png" alt="Event driven automation blog"></a></p>
+<p>Life comes down to moments. These events are often how we define our achievements, successes, and failures throughout life. Just like our daily lives, IT organizations and teams can also have these defining moments, where you will often hear phrases like the &quot;great database crash of &#39;98.&quot; Many of these memorable IT  moments occur from limiting ourselves to a reactive approach when it comes to managing our IT assets. This is where event-driven automation can help us move from reactive to proactive IT management – well before we have the next great issue or moment in our IT teams.</p>
+<p>In an IT context, events come from monitoring or other tools to tell us when something needs attention.  With this event data, we are able respond faster with automated tasks, resolving issues or enhancing observation where needed, often so we can identify and address festering issues before they are full blown problems. A byproduct of this means teams are now able to spend more time innovating, and are able to realize greater work-life balance because  troubleshooting patterns and remediation approaches are automatically initiated based on an initial event in your environments.</p>
+<h2>Events on the Infrastructure</h2>
+<p>Consider the ubiquitous, laborious, and manual experience of remediating tickets submitted through IT service management systems. Automating from IT service management system events is one potent way to find savings in the costs of closing out trouble tickets. Historically, tickets require some level of manual touch, even if there is no system issue to resolve. And resolving system issues manually only increases the time and cost. Using event-driven automation to remediate the tickets and, even resolve or partially resolve the incidents themselves, not only helps you reduce your costs and better allocate your resources, it can also improve your customer experience. And your efficiencies can improve as your data grows, allowing you to automate a growing number of issues, and increasing complexity, depending on the ruleset you want to create.</p>
+<p>In addition to resolving tickets, <a href="https://www.ansible.com/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform">event-driven automation can also be used to automate compliance</a> by checking and maintaining patch levels, and remediating and preventing drift. Using a file system watcher, file system changes can be a trigger for remediation. Not only can the remediation be helpful, but the resulting data can be evaluated to identify larger problems that may require manual intervention. On the security side, firewall changes could be used as a trigger for event-driven remediation.</p>
+<h2>Events on the Network</h2>
+<p>But there are also other areas where event-driven remediation could help you find surprising efficiencies and cost savings, like network automation. Going beyond automating device configuration or network fact collection, imagine the value of creating a self-scaling, self-healing network. An event based on a workload threshold within an environment could trigger automated network resource management, improving customer experience, as well as reducing the time and cost associated with manual scaling. When you can customize and scale how extensive and complex your automation is, you can increase efficiency over time, without sacrificing the ability to gather data and assess risk.</p>
+<h2>Events at the edge</h2>
+<p>Automation plays a key role in managing data and applications at the edge. As with the above use cases, event-driven automation can identify system changes in edge devices and remediate drift. You could also use triggers to deploy containers at the edge using <code>systemd</code> with Red Hat Enterprise Linux.</p>
+<h2>The future of events and automation</h2>
+<p>While there’s still a lot of room for innovation (applying machine learning, for example), much of the value lies in using event-driven automation to be more proactive in your IT operations and further reduce manual efforts.</p>
+<p>In closing, there is a large amount of event data about your IT systems already in your environment. Why not use it to your advantage to make troubleshooting issues faster and easier or even resolving them before they grow into a moment? Get started by learning more about event-driven automation.  Here are a few resources to help:</p>
+<ul>
+<li><a href="https://www.redhat.com/en/blog/achieving-speed-and-accuracy-through-event-driven-automation">Achieving speed and accuracy though event-driven automation</a></li>
+<li><a href="https://www.ansible.com/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform">Event-driven remediation with systemd and Red Hat Ansible Automation Platform</a></li>
+<li><a href="https://www.youtube.com/watch?v=PFYZbgx3mg0&list=PLdu06OJoEf2aVagK5rW1uMA76H8rPw3CT&index=29">Implementing an event driven architecture (AnsibleFest 2021)</a></li>
+<li><a href="https://events.experiences.redhat.com/widget/redhat/rhaf22/SessionCatalog2022?search=event-driven&tab.day=20221019">Check out these advanced automation session at AnsibleFest 2022</a></li>
+</ul>
+<p>Also check out  <a href="https://www.ansible.com/ansiblefest">AnsibleFest 2022</a> in person in Chicago on October 18 and 19, 2022!  Exciting news will be shared and you can check out additional event driven sessions.</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/why-event-driven-matters">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

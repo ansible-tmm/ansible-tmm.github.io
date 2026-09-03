@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accelerate Network Automation with Aggregate Resources — Ansible TMM Blog</title>
+  <meta name="description" content="Accelerate Network Automation with aggregate resources as a better way to iterate without the need to execute each task one by one.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/accelerate-ansible-networking-aggregate-resources">
+  <meta property="og:title" content="Accelerate Network Automation with Aggregate Resources">
+  <meta property="og:description" content="Accelerate Network Automation with aggregate resources as a better way to iterate without the need to execute each task one by one.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/accelerate-ansible-networking-aggregate-resources">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/accelerate-ansible-networking-aggregate-resources" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on January 8, 2018.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Accelerate Network Automation with Aggregate Resources</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2018-01-09">January 8, 2018</time> · 5-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Ansible-Networking-Update-Social.png" alt=""></a></p>
+<p>One of the major networking features in Red Hat Ansible Engine 2.4 was the addition of <strong>aggregate resources</strong> to the networking modules. The Ansible networking team recently talked about this at the Ask an Expert webinar in November.</p>
+<h3>What are Aggregate Resources?</h3>
+<p>Simply put, aggregate resources are a better way to iterate (or loop) without the need to execute each task one by one. That is, you can now “aggregate” a collection as a single task instead of a collection of discrete loops.</p>
+<p><strong>Loop Method</strong></p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Loop-Method-Networking-Diagram.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Loop-Method-Networking-Diagram.png" alt=""></a></p>
+<p><strong>Aggregate Method</strong></p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Aggregate-Method-Networking-Diagram.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Aggregate-Method-Networking-Diagram.png" alt=""></a></p>
+<table>
+<thead>
+<tr>
+<th>Loop Method (with_items:)</th>
+<th>Aggregate Method (aggregate:)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. Connect via SSH or eAPI 2. Execute eos_vlan module for VLAN1 3. Execute eos_vlan module for VLAN2 4. Execute eos_vlan module for VLAN3 5. Execute eos_vlan module for VLAN4 . . . 6. Execute eos_vlan module for VLAN500 7. Disconnect SSH 8. Display Playbook Recap</td>
+<td>1. Connect via SSH or eAPI 2. Execute eos_vlan module  - Generate VLAN commands for entire set - Execute in one task  3. Disconnect SSH 4. Display Playbook Recap</td>
+</tr>
+<tr>
+<td><strong>503 steps</strong></td>
+<td><strong>4 steps</strong></td>
+</tr>
+</tbody></table>
+<p>Based on feedback from customers, partners and community members, this post provides more examples and more detail of this important new feature. The simplest way to showcase this is to compare the old way and the new way, and highlight the differences between each.</p>
+<p>For this scenario we assume a network operator wants to configure 500 VLANs on a Arista EOS device. We can use the <a href="https://docs.ansible.com/ansible/2.4/net_vlan_module.html">eos_vlan</a> Ansible module to easily accomplish this. Refer to the following Ansible Playbook snippet.</p>
+<h3>Ansible 2.3 and older</h3>
+<p>The <strong>vlan_id</strong> parameter is where the actual 802.1q VLAN number is specified. The <strong>name</strong> parameter is a description that helps identify what this VLAN is for (i.e. printers, laptops, etc). Finally, the <strong>state</strong> parameter describes what the intended or expected state should be, which can be present, absent, active or suspend.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>    - eos_vlan:</span></span>
+<span class="line"><span>        vlan_id: "{{ item.vlan_id }}"</span></span>
+<span class="line"><span>        name: "{{ item.name | default('VLAN' + item.vlan_id|string) }}"</span></span>
+<span class="line"><span>        state: "{{ item.state | default('active') }}"</span></span>
+<span class="line"><span>      with_items:</span></span>
+<span class="line"><span>        - { vlan_id: 1, name: default }</span></span>
+<span class="line"><span>        - { vlan_id: 2, name: Vl2 }</span></span>
+<span class="line"><span>        - { vlan_id: 3, state: suspend }</span></span></code></pre><p><a href="https://github.com/network-automation/aggregate_resources/blob/master/oldway.yml">View the full playbook: oldway.yml</a></p>
+<p>Prior to integrating the aggregate resources feature, <strong>with_items</strong> was used <a href="http://docs.ansible.com/ansible/latest/playbooks_loops.html">as a loop</a> and passed this criteria for multiple VLANs. Loops are very useful within Ansible, however in this particular example loops can have serious performance impacts. To highlight the execution time differences, we can use the Linux <strong>time</strong> command.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>sean@rhel7 ~]$ time ansible-playbook oldway.yml</span></span></code></pre><p>This particular playbook with just the one task took 18 minutes and 52 seconds to run over 500 VLANs. Ansible still provides parallelism across many different network switches, but this is far too slow for many large scale production environments!</p>
+<h3>Red Hat Ansible Engine 2.4 and newer</h3>
+<p>The new aggregate method allows us to pass the entire list of VLAN information without looping. The exact same list of VLANs shown in oldway.yml can be reused easily. Simply moving every line of the VLAN data from the task level to the module level (two spaces in) under the <strong>aggregate</strong> section (replacing <strong>with_items</strong> previously). Instead of looping each VLAN one at a time, we can send all the information at once. Keep in mind this example is only showing the first three VLANs, the full example contains 500 VLANs. This is what the updated task in the playbook looks like:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>   - eos_vlan:</span></span>
+<span class="line"><span>        state: active</span></span>
+<span class="line"><span>        aggregate:</span></span>
+<span class="line"><span>          - { vlan_id: 1, name: default }</span></span>
+<span class="line"><span>          - { vlan_id: 2, name: Vl2 }</span></span>
+<span class="line"><span>          - { vlan_id: 3, state: suspend }</span></span></code></pre><p>The modified task with aggregate resources is also timed to compare:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>sean@rhel7 ~]$ time ansible-playbook newway.yml</span></span></code></pre><p><a href="https://github.com/network-automation/aggregate_resources/blob/master/newway.yml">View the full playbook: newway.yml</a></p>
+<p>This took 10 seconds to complete, which is significantly faster than the previous ~19 minute method. Another advantage is that you will also see all VLANs as either changed or OK at the task level (referring to Ansible’s ability to keep track of state) rather than VLAN by VLAN as with the loop method.</p>
+<h3>The Purge Ability</h3>
+<p>In conjunction with the aggregate feature, there is a purge parameter. The purge knob is defined as “Purge VLANs not defined in the aggregate parameter.” This means that VLANs not defined in the aggregate will be removed from the switch. So when the aggregate in this example is used all other VLANs will be deleted.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span> - eos_vlan:</span></span>
+<span class="line"><span>        state: active</span></span>
+<span class="line"><span>        purge: yes</span></span>
+<span class="line"><span>        aggregate:</span></span>
+<span class="line"><span>          - { vlan_id: 1, name: default }</span></span>
+<span class="line"><span>          - { vlan_id: 2, name: Vl2 }</span></span>
+<span class="line"><span>          - { vlan_id: 3, state: suspend }</span></span></code></pre><p><a href="https://github.com/network-automation/aggregate_resources/blob/master/purge.yml">View the full playbook: purge.yml</a></p>
+<p>When it is not used, it only enforced that the VLANs exist in the state the aggregate sends them. What are potential use-cases for each?</p>
+<table>
+<thead>
+<tr>
+<th>purge: yes</th>
+<th>In this particular eos_vlan example turning the purge ability on allows us to <strong>enforce configuration policy</strong>.  What that means is if another user or process adds a VLAN, we will revert the configuration to only contain the VLANs we provide in the aggregate parameter.</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>purge: no</strong></td>
+<td>If the user running the playbook doesn’t care about the state of any VLANs not provided (i.e. he is working on VLAN10-50 and doesn’t care about VLAN200 which also happens to be configured).  This allows playbooks to be written in a way where a temporary configuration could be supplied without affecting ongoing configuration.</td>
+</tr>
+</tbody></table>
+<h3>Going Further</h3>
+<p>Where else can I use <strong>aggregate</strong>? Other Arista examples include those such as the <a href="http://docs.ansible.com/ansible/latest/eos_user_module.html">eos_user</a> module and the <a href="http://docs.ansible.com/ansible/latest/eos_vrf_module.html">eos_vrf</a> module. Users and VRFs can be handled in a single aggregate rather than a collection of looped tasks. Instead of sending configuration user by user, or VRF by VRF with a loop it is now possible to use the aggregate. This will speed up configurations and give an alternative to using os_config modules with Jinja templating.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>The aggregate feature is not limited to just the Arista EOS platform. Other networking platforms such as Cisco IOS, Cisco NX-OS and Juniper JunOS also have aggregate enabled in those respective modules. The Red Hat Ansible Engine Networking Add-on includes full support for use of aggregate in the <a href="http://docs.ansible.com/ansible/latest/modules_support.html">supported platform modules</a>.</td>
+</tr>
+</tbody></table>
+<p>Ansible network modules that are capable of the aggregate feature are listed on their respective module documentation page. The aggregate keyword will appear under the parameter heading in the Options table. Click here for a <a href="http://docs.ansible.com/ansible/latest/list_of_network_modules.html">complete list of modules.</a></p>
+<p>All scenarios in this blog post are stored in a GitHub repo in our <a href="https://github.com/network-automation">network automation community.</a></p>
+<p>Follow the aggregate resources repository <a href="https://github.com/network-automation/aggregate_resources">here</a>.</p>
+<p>To become a member of the growing community <a href="mailto:ansible-network@redhat.com">email us</a> with your GitHub ID.</p>
+<p>Have more questions? Join our next regularly scheduled Ask an Expert: <a href="https://www.ansible.com/resources/webinars-training/ask-an-expert-ansible-networks">Networking Webinar.</a></p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecting-true-autonomy-level-45-network">Architecting true autonomy with a level 4/5 network</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/solve-multi-controller-contention-red-hat-openshift-networking">Solve multi-controller contention with Red Hat OpenShift networking</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/accelerate-ansible-networking-aggregate-resources">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

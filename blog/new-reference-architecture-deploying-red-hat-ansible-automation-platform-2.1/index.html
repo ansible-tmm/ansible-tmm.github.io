@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New reference architecture: Deploying Red Hat Ansible Automation Platform 2.1 — Ansible TMM Blog</title>
+  <meta name="description" content="The latest reference architecture on the best practices for deploying a highly available Ansible Automation Platform 2.1 environment.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1">
+  <meta property="og:title" content="New reference architecture: Deploying Red Hat Ansible Automation Platform 2.1">
+  <meta property="og:description" content="The latest reference architecture on the best practices for deploying a highly available Ansible Automation Platform 2.1 environment.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on December 13, 2021.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">New reference architecture: Deploying Red Hat Ansible Automation Platform 2.1</h1>
+        <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2021-12-14">December 13, 2021</time> · 3-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/RA%202.1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/RA%202.1.png" alt="RA 2.1"></a></p>
+<p>With the release of <a href="https://www.ansible.com/blog/introducing-red-hat-ansible-automation-platform-2.1">Red Hat Ansible Automation Platform 2.1</a>, we are proud to deliver the latest reference architecture on the best practices for <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html-single/deploying_ansible_automation_platform_2.1/index">deploying a highly available Ansible Automation Platform environment</a>. </p>
+<p>Why are you going to love it?</p>
+<p>This reference architecture focuses on providing a step-by-step deployment procedure to install and configure a highly available Ansible Automation Platform environment from start to finish.   </p>
+<p>But there’s more!   </p>
+<p>Aside from the key steps to install Ansible Automation Platform, it incorporates key building blocks to optimize your Ansible Automation Platform environments, including:</p>
+<ul>
+<li>Centralized logging across multiple Ansible Automation Platform environments.</li>
+<li>Securing installation inventory passwords using ansible-vault.</li>
+<li>Using a combination of GitOps practices (configuration as code capabilities) and Git webhooks to streamline the automation and delivery of configurations to multiple Ansible Automation Platform sites automatically, immediately and consistently.</li>
+</ul>
+<h4>What are the foundational pieces to this reference architecture?</h4>
+<p>The reference architecture consists of two environments of Ansible Automation Platform: <em>Ansible Site 1</em> and <em>Ansible Site 2</em> for high availability. Site 1 is an active environment while Site 2 is a passive environment. Each site consists of the following:</p>
+<ul>
+<li>A three node automation controller cluster with one PostgreSQL database.</li>
+<li>A three node automation hub cluster with one PostgreSQL database.</li>
+<li>Two execution nodes per automation controller cluster.</li>
+<li>Access to hosted services on <em>console.redhat.com</em> such as Red Hat Insights for Red Hat Ansible Automation Platform, automation services catalog and Ansible automation hub.</li>
+</ul>
+<p>To achieve high availability (HA) for the PostgreSQL databases, GitOps in conjunction with Git webhooks are used when push or merge events are triggered on a Git repository, which in turn will configure the specified event on both <em>Ansible Site 1</em> and <em>Ansible Site 2</em>.</p>
+<h4>Why was GitOps (Configuration as Code) used within this reference architecture?</h4>
+<p>By storing and managing Ansible Automation Platform configuration files as code, you can:</p>
+<ul>
+<li>Standardize the settings being applied to all our Ansible Automation Platform environments.</li>
+<li>Inherit the benefits of version control of our configurations.</li>
+<li>Easily scale additional Ansible Automation Platform deployments to use the same configuration settings.</li>
+<li>Easily track changes of the configuration settings, which helps fix issues easier.</li>
+</ul>
+<p>Combining GitOps with Git webhooks, you can set up an Ansible Automation Platform workflow that immediately updates all of our Ansible Automation Platform sites simultaneously with the exact configurations across all the platforms.  </p>
+<p>In effect, it removes the overhead of having to maintain database backups or enable an expensive database replication solution, while still achieving the strengths of those solutions.</p>
+<p>Finally, for logging consistency, a highly available centralized logging environment was installed on both Ansible Automation Platform environments.</p>
+<h4>Why was enabling centralized logging a key part of this reference architecture?</h4>
+<p>When we think about logging, the first thought that comes to mind is often its ability to troubleshoot a particular issue. As technology continues to evolve and there is an enormous amount of data that applications must capture, logs play a vital role in capturing this data and allowing for operational intelligence methods.</p>
+<p>Ansible Automation Platform provides a logging feature that enables the capability to send detailed logs to any number of third party external log aggregation services. Services connected to this data feed serve as a useful means in gaining insight into automation controller usage or technical trends. The data can be used to analyze events in the infrastructure, monitor for anomalies, and correlate events from one service with events in another.  </p>
+<p>By taking advantage of the latest reference architecture, you inherit the most valuable benefits on how to best run the platform right from the start. And who doesn’t want that?</p>
+<h4>An image representing the reference architecture is provided below. What can I do next?</h4>
+<p>Whether you are beginning your automation journey or are a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html-single/deploying_ansible_automation_platform_2.1/index">Latest Reference Architecture</a> - Download the latest Deploying Red Hat Ansible Automation Platform 2.1 reference architecture for an in-depth step-by-step deployment HOWTO.</li>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - Check out the interactive in-browser exercises to learn and dive into Ansible Automation Platform.</li>
+<li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to go? Get your own trial subscription for unlimited access to all the components of Ansible Automation Platform.</li>
+<li><a href="https://developers.redhat.com/about">Developer license</a> - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our new web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez"><img src="https://www.redhat.com/themes/custom/rhdc/img/author-default-img.svg" alt="Roger Lopez"></a></p>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez">### Roger Lopez</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

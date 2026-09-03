@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Importing Ansible Validated Content into Private Automation Hub — Ansible TMM Blog</title>
+  <meta name="description" content="Ansible validated content addresses common automation use cases. Learn how to access it from your cloud deployment to accelerate your automation.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/importing-ansible-validated-content-into-private-automation-hub">
+  <meta property="og:title" content="Importing Ansible Validated Content into Private Automation Hub">
+  <meta property="og:description" content="Ansible validated content addresses common automation use cases. Learn how to access it from your cloud deployment to accelerate your automation.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/importing-ansible-validated-content-into-private-automation-hub">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/importing-ansible-validated-content-into-private-automation-hub" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on October 2, 2023.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Importing Ansible Validated Content into Private Automation Hub</h1>
+        <p class="blog-post-meta"><a href="/team/#hicham-mourad">Hicham Mourad</a> · <time datetime="2023-10-03">October 2, 2023</time> · 3-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<h2>Introduction</h2>
+<p>Ansible validated content is a set of collections containing pre-built YAML content (such as playbooks or roles) to address the most common automation use cases. You can use Ansible validated content out-of-the-box or as a learning opportunity to develop your automation skills. It&#39;s a trusted starting point to bootstrap your automation: use it, customize it and learn from it!</p>
+<p>This content is curated by experts like the Red Hat Automation Community of Practice so:</p>
+<ul>
+<li>Use cases are based on successfully deployed customer examples</li>
+<li>Content creators are trusted and verified subject matter experts</li>
+<li>Content itself adheres to the latest best practices and guidelines issued by Red Hat’s engineering team</li>
+<li>Ansible validated content is tested against supported versions of Red Hat Ansible Automation Platform</li>
+</ul>
+<p>Ansible Automation Platform is a trusted delivery system to access and leverage Ansible validated content in your organization.</p>
+<h2>How can I get this Ansible validated content into my Ansible Automation Platform on clouds (AWS, Azure, Google Cloud) deployment?</h2>
+<p>To do this there are a few short steps. Let’s walk through these together.</p>
+<p>As part of your Ansible Automation Platform on cloud, you will also have a private automation hub. This is your own internal automation content repository. Login to private automation hub. You will have your own internal URL for the private automation hub, depending on your deployment type. Once you are logged in, go to <strong>Collections</strong> -&gt; <strong>Remotes</strong>.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/P4cSxzwEBd4VkCzQQX3bkZRS1zYBeVNTbZKXbqq8_b0b2xAwa6SQP2CSRpzTg2h0aGucy_f1PWPqbjS8FT4myTAqgdNpf60Plm692Nxy4XLqAnu89GIcBWpXJkzoLfyKUpF2kk8HVle9719jjgdpjHI_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/P4cSxzwEBd4VkCzQQX3bkZRS1zYBeVNTbZKXbqq8_b0b2xAwa6SQP2CSRpzTg2h0aGucy_f1PWPqbjS8FT4myTAqgdNpf60Plm692Nxy4XLqAnu89GIcBWpXJkzoLfyKUpF2kk8HVle9719jjgdpjHI_0.png" alt=""></a></p>
+<p>Let’s define the remote configuration for where we want to pull in the validated content from.  Select <strong>Add Remote</strong> and provide the following configuration details.</p>
+<p>For the Name provide: <strong>validated</strong></p>
+<p>For the URL provide: <strong><a href="https://console.redhat.com/api/automation-hub/content/validated/">https://console.redhat.com/api/automation-hub/content/validated/</a></strong></p>
+<p>For the SSO URL provide:  <strong><a href="https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token">https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-conn…</a></strong></p>
+<p>For the token, you will need to <strong>login to the</strong> <strong>Red Hat Hybrid Cloud Console</strong> and grab the token from there. <strong>Here’s exactly where you need to go to get the token</strong>:  <strong><a href="https://console.redhat.com/ansible/automation-hub/token">https://console.redhat.com/ansible/automation-hub/token</a></strong></p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/HWrT2QLdVrye544xDJpdSWnmVn5kybakqlh7cPbFzyw-R3AMhgEp-aoRTZTS4vikN4R2qX_zSTGq0g58oGxaNJDJNjA_DG8eqmhP0JboeeG0oxgF8G96OMqPnVZm-zjZyMHyQjL3M2vKuDRnQdUwTFE_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/HWrT2QLdVrye544xDJpdSWnmVn5kybakqlh7cPbFzyw-R3AMhgEp-aoRTZTS4vikN4R2qX_zSTGq0g58oGxaNJDJNjA_DG8eqmhP0JboeeG0oxgF8G96OMqPnVZm-zjZyMHyQjL3M2vKuDRnQdUwTFE_0.png" alt=""></a></p>
+<p>After you <strong>Save</strong> this remote configuration, you will have an additional entry in the remotes pane called <strong>validated</strong>.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/5iQuXwT-02GUuiRt-_xHDyhxxsYo3dK6hGBAI4NMJbQ664vWGCKYN_xraIMCvYsweqvYkUmTrpi1TQ-7sJxb85G25pbsxP4J9XWo8WzOA6AXkkNvZvnRAwuscJvDYyDUQKYSrvF9WXGWTnJJM-lKkqs_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/5iQuXwT-02GUuiRt-_xHDyhxxsYo3dK6hGBAI4NMJbQ664vWGCKYN_xraIMCvYsweqvYkUmTrpi1TQ-7sJxb85G25pbsxP4J9XWo8WzOA6AXkkNvZvnRAwuscJvDYyDUQKYSrvF9WXGWTnJJM-lKkqs_0.png" alt=""></a></p>
+<p>Moving to the <strong>Collections</strong> -&gt; <strong>Repositories</strong> menu, we need to <strong>edit</strong> the <strong>validated</strong> repository configuration and trigger a synchronization of the validated content.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/UtZdshACO7mbTKZU3hObX6GRsfZyRNL3lG6NjcVBaUTQ0awTU3NKT-MsQ-ics6I314nTbGyS-qnXMDymk2FTwC39OM0FuGeGhaOkeuAqytz6pPA9EEL4RFSqWGt400LPvXcO6ypLx4BdlK629p081IA_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/UtZdshACO7mbTKZU3hObX6GRsfZyRNL3lG6NjcVBaUTQ0awTU3NKT-MsQ-ics6I314nTbGyS-qnXMDymk2FTwC39OM0FuGeGhaOkeuAqytz6pPA9EEL4RFSqWGt400LPvXcO6ypLx4BdlK629p081IA_0.png" alt=""></a></p>
+<p>Click on the <strong>validated</strong> repository name. This will give you the opportunity to go into edit mode.  Click <strong>edit</strong>. Once you are editing the <strong>validated</strong> repository, there are a few necessary configuration changes needed.</p>
+<p>For the <strong>Pipeline</strong>, from the drop-down select <strong>None.</strong></p>
+<p>For the <strong>Remote</strong>, from the drop-down select <strong>validated</strong>. Then click on <strong>Save</strong>.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image-4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image-4.png" alt="image-4"></a></p>
+<p>At this point, you are able to trigger the synchronization of the validated content to your private automation hub. This can be done in a couple of ways: One is from the <strong>Repositories</strong> menu, select the <strong>ellipsis</strong> at the far right of the <strong>validated</strong> row. Then click on <strong>Sync</strong>. The <strong>Sync status</strong> will change to <strong>running</strong>, and after a few minutes it will move to <strong>Completed</strong>.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/GmbjqX178endfREaWxZypMC_AFE1_ZjdwNoVwwZ5vyiI4tZwrWUjSEz0zO9-SJ5-5ZKIUdp87pg5oQ8q2Tdybk0rBJsz69J6GpJ0OdoCEJD20g6buHidrc0UfLgC-AVJddzHga-eYhsJzzMJScFdP4A_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/GmbjqX178endfREaWxZypMC_AFE1_ZjdwNoVwwZ5vyiI4tZwrWUjSEz0zO9-SJ5-5ZKIUdp87pg5oQ8q2Tdybk0rBJsz69J6GpJ0OdoCEJD20g6buHidrc0UfLgC-AVJddzHga-eYhsJzzMJScFdP4A_0.png" alt=""></a></p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/XhX2OWT9Rb7eJHPuQ6OtJ7GzmAHBDxwnH2d-9_DfvVBzuzaUG0xs09si5M4pHYllzh6SLJzoCaeRh3I9z6l_VI5X9t3sMEfDZ8PutkYSYMp9EIC5uFMsy8g9_JZ06PVIg1n9dhyKkcZgyVFn5nm07t4_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/XhX2OWT9Rb7eJHPuQ6OtJ7GzmAHBDxwnH2d-9_DfvVBzuzaUG0xs09si5M4pHYllzh6SLJzoCaeRh3I9z6l_VI5X9t3sMEfDZ8PutkYSYMp9EIC5uFMsy8g9_JZ06PVIg1n9dhyKkcZgyVFn5nm07t4_0.png" alt=""></a></p>
+<p>Once completed go back to the <strong>Collections</strong> menu option (1), and modify the filter. From the filter drop-down (2) change from <strong>Keywords</strong> to <strong>Repository (3)</strong>.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/wdZ2W6_9qoQXYyQOx9P5rGB02nEVEcm79CsHH5rlAptoKSd8pTmQflwypcg0e4vxKK5z6V7CK5jUhXgY11Y1ZTt0OpE8k8sMYBqErJswbHqpRJUkwI2baRDYnsaRg74aXqR6Q0t2vS896_snodpwNW0_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/wdZ2W6_9qoQXYyQOx9P5rGB02nEVEcm79CsHH5rlAptoKSd8pTmQflwypcg0e4vxKK5z6V7CK5jUhXgY11Y1ZTt0OpE8k8sMYBqErJswbHqpRJUkwI2baRDYnsaRg74aXqR6Q0t2vS896_snodpwNW0_0.png" alt=""></a></p>
+<p>Then for the <strong>Filter by repository</strong> drop-down, select <strong>validated</strong>.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ZTclnohOutXjYCjdKS9zQmg25mVWDbmUKd6_vlu5_6GxD-uBr2uUc4Hn-ndL_mWZuQi9VdC5X4KmsVyJcbh8nA3xUqKq_NR-7bzNTimMh4WAx6uZK1atA1tf1Wr4jMUWvG4iZY8m0xGQkyNOOHyGnsE_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ZTclnohOutXjYCjdKS9zQmg25mVWDbmUKd6_vlu5_6GxD-uBr2uUc4Hn-ndL_mWZuQi9VdC5X4KmsVyJcbh8nA3xUqKq_NR-7bzNTimMh4WAx6uZK1atA1tf1Wr4jMUWvG4iZY8m0xGQkyNOOHyGnsE_0.png" alt=""></a></p>
+<p>At this point you will be able to see all the available validated content, and you can start to explore this content and ways you can use this within your organization.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/eynbo7VF9oaLFHKh-KP9ZSZh4uNIJJrgFT6YiGVncnI5V6pi01p4BKXr2rf20T9P-lcWQgDKxLJ5Fvqa9YNh_vzq1D7vWYJlFqB5m6v3dFaXq51Vy8hZwb0CxOMfdFM4tZQzgKs3PQEqUdD_vO1Vsjw_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/eynbo7VF9oaLFHKh-KP9ZSZh4uNIJJrgFT6YiGVncnI5V6pi01p4BKXr2rf20T9P-lcWQgDKxLJ5Fvqa9YNh_vzq1D7vWYJlFqB5m6v3dFaXq51Vy8hZwb0CxOMfdFM4tZQzgKs3PQEqUdD_vO1Vsjw_0.png" alt=""></a></p>
+<h2>What can I do next?</h2>
+<p>To learn more about Ansible Automation Platform on hyperscaler clouds, please visit the page <a href="https://www.redhat.com/en/technologies/management/ansible">here</a>.</p>
+<p>Read a brief covering the use cases for validated content for each cloud provider:</p>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/migrate-microsoft-azure-using-redhat-ansible-automation-platform-20230921">Azure validated content</a></li>
+<li><a href="https://www.redhat.com/en/engage/migrate-aws-ansible-20230926">AWS validated content</a></li>
+<li><a href="https://www.redhat.com/en/engage/migrate-google-cloud-using-red-hat-ansible-automation-platform-20230921">Google Cloud validated content</a></li>
+</ul>
+<p>For hands-on self-paced lab(s) on Ansible Automation Platform, you can <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">visit here</a>.</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/hicham-mourad"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/ansible/hicham%20%281%29_0.jpeg?itok=bbvELvbE" alt="Hicham Mourad"></a></p>
+<p><a href="https://www.redhat.com/en/authors/hicham-mourad">### Hicham Mourad</a></p>
+<p>Hicham is responsible for technical marketing of the Red Hat Ansible Automation Platform on Clouds. Hicham has been in the software industry for over 20 years and for many of them focused on cloud management.
+Hicham has been a frequent presenter at events and conferences like VMworld, vForum, VMUG, VMLive, Gartner, Dell Technology World, AWS re:Invent, HPE Discover, Cloud Field Day, Red Hat Summit, AnsibleFest, in addition to Customer events.</p>
+<p><a href="https://www.redhat.com/en/authors/hicham-mourad">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/stop-searching-start-operating-scale-hybrid-clusters-red-hat-advanced-cluster-management-kubernetes-216">Stop searching, start operating: Scale hybrid clusters with Red Hat Advanced Cluster Management for Kubernetes 2.16</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/red-hat-openshift-421-smarter-scaling-faster-migration-and-ai-powered-efficiency">Red Hat OpenShift 4.21: Smarter scaling, faster migration, and AI-powered efficiency</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/importing-ansible-validated-content-into-private-automation-hub">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

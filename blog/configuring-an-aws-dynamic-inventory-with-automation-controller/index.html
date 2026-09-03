@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuring an AWS dynamic inventory with Automation controller — Ansible TMM Blog</title>
+  <meta name="description" content="Automation controller, the control plane and webUI for Red Hat Ansible Automation Platform, uses this IAM credential to build an inventory and execute automated tasks on your AWS account.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/configuring-an-aws-dynamic-inventory-with-automation-controller">
+  <meta property="og:title" content="Configuring an AWS dynamic inventory with Automation controller">
+  <meta property="og:description" content="Automation controller, the control plane and webUI for Red Hat Ansible Automation Platform, uses this IAM credential to build an inventory and execute automated tasks on your AWS account.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/configuring-an-aws-dynamic-inventory-with-automation-controller">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/configuring-an-aws-dynamic-inventory-with-automation-controller" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on March 29, 2022.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Configuring an AWS dynamic inventory with Automation controller</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2022-03-30">March 29, 2022</time> · 4-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>One of the core components of Ansible is <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/inventories.html">inventories</a>. In its most basic form, an inventory provides host information to Ansible so it can trigger the tasks on the right host or system. In most environments, the static inventory is sufficient for the Ansible control node to work from, however as we expand our use of automation, we need to transition to more effective methods of gathering ever-changing environment details.</p>
+<p>This is where the use of a <a href="https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html">dynamic inventory</a> is beneficial. This allows the platform to gather information for the inventory from environments that are not static sources. A prime example of this is using a dynamic inventory plugin to gather inventory information from a cloud provider or hypervisor, enabling you to keep an inventory up to date with instance details.</p>
+<p>Amazon Web Services (AWS) is one of the biggest public cloud providers used around the world. Organizations use their Elastic Compute Cloud services (EC2) for their workflows, however managing an inventory for your instances running on AWS would typically have to be done manually, which is problematic and time consuming. Using the AWS Identity and Access Management interface (IAM), we are able to get programmatic access to the AWS account. Automation controller, the control plane and webUI for Red Hat Ansible Automation Platform, uses this IAM credential to build an inventory and execute automated tasks on your AWS account.</p>
+<p>So let&#39;s dive in!</p>
+<h2>Preparing Amazon Web Services</h2>
+<p>To be able to access AWS instance information for our dynamic inventory, we will need to create an IAM user on our AWS account. Navigate to the IAM section of your AWS account and select “users” followed by the “add users” button.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/WW3jW9sW0TqPjcMLUEAtDQ9RiV1vscuhAlSs6j4R9ZiCo2w_np5AOQo-5cZlVsS0n6P6VUH3YdgXXJL04JJiUtsliEaa6kqGq26cte0rCY9GeQlgNWPNk5chQO-7yUD2noxfJs1q.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/WW3jW9sW0TqPjcMLUEAtDQ9RiV1vscuhAlSs6j4R9ZiCo2w_np5AOQo-5cZlVsS0n6P6VUH3YdgXXJL04JJiUtsliEaa6kqGq26cte0rCY9GeQlgNWPNk5chQO-7yUD2noxfJs1q.png" alt=""></a></p>
+<p>The account should be configured to have programmatic access to create the keys needed for automation controller.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/STttu8481MEhaDxvGsY6tkv3X2Hl3-o4-9PyX2lpY_Huuy3VJolvMLAf1t4WyweLg65MwP0WAfDsPjYvFfBxDaB2UM6dYUf2aMErMO9s-qt_EK03IqswwrzjQK3irtwZtBG3P6d9.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/STttu8481MEhaDxvGsY6tkv3X2Hl3-o4-9PyX2lpY_Huuy3VJolvMLAf1t4WyweLg65MwP0WAfDsPjYvFfBxDaB2UM6dYUf2aMErMO9s-qt_EK03IqswwrzjQK3irtwZtBG3P6d9.png" alt=""></a></p>
+<p>Next we need to set permissions for this user account. Set the permissions policy to “Attach existing policies directly” and select &quot;AmazonEC2ReadOnlyAccess” as your permission policy.</p>
+<p>You can also add tags to this credential for better management.</p>
+<p>Once the credential has been created, you will receive a token and secret key to use in our automation controller.</p>
+<h2>Configuring Automation Controller</h2>
+<p>Automation controller has support for AWS credentials. For us to add the IAM credentials to our controller we will first create a credential for AWS. Under “Resources” on the controller, we select “Credentials” and under “Credential Type”, we select “Amazon Web Services”.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/zh7S4IMZs4Jd6TzvuNboXBge3AeX8jX5bo1GFKfbmmylWUYMY7nGoF_pb-d2HAqh4eRQkRWBFY8xPLWO20bzVfZwXTOvsF8-q8PCZEX6BkfEItzdyzSTVVWA_wvTwFI46MKo1ep8.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/zh7S4IMZs4Jd6TzvuNboXBge3AeX8jX5bo1GFKfbmmylWUYMY7nGoF_pb-d2HAqh4eRQkRWBFY8xPLWO20bzVfZwXTOvsF8-q8PCZEX6BkfEItzdyzSTVVWA_wvTwFI46MKo1ep8.png" alt=""></a></p>
+<p>Once we have populated the details with the previously provided token and secret key, we are ready to configure the dynamic inventory.</p>
+<p>We can navigate back to the resources on our automation controller and select “Inventories”. To add an inventory, we need to provide a name and organization. Navigating to the “details” of this inventory we have created, we can edit the sources for our inventory.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ZMmT5cWpONm2NiUmjN-2JAorGPlou-dsDSwZKcnRCLqBz3ogh_tCeu268hbdwzkGGh75qXlKrWkpn3wRdUODji-JCAtG-HCYy_0CLQYlantd42Yf-A2r1BNUzo0vrD4a56fVx0Fp.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ZMmT5cWpONm2NiUmjN-2JAorGPlou-dsDSwZKcnRCLqBz3ogh_tCeu268hbdwzkGGh75qXlKrWkpn3wRdUODji-JCAtG-HCYy_0CLQYlantd42Yf-A2r1BNUzo0vrD4a56fVx0Fp.png" alt=""></a></p>
+<p>Automation controller lists a number of available inventory sources that can be used for dynamic inventories. We are going to select the “Amazon EC2” source.</p>
+<p>In addition to selecting the source, we need to select a default automation execution environment for the dynamic inventory plugin.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/w-V7HWNamB9OcuUZBCE_WJPd5yyr0chh1lFUvH4hN3aJ5RDV5kl-x-_M1I3tMbz0yqMDYjxHGwH9wGMqqtoxd7QYGeSu-UzqCVS8T35__xXwCj49rUUWszu_hi0xyVWazweACaFK.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/w-V7HWNamB9OcuUZBCE_WJPd5yyr0chh1lFUvH4hN3aJ5RDV5kl-x-_M1I3tMbz0yqMDYjxHGwH9wGMqqtoxd7QYGeSu-UzqCVS8T35__xXwCj49rUUWszu_hi0xyVWazweACaFK.png" alt=""></a></p>
+<p>To configure the source details for the dynamic inventory, we need to supply the credentials we had previously configured in the automation controller.</p>
+<p>We may also want to specify update options for the inventory and additional variables to assist in filtering the results the controller will retrieve with source variables.</p>
+<p>If we want to group instances based on regions, we can use something like the following under source variables:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>keyed_groups:</span></span>
+<span class="line"><span> - key: placement.region</span></span>
+<span class="line"><span>    prefix: aws_region</span></span></code></pre><p>This will tell the automation controller to create groups in the inventory based on the AWS regions.</p>
+<p>There are additional settings here that are pretty powerful should you wish to use them:</p>
+<p><strong>Host Filter</strong>: Specifies matching hostnames to be imported.</p>
+<p><strong>Enabled Variable</strong>: Specifies the automation controller to retrieve the enabled state from the given dictionary of host variables.</p>
+<p><strong>Enabled Value</strong>: The value to enable on import with the specified Enabled Variable.</p>
+<p>Once we have submitted these changes, we can synchronize the inventory that will allow the automation controller to look up the instances and populate the inventory.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/U9PMybcIFP-O6mLpbNUKFhi3SRGpayBdafQCRW6-R9vooUAtkYlUWi_193WrEWjejTc5Z3IBWvEu7uJFpNq5UkPMORIp11Z_UWT4V3cPbrVFD91sTOHL98IW9zUnsgWZIkr1LGaO.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/U9PMybcIFP-O6mLpbNUKFhi3SRGpayBdafQCRW6-R9vooUAtkYlUWi_193WrEWjejTc5Z3IBWvEu7uJFpNq5UkPMORIp11Z_UWT4V3cPbrVFD91sTOHL98IW9zUnsgWZIkr1LGaO.png" alt=""></a></p>
+<p>We are now ready to use our dynamic inventory and trigger our templates and workflows against AWS instances. </p>
+<h2>What can I do next?</h2>
+<p>Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - We have interactive, in-browser exercises to learn and dive into Ansible Automation Platform.</li>
+<li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to install on-premises? Get your own trial subscription for unlimited access to all the components of Ansible Automation Platform.</li>
+<li><a href="https://developers.redhat.com/about">Developer license</a> - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our new web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/configuring-an-aws-dynamic-inventory-with-automation-controller">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automating your CentOS Linux to RHEL migration — Ansible TMM Blog</title>
+  <meta name="description" content="CentOS Linux EOL is edging  closer and Ansible Automation Platform is just the tool to help you upgrade with speed, consistency and scale.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/automating-your-centos-linux-rhel-migration">
+  <meta property="og:title" content="Automating your CentOS Linux to RHEL migration">
+  <meta property="og:description" content="CentOS Linux EOL is edging  closer and Ansible Automation Platform is just the tool to help you upgrade with speed, consistency and scale.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/automating-your-centos-linux-rhel-migration">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/automating-your-centos-linux-rhel-migration" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on June 25, 2024.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Automating your CentOS Linux to RHEL migration</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2024-06-26">June 25, 2024</time> · 6-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>The end of life (EOL) for CentOS Linux 7 is approaching, with updates ending on <strong>June 30, 2024</strong>. This impending deadline signifies the end of security updates and maintenance, posing significant risks for organizations that continue to rely on the outdated operating system. Upgrading to a more current and supported platform, such as <a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux">Red Hat Enterprise Linux</a> (RHEL), is needed to maintain an up-to-date security posture and  continued functionality.</p>
+<p>Migrating these systems, which may play a critical role in your organization’s IT infrastructure, is not trivial. <a href="https://www.redhat.com/en/technologies/management/ansible">Red Hat Ansible Automation Platform</a> can help streamline and automate this process, however, reducing the complexity, while enabling scalability and the ability to orchestrate changes to the surrounding infrastructure to support the migration.</p>
+<p>In this article I explore what is possible when using Ansible Automation Platform to drive this migration at scale across your organization and the steps needed to achieve this.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img1.png"><img src="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img1.png" alt="Centos Linux Migration to RHEL Workflow"></a></p>
+<h3>Migrating from CentOS Linux to RHEL</h3>
+<p>Sure, logging into a CentOS Linux system and starting the <a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/migration-process/convert2rhel">Convert2RHEL</a> command line process is pretty easy. But what about doing this with multiple systems? What about all the infrastructure dependencies that might be in place?</p>
+<p>Using Ansible Automation Platform for this process helps you address scale and dependencies while allowing you to build a logical workflow for your migration. What&#39;s more powerful than converting at scale? Remediations at scale! We can automate the remediation of all those blockers.</p>
+<p>We often refer to Ansible Automation Platform as simple and powerful, but its true superpower is covering multiple domains and use cases. We can automate the migration process, but we can also use the multidomain aspect to address infrastructure and platform dependencies.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img2.png"><img src="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img2.png" alt="Overview of Red Hat Ansible Automation Platform integrations"></a></p>
+<p>Let&#39;s look at a typical example of a system in use that we now want to migrate to RHEL. I have a set of application servers hosting my streaming application. These systems do not operate in isolation — there could be firewalls, load balancing and even connectivity to databases involved. There could also be other pre-work needed. I might need to:</p>
+<ul>
+<li>Update dependent systems</li>
+<li>Back up the data or snapshot the system</li>
+<li>Remove systems from notifications in our monitoring solution</li>
+<li>Open a service ticket in our ITSM before we even get started</li>
+</ul>
+<p>With operational knowledge of everything we need to do, we can build our Ansible Playbooks and standardize the process for consistency. Using Ansible Automation Platform gives us the ultimate “ops-life” hack by providing Red Hat <a href="https://www.redhat.com/en/technologies/management/ansible/ansible-lightspeed">Ansible Lightspeed</a>, our generative AI for playbook creation. We can take our knowledge and let Ansible Lightspeed help us build our playbooks faster while following best practices.</p>
+<p>Once we have our content created, we can then use the automation controller to build out an automation workflow and map out the process logically before we proceed with automating the actual <a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/migration-process/convert2rhel">Convert2RHEL</a> process.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img3.png"><img src="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img3.png" alt="CentOS Linux Upgrade Workflow"></a></p>
+<p>Before we move on, I want to point out a crucial component of this workflow: The ability to automate snapshots of the systems. This is important for both the CentOS Linux migration to RHEL and the automated upgrade of RHEL. I will show you an example from our Ansible validated content for <a href="https://console.redhat.com/ansible/automation-hub/repo/validated/infra/lvm_snapshots/">infra.lvm_snapshots</a>when we discuss the RHEL upgrade.</p>
+<p>Now, what about the actual process of converting our systems? With our Ansible Automation Platform subscription, we have access to <a href="https://www.redhat.com/en/technologies/management/ansible/content-collections">Ansible validated content</a> which provides expert, opinionated automation content all sitting in <a href="https://www.redhat.com/en/technologies/management/ansible/automation-hub">Ansible automation hub</a> on <a href="http://console.redhat.com">console.redhat.com</a>.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img4.png"><img src="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img4.png" alt="Ansible Automation Platform content collections"></a></p>
+<p>We will use the <a href="https://console.redhat.com/ansible/automation-hub/repo/validated/infra/convert2rhel/">infra.convert2rhel</a> collection to get started. This collection provides roles that we can use to perform the conversion using the <a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/migration-process/convert2rhel">Convert2RHEL</a> framework. Using the sample playbook provided in the Ansible validated content, I can simply add this to my workflow and have it start the migration once the pre-work tasks have been completed.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- name: Convert CentOS Linux to RHEL</span></span>
+<span class="line"><span>hosts: centos</span></span>
+<span class="line"><span>strategy: free</span></span>
+<span class="line"><span>become: true</span></span>
+<span class="line"><span>force_handlers: true</span></span>
+<span class="line"><span>vars:</span></span>
+<span class="line"><span>  rhsm_username: "{{ rhsm_username }}"</span></span>
+<span class="line"><span>  rhsm_password: "{{ rhsm_password }}"</span></span>
+<span class="line"><span>  rhsm_org: "{{ rhsm_org }}"</span></span>
+<span class="line"><span>  rhsm_activation_key: "{{ rhsm_activation_key }}"</span></span>
+<span class="line"><span>tasks:</span></span>
+<span class="line"><span>  - name: Perform OS conversion</span></span>
+<span class="line"><span>    ansible.builtin.import_role:</span></span>
+<span class="line"><span>      name: infra.convert2rhel.convert</span></span></code></pre><p>If you look at the sample playbook, it&#39;s important to note the use of a strategy. If you are not familiar with this, this enables us to control <a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_strategies.html">how tasks are executed across</a> the hosts. In our example, we use strategy: free -  which allows tasks to be executed as soon as possible without waiting for other hosts, and it runs each host independently. This is ideal for upgrading multiple machines at scale.</p>
+<p>As soon as we migrate our systems, we can utilize Ansible Automation Platform to automate testing and check ports and configurations as the last step in your migration to RHEL workflow.</p>
+<h3>“RHEL-come” to Enterprise Linux!</h3>
+<p>Once our CentOS Linux systems have been migrated, we will now be on RHEL 7.  It is recommended to then upgrade to RHEL 8 with a similar process—we use the LEAPP upgrading tool framework to assist us. Red Hat also offers an Extended Life Cycle Support (ELS) add-on subscription for RHEL 7 systems, for more information, refer to <a href="https://www.redhat.com/en/blog/announcing-4-years-extended-life-cycle-support-els-red-hat-enterprise-linux-7">Announcing up to 4 years of Extended Life Cycle Support (ELS) for Red Hat Enterprise Linux 7</a>.</p>
+<p>Just like Convert2RHEL, Red Hat provides the Ansible validated content for <a href="https://console.redhat.com/ansible/automation-hub/repo/validated/infra/leapp/">infra.leapp</a>. The <a href="https://console.redhat.com/ansible/automation-hub/repo/validated/infra/leapp/">infra.leapp</a>content contains roles that assist our pre-upgrade steps, like generating the pre-upgrade report, remediating roles for common issues/inhibitors and upgrading our systems.</p>
+<p>When we upgrade between major versions of RHEL, we typically use LEAPP to assess the systems and create a pre-upgrade report. LEAPP will collect data and provide a report on potential issues/inhibitors with possible suggestions to resolve them.  While we can use the Ansible Role to remediate common issues found by LEAPP, however, third party dependencies or perhaps some configuration changes might need to be resolved separately.</p>
+<h4>Step 1: Assessing your systems</h4>
+<p>We can turn to Ansible Automation Platform again to streamline the remediation process of our systems by taking the issues in the report, building a remediation playbook and applying the changes at scale to the systems we want to upgrade. Furthermore, we can utilize <a href="https://www.redhat.com/en/technologies/management/ansible/ansible-lightspeed">Ansible  Lightspeed</a> to generate some of the remediation if we are unsure about the tasks needed.</p>
+<p>Example: Our systems had an inhibitor for root remote login and we used Ansible Lightspeed to build the remediation for that:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img5.png"><img src="https://www.redhat.com/rhdc/managed-files/migrating-centos-rhel-img5.png" alt="Ansible Lightspeed screenshot"></a></p>
+<h4>Step 2: Trigger the upgrade:</h4>
+<p>We can deploy our playbooks with a workflow at scale, even around the globe, with the use of technologies like <a href="https://www.redhat.com/en/technologies/management/ansible/automation-mesh">automation mesh</a>, which is part of the Ansible Automation Platform.</p>
+<p>Using our Ansible validated content, we can create snapshots of our LVM’s so we can revert back should something fail during the next upgrade step.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- name: Create/revert/remove/check LVM snapshots of node</span></span>
+<span class="line"><span>hosts: "{{ rhel_inventory_group | default(omit) }}"</span></span>
+<span class="line"><span>become: yes</span></span>
+<span class="line"><span>environment:</span></span>
+<span class="line"><span>  LANG: en_US.UTF-8</span></span>
+<span class="line"><span>  LC_ALL: en_US.UTF-8</span></span>
+<span class="line"><span>  TERM: linux</span></span>
+<span class="line"><span>tasks:</span></span>
+<span class="line"><span>  - ansible.builtin.set_fact:</span></span>
+<span class="line"><span>      snapshot_create_set_name: "{{ snapshot_set_name }}"</span></span>
+<span class="line"><span>      snapshot_remove_set_name: "{{ snapshot_set_name }}"</span></span>
+<span class="line"><span>      snapshot_revert_set_name: "{{ snapshot_set_name }}"</span></span>
+<span class="line"><span>  - name: "Execute snapshot check"</span></span>
+<span class="line"><span>    ansible.builtin.include_role:</span></span>
+<span class="line"><span>      name: "infra.lvm_snapshots.snapshot_create"</span></span>
+<span class="line"><span>    vars:</span></span>
+<span class="line"><span>      snapshot_create_check_only: true</span></span>
+<span class="line"><span>      # Additional snapshot_* vars provided via AAP2 job template and associated surveys</span></span>
+<span class="line"><span>    when: lvm_snapshots_action == "check"</span></span>
+<span class="line"><span>  - name: "Execute snapshot {{ lvm_snapshots_action }}"</span></span>
+<span class="line"><span>    ansible.builtin.include_role:</span></span>
+<span class="line"><span>      name: "infra.lvm_snapshots.snapshot_{{ lvm_snapshots_action }}"</span></span>
+<span class="line"><span>      # Additional snapshot_* vars provided via AAP2 job template and associated surveys</span></span>
+<span class="line"><span>    when: (lvm_snapshots_action == "create") or (lvm_snapshots_action == "remove") or (lvm_snapshots_action == "revert")</span></span></code></pre><p>Once we have our snapshots, we can upgrade our RHEL system using content from our Ansible collections.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- name: Upgrade</span></span>
+<span class="line"><span>hosts: "{{ rhel_inventory_group | default(omit) }}"</span></span>
+<span class="line"><span>strategy: free</span></span>
+<span class="line"><span>become: true</span></span>
+<span class="line"><span>force_handlers: true</span></span>
+<span class="line"><span># vars:</span></span>
+<span class="line"><span>#   ansible_python_interpreter: /usr/libexec/platform-python</span></span>
+<span class="line"><span>tasks:</span></span>
+<span class="line"><span>  - name: Perform OS upgrade</span></span>
+<span class="line"><span>    ansible.builtin.import_role:</span></span>
+<span class="line"><span>      name: infra.leapp.upgrade</span></span>
+<span class="line"><span>...</span></span></code></pre><p>As soon as a system has been upgraded, we can use Ansible Automation Platform to check the state of the system. If everything is good, we can also use automation to bring the systems back into production.</p>
+<h4>Step 3: Post-upgrade add-ons</h4>
+<p>Our upgrades are done, but we can still do more with Ansible Automation Platform. Post-upgrade configuration and integration can take place as part of our automation workflows, streamlining all the additional tasks we often forget about when upgrading systems. Ansible Automation Platform allows you to integrate your new RHEL system into <a href="https://www.redhat.com/en/technologies/management/insights">Red Hat Insights</a>, simplifying compliance checks and enforcement. We can also configure <a href="https://www.redhat.com/en/blog/automate-performance-management-performance-co-pilot">Performance Co-Pilot</a> to report system metrics to <a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">Event-Driven Ansible</a> and just about every other Day 2 task you could think of!</p>
+<p><a href="https://console.redhat.com/ansible/ansible-dashboard">Automation analytics</a>can help provide clarity on the automated process or help us identify possible anomalies in the hosts during the process, which we can then address later.</p>
+<h2>Learn more</h2>
+<ul>
+<li>This exercise is from a workshop provided by Red Hat - <a href="https://github.com/redhat-partner-tech/leapp-project">Check out the code</a></li>
+<li>Try <a href="https://www.redhat.com/en/technologies/management/ansible/try-it">Ansible Automation Platform</a> free for 60 days</li>
+<li>Learn how to automate on the platform with our <a href="https://www.redhat.com/en/interactive-labs/ansible">self-paced labs</a></li>
+<li>Check out the action on our <a href="https://www.youtube.com/@AnsibleAutomation">YouTube Channel</a></li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/automating-edge-recovery-minimizing-unplanned-downtime-with-red-hat-edge">Automating edge recovery: Minimizing unplanned downtime with Red Hat Edge</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/migrate-confidence-how-red-hat-consulting-de-risks-your-linux-transition">Modernize with confidence: Build a threat-resistant Linux foundation with Red Hat Consulting</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/infrastructure-at-the-edge">Infrastructure At The Edge | Compiler</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/operating-system-management">Operating System Management | Compiler</a></h3>
+<h2>Keep exploring</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000003Sq0iAAC" title="E-book: The automated enterprise">The automated enterpriseE-book</a></li>
+<li>Try Red Hat Ansible Automation Platform with self-paced, hands-on labsInteractive lab</li>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-20220412" title="Red Hat Ansible Automation Platform: A beginner’s guide">Red Hat Ansible Automation Platform: A beginner’s guide</a><a href="https://www.redhat.com/en/engage/ansible-automation-platform-beginners-guide-ebook" title="Red Hat Ansible Automation Platform: A beginner’s guide">E-book</a></li>
+</ul>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/automating-your-centos-linux-rhel-migration">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

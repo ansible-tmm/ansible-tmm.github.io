@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Ansible's new self-service automation portal empowers everyone to automate — Ansible TMM Blog</title>
+  <meta name="description" content="Discover how the new self-service automation portal in Ansible Automation Platform 2.6 simplifies automation for all users, enabling the core team to build value and empowering SMEs to apply it in their daily tasks. Increase consistency, control over automation, and autonomy for teams across the organization.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/empower-everyone-automate-ansibles-self-service-automation-portal">
+  <meta property="og:title" content="How Ansible's new self-service automation portal empowers everyone to automate">
+  <meta property="og:description" content="Discover how the new self-service automation portal in Ansible Automation Platform 2.6 simplifies automation for all users, enabling the core team to build value and empowering SMEs to apply it in their daily tasks. Increase consistency, control over automation, and autonomy for teams across the organization.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/empower-everyone-automate-ansibles-self-service-automation-portal">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/empower-everyone-automate-ansibles-self-service-automation-portal" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on October 15, 2025.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">How Ansible's new self-service automation portal empowers everyone to automate</h1>
+        <p class="blog-post-meta"><a href="/team/#hicham-mourad">Hicham Mourad</a> · <time datetime="2025-10-16">October 15, 2025</time> · 2-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>The benefits of automation with Red Hat Ansible Automation Platform are clear, but gaining organization-wide adoption can still be challenging. Although the core automation platform team manages the platform and develops automation content, the real value comes from extending automation to a broader group of IT professionals. These individuals, who may not possess deep Ansible expertise, bring valuable use cases and stand to gain immensely from the platform, without needing to get bogged down in its technical details.</p>
+<p>The success of Ansible Automation Platform hinges not just on platform administrators and developers, but on the widespread adoption of automation across the entire organization.</p>
+<p>With the release of Ansible Automation Platform 2.6 and its self-service automation portal, organization-wide adoption is attainable.</p>
+<h2>Reaching the subject matter expert</h2>
+<p>Network administrators who aren’t familiar with Ansible Playbooks or workflows face many challenges. These include:</p>
+<ul>
+<li>Onboarding: The time and effort it takes to teach new users about Ansible Automation Platform can be significant if they’ve never used it.</li>
+<li>Service tickets: Skilled automation teams often get overwhelmed with service tickets from users who just need to run existing automation.</li>
+<li>Adoption: The full value of the Ansible Automation Platform isn&#39;t realized if only a handful of skilled people are using it.</li>
+</ul>
+<h2>What is the self-service automation portal?</h2>
+<p>The self-service automation portal directly addresses these challenges by providing a streamlined approach to empower subject matter experts (SMEs) with the automation capabilities they need, without requiring deep Ansible expertise. It’s simple, intuitive user interface (UI) creates a tailored experience based on a user’s role and access privileges.</p>
+<p>Here’s how it works:</p>
+<ul>
+<li>Simple, focused UI: The user interface is stripped down to the essentials. Users don&#39;t need to understand the underlying automation code or how it’s made available to them. They just need to run the automation they&#39;ve been given access to.</li>
+<li>Smooth integration: The self-service automation portal uses Ansible Automation Platform authentication, so that users can use their existing credentials. It also synchronizes organizational identities like users and teams for hassle-free access.</li>
+<li>Tailored experiences: Platform administrators can define their automation and apply role-based access controls (RBAC) in Ansible Automation Platform. The self-service automation portal then makes automation available to specific users and teams in guided workflows, with appropriate security-focused access controls in place.</li>
+<li>Tailored end-user experience: Users can create and import custom forms that provide a richer end-user experience, such as real-time field validation, conditional and dynamic logic, and dropdown fields for Ansible Automation Platform artifacts, such as Ansible Automation Platform inventories.</li>
+</ul>
+<p>This self-service approach broadens the reach and usage of Ansible Automation Platform.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/Ansible%20self-service%20automation.png"><img src="https://www.redhat.com/rhdc/managed-files/Ansible%20self-service%20automation.png" alt="portal user interface"></a></p>
+<h2>Why it matters</h2>
+<p>Some organizations try to achieve organization-wide adoption of automation by integrating third-party systems or building a bespoke solution. These options can be complex, time-consuming, and costly. The self-service automation portal from Ansible Automation Platform is designed to bring this capability to the Ansible Automation Platform ecosystem, empowering everyone to automate.</p>
+<p>The portal simplifies automation for all users, enabling the core team to build value and empowering SMEs to apply it in their daily tasks.</p>
+<p>The result is increased consistency, increased control over automation, and greater autonomy for teams across the organization.</p>
+<h2>Conclusion</h2>
+<p>By making automation more accessible, we can unlock the potential of Ansible Automation Platform. The new self-service automation portal is a key step in helping our customers achieve new levels of scale and efficiency.</p>
+<p>Try this interactive demonstration.</p>
+<h2>What can I do next?</h2>
+<ul>
+<li>Learn more about <a href="https://www.redhat.com/en/technologies/management/ansible">Ansible Automation Platform</a> and self-service automation.</li>
+<li>Visit the <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest">documentation</a> site for more information on Ansible Automation Platform and self-service automation.</li>
+<li>Practice with hands-on <a href="https://www.redhat.com/en/interactive-labs/ansible">self-paced lab(s) on Ansible Automation Platform</a> and Terraform.</li>
+<li>Trial <a href="https://www.redhat.com/en/products/trials">Ansible Automation Platform</a>.</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/hicham-mourad"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/ansible/hicham%20%281%29_0.jpeg?itok=bbvELvbE" alt="Hicham Mourad"></a></p>
+<p><a href="https://www.redhat.com/en/authors/hicham-mourad">### Hicham Mourad</a></p>
+<p>Hicham is responsible for technical marketing of the Red Hat Ansible Automation Platform on Clouds. Hicham has been in the software industry for over 20 years and for many of them focused on cloud management.
+Hicham has been a frequent presenter at events and conferences like VMworld, vForum, VMUG, VMLive, Gartner, Dell Technology World, AWS re:Invent, HPE Discover, Cloud Field Day, Red Hat Summit, AnsibleFest, in addition to Customer events.</p>
+<p><a href="https://www.redhat.com/en/authors/hicham-mourad">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/red-hat-satellite-620-limited-availability-early-access-containerized-management-and-post-quantum-cryptographic-enablement">Red Hat Satellite 6.20 limited availability: Early access registration now open</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/unify-it-workflows-scale-new-automation-orchestrator-ansible-automation-platform">Unify IT workflows at scale with the new automation orchestrator for Ansible Automation Platform</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/operating-system-management">Operating System Management | Compiler</a></h3>
+<h2>Keep exploring</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000003Sq0iAAC" title="E-book: The automated enterprise">The automated enterpriseE-book</a></li>
+<li>Try Red Hat Ansible Automation Platform with self-paced, hands-on labsInteractive lab</li>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-20220412" title="Red Hat Ansible Automation Platform: A beginner’s guide">Red Hat Ansible Automation Platform: A beginner’s guide</a><a href="https://www.redhat.com/en/engage/ansible-automation-platform-beginners-guide-ebook" title="Red Hat Ansible Automation Platform: A beginner’s guide">E-book</a></li>
+</ul>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/empower-everyone-automate-ansibles-self-service-automation-portal">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

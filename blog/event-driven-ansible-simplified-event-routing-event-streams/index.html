@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event-Driven Ansible: Simplified event routing with Event Streams — Ansible TMM Blog</title>
+  <meta name="description" content="Learn how Event-Driven Ansible's simplified event routing with Event Streams improves flexibility in setting up event-driven automation scenarios. Discover new enhancements to Kafka for event source connections and additional content updates. Take your event-driven automation to the next level with AIOps.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/event-driven-ansible-simplified-event-routing-event-streams">
+  <meta property="og:title" content="Event-Driven Ansible: Simplified event routing with Event Streams">
+  <meta property="og:description" content="Learn how Event-Driven Ansible's simplified event routing with Event Streams improves flexibility in setting up event-driven automation scenarios. Discover new enhancements to Kafka for event source connections and additional content updates. Take your event-driven automation to the next level with AIOps.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/event-driven-ansible-simplified-event-routing-event-streams">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/event-driven-ansible-simplified-event-routing-event-streams" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on January 12, 2026.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Event-Driven Ansible: Simplified event routing with Event Streams</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2026-01-13">January 12, 2026</time> · 7-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>The systems running an organization&#39;s infrastructure and applications are interconnected, creating an environment of controlled chaos where events in one area can ripple unpredictably through others. Red Hat Ansible Automation Platform features Event-Driven Ansible as an automation mechanism for reacting to these ripples. Event-Driven Ansible listens to external event or alert sources so you can design automated responses for these events, enabling faster response to problems with consistency and accuracy.</p>
+<p>A foundational use case that can be used almost anywhere to provide a great deal of value to the technical team is ticket enrichment. With Event-Driven Ansible, an alert from an observability or monitoring tool can drive a workflow of automated troubleshooting, fact gathering and reporting with ticket creation in an IT service management (ITSM) solution. This places valuable data in the hands of the support teams, saving them time and reducing mean time to resolution (MTTR).  Event-Driven Ansible automates remediation for known low severity issues, such as restarting a container or rotating expired certificates from a pending expiration alert. This not only lets you sleep more, but can help enable resilient systems through automated response and remediation.</p>
+<p>Event-Driven Ansible enables integration into your technology ecosystem as well, transforming Ansible Automation Platform into an active participant in your infrastructure. Responses can be much more than issue remediation and can include proactive scenarios. For example, as you make changes to systems, you can trigger Event-Driven Ansible to run compliance checks and update a configuration management database (CMDB) and ITSM records for you. If systems are found to be out of compliance, Event-Driven Ansible could create an ITSM ticket and restore configurations from the source of truth.</p>
+<h2>Webhooks, Kafka, and event bus connection methods</h2>
+<p>Before I get into our new Event Streams feature, I want to emphasize that when looking at event-driven automation as a mechanism to improve your environment, you need to ensure that you&#39;re using the correct integration methods and plug-ins.</p>
+<p>Webhooks are recommended for simple and direct integrations with low-to-moderate event volumes. Apache Kafka is best for high-volume, mission-critical event streams that require durability.</p>
+<ul>
+<li>Event volume<ul>
+<li><strong>Webhooks</strong>: Low to moderate (hundreds to thousands a day).</li>
+<li><strong>Kafka</strong>: High volume (thousands to millions a day).</li>
+</ul>
+</li>
+<li>Reliability<ul>
+<li><strong>Webhooks</strong>: If the receiver is down, events may be lost.</li>
+<li><strong>Kafka</strong>: Persistent storage, so events are retained and can be replayed.</li>
+</ul>
+</li>
+<li>Complexity<ul>
+<li><strong>Webhooks</strong>: Minimal setup (just expose an endpoint).</li>
+<li><strong>Kafka</strong>: Requires Kafka infrastructure, topics, and consumer management.</li>
+</ul>
+</li>
+<li>Ordering guarantees<ul>
+<li><strong>Webhooks</strong>: No guaranteed ordering.</li>
+<li><strong>Kafka</strong>: Strong ordering guarantees within partitions.</li>
+</ul>
+</li>
+<li>Backpressure handling<ul>
+<li><strong>Webhooks</strong>: Limited. Sender may fail or timeout.</li>
+<li><strong>Kafka</strong>: Built-in buffering and consumer group management.</li>
+</ul>
+</li>
+<li>Event replay<ul>
+<li><strong>Webhooks</strong>: Not possible. Events are ephemeral.</li>
+<li><strong>Kafka</strong>: Full replay capability from any point in time.</li>
+</ul>
+</li>
+<li>Latency<ul>
+<li><strong>Webhooks</strong>: Near real-time (milliseconds).</li>
+<li><strong>Kafka</strong>: Near real-time, but may have slight delay due to batching.</li>
+</ul>
+</li>
+<li>Security<ul>
+<li><strong>Webhooks</strong>: HTTPS, API keys, token authentication (Event-Streams).</li>
+<li><strong>Kafka</strong>: SASL, SSL/TLS, ACLs, encryption at rest.</li>
+</ul>
+</li>
+<li>Operational overhead<ul>
+<li><strong>Webhooks</strong>: Very low. No infrastructure to manage.</li>
+<li><strong>Kafka</strong>: Requires Kafka cluster maintenance.</li>
+</ul>
+</li>
+<li>Use cases<ul>
+<li><strong>Webhooks</strong>: CI/CD triggers, ticketing systems, monitoring alerts, simple integrations.</li>
+<li><strong>Kafka</strong>: High transaction loads, IoT streams, audit logs, multi-consumer scenarios.</li>
+</ul>
+</li>
+</ul>
+<p>My recommended path for adoption is the following:</p>
+<ul>
+<li>Start with webhooks if you&#39;re integrating with SaaS tools, have moderate volumes, and need quick time-to-value in development or testing environments. Later, move to Event Streams for production and to integrate security into your events coming from webhooks.</li>
+<li>Migrate to event buses such as Apache Kafka, AWS SQS, Azure Service Bus, when you need guaranteed delivery, event persistence and replay capabilities, multiple consumers, or handle critical high-volume streams.</li>
+</ul>
+<h2>Simplified event routing with Event Streams</h2>
+<p>Now let&#39;s talk about what&#39;s new. We initially released event-driven automation with webhooks and Kafka for connecting external sources of alerts to the decision engine in Event-Driven Ansible. Event Streams is an Event-Driven Ansible enhancement to webhook events that makes it a good choice for production environments. As an alert-pushing solution, it has the ability to:</p>
+<ul>
+<li>Automatically route an event source to one or many configured rulebook activations, so this enables a single event stream endpoint to more flexibly serve multiple event-driven activations.</li>
+<li>Deliver events to horizontally-scaled rulebook activations, such as certificate rotation across geographically organized operations or high-volume alerts that require multiple activations to execute at scale.</li>
+<li>Require credentials, making the automated action a more secure option for connecting your alerts to Ansible Automation Platform’s Event-Driven Ansible, for example through integration with secrets management solutions like Hashicorp Vault or CyberArk.</li>
+</ul>
+<p>Figure 1 provides a summary:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/image1_261.png"><img src="https://www.redhat.com/rhdc/managed-files/image1_261.png" alt="Figure 1: Event-Driven Ansible’s simplified event routing with Event Streams improves flexibility in setting up event-driven automation scenarios.  "></a></p>
+<p>I have created a <a href="https://www.youtube.com/watch?v=n_fJ_G0_3JI">video demo</a> on Event Streams, and we also covered it on this recent <a href="https://www.redhat.com/en/events/webinar/whats-new-ansible-automation-platforms-event-driven-ansible">webinar</a>. These resources can help you take your learning to the next level.</p>
+<h2>Enhancements to Kafka for event source connections</h2>
+<p>Recommendations for the design and architecture of your Kafka infrastructure are beyond the scope of this blog, but Kafka is the recommended enterprise-class method of getting events to Event-Driven Ansible to take action. Kafka brings added reliability, scale, performance as well as other enterprise class features.</p>
+<p>Enhancements to the Event-Driven Ansible Kafka solution include support for Generic Security Services Application Program Interface (GSSAPI). There are also design and control enhancements, such as support for multiple topics, extended regular expressions, and wildcard support. These better support you as you expand event-driven automation across your operations and intro production.</p>
+<h2>Ease of use enhancements</h2>
+<p>Over the past several months, there have been a series of enhancements to support automation in your production environments or otherwise at scale. Here are a few of the noteworthy enhancements:</p>
+<ul>
+<li>Integration of Event-Driven Ansible  into the Ansible Automation Platform unified UI.</li>
+<li>Copy and edit capabilities have been added for rulebooks, making it easier to maintain existing and create new activations.</li>
+<li><a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html/using_automation_decisions/eda-rulebook-troubleshooting">Enhanced logging</a> is now also available to help you troubleshoot problems with your activations.</li>
+<li>There is now a local timezone feature for logs which can help apply event-driven automation across the globe for different users.</li>
+<li>Labels have been added to event-driven automation jobs for better tracking and smoother operations at scale.</li>
+<li>Secrets management is now enhanced across the entire platform. Particularly in Event-Driven Ansible, there is support for Hashicorp Vault, CyberArk, AWS, Azure, <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/using_automation_decisions/eda-credential-types">and more</a>.</li>
+<li>Rulebook concurrency is now available to allow you to run multiple rulebook actions (or rules) at the same time, boosting rulebook control and performance in processing alerts.</li>
+<li>Mutual Transport Layer Security (mTLS) for Event Streams is now supported in Event-Driven Ansible to improve the security of communication across automated response scenarios.</li>
+<li>Pull policy parity for decision environments (DE) so you can customize the behavior to pull your DEs from your defined registries.</li>
+</ul>
+<h2>New Ansible Content Collections and Plugins</h2>
+<p>Across the entire platform, automation is always being added or enhanced to help you jumpstart event-driven automation for use with multivendor technologies. For Event-Driven Ansible, these are some new and exciting ones:</p>
+<ul>
+<li><strong>Splunk</strong>: A new add-on available on <a href="https://splunkbase.splunk.com/app/7868">Splunkbase</a>. It  integrates alerts from Splunk ITSI and Splunk ES with the Event-Driven Ansible decisioning capability.  It allows you to automate responses to Splunk alerts. Learn more in this <a href="https://www.redhat.com/en/blog/splunk-redhat-collaborate-automate-response-observability-alerts-for-improved-aiops">blog</a> or watch this <a href="https://www.brighttalk.com/webcast/18106/652718?utm_source=brighttalk-portal&utm_medium=web&utm_content=recorded&utm_campaign=all-series&channel_id=18106">webinar</a>.  While not focused on event-driven automation, an additional new Ansible Content Collection is a <a href="https://catalog.redhat.com/en/software/collection/splunk/es">Splunk Enterprise Security collection</a> for closed-loop automation with even more collections on the way.</li>
+<li><strong>Nautobot</strong>: A network source of truth solution that now also integrates with Event-Driven Ansible through a new Red Hat Ansible Certified Content Collection. As you move toward greater automation maturity, this can be a key technology that enables your environment to automatically adjust.  Learn more in this <a href="https://networktocode.com/blog/event-driven-ansible/">blog</a> and access the content collection <a href="https://catalog.redhat.com/en/software/collection/networktocode/nautobot#documentation">here</a>.</li>
+<li><strong>Hashicorp Vault</strong>: A robust secrets management solution that can help you protect sensitive data and more securely operate mission-critical automation. Read more in this <a href="https://www.redhat.com/en/blog/new-ansible-certified-content-hashicorp-terraformvault">blog</a> and also access it in the Ansible Content Collection <a href="https://catalog.redhat.com/en/software/containers/hashicorp/vault/5fda55bd2937386820429e0c">here</a>.</li>
+<li><strong>Microsoft SCOM</strong>: Can be used with  Event-Driven Ansible through a new Red Hat Ansible Certified Content Collection. This collection allows you to automate response to Windows Server alerts that come from Microsoft Systems Center Operations Manager (SCOM), and you can find details and assets on this <a href="https://console.redhat.com/ansible/automation-hub/repo/published/microsoft/scom/">microsoft.scom</a> certified collection.</li>
+<li><strong>Microsoft Azure</strong>: The Azure servicebus Event-Driven Ansible plug-in is now in the <a href="https://catalog.redhat.com/en/software/collection/azure/azcollection#documentation">azure.azcollection</a>, enabling alerts to be sent from Azure servicebus to Event-Driven Ansible for automated response.</li>
+<li><strong>Juniper</strong>: Two new Red Hat Ansible Certified Content Collections. The <a href="https://catalog.redhat.com/en/software/collection/juniper/eda#documentation">juniper.eda</a> collection is a new plug-in for Kubernetes and Red Hat OpenShift that automates response to kubernetes events for provisioning. There is also a new <a href="https://catalog.redhat.com/en/software/collection/juniper/apstra#documentation">juniper.apstra</a>collection to provision network resources in coordination with OpenShift network changes.</li>
+</ul>
+<p>Additional content updates include: Dynatrace has created <a href="https://docs.dynatrace.com/docs/analyze-explore-automate/workflows/actions/red-hat/redhat-even-driven-ansible">updates</a> to integrate to Red Hat Ansible Automation Platform using Event Streams, and the <a href="https://www.redhat.com/en/blog/evolving-our-servicenow-integration-sunsetting-notification-service-more-capable-alternatives">ServiceNow integration</a> adds polling support as a pull method for AIOps scenarios.</p>
+<h2>Take it to the next level with AIOps</h2>
+<p>Ansible Automation Platform&#39;s Event-Driven Ansible can connect the changing conditions that are occurring in your environment and the way you would like to automatically respond. By forwarding unknown events and conditions generated from third party tools to AI for analysis, Event-Driven Ansible can close the loop, for example by logging the insights.</p>
+<h2>Learn more</h2>
+<p>In case you are new to event-driven automation using Red Hat Ansible Automation Platform, this is a brief summary of how it works. The three main components you should be aware of are:</p>
+<ol>
+<li><strong>Event sources</strong>: Third-party data about changing conditions across your environment.  These can be observability tools, monitoring tools, or perhaps even log data aggregated through a solution like Kafka or Grafana.</li>
+<li><strong>Rulebooks with rules</strong>: While Ansible Automation Platform can use playbooks to specify sequential actions, you should use rulebooks to integrate with events.  Rulebooks are conditions that are evaluated for the alert to determine if the alert should receive the specified action.</li>
+<li><strong>Event-Driven Ansible controller</strong>: Part of Ansible Automation Platform subscription, this component is a decisioning engine that receives alerts, matches to the right rulebook and executes decisioning (through the rules in the rulebook) to determine whether an action is warranted.</li>
+<li><strong>Automation controller</strong>: Finally, when the decision process is complete an action is required, the rulebook action request is sent to automation controller for action. The action can be a playbook that is called, or a workflow to orchestrate a sequence of jobs.</li>
+</ol>
+<p>Figure 2 provides an overview of how the process works.  It shows a Splunk alert, but can be from any event source you choose.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/image2_164.png"><img src="https://www.redhat.com/rhdc/managed-files/image2_164.png" alt="Figure 2: How Event-Driven Ansible works as an additional automation mode in Ansible Automation Platform. "></a></p>
+<p>Enhanced event-driven automation capabilities have been added to Ansible Automation Platform. It&#39;s something to consider, whether you&#39;re looking for enhanced operational control for production operations, expanding event-driven automation at scale, or making your move to AIOps.</p>
+<p>I have provided additional learning and how-to information throughout this blog, but there is an additional on demand webinar that I strongly recommend you watch. <a href="https://www.redhat.com/en/events/webinar/whats-new-ansible-automation-platforms-event-driven-ansible">This webinar</a> covers these features and includes a demo by yours truly.  We also had a customer guest on this webinar. He is an early adopter of Event-Driven automation with Ansible Automation Platform and talked about his very advanced fact gathering and smoke-test response for issues. You can also further your learning journey on the <a href="http://redhat.com/event-driven-ansible">Event-Driven Ansible web page</a> that contains a series of resources.</p>
+<p> <a href="https://www.redhat.com/en/events/webinar/whats-new-ansible-automation-platforms-event-driven-ansible">Watch the webinar</a></p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/red-hat-satellite-620-limited-availability-early-access-containerized-management-and-post-quantum-cryptographic-enablement">Red Hat Satellite 6.20 limited availability: Early access registration now open</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/unify-it-workflows-scale-new-automation-orchestrator-ansible-automation-platform">Unify IT workflows at scale with the new automation orchestrator for Ansible Automation Platform</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/operating-system-management">Operating System Management | Compiler</a></h3>
+<h2>Keep exploring</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000003Sq0iAAC" title="E-book: The automated enterprise">The automated enterpriseE-book</a></li>
+<li>Try Red Hat Ansible Automation Platform with self-paced, hands-on labsInteractive lab</li>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-20220412" title="Red Hat Ansible Automation Platform: A beginner’s guide">Red Hat Ansible Automation Platform: A beginner’s guide</a><a href="https://www.redhat.com/en/engage/ansible-automation-platform-beginners-guide-ebook" title="Red Hat Ansible Automation Platform: A beginner’s guide">E-book</a></li>
+</ul>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/event-driven-ansible-simplified-event-routing-event-streams">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

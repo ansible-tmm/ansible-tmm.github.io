@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event-driven remediation with systemd and Red Hat Ansible Automation Platform — Ansible TMM Blog</title>
+  <meta name="description" content="Red Hat Ansible Automation Platform can assist you here with not only keeping your infrastructure in check, but also giving your teams the peace of mind that systems are running as they should.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform">
+  <meta property="og:title" content="Event-driven remediation with systemd and Red Hat Ansible Automation Platform">
+  <meta property="og:description" content="Red Hat Ansible Automation Platform can assist you here with not only keeping your infrastructure in check, but also giving your teams the peace of mind that systems are running as they should.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on April 24, 2022.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Event-driven remediation with systemd and Red Hat Ansible Automation Platform</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2022-04-25">April 24, 2022</time> · 7-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/6irqaHobfUU02G7Z8V0DiCYPGub92sK6UeKSl-Wep_teiIjeAwJ4Ip8ekLzzoGUNrusx0eU1nFtXfs2v6HiC5_KCL1O4_knpTAzdwzK3xiyRGLGFpwISmvUaNZKJ1OQaNKEz_WXv.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/6irqaHobfUU02G7Z8V0DiCYPGub92sK6UeKSl-Wep_teiIjeAwJ4Ip8ekLzzoGUNrusx0eU1nFtXfs2v6HiC5_KCL1O4_knpTAzdwzK3xiyRGLGFpwISmvUaNZKJ1OQaNKEz_WXv.png" alt=""></a></p>
+<p>Over the many years of working as an engineer and architect with a particular interest in storage, I have learned that donuts and energy drinks can really bring you some joy in trying situations. When it seems that your infrastructure is on fire and you need an exorcist to help you find the ghost in the machine, a humble box of glazed donuts can give you and your team a much-needed break and allow you to refocus.</p>
+<p>Now, the issue with this habit is that it might help you in the moment, but over time this can become a real health issue. Configuration drift, technical issues, and technical debt can all have similar effects on your health, increasing your heart rate and causing sleepless nights. Red Hat Ansible Automation Platform can assist you here with not only keeping your infrastructure in check, but also giving your teams the peace of mind that systems are running as they should.</p>
+<p>Being able to schedule compliance checks on your systems with Ansible Automation Platform enables you to preserve configuration and system states, and keep them running the way you prefer. But sometimes this is not proactive enough. What if you have a security breach? Or if your application data is removed in error? In some instances, you cannot afford to wait for the regular maintenance schedule to trigger remediation. Enabling your systems to self-remediate or trigger self-compliance is an awesome way of keeping you cozy in your bed dreaming about the next Ansible Automation Platform release with all its magic and wizardry.</p>
+<h2>Event-driven automation with systemd</h2>
+<p>Systemd is the service and system manager for Red Hat Enterprise Linux, and it uses unit files to read the configuration of daemons. With the use of systemd path units, you are able to monitor files and directories for events. Leveraging path units enables us to trigger a service to execute an action.</p>
+<p>Automation controller uses callback provisioning on templates. This allows hosts to trigger an API request back to the automation controller, and the controller runs the specified template on that host. Using systemd and the callback provisioning features, we can build an event-driven trigger for automation.</p>
+<h2>Starting with a simple use case</h2>
+<p>Say I would like to prevent changes to my user accounts on my Linux systems. We are going to watch the /etc/passwd and /etc/shadow files respectively. To do this, we need to create a system path unit and service to configure a remediation template with a callback.</p>
+<p>For this example I have a very simple playbook that restores the /etc/passwd and /etc/shadow files. I have a set of these files that I have stored in a private repository on GitHub, which is my single source of truth. These are the standardized accounts I want to maintain on all my systems in my environment.</p>
+<p>From the automation controller, I setup my template and I enable Callback Provisioning:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/mHNmloF0gLRhgJ7vEz0oFVMBHXD_JxE7-VRzO2f0Aq03HKiohIv3OVO2hKaG0to_b_yniY7YhbzNJ_4FqsFTu7fH3KQhWyFjOgjayPvPojwrP06kj_Vr2nXYI1xtDtmmhH5h_4Rl.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/mHNmloF0gLRhgJ7vEz0oFVMBHXD_JxE7-VRzO2f0Aq03HKiohIv3OVO2hKaG0to_b_yniY7YhbzNJ_4FqsFTu7fH3KQhWyFjOgjayPvPojwrP06kj_Vr2nXYI1xtDtmmhH5h_4Rl.png" alt=""></a></p>
+<p>The host config key allows the callback to be validated with Automation controller and triggers the template for the host. We will use the callback URL as an API call in conjunction with the host config key.</p>
+<p>Now, we need to configure our systemd units. We will create a path unit and service unit and place both in /etc/systemd/system on our hosts. These systemd <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_basic_system_settings/assembly_working-with-systemd-unit-files_configuring-basic-system-settings">path units</a> are what we will use to monitor file changes.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>accounts-mon.path</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[Unit]</span></span>
+<span class="line"><span>Description=Monitor the file for changes</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[Path]</span></span>
+<span class="line"><span>PathModified=/etc/passwd</span></span>
+<span class="line"><span>Unit=accounts-mon.service</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[Install]</span></span>
+<span class="line"><span>WantedBy=multi-user.target</span></span></code></pre><pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>accounts-mon.service</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[Unit]</span></span>
+<span class="line"><span>Description="Call back to Ansible Controller for Rescue"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[Service]</span></span>
+<span class="line"><span>ExecStart=/usr/bin/curl -v -k -s -i -X POST -H 'Content-Type:application/json' --data '{"host_config_key": "{{ host_config_key }}"}' {{ callback_url }}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[Install]</span></span>
+<span class="line"><span>WantedBy=multi-user.target</span></span></code></pre><p>Once you have created these you can enable them and start your path unit.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>sudo systemctl enable accounts-mon.{path,service}</span></span>
+<span class="line"><span>sudo systemctl start accounts-mon.path</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>sudo systemctl status accounts-mon.path</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>accounts-mon.path - Monitor the file for changes</span></span>
+<span class="line"><span>   Loaded: loaded (/etc/systemd/system/accounts-mon.path; enabled; vendor preset: disabled)</span></span>
+<span class="line"><span>   Active: active (waiting) since Fri 2022-03-25 13:41:35 UTC; 47min ago</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>systemd[1]: Started Monitor the file for changes.</span></span></code></pre><p>If any changes are attempted now on the files that systemd is watching it will trigger the service unit which will issue the callback.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/mzxLqD9ONGqu8IY-6KkB4N_STPumq7aJHYztPhsGizxgTY8E_zPRm22fxtpQIQkgDwjwCtkQ6P4_0Na7kJK_az24q1JrY4cioev6M3saSZAU78GRTXeyS5UkAFesBYAs0hi2OCwR.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/mzxLqD9ONGqu8IY-6KkB4N_STPumq7aJHYztPhsGizxgTY8E_zPRm22fxtpQIQkgDwjwCtkQ6P4_0Na7kJK_az24q1JrY4cioev6M3saSZAU78GRTXeyS5UkAFesBYAs0hi2OCwR.png" alt=""></a></p>
+<h2></h2>
+<h2>Taking it to another level</h2>
+<p>So far this mechanism is fairly simple and works quickly to resolve most issues. Let’s consider a possible security or compliance situation where we would like to know how many times the automation controller has had to execute a specific job template in order to remediate a particular situation on one or more hosts in a day. Multiple remediation jobs being triggered in a short amount of time could indicate a bigger issue or perhaps a malicious attempt at damaging a host. As much as the self remediation is beneficial, if the host is compromised or has become the target of an attack we would want further action to be taken sooner rather than later.</p>
+<p>We can use the API on the automation controller to retrieve a job summary for the host and sum up the number of remediation tasks that have taken place over the last day. Based on this we use conditionals to trigger additional tasks.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/mW88s2tCwtHRamPoNqD1tXNbvRY8wksXAdnq2sZ30nM0Ubb-hTynZfc--QuzrVh8CBwC-Lr-pSGtY3wqDETgiexqFp8CnWfpNgygOQCOtaEGTAEv3TvAnYPYLMEf0hFFx9TlzCJ1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/mW88s2tCwtHRamPoNqD1tXNbvRY8wksXAdnq2sZ30nM0Ubb-hTynZfc--QuzrVh8CBwC-Lr-pSGtY3wqDETgiexqFp8CnWfpNgygOQCOtaEGTAEv3TvAnYPYLMEf0hFFx9TlzCJ1.png" alt=""></a></p>
+<p>Using the browsable API on the Automation controller we can filter out what we are looking for. In this example, I am looking at a specific host which is host 3 and the job template 20.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>https://controller/api/v2/hosts/3/job_host_summaries/?job__job_template_id=20</span></span></code></pre><p>Furthermore, I would like to find out how many times this job ran today. To do so,  I can add a regex search to this API call and include it in my Ansible Playbook. This way I can count the number of remediations that have run today, and use this information to drive further automation based on conditionals. In the following example, you can see that I am calling the API for the job summary on a host for that day, and then filtering that to see how many times the template has been processed. This will be the basis of my counter.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>  - name: Ansible fact - ansible_date_time</span></span>
+<span class="line"><span>     set_fact:</span></span>
+<span class="line"><span>      todays_date: "{{ ansible_date_time.date }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>   - name: Retrieve Job Summaries</span></span>
+<span class="line"><span>     uri:</span></span>
+<span class="line"><span>      url:</span></span>
+<span class="line"><span>https://controller/api/v2/hosts/3/job_host_summaries/?job__job_template_id=20&#x26;created__regex={{ todays_date }}</span></span>
+<span class="line"><span>       user: "{{ myuser }}"</span></span>
+<span class="line"><span>       password: "{{ mypass }}"</span></span>
+<span class="line"><span>       force_basic_auth: true</span></span>
+<span class="line"><span>       method: "GET"</span></span>
+<span class="line"><span>       status_code: "200"</span></span>
+<span class="line"><span>       validate_certs: no</span></span>
+<span class="line"><span>     register: "job_details"  </span></span>
+<span class="line"><span>       </span></span>
+<span class="line"><span>   - name: Counter value</span></span>
+<span class="line"><span>      set_fact:</span></span>
+<span class="line"><span>       counter: "{{ job_details | regex_findall('processed') | length }}"</span></span></code></pre><p>Now that I can get an idea on how many times my system has had to be remediated I can start to expand possible outcomes based on the accumulated remediation count.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/6b6c8QG6UJjibTyt6U0rzgwPdVTyasuwHqFYTbtyy_CxcvLQLIpbs5H2hb_-5vjWi2IVVUFg62kCukQTqLa3Sug51NtSNXgZVB05MgZuyeT9vJn-Sxu32YbDVRamLLSLGEpSPLeJ.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/6b6c8QG6UJjibTyt6U0rzgwPdVTyasuwHqFYTbtyy_CxcvLQLIpbs5H2hb_-5vjWi2IVVUFg62kCukQTqLa3Sug51NtSNXgZVB05MgZuyeT9vJn-Sxu32YbDVRamLLSLGEpSPLeJ.png" alt=""></a></p>
+<p>Possible actions based on the number of remediation attempts could include the following:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Remediation counter = 1</td>
+<td>Automation controller runs remediation task - restoring user accounts</td>
+</tr>
+<tr>
+<td>Remediation counter = 3</td>
+<td>Automation controller remediates and triggers a compliance check</td>
+</tr>
+<tr>
+<td>Remediation counter &gt;= 4</td>
+<td>Automation controller remediates, triggers an AIDE intrusion check and logs a ticket for human intervention</td>
+</tr>
+</tbody></table>
+<p>It is important to note that this example is fairly simple, however, you could have multiple files and folders being monitored by systemd, with each of them having their own remediation callbacks and ultimately you can accumulate the total number of remediation jobs that have taken place on a host. With Ansible the options are endless, we could automate network changes and responses to possible compromised systems, redeploy infrastructure or applications or just drive event-driven notifications.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>   - name: count number of remediation attempts</span></span>
+<span class="line"><span>     set_fact:</span></span>
+<span class="line"><span>      counter: "{{ job_details | regex_findall('processed') | length }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>   - name: run compliance checks on host and check AIDE</span></span>
+<span class="line"><span>     include_role:</span></span>
+<span class="line"><span>       name: ../roles/compliance_check</span></span>
+<span class="line"><span>     when: counter|int == 3</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>   - name: run AIDE check and log support ticket for escalation</span></span>
+<span class="line"><span>     include_role:</span></span>
+<span class="line"><span>      name: ../roles/raise_ticket</span></span>
+<span class="line"><span>     when: counter|int >= 4</span></span></code></pre><p>With this example, once a host has had  three attempts at remediation from Automation controller, it will run a compliance check on the system to ensure SElinux, the firewall settings and any other service configurations have not changed from the organization’s configuration profile. If another remediation attempt is triggered then we will generate an AIDE  report to check for possible intrusion and system changes, which we attach to a support ticket that is logged on ServiceNow for human intervention.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ho8zKEzq-pbPxGD78YcQBuRxGUkT18ZGT2REywI8Jgd2TU3giLVKF3HlOdAC1F9fzG13KSSoSy9VDPzdvo1Y4GMKqsUAVDYqr0plKWB8eDbWh8uzGXtbF_UIrnobhIVaqDIVLyHX.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ho8zKEzq-pbPxGD78YcQBuRxGUkT18ZGT2REywI8Jgd2TU3giLVKF3HlOdAC1F9fzG13KSSoSy9VDPzdvo1Y4GMKqsUAVDYqr0plKWB8eDbWh8uzGXtbF_UIrnobhIVaqDIVLyHX.png" alt=""></a></p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Uc-vK5KnhflalTtYhShCS51XjCcwE6upR_HzEoCvEVVX_HDulytfz8KHEmpLp6UzvjZ2InTL-ataPg54acwHCuICxYcnufoV4Il9Vx67WygboGe3xoMrxJ5SdVygmMimtAe2CePQ.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Uc-vK5KnhflalTtYhShCS51XjCcwE6upR_HzEoCvEVVX_HDulytfz8KHEmpLp6UzvjZ2InTL-ataPg54acwHCuICxYcnufoV4Il9Vx67WygboGe3xoMrxJ5SdVygmMimtAe2CePQ.png" alt=""></a></p>
+<p>In this blog post, I intended to show that with the use of an event trigger we are able to take  remediation actions in a proactive manner allowing systems to repair configuration mistakes or from possible early malicious attack attempts.</p>
+<p>Ansible can take over the nightshift and offer your support teams a break until your teams are really needed!  They can now train for that decathlon with all this free time - No more energy drinks, no more high blood pressure and heart palpitations, and perhaps just one or two donuts.</p>
+<p>The following demo video will be monitoring components with systemd and use the automation controller to configure and build these systemd units.</p>
+<h2></h2>
+<h2>What can I do next?</h2>
+<p>Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - We have interactive, in-browser exercises to learn and dive into Ansible Automation Platform.</li>
+<li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to install on-premises? Get your own trial subscription for unlimited access to all the components of Ansible Automation Platform.</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our new web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

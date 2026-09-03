@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What you need to know about VMware Automation with Red Hat Ansible Automation Platform — Ansible TMM Blog</title>
+  <meta name="description" content="Automating your VMware infrastructure with Ansible is more important than ever. This is a common use case that delivers instant value.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/what-you-need-know-about-vmware-automation-red-hat-ansible">
+  <meta property="og:title" content="What you need to know about VMware Automation with Red Hat Ansible Automation Platform">
+  <meta property="og:description" content="Automating your VMware infrastructure with Ansible is more important than ever. This is a common use case that delivers instant value.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/what-you-need-know-about-vmware-automation-red-hat-ansible">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/what-you-need-know-about-vmware-automation-red-hat-ansible" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on August 1, 2024.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">What you need to know about VMware Automation with Red Hat Ansible Automation Platform</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2024-08-02">August 1, 2024</time> · 4-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>Automating VMware infrastructure with Red Hat Ansible Automation Platform is an extremely common use-case for numerous customers across many different verticals. Ansible Automation Platform is well known for automating Linux and Windows operating systems, but it can also automate VMware vSphere itself, allowing you to automate and orchestrate an entire virtual machine lifecycle. In this blog, we’ll explore how Ansible Automation Platform can automate virtual machine lifecycles, how this fits into the wider hybrid cloud environment, and next steps to take to learn more.</p>
+<p><strong>Automating the Virtual Machine Lifecycle</strong></p>
+<p>Ansible Automation Platform isn’t just for OS-level tasks; it can orchestrate the entire lifecycle of VMware virtual machines.</p>
+<p>From provisioning and configuration to scaling and decommissioning, Ansible Automation Platform streamlines operations. You may ask yourself what are the benefits of this? While there are three main ones:</p>
+<ul>
+<li>Consistency: Manual processes introduce errors. Ansible Automation Platform enables uniform configurations across VMs.</li>
+<li>Efficiency: Save time by automating repetitive tasks like VM creation, patching, and scaling.</li>
+<li>Scalability: Ansible Automation Platform adapts seamlessly as your VMware environment grows.</li>
+</ul>
+<p>In fact, when you combine the disparate types of automation, you can look at a workflow like this:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/VMware%20Image%201.png"><img src="https://www.redhat.com/rhdc/managed-files/VMware%20Image%201.png" alt="Automation workflow"></a></p>
+<p>Let’s break this down even further. Each step in the diagram above, at its most basic level, can be a simple 1-task Ansible Playbook. It doesn’t need to be over complicated:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/VMware%20Image%202.png"><img src="https://www.redhat.com/rhdc/managed-files/VMware%20Image%202.png" alt="Ansible Playbook"></a></p>
+<p>In the above diagram we can (1) deploy a Red Hat Enterprise Linux 9 virtual machine on to VMware vSphere, then (2) we can configure our application, then (3) we can add this new fully functional web server into our F5 appliance to have it add to our server capacity. Simple disparate playbooks can be connected into an Ansible Automation Platform workflow to create easy automation orchestration.</p>
+<p><strong>Multi-cloud automation</strong></p>
+<p>I also want to talk about the reality of most organizations and why a tool like Ansible Automation Platform is so incredibly important.  No customer is completely homogenous in one virtualization platform. Organizations operate in a multi-cloud world—private clouds, public clouds, and everything in between. This can lead to tech debt and tech sprawl, and be overwhelming on how you can actually tame the complexity of your multi-cloud environments.</p>
+<p>Ansible Automation Platform bridges the gap, allowing VMware and hyperscaler environments to coexist harmoniously. Through unified orchestration, Ansible Automation Platform’s vast ecosystem of integrations enables consistent orchestration across diverse cloud platforms. Whether it’s AWS, Azure, OpenShift Virt or your on-premises VMware setup, Ansible Automation Platform can coordinate and help <a href="https://www.redhat.com/en/blog/move-virtual-machines-openshift-scale-red-hats-migration-toolkit-virtualization">migrate workloads</a> across your hybrid cloud.</p>
+<p><strong>How do I get started?</strong></p>
+<p>Check out the VMware validated content on Ansible automation hub: <a href="https://console.redhat.com/ansible/automation-hub/repo/validated/cloud/vmware_ops">cloud.vmware_ops</a>. Ansible <a href="https://www.redhat.com/en/blog/automate-expert-ansible-validated-content">validated content</a> is a new set of collections containing pre-built YAML content (such as playbooks or roles) to address the most common automation use cases. Ansible validated content’s opinionated approach to what foundational use cases you should focus on first.</p>
+<h2>Next steps: VMware Explore</h2>
+<p>We are super excited to announce that we will be at VMware Explore at the Venetian Conference Center from August 26-29, 2024! This is my first VMware explore event and I am super excited to chat with engineers about automation for everything. Whether you are automating virtual machines, network equipment, public clouds or VMware vSphere, we would love to chat with you. We will also be having four great mini-theatre sessions in our booth. Mini theater sessions are 10-15 minute presentations that you can attend at our booth and learn how to get started and how we can integrate with your existing infrastructure. Our four talk are:</p>
+<ul>
+<li><p><strong>5 Great use-cases to automate your VMware infrastructure efficiently</strong><br>Automation is essential for managing complex infrastructure efficiently. Ansible Automation Platform offers a powerful solution for automating VMware environments. In this talk, we’ll explore five compelling use-cases where Ansible Automation Platform can transform your VMware infrastructure and help you automate and manage your Linux and Windows virtual machines.</p>
+</li>
+<li><p><strong>Multi-cloud automation with Ansible Automation Platform</strong><br>Numerous organizations are using a mix of private and public clouds for their IT infrastructure demands. In this talk we will showcase how Ansible Automation Platform can help automate, orchestrate and manage your VMware infrastructure as well as your hyperscaler infrastructure and allow them to seamlessly co-exist, with a vast ecosystem of integrations.</p>
+</li>
+<li><p><strong>Multi-cloud automation with Ansible Automation Platform</strong><br>This introductory 101 talk will focus on fundamentals, so come learn VMware automation with Ansible Automation Platform! No prior knowledge of Ansible is required!</p>
+<ul>
+<li>Inventory: Efficiently manage VMware inventory.</li>
+<li>Modules: Understand and learn how to use an Ansible module</li>
+<li>Job Templates: Learn how to operationalize your Ansible Playbooks</li>
+<li>Surveys: Learn how to make easy forms in a user-friendly question and answer way for your job templates</li>
+</ul>
+</li>
+<li><p><strong>How automating your VMware environments can save you time and money</strong><br>By leveraging Ansible Automation Platform, organizations can achieve more with less effort. This powerful tool allows you to automate tasks such as configuration management, application deployment, interservice orchestration, and provisioning. Specifically, when it comes to VMware infrastructure, Ansible Automation Platform enables you to automate ESXi installations, configurations, network setups, and more. By doing so, you’ll save time, reduce manual errors, and enable a consistent and repeatable process for infrastructure provisioning.</p>
+</li>
+</ul>
+<h2></h2>
+<h2>How to find us at VMware Explore!</h2>
+<p>We will be right near the entrance to the exposition hall at the Red Hat booth. The Red Hat booth is #1530 in the event app. If you have any trouble finding us, message <a href="https://linktr.ee/roger_lopez">Roger Lopez</a> or <a href="https://linktr.ee/ipvsean">myself</a> on the social media platform of your choice!</p>
+<p>You can also follow <a href="https://x.com/redhatevents">@RedHatEvents</a> and <a href="https://x.com/ansible">@Ansible</a> to get the latest updates, as well as <a href="https://www.youtube.com/@AnsibleAutomation?sub_confirmation=1">subscribe to our YouTube Channel</a>.</p>
+<p>We will also be at more events this year! For example there will be Ansible experts at AWS re:Invent 2024!</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/red-hat-satellite-620-limited-availability-early-access-containerized-management-and-post-quantum-cryptographic-enablement">Red Hat Satellite 6.20 limited availability: Early access registration now open</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/unify-it-workflows-scale-new-automation-orchestrator-ansible-automation-platform">Unify IT workflows at scale with the new automation orchestrator for Ansible Automation Platform</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/operating-system-management">Operating System Management | Compiler</a></h3>
+<h2>Keep exploring</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000003Sq0iAAC" title="E-book: The automated enterprise">The automated enterpriseE-book</a></li>
+<li>Try Red Hat Ansible Automation Platform with self-paced, hands-on labsInteractive lab</li>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-20220412" title="Red Hat Ansible Automation Platform: A beginner’s guide">Red Hat Ansible Automation Platform: A beginner’s guide</a><a href="https://www.redhat.com/en/engage/ansible-automation-platform-beginners-guide-ebook" title="Red Hat Ansible Automation Platform: A beginner’s guide">E-book</a></li>
+</ul>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/what-you-need-know-about-vmware-automation-red-hat-ansible">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creating Kubernetes Dynamic Inventories with kubernetes.core Modules — Ansible TMM Blog</title>
+  <meta name="description" content="A quick start guide on how you can create an Ansible Playbook to retrieve your pods within a namespace and generate a Kubernetes dynamic inventory.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules">
+  <meta property="og:title" content="Creating Kubernetes Dynamic Inventories with kubernetes.core Modules">
+  <meta property="og:description" content="A quick start guide on how you can create an Ansible Playbook to retrieve your pods within a namespace and generate a Kubernetes dynamic inventory.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on August 9, 2022.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Creating Kubernetes Dynamic Inventories with kubernetes.core Modules</h1>
+        <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2022-08-10">August 9, 2022</time> · 2-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/roger%20kube.core%20blog%20aug%205%2022.png" alt="roger kube.core blog aug 5 22"></a></p>
+<p>When managing infrastructure, there are times when a dynamic inventory is essential. Kubernetes is a perfect example of this where you may create multiple applications within a namespace but you will not be able to create a static inventory due to Kubernetes appending a systems-generated string to uniquely identify objects.</p>
+<p>Recently, I decided to play with using a Kubernetes dynamic inventory to manage pods, but finding the details on how to use and apply it was a bit scarce. As such, I wanted to write a quick start guide on how you can create an Ansible Playbook to retrieve your pods within a namespace and generate a Kubernetes dynamic inventory.</p>
+<p>This is much easier to do when you take advantage of the <code>kubernetes.core.k8s_info</code> module.</p>
+<p>In my example, I’m going to take advantage of using my existing <code>ansible-automation-platform</code> namespace that has a list of pods to create my dynamic inventory. In your scenario, you’d apply this to any namespace you wish to capture a pod inventory from.</p>
+<p>When creating your inventory, the first step is to register the pods found within a particular namespace. Here’s an example of a task creating an inventory within the <code>ansible-automation-platform</code> namespace:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.23.23%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.23.23%20PM.png" alt="Screen Shot 2022-08-05 at 3.23.23 PM"></a></p>
+<p>While this task would capture every pod within that namespace, you could further target specific pods using the <code>label_selectors</code> as such:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.24.24%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.24.24%20PM.png" alt="Screen Shot 2022-08-05 at 3.24.24 PM"></a></p>
+<p>This would target only the automation controller pods from within my <code>ansible-automation-platform</code> namespace.</p>
+<p>Once the pods are registered, take your list and use the <code>add_host</code> module to dynamically add those pods to your inventory. One key piece from this <code>add_host</code> module is that I’ve included the <code>ansible_kubectl_namespace</code> var within the task. When adding pods to your host list, you need to provide their namespace, because without adding this variable it assumes the namespace is the default namespace.  </p>
+<p><strong>NOTE</strong>: If you want to use <a href="https://docs.ansible.com/ansible/latest/collections/kubernetes/core/kubectl_connection.html">kubernetes connection plugin parameters</a>, you need to prefix <code>ansible_</code> to them. In this example, I used the <code>kubectl_namespace</code> and prefixed ansible to get <code>ansible_kubectl_namespace</code>.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.26.09%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.26.09%20PM.png" alt="Screen Shot 2022-08-05 at 3.26.09 PM"></a></p>
+<p>And there you have it! Now your pods have been added to your inventory dynamically in a group labeled “pods”.</p>
+<p>Now with your dynamically built inventory, you can run tasks against this pod inventory. Since this inventory is built at run-time, you’d want to have a playbook with multi plays similar to this example:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.27.37%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202022-08-05%20at%203.27.37%20PM.png" alt="Screen Shot 2022-08-05 at 3.27.37 PM"></a></p>
+<p><strong>NOTE</strong>: In the second play labeled &quot;New Play using the pod inventory&quot; there is a <code>connection: kubernetes.core.kubectl</code>. This allows for the run of command on the pods and for that you need this connection plugin.</p>
+<p>And there it is! One method of creating an inventory of your pods that you can then run tasks against.</p>
+<h2>What can I do next?</h2>
+<p>Whether you are beginning your automation journey or are a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
+<ul>
+<li><a href="https://www.ansible.com/ansiblefest">AnsibleFest 2022</a> - Come hang out with myself, and more importantly the automation mesh guru Craig Brandt, my friend and colleague who knows everything there is to know about automation mesh in Chicago October 18-19, 2022.</li>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - Check out our interactive, in-browser exercises to learn and dive into Ansible Automation Platform</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> and myself <a href="https://twitter.com/Lopez">@Lopez</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez"><img src="https://www.redhat.com/themes/custom/rhdc/img/author-default-img.svg" alt="Roger Lopez"></a></p>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez">### Roger Lopez</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New reference architecture: Red Hat Ansible Automation Platform 1.2 to 2 Migration Guide — Ansible TMM Blog</title>
+  <meta name="description" content="we created a simple reference architecture to help guide you migrate from Ansible Automation Platform 1.2 to Ansible Automation Platform 2.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide">
+  <meta property="og:title" content="New reference architecture: Red Hat Ansible Automation Platform 1.2 to 2 Migration Guide">
+  <meta property="og:description" content="we created a simple reference architecture to help guide you migrate from Ansible Automation Platform 1.2 to Ansible Automation Platform 2.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on April 19, 2022.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">New reference architecture: Red Hat Ansible Automation Platform 1.2 to 2 Migration Guide</h1>
+        <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2022-04-20">April 19, 2022</time> · 3-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/svFddIqV7xPFilaUztr4wit2zyRiToanGQacqtyBYkprP1SUAoApyoV89LI0mwv-FK4ijQeT3MARtXYO8Wl0oBCKHY44bdd09eo9XuBIEFBgLBbpzT9WHEqmJqfc-UTKGisvDeur.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/svFddIqV7xPFilaUztr4wit2zyRiToanGQacqtyBYkprP1SUAoApyoV89LI0mwv-FK4ijQeT3MARtXYO8Wl0oBCKHY44bdd09eo9XuBIEFBgLBbpzT9WHEqmJqfc-UTKGisvDeur.png" alt=""></a></p>
+<p>Side-by-Side migration to Ansible Automation Platform 2</p>
+<p>The release of <a href="https://www.ansible.com/blog/introducing-red-hat-ansible-automation-platform-2.1">Red Hat Ansible Automation Platform 2.1</a> comes with a re-imagined architecture that delivers exciting features such as <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_automation_mesh_guide/index">automation mesh</a> and <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments">automation execution environments</a> among an entire suite of tools and components that enable enterprises to scale automation across their organizations.</p>
+<p>With the importance of enterprise automation and taking advantage of the latest Ansible Automation Platform, we created a simple <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.4/html-single/ansible_automation_platform_1.2_to_2_migration_guide/index">reference architecture to help guide you migrate from Ansible Automation Platform 1.2 to Ansible Automation Platform 2</a>.</p>
+<p>It consists of using a side-by-side methodology for the migration process via using the Ansible Automation Platform installer to do the migration and restoring a Database backup from a Ansible Automation Platform 1.2 cluster.</p>
+<h2><strong>Why are you going to love it?</strong></h2>
+<p>Say goodbye to the guessing game of how you’ll migrate to the latest and greatest. Our goal is to simplify the migration planning, considerations and, most importantly, the step-by-step on how to do it.</p>
+<h2><strong>What will I find inside this reference architecture?</strong></h2>
+<p>Inside <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.4/html-single/ansible_automation_platform_1.2_to_2_migration_guide/index">this reference architecture</a> you’ll find:</p>
+<ul>
+<li>Migration considerations</li>
+<li>Prerequisites</li>
+<li>Infrastructure migration</li>
+<li>Migrating virtual environments to automation execution environments</li>
+</ul>
+<p>The migration considerations focus on technical considerations, your Ansible content migration, and operating model considerations. We want to make sure that before you jump into the existing world that is Ansible Automation Platform 2, you have the tools to make it a successful one.</p>
+<p>Moving from considerations, we shift to technical prerequisites, followed by the step-by-step infrastructure migration from Ansible Automation Platform 1.2 to Ansible Automation Platform 2.</p>
+<p>This section breaks down every step you’ll need to complete a successful migration, including how to create a new inventory file from an existing Ansible Automation Platform 1.2 inventory. The installer inventory creation highlights the features of automation mesh and shows how to setup automation mesh for your upgraded Ansible Automation Platform.</p>
+<p>Lastly, once the infrastructure migration is complete, the focus shifts on making sure your virtual environments from Ansible Automation Platform 1.2 are successfully transformed into automation execution environments for use within Ansible Automation Platform 2.</p>
+<p>This one-time effort opens the door to take advantage of the latest Ansible Automation Platform 2 capabilities and the ability to execute consistent automation across multiple platforms with lower long-term maintenance.</p>
+<p>To make this process easy, this reference architecture will walk you through an actual migration we did from Ansible Automation Platform 1.2 to Ansible Automation Platform 2.</p>
+<h2><strong>What can I do next?</strong></h2>
+<p>Whether you are beginning your automation journey or are a seasoned veteran, you can reach out with questions and feedback regarding the migration process at <a href="mailto:ansible-feedback@redhat.com">ansible-feedback@redhat.com</a>. In addition, you can reference a variety of resources to enhance your automation knowledge:</p>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.4/html-single/ansible_automation_platform_1.2_to_2_migration_guide/index">Latest migration reference architecture</a> - Download the latest migration reference architecture for an in-depth step-by-step how to guide on migrating to Ansible Automation Platform 2.</li>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - Check out the interactive in-browser exercises to learn and dive into Ansible Automation Platform.</li>
+<li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to go? Get your own trial subscription for unlimited access to all the components of Ansible Automation Platform.</li>
+<li><a href="https://developers.redhat.com/about">Developer license</a> - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our new web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible Automation Platform on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<p>Also, if you’re interested in some hands-on assistance with your migration or want help building a strategy for onboarding Ansible Automation Platform 2, please reach out to your Account Executive for more information about Red Hat Consulting.</p>
+<p>A special thanks to Roger Lopez for his contributions to this blog and the migration reference architecture.</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/wa_profile%20-%20Anshul%20Behl.jpeg?itok=vYDgCAJj" alt="Anshul Behl, Principal Technical Marketing Manager, Red Hat"></a></p>
+<p>[### Anshul Behl</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/anshul-behl">https://www.redhat.com/en/authors/anshul-behl</a>)</p>
+<p>Anshul is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform&#39;s adoption experience for customers by producing technical content on all aspects of the product.</p>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/red-hat-satellite-620-limited-availability-early-access-containerized-management-and-post-quantum-cryptographic-enablement">Red Hat Satellite 6.20 limited availability: Early access registration now open</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/unify-it-workflows-scale-new-automation-orchestrator-ansible-automation-platform">Unify IT workflows at scale with the new automation orchestrator for Ansible Automation Platform</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/operating-system-management">Operating System Management | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

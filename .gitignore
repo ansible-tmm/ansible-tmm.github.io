@@ -1,1 +1,4 @@
 .DS_Store
+scripts/.venv/
+scripts/node_modules/
+scripts/__pycache__/

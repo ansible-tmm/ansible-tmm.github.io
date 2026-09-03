@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Easy automation for Microsoft Windows Server and Azure with Ansible Automation Platform — Ansible TMM Blog</title>
+  <meta name="description" content="The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform">
+  <meta property="og:title" content="Easy automation for Microsoft Windows Server and Azure with Ansible Automation Platform">
+  <meta property="og:description" content="The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on March 19, 2025.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Easy automation for Microsoft Windows Server and Azure with Ansible Automation Platform</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2025-03-20">March 19, 2025</time> · 3-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections. Additionally, the new <code>Microsoft.iis</code> collection includes comprehensive support for configuring Internet Information Services (IIS), and the <code>ansible.windows</code> collection has been updated with additional modules to support Windows server management. Furthermore, Ansible Automation Platform extends its reach to cloud and hybrid environments with new support for managing Azure Arc resources, enabling consistent and unified management across on-premises, multi-cloud and edge environments.</p>
+<h2>OpenSSH support</h2>
+<p>When automating Windows, you may have used WinRM in the past. However, OpenSSH has long been a request from customers, and at the end of 2024 <a href="https://docs.ansible.com/ansible/devel//os_guide/windows_ssh.html#">OpenSSH is supported in Windows Server 2022</a>+ and Ansible core 2.18+.</p>
+<h2>Why automate Windows with Ansible Automation Platform?</h2>
+<p>Traditional Windows management often requires GUI-based configurations, manual patching and repetitive administrative tasks. With Ansible Automation Platform, you can:</p>
+<ul>
+<li><strong>Save time and reduce costs:</strong> Automate routine tasks like software deployment, user management, and patching</li>
+<li><strong>Improve consistency and security:</strong> Enforce standard configurations across all Windows servers, reducing configuration drift and compliance risks</li>
+<li><strong>Enhance scalability:</strong> Manage thousands of Windows systems with a single automation framework, enabling rapid deployment and updates</li>
+<li><strong>Integrate seamlessly:</strong> Connect Ansible Automation Platform with existing IT ecosystems like Active Directory and Azure for a unified automation experience</li>
+</ul>
+<h2>Expanding the ansible.windows collection</h2>
+<p>The certified <a href="https://catalog.redhat.com/software/collection/ansible/windows">ansible.windows</a> collection has now been updated with additional modules. Our top 5 &quot;honorable mention&quot; modules:</p>
+<ol>
+<li><strong>win_firewall</strong> – Essential for managing security policies and restricting access to services by configuring the Windows firewall with Ansible Automation Platform</li>
+<li><strong>win_hotfix</strong> – Critical for checking and managing system updates and patches so you can have visibility into the patching status of your servers and know where action needs to be taken</li>
+<li><strong>win_initialize_disk</strong> – Important for provisioning new storage for your Windows servers by initializing and partitioning disks</li>
+<li><strong>win_certificate_info</strong> – Necessary for managing and verifying SSL/TLS certificates, crucial for securing web applications hosted on your Windows servers</li>
+<li><strong>win_acl_inheritance</strong> – Helps enforce permission policies, enabling security and compliance</li>
+</ol>
+<p>These 5 modules greatly assist any administrator in the crucial task of securing and hardening of Windows servers. Those are our top 5 but, depending on your use case, you&#39;ll likely have some top picks of your own. It&#39;s by no means an exhaustive list. In our effort to expand support for Windows automation, a number of modules have been added to the collection. Read more about these additional modules in the <a href="https://catalog.redhat.com/software/collection/ansible/windows?tab=documentation">documentation</a>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>win_user_profile</td>
+<td>win_timezone</td>
+<td>win_snmp</td>
+<td>win_route</td>
+</tr>
+<tr>
+<td>win_robocopy</td>
+<td>win_regmerge</td>
+<td>win_region</td>
+<td>win_product_facts</td>
+</tr>
+<tr>
+<td>win_partition</td>
+<td>win_pagefile</td>
+<td>win_maped_drive</td>
+<td>win_certificate_info</td>
+</tr>
+<tr>
+<td>win_computer_description</td>
+<td>win_credential</td>
+<td>win_dhcp_lease</td>
+<td>wins_dns_record</td>
+</tr>
+<tr>
+<td>wins_dns_zone</td>
+<td>win_eventlog</td>
+<td>win_feature_info</td>
+<td>win_file_compression</td>
+</tr>
+<tr>
+<td>win_file_compression_rule</td>
+<td>win_firewall</td>
+<td>win_hosts</td>
+<td>win_hotfix</td>
+</tr>
+<tr>
+<td>win_http_proxy</td>
+<td>win_iis_webbinding</td>
+<td>win_initialize_disk</td>
+<td>win_listen_ports_facts</td>
+</tr>
+<tr>
+<td>win_acl_inheritance</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>These modules provide Windows administrators and automation experts with a more comprehensive ability to automate Windows services, streamline common tasks, and fine-tune Windows systems and Active Directory installs.</p>
+<h3>The microsoft.iis collection</h3>
+<p>In addition to the <code>ansible.windows</code> collection update, we&#39;ve also created a new collection specifically for IIS management. It enables comprehensive automation for managing Microsoft Internet Information Services (IIS). This collection allows you to:</p>
+<ul>
+<li><strong>Streamline web server deployments:</strong> Automate IIS role installations, site configurations, and SSL management</li>
+<li><strong>Ensure consistency across environments:</strong> Use Ansible Playbooks to standardize web server configurations and prevent drift</li>
+<li><strong>Enhance security and compliance:</strong> Automate security settings, certificate management and application pool configurations</li>
+<li><strong>Optimize performance:</strong> Implement load balancing, logging and fine-tuned IIS settings for high availability</li>
+</ul>
+<p>This certified <a href="https://catalog.redhat.com/software/collection/microsoft/iis">collection</a> currently includes the following modules:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>virtual_directory</td>
+<td>virtual_directory_info</td>
+</tr>
+<tr>
+<td>web_app_pool</td>
+<td>web_app_pool_info</td>
+</tr>
+<tr>
+<td>web_application</td>
+<td>web_application_info</td>
+</tr>
+<tr>
+<td>website</td>
+<td>website_info</td>
+</tr>
+</tbody></table>
+<p>This collection focuses on management of IIS and allows you to create and manage virtual directories, web applications, web application pools and IIS websites. The collection also provides modules to gather information on each of these components.</p>
+<h2>Azure additions</h2>
+<p>Azure Arc allows Azure to monitor infrastructure in or outside of the cloud, and Ansible Automation Platform can automate deployment and configuration of that infrastructure.  Azure Arc supports virtual machine (VM) management over SSH, and Ansible Automation Platform now enables connectivity and automation of connected VMs through Arc as if the nodes were directly routable. Read <a href="https://www.redhat.com/en/blog/migrate-to-azure-monitor-agent-on-azure-arc-using-red-hat-ansible-automation-platform">this article</a> for information about deploying the Azure Arc monitoring agent using Ansible Automation Platform.</p>
+<p>New additions to <a href="https://catalog.redhat.com/software/collection/azure/azcollection">azure.azcollection</a> support using Arc through the Azure_RM_arcssh module, which allows you to configure an SSH proxy for Arc hosts to connect to Azure.</p>
+<p>The recent updates to the Azure and Microsoft Windows and IIS Certified Collections for Ansible Automation Platform represent a significant step forward in enhancing automation capabilities for enterprises. These updates not only streamline the integration of Azure services with Ansible Automation Platform, but also ensure that organizations can leverage the latest features and connection types. By continuously evolving and expanding the certified collections, Red Hat and Microsoft are empowering IT teams to automate complex workflows with greater efficiency and confidence.</p>
+<h3>Where to go next</h3>
+<ul>
+<li>Attend Red Hat’s premier event <a href="https://www.redhat.com/en/summit">Red Hat Summit 2025</a></li>
+<li>Volvo Cars reveal how they use <a href="https://youtu.be/8KunwQQynV8?si=cuJBS_3gPcVjO1xj">Ansible Automation Platform on Microsoft Azure to accelerate time-to-automation</a></li>
+<li>Learn how to use <a href="https://youtu.be/0vQACe3shW0?si=DdzBwCrjfVYgPOGw">Windows and Event-Drive Ansible</a> with AI ticket enrichment</li>
+<li>Watch a video on <a href="https://youtu.be/nmW49G-5-p0?si=NHkXu02oMCzP8W1C">Windows automation: Speed and scale</a> to understand how you can scale your automation of Windows servers</li>
+<li>Want to learn Ansible? Check out our<a href="https://developers.redhat.com/products/ansible/getting-started">getting started guide</a> on<a href="http://developers.redhat.com/">developers.redhat.com</a></li>
+</ul>
+<hr>
+<h3>About the authors</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p><a href="https://www.redhat.com/en/authors/matthew-packer"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Packer%2C%20Matthew-3%20-%20Matthew%20Packer.jpg?itok=r0gJyEam" alt="Packer, Matthew-3 - Matthew Packer"></a></p>
+<p>[### Matthew Packer</p>
+<p>Principal Product Marketing Manager](<a href="https://www.redhat.com/en/authors/matthew-packer">https://www.redhat.com/en/authors/matthew-packer</a>)</p>
+<p>Matthew Packer is a Principal Product Marketing Manager for Ansible Automation Platform and is responsible for cloud automation. Prior to joining Red Hat, he worked in product marketing specializing in retail payment technology at Vontier and product management at Cisco in cloud-based networking. Matthew also worked as a consultant at Honeywell in the manufacturing and utilities industries with a focus on the Internet of Things (IoT) and predictive analytics space.</p>
+<p><a href="https://www.redhat.com/en/authors/matthew-packer">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/stop-searching-start-operating-scale-hybrid-clusters-red-hat-advanced-cluster-management-kubernetes-216">Stop searching, start operating: Scale hybrid clusters with Red Hat Advanced Cluster Management for Kubernetes 2.16</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/red-hat-openshift-421-smarter-scaling-faster-migration-and-ai-powered-efficiency">Red Hat OpenShift 4.21: Smarter scaling, faster migration, and AI-powered efficiency</a></h3>
+<h2>Keep exploring</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000003Sq0iAAC" title="E-book: The automated enterprise">The automated enterpriseE-book</a></li>
+<li>Try Red Hat Ansible Automation Platform with self-paced, hands-on labsInteractive lab</li>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-20220412" title="Red Hat Ansible Automation Platform: A beginner’s guide">Red Hat Ansible Automation Platform: A beginner’s guide</a><a href="https://www.redhat.com/en/engage/ansible-automation-platform-beginners-guide-ebook" title="Red Hat Ansible Automation Platform: A beginner’s guide">E-book</a></li>
+</ul>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

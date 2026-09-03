@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Porting Ansible Network Playbooks with New Connection Plugins — Ansible TMM Blog</title>
+  <meta name="description" content="With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin. In this post we take you through converting existing networking playbooks that use connection: local to using connection: network_cli.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins">
+  <meta property="og:title" content="Porting Ansible Network Playbooks with New Connection Plugins">
+  <meta property="og:description" content="With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin. In this post we take you through converting existing networking playbooks that use connection: local to using connection: network_cli.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on April 18, 2018.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Porting Ansible Network Playbooks with New Connection Plugins</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2018-04-19">April 18, 2018</time> · 7-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png" alt=""></a></p>
+<p>The Ansible Networking Team is excited about the release of <a href="https://www.redhat.com/blog/ansible-2.5-traveling-space-and-time">Ansible 2.5</a>. Back in February, I wrote about new <a href="https://www.redhat.com/blog/coming-soon-networking-features-in-ansible-2.5">Networking Features in Ansible 2.5</a>, and one of the biggest areas of feedback was around the network_cli connection plugin. For more background on this connection plugin, please refer to the previous blog post.</p>
+<p>In this post, I convert existing networking playbooks that use <code>connection: local</code> to use <code>connection: network_cli</code>. Please note that the passwords are in plain text for demonstration purposes only. Refer to the following Ansible Networking documentation page recommendation for using Ansible Vault for secure password storage and usage.  </p>
+<p>To demonstrate, let’s use an existing GitHub repository with working playbooks using the legacy connection local method. NOTE: The connection local method will continue to be supported for quite some time, and has not been announced as deprecated yet. This repository has several examples using Ansible and NAPALM but we are highlighting the Ansible Playbooks in this post.  The GitHub repository can be <a href="https://github.com/network-automation/ansible-napalm-samples">found here</a>.</p>
+<h3><a href="https://github.com/network-automation/ansible-napalm-samples#example-1---backing-up-a-config">Example 1 - Backing Up a Configuration</a></h3>
+<p>Networking platforms use their specific <code>*_config</code> platform module for easy backups within Ansible. For this playbook we are running the Ansible Playbook against a Cisco NX-OS platform, so we are using the nxos_config module. Using this module, set the <code>backup</code> parameter to <code>yes</code>.  This is how the playbook looked using the <code>connection: local</code> and <code>provider</code> method in Ansible 2.4:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- hosts: cisco</span></span>
+<span class="line"><span>  connection: local</span></span>
+<span class="line"><span>  tasks:</span></span>
+<span class="line"><span>    - nxos_config:</span></span>
+<span class="line"><span>        backup: yes</span></span>
+<span class="line"><span>        provider: "{{login_info}}"</span></span></code></pre><p>For all of the Ansible samples the provider variables such as <code>login_info</code> are located in <code>group_vars/all</code>:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ cat group_vars/all.yml                                                                                               ---</span></span>
+<span class="line"><span>login_info:</span></span>
+<span class="line"><span>  username: admin</span></span>
+<span class="line"><span>  password: Bullf00d!</span></span>
+<span class="line"><span>  authorize: True</span></span></code></pre><p><strong>How do we take advantage of the network_cli connection method in Ansible 2.5?</strong></p>
+<ol>
+<li>Change the <code>connection: local</code> to <code>connection: network_cli</code></li>
+<li>Remove the <code>provider</code> parameter from the task</li>
+<li>Convert the information in the <code>login_info</code> variable in your playbook to your inventory file</li>
+<li>Add appropriate <code>ansible_network_os</code> entries to your inventory</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Network Platform</strong></td>
+<td><strong>ansible_network_os parameter</strong></td>
+</tr>
+<tr>
+<td>Arista EOS</td>
+<td>eos</td>
+</tr>
+<tr>
+<td>Cisco IOS</td>
+<td>ios</td>
+</tr>
+<tr>
+<td>Cisco IOS-XR</td>
+<td>iosxr</td>
+</tr>
+<tr>
+<td>Cisco NX-OS</td>
+<td>nxos</td>
+</tr>
+<tr>
+<td>Juniper Junos</td>
+<td>junos</td>
+</tr>
+<tr>
+<td>VyOS</td>
+<td>vyos</td>
+</tr>
+</tbody></table>
+<p><strong>Convert the playbook for steps 1 and 2:</strong></p>
+<p>Local Connection (2.4):</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- hosts: cisco</span></span>
+<span class="line"><span>  connection: local</span></span>
+<span class="line"><span>  tasks:</span></span>
+<span class="line"><span>    - nxos_config:</span></span>
+<span class="line"><span>       backup: yes</span></span>
+<span class="line"><span>       provider: "{{login_info}}"</span></span></code></pre><p>Network_cli Connection (2.5):</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- hosts: cisco</span></span>
+<span class="line"><span>  connection: network_cli</span></span>
+<span class="line"><span>  tasks:</span></span>
+<span class="line"><span>   - nxos_config:</span></span>
+<span class="line"><span>      backup: yes</span></span></code></pre><p><strong>Modify the inventory for steps 3 and 4:</strong></p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ cat hosts</span></span>
+<span class="line"><span>[cisco]</span></span>
+<span class="line"><span>n9k ansible_host=192.168.2.3</span></span></code></pre><p><strong>Next, add three fields for the n9k host:</strong></p>
+<ul>
+<li><code>ansible_user</code></li>
+<li><code>ansible_password</code></li>
+<li><code>ansible_network_os</code></li>
+</ul>
+<p>For this specific scenario, a few assumptions are required:</p>
+<ul>
+<li>The username and password is specific for a particular host (in other words, n9k’s username and password is different from n9k-2’s username and password).</li>
+<li>All the devices in the <code>[cisco]</code> group are Cisco Nexus devices.</li>
+</ul>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ cat hosts</span></span>
+<span class="line"><span>[cisco]</span></span>
+<span class="line"><span>n9k ansible_host=192.168.2.3 ansible_user=admin ansible_password=Bullf00d</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[cisco:vars]</span></span>
+<span class="line"><span>ansible_network_os=nxos</span></span></code></pre><p>As you can see above we can tie inventory parameters to a particular host, or to the entire group. The old playbook is named <code>backup-oldmethod.yml</code>, and the new playbook is named <code>backup.yml</code>. The playbook now runs with the <code>ansible-playbook</code> command:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ ansible-playbook backup.yml</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>PLAY [cisco] *******************************************************************************************</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>TASK [nxos_config] ***********************************************************************************</span></span>
+<span class="line"><span>ok: [n9k]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>PLAY RECAP ******************************************************************************************</span></span>
+<span class="line"><span>n9k                        : ok=1    changed=0    unreachable=0    failed=0</span></span></code></pre><h3><a href="https://github.com/network-automation/ansible-napalm-samples#example-2---adding-an-ip-address-to-an-interface">Example 2 - Adding an IP address to an Interface</a></h3>
+<p>In the second Ansible Playbook example we are running against an Arista EOS platform, so we are using the eos_config module.  </p>
+<p>The login information for the Arista EOS device for this example is different from the Cisco NX-OS device, and requires an enable password for privileged commands:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ cat group_vars/all.yml   </span></span>
+<span class="line"><span>---</span></span>
+<span class="line"><span>login_info_eos:</span></span>
+<span class="line"><span>  username: admin</span></span>
+<span class="line"><span>  password: Bullf00d!</span></span>
+<span class="line"><span>  authorize: True</span></span>
+<span class="line"><span>  auth_pass: DURHAM!</span></span></code></pre><p>Just like in the first example, we need to perform the following activities:</p>
+<ol>
+<li>Convert the provider dictionary into our inventory</li>
+<li>Set <code>ansible_network_os</code> to <code>eos</code></li>
+<li>Convert not just the <code>username</code> and <code>password</code>, but also <code>authorize</code> and <code>auth_pass</code></li>
+<li>Now that network_cli is a top level connection, ansible_become_method is also available now that Ansible leverages the built-in Become (Privilege Escalation). Therefore, specify <code>enable</code>, which is similar to Linux’s <code>sudo</code>.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Provider Dictionary (2.4)</strong></td>
+<td><strong>Inventory Variable (2.5)</strong></td>
+</tr>
+<tr>
+<td>authorize: True</td>
+<td>ansible_become=yes</td>
+</tr>
+<tr>
+<td></td>
+<td>ansible_become_method=enable</td>
+</tr>
+<tr>
+<td>auth_pass: DURHAM!</td>
+<td>ansible_become_pass=DURHAM!</td>
+</tr>
+</tbody></table>
+<p>For our particular example, we assume all Arista devices (devices within the group named <code>[arista]</code>) use the same username, password and enable password. This means we can set those parameters under the group <code>[arista:vars]</code>. This is what the inventory for it looks like:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[arista]</span></span>
+<span class="line"><span>eos ansible_host=192.168.2.10</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[arista:vars]</span></span>
+<span class="line"><span>ansible_network_os=eos</span></span>
+<span class="line"><span>ansible_become=yes</span></span>
+<span class="line"><span>ansible_become_method=enable</span></span>
+<span class="line"><span>ansible_user=admin</span></span>
+<span class="line"><span>ansible_password=Bullf00d!</span></span>
+<span class="line"><span>ansible_become_pass=DURHAM!</span></span></code></pre><p><strong>Now let’s convert the Ansible Playbook:</strong></p>
+<p>Local Connection (2.4):</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- hosts: arista</span></span>
+<span class="line"><span>  connection: local</span></span>
+<span class="line"><span>  tasks:</span></span>
+<span class="line"><span>    - eos_config:</span></span>
+<span class="line"><span>        lines:</span></span>
+<span class="line"><span>          - no switchport</span></span>
+<span class="line"><span>          - ip address 172.16.1.1/24</span></span>
+<span class="line"><span>        parents: interface Ethernet1</span></span>
+<span class="line"><span>        provider: "{{login_info_eos}}"</span></span></code></pre><p>Network_cli Connection (2.5):</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- hosts: arista</span></span>
+<span class="line"><span>  connection: network_cli</span></span>
+<span class="line"><span>  tasks:</span></span>
+<span class="line"><span>    - eos_config:</span></span>
+<span class="line"><span>        lines:</span></span>
+<span class="line"><span>          - no switchport</span></span>
+<span class="line"><span>          - ip address 172.16.1.1/24</span></span>
+<span class="line"><span>        parents: interface Ethernet1</span></span></code></pre><p>The old playbook is called <code>ipaddress-oldmethod.yml</code>, and the new playbook is called <code>ipaddress.yml</code>. The playbook now runs the <code>ansible-playbook</code> command:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@centos]$ ansible-playbook backup.yml</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>PLAY [cisco] *******************************************************************************************</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>TASK [nxos_config] ***********************************************************************************</span></span>
+<span class="line"><span>ok: [n9k]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>PLAY RECAP ******************************************************************************************</span></span>
+<span class="line"><span>n9k                        : ok=1    changed=0    unreachable=0    failed=0</span></span></code></pre><p>There are also two more examples on the GitHub repo:</p>
+<ul>
+<li><a href="https://github.com/network-automation/ansible-napalm-samples#example-3---adding-a-new-vlan">Adding a new VLAN</a></li>
+<li><a href="https://github.com/network-automation/ansible-napalm-samples#example-4---change-the-snmp-password">Changing an SNMP Password</a></li>
+</ul>
+<p>Please consider joining the network-automation GitHub! Just <a href="mailto:ansible-network@redhat.com">email us</a> with your GitHub username.</p>
+<h3>FAQ</h3>
+<p><strong>Q: What happens if I don’t convert my playbooks for Ansible 2.5?</strong><br>A: Nothing, except your playbooks won&#39;t be as quick and efficient as they could be. The <code>connection: local</code> and <code>provider</code> method are not being deprecated for the Ansible 2.5 release. However, in relation to Ansible networking modules, it is planned for future deprecation (TBD).   </p>
+<p>Please note that deprecating something in Ansible doesn’t mean that it will be immediately removed. Currently, all deprecated parameters, features, modules, etc, are supported for four release cycles after deprecation before they are removed from the Ansible project. When looking at the release cycle you can see that four release cycles is roughly 16 months. You will see a deprecation warning when you run a playbook with a deprecated parameter, feature, or module. Please refer to the Porting Guide before upgrading Ansible.  </p>
+<p>For more information, you can check out the change log on GitHub to look at what is being deprecated per release.</p>
+<hr>
+<p><strong>Q: What if I wrote a module, using an Ansible module, or am using a module provided elsewhere that requires the connection: local method?  You are going to deprecate connection: local?</strong></p>
+<p>A: No. The <code>connection: local</code> is not being deprecated, and there are no plans to deprecate it.  Ansible will deprecate the <code>connection: local</code> connection method and provider parameter for Ansible Networking modules written by Red Hat.</p>
+<p>Module writers should refer to the <a href="https://github.com/ansible/community/blob/master/group-network/network_dev_network_cli.rst">Developing network_cli platforms</a> wiki.</p>
+<hr>
+<p><strong>Q: Is there a connection: eapi (Arista EOS) or connection: nxapi (Cisco NX-OS)?</strong></p>
+<p>A:  Not yet. In Ansible 2.5, you still need to use the <code>connection: local</code> and <code>provider</code> method for eapi or nxapi. The eapi and nxapi connections are on the radar for the Ansible Networking team and we will update the roadmap for Ansible Networking after Ansible 2.5 officially launches. Please bookmark the <a href="https://github.com/ansible/community/wiki/Network">Ansible Networking wiki</a>, which contains the roadmap.</p>
+<hr>
+<p><strong>Q: What if I have a playbook using a non-networking module (e.g., template module)?</strong><br>A: Modules (or rather, tasks that use modules) that are not networking modules will run locally. Let’s look at an example:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- hosts: cisco</span></span>
+<span class="line"><span>  connection: network_cli</span></span>
+<span class="line"><span>  tasks:</span></span>
+<span class="line"><span>    - name: backup device configurations</span></span>
+<span class="line"><span>      nxos_config:</span></span>
+<span class="line"><span>        backup: yes</span></span>
+<span class="line"><span>      register: nxos_config_backup</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    - name: copy the backup to the desired location</span></span>
+<span class="line"><span>      copy:</span></span>
+<span class="line"><span>        src: "{{ nxos_config_backup['backup_path'] }}"</span></span>
+<span class="line"><span>        dest: "nxos/{{ inventory_hostname }}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    - name: delete the original file</span></span>
+<span class="line"><span>      file:</span></span>
+<span class="line"><span>        path: "{{ nxos_config_backup['backup_path'] }}"</span></span>
+<span class="line"><span>        state: absent</span></span></code></pre><p>This playbook has three tasks:</p>
+<ol>
+<li>Create a backup file, under the backup directory</li>
+<li>Copy this backup file to the desired location (we want to save it under the directory nxos/n9k (n9k is the hostname we have setup in our inventory, we can call this using the <code>inventory_hostname</code> variable).</li>
+<li>Delete the file we copied from.</li>
+</ol>
+<p>The first task uses a network-specific module (<code>nxos_config</code>), while the other two tasks use generic Linux modules (<code>copy</code> and <code>file</code>).  This playbook executes the nxos_config against the specified hosts (the Ansible group <code>[cisco]</code>, specified by <code>hosts: cisco</code>).  When using the <strong>netconf</strong> or <strong>network_cli</strong> connection plugin, the copy and file modules run locally (from the machine Ansible was executed from).  </p>
+<p>As a side note: it’s very common to see Ansible Networking Playbooks where someone might template a file, then push it to the device like this:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: render a jinja2 template</span></span>
+<span class="line"><span>  template:</span></span>
+<span class="line"><span>    src: network_config.j2</span></span>
+<span class="line"><span>    dest: network_config</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>- name: push device configurations</span></span>
+<span class="line"><span>  nxos_config:</span></span>
+<span class="line"><span>    src: network_config</span></span></code></pre><p>The above works with <strong>network_cli</strong> and <strong>netconf</strong> connection plugins.  The template module runs locally while the nxos_config module runs against the specified hosts. However, the *os_config modules, including <code>nxos_config</code>, can take jinja2 files directly, without the need to use the template module.  Below is an example of what the playbook would look like:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: template AND push device configurations</span></span>
+<span class="line"><span>  nxos_config:</span></span>
+<span class="line"><span>    src: network_config.j2</span></span></code></pre><hr>
+<p><strong>Q: Where can I get more info?</strong></p>
+<p>A: Check out the offical Ansible 2.5 porting guide and <br>the new Ansible Networking documentation</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecting-true-autonomy-level-45-network">Architecting true autonomy with a level 4/5 network</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/solve-multi-controller-contention-red-hat-openshift-networking">Solve multi-controller contention with Red Hat OpenShift networking</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

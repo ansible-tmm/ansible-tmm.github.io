@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Addressing NetOps issues with Event-Driven Ansible — Ansible TMM Blog</title>
+  <meta name="description" content="Explore network events and what you could potentially do with something like Event-Driven Ansible. Read the blog to see examples.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/addressing-netops-issues-with-event-driven-ansible">
+  <meta property="og:title" content="Addressing NetOps issues with Event-Driven Ansible">
+  <meta property="og:description" content="Explore network events and what you could potentially do with something like Event-Driven Ansible. Read the blog to see examples.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/addressing-netops-issues-with-event-driven-ansible">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/addressing-netops-issues-with-event-driven-ansible" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on January 11, 2023.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Addressing NetOps issues with Event-Driven Ansible</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2023-01-12">January 11, 2023</time> · 4-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<h2>A simple example - No Shut, No Problem</h2>
+<p>Since the announcement of <a href="https://www.ansible.com/use-cases/event-driven-automation">Event-Driven Ansible</a>, I cannot stop thinking about potential use cases. Can I get events to automate scaling? Could I use a filesystem event to trigger filesystem integrity checks? Could I get a slackbot to trigger my choice of heavy metal playlist based on a “mood” event? It&#39;s all possible! But let’s not go too crazy, not yet.</p>
+<p>I started having a look at the fantastic work that one of our engineers, <a href="https://www.linkedin.com/in/nilashishchakraborty/">Nilashish Chakraborty</a> has been doing around network telemetry and Ansible. This led me down the path to explore network events and what I could potentially do with something like Event-Driven Ansible. So let’s start with a super simple interface example.</p>
+<p>Reaching out to the team at <a href="https://www.arista.com/en/">Arista</a>, we started discussing and looking at the mechanisms they are using to get telemetry data. With Arista we are able to use gNMI, gNMI is an open source protocol <a href="https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md">specification</a> created by the OpenConfig working group that is used to stream data to and from network devices. The OpenConfig working group operates as an open source project with contributions from network operators, equipment vendors in providing vendor-neutral software to manage network devices. I configured gNMI on my Arista switches and queried the interface with the gNMI client on my machine to make sure I was able to get what I needed.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…</span></span>
+<span class="line"><span>! Command: show running-config</span></span>
+<span class="line"><span>! device: arista01 (vEOS-lab, EOS-4.29.0.2F)</span></span>
+<span class="line"><span>…</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>!</span></span>
+<span class="line"><span>management api gnmi</span></span>
+<span class="line"><span>   transport grpc default</span></span>
+<span class="line"><span>   !</span></span>
+<span class="line"><span>   transport grpc eos</span></span>
+<span class="line"><span>   provider eos-native</span></span>
+<span class="line"><span>!</span></span>
+<span class="line"><span>…</span></span></code></pre><p>Running configuration on Arista EOS</p>
+<p>With my switches configured to allow gNMI, I used my <a href="https://gnmic.kmrd.dev/">gNMIc client</a> on my machine to test a subscription for events.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>Term> gnmic -a 192.168.11.5:6030 -u admin -p ansibleIScool --insecure subscribe --path \</span></span>
+<span class="line"><span>  "/interfaces/interface[name=Ethernet1]/state/admin-status"</span></span></code></pre><p>This allows us to connect and view the telemetry data that&#39;s being streamed. I subscribed just to the admin-status of the ethernet port; however, you could subscribe to whatever data is relevant to you.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>{</span></span>
+<span class="line"><span>  "source": "192.168.11.5:6030",</span></span>
+<span class="line"><span>  "subscription-name": "default-1670407121",</span></span>
+<span class="line"><span>  "timestamp": 1670402814238747205,</span></span>
+<span class="line"><span>  "time": "2022-12-07T10:46:54.238747205+02:00",</span></span>
+<span class="line"><span>  "updates": [</span></span>
+<span class="line"><span>    {</span></span>
+<span class="line"><span>      "Path": "interfaces/interface[name=Ethernet1]/state/admin-status",</span></span>
+<span class="line"><span>      "values": {</span></span>
+<span class="line"><span>        "interfaces/interface/state/admin-status": "UP"</span></span>
+<span class="line"><span>      }</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>  ]</span></span>
+<span class="line"><span>}</span></span></code></pre><p>Output from gnmic command</p>
+<p><strong>Note:</strong> If you are not aware of what capabilities are available for you on your chosen platform, you can also use the gNMIc client to check this:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>Term> gnmic -a 192.168.11.5:6030 -u admin -p ansibleIScool --insecure capabilities</span></span>
+<span class="line"><span>gNMI version: 0.7.0</span></span>
+<span class="line"><span>supported models:</span></span>
+<span class="line"><span>  - openconfig-keychain-types, OpenConfig working group, 0.2.0</span></span>
+<span class="line"><span>  - arista-sampling-notsupported-deviations, Arista Networks, Inc.,</span></span>
+<span class="line"><span>  - openconfig-openflow-types, OpenConfig working group, 0.2.0</span></span>
+<span class="line"><span>…</span></span></code></pre><p>Now that we have this streaming, we need to get this data to some kind of event source that we can use with Event-Driven Ansible. I decided I would like to use Kafka for this and I would use Telegraf to consume the telemetry data and send it to Kafka as an output.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/j3d1ImIprurQ0B1zNvEwdJPzbF9IjQXpShmeVFkK9alwmItjGz0tcPB7mnwUuQ4GWVg9lHp5_WiGSTUtcJ4DwX9dx3N-FMIAQLriEqJywL8QHI1vHuJZHxEsM3KH6jn2gbff-fkV474tBUAI26_Bg8spJlhx2PHY50z55zpEx2qh0AwPYhbTdfuJd2Sj_Q.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/j3d1ImIprurQ0B1zNvEwdJPzbF9IjQXpShmeVFkK9alwmItjGz0tcPB7mnwUuQ4GWVg9lHp5_WiGSTUtcJ4DwX9dx3N-FMIAQLriEqJywL8QHI1vHuJZHxEsM3KH6jn2gbff-fkV474tBUAI26_Bg8spJlhx2PHY50z55zpEx2qh0AwPYhbTdfuJd2Sj_Q.png" alt=""></a></p>
+<p>I configured Telegraf to connect to the gNMI and forward the telemetry to my Kafka topic:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…</span></span>
+<span class="line"><span>  [[inputs.gnmi.subscription]]</span></span>
+<span class="line"><span>    name = "Ethernet1"</span></span>
+<span class="line"><span>    origin = "openconfig"</span></span>
+<span class="line"><span>    subscription_mode = "sample"</span></span>
+<span class="line"><span>    path = "/interfaces/interface[name=Ethernet1]/state/admin-status"</span></span>
+<span class="line"><span>    sample_interval = "2s"</span></span>
+<span class="line"><span>…</span></span>
+<span class="line"><span>[outputs.kafka]</span></span>
+<span class="line"><span>    brokers = ["192.168.11.49:9092"]</span></span>
+<span class="line"><span>    topic = "network"</span></span>
+<span class="line"><span>…</span></span></code></pre><p>If we have a look at my Kafka topic, and see what messages are coming in we can see that we are receiving the desired information:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>… &#x3C;on my Kafka System> </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[kafka ~]# /opt/kafka/bin/kafka-console-consumer.sh --topic network --from-beginning --bootstrap-server localhost:9092 </span></span>
+<span class="line"><span>…</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>{"fields":{"admin_status":"UP"},"name":"Ethernet1","tags":{"host":"influx.prometheus.io","name":"Ethernet1","path":"","source":"192.168.11.5"},"timestamp":1670440660}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>{"fields":{"admin_status":"UP"},"name":"Ethernet1","tags":{"host":"influx.prometheus.io","name":"Ethernet1","path":"","source":"192.168.11.5"},"timestamp":1670440660}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>{"fields":{"admin_status":"UP"},"name":"Ethernet1","tags":{"host":"influx.prometheus.io","name":"Ethernet1","path":"","source":"192.168.11.5"},"timestamp":1670440660}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>…</span></span></code></pre><p>With these events in Kafka, I can now create my Ansible Rulebook and trigger remediation for the desired steps to respond to this. I can run ansible-rulebook and we can see how it triggers based on the admin_status of the port.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>- name: Port State Event from Arista</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  hosts: all</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  sources:</span></span>
+<span class="line"><span>   - ansible.eda.kafka:</span></span>
+<span class="line"><span>       host: 192.168.11.49</span></span>
+<span class="line"><span>       port: 9092</span></span>
+<span class="line"><span>       topic: network</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  rules:</span></span>
+<span class="line"><span>   - name: Test</span></span>
+<span class="line"><span>     condition: event.fields.admin_status == "DOWN"</span></span>
+<span class="line"><span>     action:</span></span>
+<span class="line"><span>       run_playbook:</span></span>
+<span class="line"><span>        name: bring-her-up.yml</span></span></code></pre><p>Port-Status Rulebook</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[localhost]$ ansible-rulebook --rulebook port_status.yml -i inventory.yaml --verbose</span></span></code></pre><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/gqkCCh7-w0jMvK1u3mn2NuUCWPmq76gxMOLzrWsocmb_o9ulLCESRGslozZAC7CM_LXskbWu-AodUqyrMySHqj9jAb7VdPJCdM5zYkLMCKkM3CMxTmaUskwgxjD13KoG100Bpn3cpFXX6rR5Dt6nrxswOHaqrbKYCiCPzN9VqGLJRuSFRW4gZ_SiD2cy6Q.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/gqkCCh7-w0jMvK1u3mn2NuUCWPmq76gxMOLzrWsocmb_o9ulLCESRGslozZAC7CM_LXskbWu-AodUqyrMySHqj9jAb7VdPJCdM5zYkLMCKkM3CMxTmaUskwgxjD13KoG100Bpn3cpFXX6rR5Dt6nrxswOHaqrbKYCiCPzN9VqGLJRuSFRW4gZ_SiD2cy6Q.png" alt=""></a></p>
+<p>So, with Event-Driven Ansible we are able to respond to events we gather from things like network telemetry. Not only could we use this for simple remediation tasks but we could expand this further with adding ITSM integration or perhaps automated troubleshooting and awareness to events on the network. I think that is pretty slick! </p>
+<p>Arista has created an awesome <a href="https://github.com/arista-netdevops-community/Ansible-Event-Driven-Automation-Examples/tree/main/nats">source plugin</a> that we can use instead of Telegraf and Kafka. <a href="https://www.linkedin.com/in/dhertzberg/">Daniel Hertzberg</a> and <a href="https://www.linkedin.com/in/julioperez-pdx/">Julio Perez</a> really grasped Event-Driven Ansible concepts and created this magical source plugin in a week. This plugin utilizes <a href="https://nats.io/">NATS</a>, and if you are like me and haven&#39;t heard of NATS, It is similar to Kafka in the sense that it is a messaging queue, but there are some differences and you can read up a bit more about them <a href="https://docs.nats.io/nats-concepts/overview/compare-nats">here</a>. This plugin simplifies and reduces the toolset needed to get all-important telemetry data to ansible-rulebook. </p>
+<p>Watch for another blog that is coming soon around using the Arista source plugin and a juicy network automation use case. </p>
+<h1>Call to Action</h1>
+<ul>
+<li>Check out the <a href="https://www.ansible.com/products/ansible-community-training">Getting Started with Event-Driven Ansible training</a></li>
+<li>Visit the Event Driven Ansible <a href="https://www.ansible.com/use-cases/event-driven-automation">web page</a></li>
+<li>Check out the <a href="https://www.youtube.com/playlist?list=PLdu06OJoEf2a3fFl6uaoyGV526ilwD97R">Event-Driven Ansible playlist</a> on YouTube</li>
+<li>Check out the <a href="https://www.ansible.com/blog/best-of-fest-2022">Best of AnsibleFest 2022</a></li>
+<li>Try <a href="https://www.redhat.com/en/technologies/management/ansible/try-it">Ansible Automation Platform</a> free for 60 days</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecting-true-autonomy-level-45-network">Architecting true autonomy with a level 4/5 network</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/solve-multi-controller-contention-red-hat-openshift-networking">Solve multi-controller contention with Red Hat OpenShift networking</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/addressing-netops-issues-with-event-driven-ansible">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

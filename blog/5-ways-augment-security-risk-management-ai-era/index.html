@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 ways to augment security risk management in the AI era — Ansible TMM Blog</title>
+  <meta name="description" content="Implement enterprise-wide automation for proactive vulnerability management with Ansible Automation Platform.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/5-ways-augment-security-risk-management-ai-era">
+  <meta property="og:title" content="5 ways to augment security risk management in the AI era">
+  <meta property="og:description" content="Implement enterprise-wide automation for proactive vulnerability management with Ansible Automation Platform.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/5-ways-augment-security-risk-management-ai-era">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/5-ways-augment-security-risk-management-ai-era" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on August 18, 2026.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">5 ways to augment security risk management in the AI era</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2026-08-19">August 18, 2026</time> · 6-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>IT operations and security teams receive thousands of alerts every day from threat intelligence sources, such as vulnerability scanners, observability tools, Red Hat Lightspeed, and more. The challenge is identifying, correlating, and addressing impactful alerts from an ongoing, high-volume stream of information as quickly as possible, especially now that vulnerabilities can be exploited in a matter of hours.</p>
+<p>Consider IBM&#39;s <a href="https://www.ibm.com/think/premium/threat-intelligence-report-security-101-still-lacking#605511086">X-Force Threat Intelligence Index 2026</a>, where researchers found that scanning for vulnerable software is a common attack vector–second only to exploiting incorrectly configured access controls. With powerful AI models exposing identification of new vulnerabilities, manual remediation steps can no longer keep pace with exploitation speed. This is where automation can uniquely strengthen overall defenses and limit the impact of vulnerabilities on IT operations.</p>
+<h2>Building proactive automated approaches to IT vulnerabilities</h2>
+<p>What&#39;s required of IT operations and security teams now is a comprehensive security strategy, implementing a multi-layered approach to contain, patch, and limit impact across your enterprise. The threat landscape will continue to evolve, so establishing perimeter defenses with proactive vulnerability management techniques can help effectively thwart exploitation attempts.</p>
+<p>Here are 5 steps you can employ to mitigate vulnerabilities being exploited:</p>
+<h2>1. Accelerated patching cycles</h2>
+<p>Scanning for and exploiting vulnerabilities is a common attack method. While industry statistics vary, it is clear that many organizations do not have a fully patched environment at all times. As a result, IT leaders have begun accelerating patching cycles. Red Hat Ansible Automation Platform allows teams to patch faster and more consistently across a wide array of IT technologies, allowing these actions to be completed in minutes across your systems.</p>
+<p>See how <a href="https://www.redhat.com/rhdc/managed-files/rh-glenraven-case-study-customer-1296269-202407-en.pdf">Glen Raven uses Ansible Automation Platform to accelerate patching frequency</a></p>
+<h2>2. Deploy automated responses to vulnerabilities</h2>
+<p>As more vulnerabilities are uncovered at machine speed, teams need ways to quickly triage the urgent ones, then take fast action. <a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">Event-Driven Ansible</a> can respond to alerts from your SIEM (Security Information &amp; Event Management) systems as soon as they are received, with either a remediation step or a human-in-the-loop review. User-defined and flexible, automated responses can include fact and context gathering, containment steps, patch application and validation as well as ticket generation into your ITSM systems and more.</p>
+<h2>3. Initiate workarounds prior to patch availability to mitigate impacts</h2>
+<p>When a vulnerability is so new that a fix is not yet available, you can use <a href="https://www.redhat.com/en/technologies/management/ansible/ai-automation">AIOps automation techniques</a> to assist with workarounds, such as implementing expanded monitoring, tightening firewall rules, disabling features, system hardening to reduce attack surfaces and backing up critical resources. Ansible Automation Platform’s AI capabilities and MCP server integration can help you determine and execute the best actions quickly.</p>
+<h2>4. Establish strong perimeter defenses</h2>
+<p>Given the risks of vulnerabilities, a good perimeter defense helps limit the impact of threats. By implementing a policy-driven approach, you can include multiple automated policy checkpoints before actions are permitted. The integration of secrets management solutions to rotate and validate credentials is crucial to this workflow so that flaws are not as easily exploited.</p>
+<h2>5. Explore enterprise-wide risk management</h2>
+<p>This new vulnerability landscape reaches across enterprise systems, but a single automation platform can help you manage it, including:</p>
+<ul>
+<li>Red Hat Enterprise Linux (RHEL)</li>
+<li>Microsoft Windows servers</li>
+<li>Multivendor networks</li>
+<li>Storage systems</li>
+<li>Clouds</li>
+<li>Applications</li>
+</ul>
+<p>Organizational barriers often slow response times, but a single automation platform can expedite management and unifies teams. This improves the ability to stop multi-factor attacks, such as gaining server access through a vulnerability and transiting the network to find sensitive data stores.</p>
+<h2>Getting started</h2>
+<p>How can you get started with automation to address these risks? Let&#39;s break things down into short, medium, and long term approaches.</p>
+<h3>Assess and prioritize initial actions</h3>
+<p>Begin by understanding your present operational state. For example, you can use Ansible Automation Platform to:</p>
+<ul>
+<li>Understand which platforms host your most critical data and applications and what risks are present.</li>
+<li>Document patching levels in percentages for resources, especially critical ones.</li>
+<li>Address high-severity Common Vulnerabilities and Exposures (CVEs) by applying available patches.</li>
+<li>Implement workarounds for high-impact CVEs without available patches.</li>
+<li>Create ITSM tickets inside appropriate change windows to patch systems and get approvals.</li>
+</ul>
+<p>Consider accelerating patching cycles across your operation, especially for vital systems with critical open CVEs. Generate an impacted system inventory, then apply patches at scale in minutes.</p>
+<p>For RHEL environments, Red Hat Lightspeed provides specific information on which of your systems need patches. Ansible Playbooks are available in Red Hat Lightspeed to help you complete the patching process quickly. For other platforms such as Microsoft Windows or network devices, you can use Ansible Automation Platform&#39;s coding assistant to generate automation, then test and roll it out across your enterprise to patch at scale.</p>
+<p>From a people and process perspective, assess the level of Ansible Automation Platform skills in your organization and establish a centralized methodology to help share and expand automation practices. Centralization of automation makes it easier to review and streamline processes so you can move quickly, for example by updating change approval processes to match the current urgency of the vulnerabilities. This also helps identify areas where teams face manual, slow coordination that lengthens remediation cycles and begin addressing them with automated workflows.</p>
+<h3>Your journey to fully-automated security risk management</h3>
+<p>The path to automation for security is a matter of closing the gap between mitigation, patching, validation, and verification, as shown in figure 1. It doesn&#39;t happen all at once, but in phases:</p>
+<h4>Short term: Assess and prioritize</h4>
+<ul>
+<li>Understand threats</li>
+<li>Accelerate patching</li>
+<li>Create an automation community of practice</li>
+<li>Begin building automation skills</li>
+</ul>
+<h4>Medium term: Scale for velocity</h4>
+<ul>
+<li>Event-driven automated triage and containment</li>
+<li>Automate non-patched CVE workarounds</li>
+<li>Expand and accelerate patching</li>
+<li>Design and implement policy checks</li>
+<li>Automated workflows for advanced needs</li>
+</ul>
+<h4>Long term: Solidify and govern</h4>
+<ul>
+<li>Automate compliance and hardening steps</li>
+<li>Expand to multi-layer policy checking</li>
+<li>Automate reporting</li>
+<li>Implement cross-functional automated workflows</li>
+<li>Expand to automation maturity</li>
+</ul>
+<p><a href="https://www.redhat.com/rhdc/managed-files/security-automation-ai-era.png"><img src="https://www.redhat.com/rhdc/managed-files/security-automation-ai-era.png" alt="Flowchart of a security automation journey: Mitigate, Patch, Validate, and Verify across three phases"></a></p>
+<p>Figure 1: An overview of the 3 phases to transform to vulnerability and security automation that keeps pace with the AI era.</p>
+<h3>Scale for velocity</h3>
+<p>With key risks addressed, focus on expanding scope and maturity around security automation. For example, use Ansible Automation Platform to:</p>
+<ul>
+<li>Expand the patching focus across more of your operation including resources in multiple domains (infrastructure, network, and so on)</li>
+<li>Extend approved mitigation approaches for CVEs to more of your infrastructure</li>
+<li>Implement event-driven automation to expedite triage and containment of new vulnerabilities so you continue to focus on the top risks</li>
+<li>Create automated workflows to bridge across teams for fast response, for example security, Site Reliability Engineering (SRE) and IT teams.</li>
+<li>Design and begin implementing multi-layer policy checks as part of an augmented perimeter defense</li>
+<li>Automate service restoration and recovery workflows so that once a vulnerability is patched or a threat is contained, affected systems and services can be brought back to a known-good state quickly and consistently</li>
+</ul>
+<p>Create a strategic approach to deliver automation with speed and control. Move faster without excessive fire-fighting and with the right level and pace of approvals. Keep in mind Ansible Automation Platform includes features that make it trusted automation such as role based access control (RBAC), approval workflows, complete audit trails, automation policy enforcement, and flexible reporting.  Use all of these capabilities to optimize your organization&#39;s ability to act fast and with control.</p>
+<p>From a people and process standpoint, you should continue to build user skills and celebrate successes to foster an automation-first culture. Review processes periodically to address velocity with control.</p>
+<h3>Solidify and govern new processes</h3>
+<p>Finally, solidify and fine-tune this new level of security risk automation. For example, you can use Ansible Automation Platform to:</p>
+<ul>
+<li>Govern automation using the full set of trust capabilities in the platform</li>
+<li>Extend perimeter defenses to multi-layer automated checkpoints that control what actions can be taken across your organization</li>
+<li>Automate compliance scanning and reporting</li>
+<li>Complete regular hardening steps and ongoing scans to lower risks</li>
+<li>Continue extending automation across operational domains</li>
+<li>Rotate keys, passwords and certificates on all systems regularly</li>
+</ul>
+<h2>Automation for security threats in the AI era</h2>
+<p>By focusing on these 5 practices and growing the use of security automation across your enterprise, your organization can improve its security and compliance posture to handle an AI-driven threat landscape. Teams will understand the most impactful vulnerabilities and will have the tools and processes to address them. By using controls around automation, teams can act faster and with governance. <a href="https://www.redhat.com/en/services">Red Hat Services</a> can help you get started or expand your automation to help you stay more secure in this accelerated era of AI.</p>
+<h2>Additional resources</h2>
+<p>Read our blog series:</p>
+<ul>
+<li><a href="https://www.redhat.com/en/blog/managing-it-operations-when-ai-outpaces-your-patching-cycle">Managing IT Operations when AI outpaces your patching cycle</a></li>
+<li><a href="https://www.redhat.com/en/blog/ai-threats-move-fast-your-defenses-should-too">AI threats move fast. Your defenses should too.</a></li>
+<li><a href="https://www.redhat.com/en/blog/build-security-itops-start-automation">Build security into ITOps from the start</a></li>
+</ul>
+<p>Watch an interactive demo: <a href="https://app.arcade.software/share/IPZDfNcMdl10jjSpHIdN?ref=share-link">Automate security with AIOPs</a></p>
+<p>Join our webinar: <a href="https://www.redhat.com/en/events/webinar/security-automation-in-the-age-of-ai-responding-to-threats-at-scale">Security automation in the age of AI: Responding to threats at scale</a></p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/what-risk-aware-model-deployment-looks-regulated-industries">What risk-aware model deployment looks like in regulated industries</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/compliance">Can Compliance Be A Piece Of Cake? | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/5-ways-augment-security-risk-management-ai-era">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network Features Coming Soon in Ansible Engine 2.9 — Ansible TMM Blog</title>
+  <meta name="description" content="In this blog post, we discuss the network features coming soon in Ansible Engine 2.9.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/network-features-coming-soon-in-ansible-engine-2.9">
+  <meta property="og:title" content="Network Features Coming Soon in Ansible Engine 2.9">
+  <meta property="og:description" content="In this blog post, we discuss the network features coming soon in Ansible Engine 2.9.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/network-features-coming-soon-in-ansible-engine-2.9">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/network-features-coming-soon-in-ansible-engine-2.9" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on October 13, 2019.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Network Features Coming Soon in Ansible Engine 2.9</h1>
+        <p class="blog-post-meta"><a href="/team/#andrius-benokraitis">Andrius Benokraitis</a> · <time datetime="2019-10-14">October 13, 2019</time> · 9-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/slack-imgs.com-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/slack-imgs.com-2.png" alt="slack-imgs.com-2"></a></p>
+<p>The upcoming Red Hat Ansible Engine 2.9 release has some really exciting improvements, and the following blog highlights just a few of the notable additions. In typical Ansible fashion, development of Ansible Network enhancements are done in the open with the help of the community. You can follow along by watching the <a href="https://github.com/ansible/ansible/projects/10">GitHub project board</a>, as well as the roadmap for the <a href="https://github.com/ansible/community/wiki/Network%3A-2.9-Roadmap">Red Hat Ansible Engine 2.9 release</a> via the <a href="https://github.com/ansible/community/wiki/Network%3A-2.9-Roadmap">Ansible Network</a> wiki page.</p>
+<p>As was recently announced, <a href="https://www.redhat.com/en/about/press-releases/red-hat-elevates-enterprise-automation-new-red-hat-ansible-automation-platform?sc_cid=701f2000000u72fAAA">Red Hat Ansible Automation</a> <a href="https://www.redhat.com/en/about/press-releases/red-hat-elevates-enterprise-automation-new-red-hat-ansible-automation-platform?sc_cid=701f2000000u72fAAA">Platform</a> now includes Ansible Tower, Ansible Engine, and all Ansible Network content. To date, many of the most popular network platforms are enabled via Ansible Modules. Here are just a few:</p>
+<ul>
+<li>Arista EOS</li>
+<li>Cisco IOS</li>
+<li>Cisco IOS XR</li>
+<li>Cisco NX-OS</li>
+<li>Juniper Junos</li>
+<li>VyOS</li>
+</ul>
+<p>A full list of the platforms that are fully supported by Red Hat via an Ansible Automation subscription can be found at the following location: <a href="https://docs.ansible.com/ansible/2.9/modules/network_maintained.html#network-supported">https://docs.ansible.com/ansible/2.9/modules/network_maintained.html#network-supported</a></p>
+<h2>What we’ve learned</h2>
+<p>In the last four years we’ve learned a lot about developing a platform for network automation. We’ve also learned a lot about how users apply these platform artifacts as consumed in end-user Ansible Playbooks and Roles. In the end, here are a few of the top lessons learned:</p>
+<ul>
+<li>Enterprises aren’t automating devices from a single vendor, but from many.</li>
+<li>Automation isn’t just a technical challenge, but also a cultural challenge.</li>
+<li>Network automation at scale is harder than people think because of fundamental architectural automation design principles.</li>
+</ul>
+<p>When the long-term roadmap was being discussed over a year ago, our enterprise customers had the following requests:</p>
+<ul>
+<li>Make fact gathering more standardized and part of a more seamless experience to the automation workflow, no matter the device.</li>
+<li>Make updating of configurations back to the device a more standardized and seamless experience as well, allowing for Ansible Modules to take care of the latter half of the “round trip” after fact gathering.</li>
+<li>Provide an opinionated and supported means of converting the network device configuration into structured data. This provides the foundational pieces in moving the “source of truth” off the network device.</li>
+</ul>
+<h2>Facts enhancements</h2>
+<p>Pulling facts from network devices can be a very hit or miss activity with Ansible. Network platforms have various degrees of abilities when it comes to fact gathering, with little to no ability to parse and standardize the look and feel of the data into key/value pairs. Refer to Ken Celenza’s <a href="https://www.networktocode.com/blog/post/Updating_Structured_Data_in_Ansible_Jinja/">blog post</a> on the tedious and laborious means to parsing and standardizing fact data.</p>
+<p>You may have noticed the development effort around the <a href="https://galaxy.ansible.com/ansible-network/network-engine">Ansible Network Engine Ansible Role</a>. Needless to say, 24,000+ downloads later, the Network Engine Role quickly became one of the most popular Ansible Roles on Ansible Galaxy for network automation use cases. Prior to much of this being moved into Ansible 2.8 to prepare for what was needed next in Ansible 2.9, this Ansible Role provided the first set of tools to assist in command parsing, command manipulation, and data gathering for network devices.</p>
+<p>If you are knowledgeable in using Network Engine, this is a very powerful means of pulling, parsing and standardizing fact data for use in Ansible. The one challenge with this role was the need to build loads and loads of parsers for each platform across all network activities. To know how big a job building, delivering, and maintaining parsers are, go check out the <a href="https://developer.cisco.com/docs/genie-docs/">1200+ parsers</a> from the fine folks at Cisco.</p>
+<p>In a nutshell, pulling facts from devices and normalizing them into key/value pairs is extremely important for automating at scale but difficult to accomplish across multiple vendors and network platforms.</p>
+<p>Without the use of additional libraries, Ansible Roles, or custom parsers, each of the network facts modules in Ansible 2.9 can now parse network device configuration and return structured data.</p>
+<p>Starting with Ansible 2.9 and continuing with future releases, every time an updated network module is released, the facts module is enhanced to expose that section of configuration. In short, facts and module development are now happening as the same pace and will always share a common data structure.</p>
+<p>The configuration of resources on a network device can be retrieved and converted to structured data in two different ways. Both allow for a specific list of resources to collect and convert using the new gather_network_resources keyword. The resource names conveniently map to their corresponding resource module name.</p>
+<p><strong>During fact gathering:</strong></p>
+<p>Using gather_facts is a convenient way to retrieve the current device configuration at the beginning of a playbook for use throughout the playbook. Specify the individual resources that should be retrieved from the device.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- hosts: arista  </span></span>
+<span class="line"><span>  module_defaults:  </span></span>
+<span class="line"><span>    eos_facts:  </span></span>
+<span class="line"><span>      gather_subset: min  </span></span>
+<span class="line"><span>      gather_network_resources:  </span></span>
+<span class="line"><span>      - interfaces  </span></span>
+<span class="line"><span>  gather_facts: True</span></span></code></pre><p>You might have noticed something a bit different in the above examples, namely that gather_facts: True is now available for native fact gathering for network devices.</p>
+<p><strong>Using the network facts module directly:</strong></p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: collect interface configuration facts  </span></span>
+<span class="line"><span>  eos_facts:  </span></span>
+<span class="line"><span>    gather_subset: min  </span></span>
+<span class="line"><span>    gather_network_resources:  </span></span>
+<span class="line"><span>    - interfaces</span></span></code></pre><p><strong>The playbook returns the following interface facts:</strong></p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible_facts:  </span></span>
+<span class="line"><span>   ansible_network_resources:  </span></span>
+<span class="line"><span>      interfaces:  </span></span>
+<span class="line"><span>      - enabled: true  </span></span>
+<span class="line"><span>        name: Ethernet1  </span></span>
+<span class="line"><span>        mtu: '1476'  </span></span>
+<span class="line"><span>      - enabled: true  </span></span>
+<span class="line"><span>        name: Loopback0  </span></span>
+<span class="line"><span>      - enabled: true  </span></span>
+<span class="line"><span>        name: Loopback1  </span></span>
+<span class="line"><span>      - enabled: true  </span></span>
+<span class="line"><span>        mtu: '1476'  </span></span>
+<span class="line"><span>        name: Tunnel0  </span></span>
+<span class="line"><span>      - enabled: true  </span></span>
+<span class="line"><span>        name: Ethernet1  </span></span>
+<span class="line"><span>      - enabled: true  </span></span>
+<span class="line"><span>        name: Tunnel1  </span></span>
+<span class="line"><span>      - enabled: true  </span></span>
+<span class="line"><span>        name: Ethernet1</span></span></code></pre><p>Notice how Ansible pulled the native configuration from the Arista device and converted it into structured data for use as standard key/value pairs for additional follow-on tasks and activities.</p>
+<p>The interface facts can be added to your stored Ansible variables and immediately or used later as the input for the eos_interfaces resource module without being manipulated or transformed.</p>
+<h2>Introducing resource modules</h2>
+<p>Now that we’ve pulled facts, normalized the data, and put them into a standardized internal data structure schema, we now have an “off box” source of truth. Hooray! This is indeed great, but the problem now is that you still need a method to take key/value pairs as source and convert them back into the specific configuration that the specific device platform is expecting. Platform-specific modules now need to be developed to satisfy these new requirements of the fact gathering and normalizing activities.</p>
+<p>So what exactly is a “resource module?” Sections of a device’s configuration can be thought of as a resources provided by that device. Network resource modules are intentionally scoped to configure a single resource and can be combined as building blocks to configure complex network services. As a result, there is an inherent simplicity in the requirements and specification for a resource module, since a resource module can read and configure a specific network service on a network device.</p>
+<p>To better explain what a resource module can do, let’s take a look at the following example playbook that demonstrates an idempotent operation using the new network resource facts and eos_l3_interface module.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: example of facts being pushed right back to device.  </span></span>
+<span class="line"><span>  hosts: arista  </span></span>
+<span class="line"><span>  gather_facts: false  </span></span>
+<span class="line"><span>  tasks:  </span></span>
+<span class="line"><span>  - name: grab arista eos facts  </span></span>
+<span class="line"><span>    eos_facts:  </span></span>
+<span class="line"><span>      gather_subset: min  </span></span>
+<span class="line"><span>      gather_network_resources: l3_interfaces  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  - name: ensure that the IP address information is accurate  </span></span>
+<span class="line"><span>    eos_l3_interfaces:  </span></span>
+<span class="line"><span>      config: "{{ ansible_network_resources['l3_interfaces'] }}"  </span></span>
+<span class="line"><span>      register: result  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  - name: ensure config did not change  </span></span>
+<span class="line"><span>    assert:  </span></span>
+<span class="line"><span>      that: not result.changed</span></span></code></pre><p>As you can see, the facts gathered from the device were passed directly to the corresponding resource module without transformation. Running this playbook pulls the values from the device and compares them to what’s expected. In this example the value fetched matches what is expected (that is, checking for configuration drift), and reports back if the configuration has changed or not.</p>
+<p>Saving the facts to stored Ansible Variables and using them in conjunction with resource module in check mode periodically is an ideal way to detect configuration drift. This approach provides a simple way to see if anyone has manually changed specific values. In most cases enterprises are still allowing for manual updates and configuration even though many of the operations are done via Ansible Automation.</p>
+<h2>How do the new resource modules differ from previous modules?</h2>
+<p>For the network automation engineer there are three major differences between the new network resource modules released with Ansible 2.9 and previous modules.</p>
+<ol>
+<li>For a given network “resource” (a “resource” can also be thought of a “section” of configuration) modules and facts integration will be developed across all our supported network operating systems at the same time. We believe that if Ansible supports the configuration of a resource on one network platform we should support it across the board. This increases the ease of use for resource modules because a network automation engineer will be able to now configure a resource (e.g.LLDP) on all the network operating systems they use with native and supported modules.</li>
+<li>Resource modules now include state values.<ol>
+<li>merged: configuration merged with the provided configuration (default)</li>
+<li>replaced: configuration of provided resources will be replaced with the provided configuration</li>
+<li>overridden: The configuration of the provided resources will be replaced with the provided configuration, extraneous resource instances will be removed</li>
+<li>deleted: The configuration of the provided resources will be deleted/defaulted<br><a href="https://www.redhat.com/rhdc/managed-files/ansible/Coming%20Soon%20Network%20features%20coming%20soon%20in%20Ansible%20Engine%202-2.9.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Coming%20Soon%20Network%20features%20coming%20soon%20in%20Ansible%20Engine%202-2.9.png" alt=""></a></li>
+</ol>
+</li>
+<li>Resource modules now include consistent return values. After a network resource module has made (or suggested) the necessary changes on a network device it will return the same key/value pairs to the playbook.<ol>
+<li>before: The configuration on the device, as structured data, prior to the task</li>
+<li>after: If the device has changed, (or would have when using check-mode) The resulting configuration will be return as structured data</li>
+<li>commands: Any configuration commands that were issued on the device to bring it to the desired end-state.</li>
+</ol>
+</li>
+</ol>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Coming%20Soon%20Network%20features%20coming%20soon%20in%20Ansible%20Engine%202.9.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Coming%20Soon%20Network%20features%20coming%20soon%20in%20Ansible%20Engine%202.9.png" alt=""></a></p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Coming%20Soon%20Network%20features%20coming%20soon%20in%20Ansible%20Engine%202-1.9.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Coming%20Soon%20Network%20features%20coming%20soon%20in%20Ansible%20Engine%202-1.9.png" alt=""></a></p>
+<h2>So what does this all mean? Why does this matter?</h2>
+<p>There is a lot going on in this blog with a lot of advanced concepts, but in the end we hope you have a better understanding about how fact collection, data normalization, and roundtrip configuration are all things enterprise customers request as part of an automation platform. The real question is why are these types of enhancements even being requested? Currently, many enterprises are going through digital transformation in order to be more agile, competitive, and flexible in their IT environments. Whether people like it or not, many network engineers are becoming network developers via bottom-up organic job interest or via top-down business requirements from IT managers.</p>
+<p>Enterprises are realizing that automating network templates in silos is still siloed engineering, and this only takes the enterprise so far. The Red Hat Ansible Automation Platform provides proscriptive and opinionated resource data models to programmatically manage the underlying data contained within the network device. That is, users are increasingly moving away from bespoke methods of configuration to more modern methods that focuses on the technology (e.g. IP addresses, VLANs, LLDP, etc) rather than the specific vendor implementation.</p>
+<p>So given this, are the days of the tried and true command and config modules numbered? In the short-term, no way. The forthcoming network resource modules won’t cover 100% of use cases for every vendor network platform, so network engineers will still need the command config modules for specific implementations. The goal of resource modules is to reduce the complexity of large Jinja templates and more easily normalize unstructured device configuration into structured JSON. Resource modules allow existing networks to more easily convert their running configuration into structure key/value pairs, creating an easy human-readable source of truth. By focusing on the structured key/value pairs the focus can be shifted from running configurations on each device to instead working on agnostic structured data, bringing networks into the forefront of infrastructure as code.</p>
+<h2>Which resource modules were introduced in Ansible Engine 2.9?</h2>
+<p>Before we detail what was completed in Ansible 2.9, let’s take a quick look at how we broke down the full scope of work that would have to be accomplished.</p>
+<p>Seven categories were identified, and then specific network resources aligned for each category:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Policy acls acl_interfaces prefix_lists qos qos_interfaces route_maps  Operation file ping traceroute reboot local_ping wait_for_connection</td>
+<td>Services bfd dhcp glbp glbp_interfaces hsrp hsrp_interfaces ldp <strong>lldp</strong> <strong>lldp_interfaces</strong> mlag udld udld_interfaces vpc vpc_interfaces vrrp vrrp_interfaces vtp</td>
+<td>Foundation aaa api banners dns ipv4 ipv6 local_users logging mgmt ntp roles sflow snmp system vty</td>
+<td>Topology - Protocols bgp igmp igmp_interfaces isis ldp ospf ospf_interfaces pim pim_interfaces rip static_routes stp stp_interfaces <strong>lacp</strong> <strong>lacp_interfaces</strong></td>
+<td>Topology - Virtualization <strong>vlans</strong> vrfs vrf_interfaces  Topology - Interfaces <strong>interfaces</strong> <strong>l2_interfaces</strong> <strong>l3_interfaces</strong> <strong>lag_interfaces</strong></td>
+</tr>
+</tbody></table>
+<p>NOTE: the resources above in <strong>bold</strong> were planned and delivered in Ansible 2.9.</p>
+<p>Based on feedback from enterprise customers and the community, the logical first set of modules to focus on were ones that related to network topology protocols, virtualization, and interfaces.</p>
+<p>The following resource modules have been developed and included by the Ansible Network team, and align with the platforms supported by Red Hat:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>eos_interfaces eos_l2_interfaces eos_l3_interfaces eos_lacp eos_lacp_interfaces eos_lag_interfaces eos_lldp_global eos_lldp_interfaces eos_vlans</td>
+<td>ios_interfaces ios_l2_interfaces ios_l3_interfaces ios_lacp ios_lacp_interfaces ios_lag_interfaces ios_lldp_global ios_lldp_interfaces ios_vlans</td>
+<td>iosxr_interfaces iosxr_l2_interfaces iosxr_l3_interfaces iosxr_lacp iosxr_lacp_interfaces iosxr_lag_interfaces iosxr_lldp_global iosxr_lldp_interfaces</td>
+</tr>
+<tr>
+<td>junos_interfaces junos_l2_interfaces junos_l3_interfaces junos_lacp junos_lacp_interfaces junos_lag_interfaces junos_lldp_global junos_lldp_interfaces junos_vlans</td>
+<td>nxos_bfd_interfaces nxos_interfaces nxos_l2_interfaces nxos_l3_interfaces nxos_lacp nxos_lacp_interfaces nxos_lag_interfaces nxos_lldp_global nxos_telemetry nxos_vlans</td>
+<td>vyos_interfaces vyos_l3_interfaces vyos_lag_interfaces vyos_lldp_global vyos_lldp_interfaces</td>
+</tr>
+</tbody></table>
+<p>The following have been developed and included by the Ansible community:</p>
+<p>exos_lldp_global - developed by Extreme Networks</p>
+<p>nxos_bfd_interfaces - developed by Cisco</p>
+<p>nxos_telemetry - developed by Cisco</p>
+<p>As you can see the concept of resource modules is to further the strategy of making Ansible more platform-focused. That is, including the needed features and functions in Ansible itself to promote standardization in developing network-related modules, as well as creating a more seamless user experience from the Ansible Role and Playbook level. In order to scale out development of resource modules, the Ansible team has released a tool called Module Builder.</p>
+<h2>What’s planned for Ansible 2.10 and beyond</h2>
+<p>Once Ansible 2.9 is released the next set of resource modules for Ansible 2.10 will be focused on further configuring network topology and policy, such as <a href="https://github.com/ansible/community/wiki/Network:-2.10-Roadmap">ACLs, OSPF and BGP</a>. The roadmap is still being solidified, so if you have any comments please feel free to join us in the <a href="https://www.ansible.com/community">Ansible Network</a> <a href="https://www.ansible.com/community">Community</a>.</p>
+<h2>Resources and getting started</h2>
+<p><a href="https://www.redhat.com/en/about/press-releases/red-hat-elevates-enterprise-automation-new-red-hat-ansible-automation-platform?sc_cid=701f2000000u72fAAA">Ansible Automation Platform Press Release</a></p>
+<p><a href="https://www.ansible.com/blog/introducing-red-hat-ansible-automation-platform">Ansible Automation Platform Blog</a></p>
+<p><a href="https://www.ansible.com/blog/the-future-of-ansible-content-delivery">The Future of Ansible Content Delivery</a></p>
+<p><a href="https://www.ansible.com/blog/thoughts-on-restructuring-the-ansible-project">Thoughts on Restructuring the Ansible Project</a></p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/andrius-benokraitis"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Andrius-Benokraitis.jpg?itok=bGBYkaZb" alt="Andrius Benokraitis"></a></p>
+<p>[### Andrius Benokraitis</p>
+<p>Senior Manager, Technical Marketing for Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/andrius-benokraitis">https://www.redhat.com/en/authors/andrius-benokraitis</a>)</p>
+<p>Andrius is a Senior Manager, Technical Marketing for Ansible Automation Platform. He brings over 20 years in the computer software industry from companies such as IBM, Nortel, and Cumulus Networks. Andrius is skilled in Network Automation, Enterprise Linux, Business Analytics, Technical Writing, and Strategic Alliances.</p>
+<p><a href="https://www.redhat.com/en/authors/andrius-benokraitis">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecting-true-autonomy-level-45-network">Architecting true autonomy with a level 4/5 network</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/solve-multi-controller-contention-red-hat-openshift-networking">Solve multi-controller contention with Red Hat OpenShift networking</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/network-features-coming-soon-in-ansible-engine-2.9">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

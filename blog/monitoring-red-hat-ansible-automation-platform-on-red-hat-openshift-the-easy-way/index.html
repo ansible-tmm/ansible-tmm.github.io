@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoring Red Hat Ansible Automation Platform on Red Hat OpenShift - The Easy Way — Ansible TMM Blog</title>
+  <meta name="description" content="This blog post demonstrates how to monitor the API metrics provided by an Ansible Automation Platform environment when deployed within Red Hat OpenShift.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way">
+  <meta property="og:title" content="Monitoring Red Hat Ansible Automation Platform on Red Hat OpenShift - The Easy Way">
+  <meta property="og:description" content="This blog post demonstrates how to monitor the API metrics provided by an Ansible Automation Platform environment when deployed within Red Hat OpenShift.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on August 28, 2022.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Monitoring Red Hat Ansible Automation Platform on Red Hat OpenShift - The Easy Way</h1>
+        <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2022-08-29">August 28, 2022</time> · 8-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/monitoring%20ansible%20on%20ocp%20blog.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/monitoring%20ansible%20on%20ocp%20blog.png" alt="monitoring ansible on ocp blog"></a></p>
+<p>As Red Hat Ansible Automation Platform enables teams and organizations to drive their automation from across the cloud and on-premise, keeping Ansible Automation Platform healthy with the ability to monitor key metrics becomes paramount.</p>
+<p>This blog post demonstrates how to monitor the API metrics provided by an Ansible Automation Platform environment when deployed within Red Hat OpenShift.</p>
+<h2>What will we use to monitor the API metrics?</h2>
+<h3>Prometheus and Grafana.</h3>
+<p>Prometheus is an open source monitoring solution for collecting and aggregating metrics. Partner Prometheus’ monitoring capabilities with Grafana, an open source solution for running data analytics and pulling up metrics in customizable dashboards, and you get a real-time visualization of metrics to track the status and health of your Ansible Automation Platform.</p>
+<h2>What can we expect?</h2>
+<p>Expect to be fast-tracked to a deployment of Ansible Automation Platform that is monitored by Prometheus paired with a Grafana Ansible Automation Platform dashboard showing those metrics in real time.</p>
+<p>This blog will guide you through:</p>
+<ul>
+<li>The deployment of Prometheus using an operator.</li>
+<li>Configuring your Prometheus deployment to capture Ansible Automation Platform metrics.</li>
+<li>The deployment of Grafana using an operator.</li>
+<li>Configuring Grafana with a pre-built dashboard that displays the Ansible Automation Platform metrics.</li>
+</ul>
+<h2>What metrics can I expect to see in the pre-built dashboard?</h2>
+<p>The Grafana pre-built dashboard displays:</p>
+<ul>
+<li>Ansible Automation Platform version</li>
+<li>Number of controller nodes</li>
+<li>Number of hosts available in the license</li>
+<li>Number of hosts used</li>
+<li>Total users</li>
+<li>Jobs successful</li>
+<li>Jobs failed</li>
+<li>Quantity by type of job execution</li>
+<li>Graphics showing the number of jobs running and pending jobs</li>
+<li>Graph showing the growth of the tool showing the amount of workflow, hosts, inventories, jobs, projects, organizations, etc.</li>
+</ul>
+<p>Of course, this Grafana dashboard can be customized to capture other metrics you may be interested in.</p>
+<p>Let’s dive in.</p>
+<h2>Automating with an Ansible Playbook</h2>
+<p>Why type all of these CLI commands when you can automate it with an Ansible playbook? That is the beauty of Ansible. Everything that has been written in this blog has already been automated for you. Using the following <a href="https://github.com/rlopez133/demos">Git repository</a> and setting the values of a few optional variables will enable Prometheus to monitor Ansible Automation Platform with a customized Grafana dashboard in a matter of minutes.</p>
+<h2>Prerequisites</h2>
+<p>The steps performed in this blog require access to an OpenShift cluster that has deployed the Red Hat Ansible Automation Platform Operator and you can access your automation controller dashboard.</p>
+<h3>Create a custom credential type</h3>
+<p>Within your Ansible Automation Platform dashboard,</p>
+<ol>
+<li>Under <strong>Administration</strong><strong>→</strong> <strong>Credential Types</strong> click the blue <strong>Add</strong> button.</li>
+<li>Provide a <strong>Name</strong>, e.g. Kubeconfig.</li>
+<li>Within the input configuration, input the following YAML:</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>fields:</span></span>
+<span class="line"><span>  - id: kube_config</span></span>
+<span class="line"><span>    type: string</span></span>
+<span class="line"><span>    label: kubeconfig</span></span>
+<span class="line"><span>    secret: true</span></span>
+<span class="line"><span>    multiline: true</span></span></code></pre><p>                       4. Within the injector configuration, input the following YAML:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>env:</span></span>
+<span class="line"><span>  K8S_AUTH_KUBECONFIG: '{{ tower.filename.kubeconfig }}'</span></span>
+<span class="line"><span>file:</span></span>
+<span class="line"><span>  template.kubeconfig: '{{ kube_config }}'</span></span></code></pre><p>                      5. Click <strong>Save</strong>.</p>
+<h3></h3>
+<h3>Create a kubeconfig credential</h3>
+<p>Within your Ansible Automation Platform dashboard,</p>
+<ol>
+<li>Under <strong>Resources</strong><strong>→</strong> <strong>Credentials</strong> click the blue <strong>Add</strong> button.</li>
+<li>Provide a <strong>Name</strong>, e.g. OpenShift-Kubeconfig.</li>
+<li>Within the <strong>Credential Type</strong> dropdown, select <strong>Kubeconfig.</strong></li>
+<li>Within the Type <strong>Details</strong> text box, insert your kubeconfig file for your OpenShift cluster.</li>
+<li>Click <strong>Save</strong>.</li>
+</ol>
+<h4></h4>
+<h3>Create a project</h3>
+<p>Within your Ansible Automation Platform dashboard,</p>
+<ol>
+<li><p>Under <strong>Resources</strong>→ <strong>Projects</strong> click the blue <strong>Add</strong> button.</p>
+</li>
+<li><p>Provide a <strong>Name</strong>, e.g. Monitoring AAP Project.</p>
+</li>
+<li><p>Select <strong>Default</strong> as the Organization.</p>
+</li>
+<li><p>Select <strong>Default execution environment</strong> as the <strong>Execution Environment.</strong></p>
+</li>
+<li><p>Select <strong>Git</strong> as the <strong>Source Control Credential Type.</strong></p>
+</li>
+<li><p>Within <strong>Type Details</strong>,</p>
+</li>
+<li><p>Add the <strong>Source Control URL</strong> (<a href="https://github.com/rlopez133/demos">https://github.com/rlopez133/demos</a>).</p>
+</li>
+<li><p>Within <strong>Options,</strong></p>
+</li>
+<li><p>Select <strong>Clean</strong>, <strong>Delete</strong>, <strong>Update Revision on Launch.</strong></p>
+</li>
+<li><p>Click <strong>Save</strong>.</p>
+</li>
+</ol>
+<h3>Create a job template &amp; run the Ansible Playbook</h3>
+<p>Within your Ansible Automation Platform dashboard,</p>
+<ol>
+<li><p>Under <strong>Resources</strong>→ <strong>Templates</strong> click the blue <strong>Add</strong> → <strong>Add job template</strong>.</p>
+</li>
+<li><p>Provide a <strong>Name</strong>, e.g. Monitor AAP Job.</p>
+</li>
+<li><p>Select <strong>Run</strong> as the <strong>Job Type.</strong></p>
+</li>
+<li><p>Select <strong>Demo Inventory</strong> as the <strong>Inventory.</strong></p>
+</li>
+<li><p>Select <strong>Monitoring AAP Project</strong> as the <strong>Project.</strong></p>
+</li>
+<li><p>Select <strong>Default execution environment</strong> as the <strong>Execution Environment.</strong></p>
+</li>
+<li><p>Select <em>aap-prometheus-grafana</em>/<em>playbook.yml</em> as the <strong>Playbook.</strong></p>
+</li>
+<li><p>Select <strong>Credentials</strong> and switch the category from <strong>Machine</strong> to <strong>Kubeconfig.</strong></p>
+</li>
+<li><p>Select the appropriate <em>kubeconfig</em> for access to the Kubernetes cluster e.g. OpenShift-Kubeconfig.</p>
+</li>
+<li><p><strong>Optional Step:</strong> Within the <strong>Variables,</strong> the following variables may be modified:</p>
+</li>
+<li><p>prometheus_namespace: <your-specified-value></p>
+</li>
+<li><p>ansible_namespace: <your-specified-value></p>
+</li>
+<li><p>Click <strong>Save</strong>.</p>
+</li>
+<li><p>Click <strong>Launch</strong> to run the Ansible Playbook.</p>
+</li>
+</ol>
+<p>For completeness and understanding of the entire process, the manual steps are captured in the following sections.</p>
+<h2>Prerequisites</h2>
+<p>The steps performed in this blog require access to an OpenShift cluster that has deployed the Ansible Automation Platform Operator and you can access your automation controller dashboard.</p>
+<p> </p>
+<h3>Create Bearer Token to capture metrics</h3>
+<p>In order to capture the /api/v2/metrics from an Ansible Automation Platform install, you need credentials to access them. An OAuth2 token allows us to authenticate Prometheus with Ansible Automation Platform.</p>
+<ol>
+<li>Login to your Ansible Automation Platform dashboard.</li>
+<li>Under <strong>Access</strong>, select <strong>Users</strong> and click on the appropriate user, e.g. admin.</li>
+<li>Within the <strong>Details</strong> window, select <strong>Tokens.</strong></li>
+</ol>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/rtPU6k1sYjDV4vo4AJd0CWQvsOA3FeUFHMCJCIcN7x5q_byyCT8xQWxWghwkDs1iZoaiEiJJGn8T5k1oRTMH464jsQ7FUOu9AoSJWo8_ywIXweZo-jgS3KNx_LGwkHD6wn4EToSl_tr7JDdxcYFevys.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/rtPU6k1sYjDV4vo4AJd0CWQvsOA3FeUFHMCJCIcN7x5q_byyCT8xQWxWghwkDs1iZoaiEiJJGn8T5k1oRTMH464jsQ7FUOu9AoSJWo8_ywIXweZo-jgS3KNx_LGwkHD6wn4EToSl_tr7JDdxcYFevys.png" alt=""></a></p>
+<ol>
+<li>Click the blue <strong>Add</strong> button.</li>
+<li>Leaving everything else empty, under <strong>Scope</strong>, select <strong>Read</strong> from the dropdown and click <strong>Save</strong>.</li>
+<li>Write down the token; you will need it in a future step and it will no longer be displayable after you see the <strong>Token information</strong> pop-up.</li>
+</ol>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/kJGCt78mw3TzHFK2MRtIHn6xfhR_wwY_JF-ImIKx54otpDZkd7mnt7kTVzEBjUjn1835o74cDM95ilucLDLecm7wbNZXVPZ_KRDMKxpLtkeUhHJIhjdwfDRfcL7h2yfyPVyHz2oohYsjVa9iTxZXzTc.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/kJGCt78mw3TzHFK2MRtIHn6xfhR_wwY_JF-ImIKx54otpDZkd7mnt7kTVzEBjUjn1835o74cDM95ilucLDLecm7wbNZXVPZ_KRDMKxpLtkeUhHJIhjdwfDRfcL7h2yfyPVyHz2oohYsjVa9iTxZXzTc.png" alt=""></a></p>
+<p> </p>
+<h3>Installing &amp; configuring Prometheus</h3>
+<ol>
+<li>Via a terminal, login to your OpenShift environment.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc login</span></span></code></pre><ol start="2">
+<li>Create a new namespace for our Prometheus Operator deployment.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc new-project prometheus-operator</span></span></code></pre><ol start="3">
+<li>Via the OpenShift Container Platform web console, Click on Operators →  OperatorHub. Search for <em>prometheus</em> and install the operator within the newly    created namespace, <em>prometheus-operator</em>.</li>
+</ol>
+<p> </p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/tIt6taPSQgnYXcsZhAlMzZQU0H7_vKqDKISUM7cXvZQQrCXDCOYDb3w329EP3iHO85zxI-5R-1fAfnFLXf8PA6OZCqDzVlcL07i5sFhPhP9zJ5lpPZBBfY-nw-MQkoHa4oEGZEFWHHcNxytaLBjCOL0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/tIt6taPSQgnYXcsZhAlMzZQU0H7_vKqDKISUM7cXvZQQrCXDCOYDb3w329EP3iHO85zxI-5R-1fAfnFLXf8PA6OZCqDzVlcL07i5sFhPhP9zJ5lpPZBBfY-nw-MQkoHa4oEGZEFWHHcNxytaLBjCOL0.png" alt=""></a></p>
+<ol start="4">
+<li>Create a generic secret labeled <strong>bearertoken</strong> with the bearer token that will reside within the prometheus-operator namespace.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc create secret generic bearertoken --from-literal=secret=2lnh5HIWeLx5aBbxngaCz3rr3c0Aob -n prometheus-operator</span></span></code></pre><p><strong>NOTE:</strong> Replace the literal-secret value with your Ansible Automation Platform bearer token.</p>
+<ol start="5">
+<li>Create a label for the automation controller service that will be used for monitoring the API metrics. The name of the service will vary based upon what you named your automation controller during installation. For this blog post, the service is called <strong>my-automation-controller-service.</strong></li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc label svc my-automation-controller-service -n ansible-automation-platform monitor=metrics</span></span></code></pre><p><strong>NOTE:</strong> You can find your service name via:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get svc -n ansible-automation-platform</span></span></code></pre><p><strong>NOTE:</strong> Feel free to change the label to something more specific based on your needs than <strong>monitor=metrics.</strong></p>
+<ol start="6">
+<li>Create a <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/service-monitor.yaml">service-monitor.yaml</a> file that defines a ServiceMonitor. The ServiceMonitor defines a service endpoint that needs to be monitored by the Prometheus instance.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>&#x3C;Snippet of service-monitor.yaml></span></span>
+<span class="line"><span>  selector:</span></span>
+<span class="line"><span>    matchLabels:</span></span>
+<span class="line"><span>      monitor: metrics</span></span>
+<span class="line"><span>  endpoints:</span></span>
+<span class="line"><span>    - interval: 5s</span></span>
+<span class="line"><span>      path: /api/v2/metrics</span></span>
+<span class="line"><span>      scheme: http</span></span>
+<span class="line"><span>      bearerTokenSecret:</span></span>
+<span class="line"><span>        name: bearertoken</span></span>
+<span class="line"><span>        key: secret</span></span></code></pre><p><strong>NOTE:</strong> Notice how the endpoint contains the appropriate path, scheme and the bearer token to allow Prometheus access to capture the metrics from Ansible Automation Platform. Also, the selector uses the match label <strong>monitor: metrics</strong> which is the label we previously created that we wanted to track against.</p>
+<ol start="7">
+<li>Apply the service-monitor.yaml file:</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f service-monitor.yaml</span></span></code></pre><ol start="8">
+<li><p>Create a <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/service-account.yaml">service-account.yaml</a> file, which creates a service account with cluster role and cluster role bindings to ensure you have permissions to list nodes and pods in other namespaces at the cluster scope.</p>
+</li>
+<li><p>Apply the service-account.yaml file:</p>
+</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f service-account.yaml</span></span></code></pre><ol start="10">
+<li><p>Install Prometheus using the <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/prometheus.yaml">prometheus.yaml</a> file, where <em><strong>metadata.namespace</strong></em> is the prometheus-operator and <em><strong>spec.serviceAccountName</strong></em> is the service account’s name you applied (Prometheus).</p>
+</li>
+<li><p>Apply the prometheus.yaml file:</p>
+</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f prometheus.yaml</span></span></code></pre><ol start="12">
+<li>Verify the Prometheus service started successfully.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get svc -n prometheus-operator</span></span>
+<span class="line"><span>NAME                  TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE</span></span>
+<span class="line"><span>prometheus            NodePort    10.217.4.5   &#x3C;none>        9090:31093/TCP   2m7s</span></span>
+<span class="line"><span>prometheus-operated   ClusterIP   None         &#x3C;none>        9090/TCP         34s</span></span></code></pre><ol start="13">
+<li>Check all the Pods are running.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get pods -n  prometheus-operator</span></span>
+<span class="line"><span>NAME                                  READY   STATUS    RESTARTS   AGE</span></span>
+<span class="line"><span>prometheus-operator-6dd6645fc-q9cbj   1/1     Running   0          24m</span></span>
+<span class="line"><span>prometheus-prometheus-0               2/2     Running   0          63s</span></span>
+<span class="line"><span>prometheus-prometheus-1               2/2     Running   0          62s</span></span></code></pre><ol start="14">
+<li>Expose the prometheus-operated service to use Prometheus console externally on your web browser.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc expose svc/prometheus-operated -n prometheus-operator</span></span></code></pre><ol start="15">
+<li>Get the route to access via browser.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get routes -n prometheus-operator</span></span></code></pre><ol start="16">
+<li>Visit the URL from the provided route command and check the <strong>Target</strong> page of Prometheus (Status →Target). The /api/v2/metrics target should be UP.</li>
+</ol>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/V3IVj6xa1-wEl5VjTSxLaIALGa2l-lawF3lz316E6wBmV-JzfQGXvSsjfbbk8D8Y_glz1rarlvYKS3hyOGYSJ_4lXID2wSKsPX0kMKmCppjN3-Nk26ZvhG5IkUrfHbMGSxkMJq9PnWYiM2tB-1Ha184.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/V3IVj6xa1-wEl5VjTSxLaIALGa2l-lawF3lz316E6wBmV-JzfQGXvSsjfbbk8D8Y_glz1rarlvYKS3hyOGYSJ_4lXID2wSKsPX0kMKmCppjN3-Nk26ZvhG5IkUrfHbMGSxkMJq9PnWYiM2tB-1Ha184.png" alt=""></a></p>
+<h2>Installing &amp; configuring Grafana</h2>
+<ol>
+<li>Via the OpenShift Container Platform web console, Click on Operators → OperatorHub. Search for <em>grafana</em> and install the operator within the newly created namespace, <em>prometheus-operator</em>.</li>
+</ol>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/O-A4lNdVawc98KJ3A8L7dQAAFlYf4Zj4LZLI5yH4avhl6iv1z9VWXSCiUmkFu3RSIlkkSv0snC4r0jxEsOo9FMNVCac0DeEFfbDVD6ppo9cZHYnoqkPn01CDxyFjmx1dvksDNOTXRujmjatqcxd0n_A.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/O-A4lNdVawc98KJ3A8L7dQAAFlYf4Zj4LZLI5yH4avhl6iv1z9VWXSCiUmkFu3RSIlkkSv0snC4r0jxEsOo9FMNVCac0DeEFfbDVD6ppo9cZHYnoqkPn01CDxyFjmx1dvksDNOTXRujmjatqcxd0n_A.png" alt=""></a></p>
+<ol start="2">
+<li><p>With the installation of the Grafana operator complete, provide the Prometheus service and port as shown in the <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/grafana-datasources.yaml"><em>grafana-datasources.yaml</em></a> file.  </p>
+</li>
+<li><p>Apply the <em>grafana-datasources.yaml</em> file:</p>
+</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f grafana-datasources.yaml -n prometheus-operator</span></span></code></pre><ol start="4">
+<li><p>With the datasource in place, install the Grafana instance using the <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/grafana.yaml">grafana.yaml</a>.</p>
+</li>
+<li><p>Apply the <em>grafana.yaml</em> file:</p>
+</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f grafana-instance.yaml -n prometheus-operator</span></span></code></pre><ol start="6">
+<li>Use the pre-built Grafana dashboard, <a href="https://raw.githubusercontent.com/rlopez133/demos/main/aap-prometheus-grafana/grafana-dashboard.yaml">grafana-dashboard.yaml</a>, that displays the different automation controller metrics.</li>
+</ol>
+<p><strong>NOTE:</strong> This Grafana dashboard may be customized to better fit your needs on the metrics you wish to capture.</p>
+<ol start="7">
+<li>Apply the <em>grafana-dashboard.yaml</em> file:</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc apply -f grafana-dashboard.yaml -n prometheus-operator</span></span></code></pre><ol start="8">
+<li>Get the Grafana route to access the dashboard.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get route grafana-route -n prometheus-operator</span></span></code></pre><ol start="9">
+<li>Get the password to login to the Grafana dashboard as the admin user.</li>
+</ol>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>oc get secret grafana-admin-credentials -o custom-columns=PASSWORD:.data.GF_SECURITY_ADMIN_PASSWORD --no-headers | base64 -D</span></span></code></pre><ol start="10">
+<li>Once logged into Grafana, access the dashboards and select the pre-populated Ansible Automation Platform dashboard, which will provide a display as shown below.</li>
+</ol>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/fd-QcNPXxbAx-olwWSjz51kfJ6wcX0Oefm6sGgkRXNEWA86YlEJ__zMBXX9oZAy6vmXRko3QQuOdO6TAPXiQyFe7qPvx1Y6j93j9Nk85nS_N_dqqdpweGejL1XXsHe0iXk_cRL_JIlUhu9Mpq6M3R7M.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/fd-QcNPXxbAx-olwWSjz51kfJ6wcX0Oefm6sGgkRXNEWA86YlEJ__zMBXX9oZAy6vmXRko3QQuOdO6TAPXiQyFe7qPvx1Y6j93j9Nk85nS_N_dqqdpweGejL1XXsHe0iXk_cRL_JIlUhu9Mpq6M3R7M.png" alt=""></a></p>
+<p>And there you have it! With just a few YAML files, you can have a fully monitored Ansible Automation Platform in minutes so you can keep track of the key metrics for a healthy Ansible Automation Platform cluster.</p>
+<h2>What can I do next?</h2>
+<p>If you want to try these steps for yourself, go check out our <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a>. In there, you will find a self-paced exercise that assists in Deploying Ansible Automation Platform on OpenShift. Take it a step further and use the playground time to add Prometheus and Grafana, just as I have here!</p>
+<p>And remember, no matter where you are in your automation journey, we have a variety of resources available to enhance your automation knowledge:</p>
+<ul>
+<li><a href="https://www.ansible.com/ansiblefest">AnsibleFest 2022</a> - Come hang out and learn about all the new automation tools and features being added to Ansible Automation Platform! This year it will be held in the windy city of Chicago on October 18-19, 2022.</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez"><img src="https://www.redhat.com/themes/custom/rhdc/img/author-default-img.svg" alt="Roger Lopez"></a></p>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez">### Roger Lopez</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

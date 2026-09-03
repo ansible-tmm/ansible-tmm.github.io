@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI threats move fast. Your defenses should too. — Ansible TMM Blog</title>
+  <meta name="description" content="Learn how Red Hat Ansible Automation Platform helps organizations adopt zero trust security by automating policy enforcement and reducing the impact of security breaches. Discover the benefits of centralized enforcement with distributed execution and the dual-ring enforcement model.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/ai-threats-move-fast-your-defenses-should-too">
+  <meta property="og:title" content="AI threats move fast. Your defenses should too.">
+  <meta property="og:description" content="Learn how Red Hat Ansible Automation Platform helps organizations adopt zero trust security by automating policy enforcement and reducing the impact of security breaches. Discover the benefits of centralized enforcement with distributed execution and the dual-ring enforcement model.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/ai-threats-move-fast-your-defenses-should-too">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/ai-threats-move-fast-your-defenses-should-too" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on June 7, 2026.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">AI threats move fast. Your defenses should too.</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2026-06-08">June 7, 2026</time> · 8-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>Recently, Red Hat&#39;s Vincent Danen <a href="https://www.redhat.com/en/blog/when-ai-finds-bugs-why-defense-depth-was-always-answer">highlighted</a> how AI models found 271 real security defects in Firefox in a single pass during Mozilla&#39;s collaboration with Anthropic. If AI can do that for defenders, it can do the same for attackers. As Danen put it, &quot;if your security strategy is solely predicated on the assumption that software will be vulnerability-free, you&#39;ve already lost.&quot;</p>
+<p>Vulnerabilities in code are only the entry point. The real damage comes after—lateral movement through misconfigured networks, overprivileged credentials, unrotated secrets, and services that blindly trust each other. No patch cycle can keep up with that. This underscores the need for more &quot;<a href="https://en.wikipedia.org/wiki/Defense_in_depth_(computing)">defense in depth</a>&quot; across enterprises—a cultural shift that assumes a compromise will inevitably occur, and focusing on reducing the impact of the exposure itself.</p>
+<p>This is the definition of <a href="https://www.redhat.com/en/topics/security/what-is-zero-trust">zero trust</a>. This first tidal wave of security vulnerabilities has a second and third coming behind it, and organizations need to adopt zero trust to move from pure prevention to containing the breach—enforcing least privilege across identity, secrets, network segmentation, and policy at every layer. Organizations require automated enforcement that executes at the velocity of these AI-driven threats. <a href="https://www.redhat.com/en/technologies/management/ansible">Red Hat Ansible Automation Platform</a> helps make this possible.</p>
+<h2>The AI attack surface shift</h2>
+<p>Traditional vulnerability scanners flag potential issues and hand them to a human for triage. AI has commoditized the cyberattack. Today&#39;s AI tools are essentially an entire team rolled into one, all at the cost of tokens. While devastating breaches like <a href="https://www.fortinet.com/resources/cyberglossary/solarwinds-cyber-attack">SolarWinds</a>demanded time, deep expertise, and luck, AI now empowers motivated attackers to effortlessly chain together complex, multiplatform vulnerabilities.</p>
+<p>These seemingly small weaknesses add up, and not for your benefit. For example:</p>
+<ul>
+<li>A login page that lets you retry passwords too quickly</li>
+<li>A settings page that does not re-check who you are</li>
+<li>An API that briefly exposes a session token during logout</li>
+</ul>
+<p>None of these are overly dangerous alone. Individually each would sit in a backlog as &quot;low priority,&quot; but chained together, they could let an attacker brute-force a password, hijack the session before it expires, and land inside the settings page as an administrator. Three minor bugs, yet you get a functional break-in.</p>
+<p>These advanced AI models write, compile, and execute exploit code, using failure outputs to iteratively refine and retry their attacks. While organizations use this to their advantage by finding and fixing previously unknown vulnerabilities at speed, the uncomfortable truth is that this capability is also available to attackers. As Danen wrote, &quot;the same tools that help defenders find bugs will inevitably help attackers find them too.&quot; The attacker skill ceiling just dropped. Faster patching is part of the answer, but it must be supplemented by good defenses.</p>
+<h2>Defense needs an automated operational layer</h2>
+<p><a href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux">Red Hat Enterprise Linux</a> with <a href="https://www.redhat.com/en/topics/linux/what-is-selinux">SELinux</a> and <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift">Red Hat OpenShift</a> already provide platform-level hardening, but these platform-level defenses need to be supplemented. For example, SELinux doesn&#39;t decide who&#39;s allowed to deploy an application. Container isolation doesn&#39;t revoke database credentials when a Security Information and Event Management (SIEM) system detects a brute-force attack at 3 AM. These are roles automation can play in creating a good defensive strategy.</p>
+<p>Operational changes (deployments, patches, network reconfigurations, credential rotations) flow through people, scripts, pipelines, and automation. If those paths aren&#39;t gated by policy, then platform hardening protects you from one class of attack while leaving another class wide open.</p>
+<p><a href="https://csrc.nist.gov/pubs/sp/800/207/final">NIST SP 800-207</a> lays out the Zero Trust Architecture (ZTA) blueprint, and at its center is the Policy Enforcement Point (PEP). Most people think of the PEP as a firewall or a gateway that filters network traffic. But when teams are deploying applications, patching servers, and changing network configurations, those actions don&#39;t pass through a firewall, they pass through automation. Ultimately, zero trust is an operational discipline that requires automation to be delivered at scale.</p>
+<h2>Ansible Automation Platform as the Policy Enforcement Point</h2>
+<p>When Ansible Automation Platform acts as the PEP, every operational action passes through a platform that checks identity, evaluates policy, manages secrets, and logs the outcome. These aren&#39;t advanced capabilities, they&#39;re the minimum viable controls that zero trust demands. The operator never touches the target system directly. The Ansible Playbook does this, and the playbook runs only after the platform confirms the operator is authorized.</p>
+<p>The architectural benefit is centralized enforcement with distributed execution. Policy decisions happen at a single control plane, but enforcement happens wherever the automation runs. There&#39;s no direct connection to servers or running scripts from laptops, reducing the risks of &quot;cowboy engineering&quot; and untraceable configuration drift. This also addresses anti-patterns like credential sprawl, shadow automation, or ungoverned lateral movement.</p>
+<p>This architecture mitigates critical security vulnerabilities by eliminating high-privilege production credentials on vulnerable local endpoints. The automation platform is the single point of control, and every change carries identity, policy approval, and an audit record with it.</p>
+<p>Ansible Automation Platform can implement this through a dual-ring enforcement model. The outer ring operates at the platform level. Before a job template launches, Ansible Automation Platform consults the Open Policy Agent (OPA) server via the included policy enforcement feature, with the full job context: who&#39;s launching it, which team they belong to, and which template they&#39;re running.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/image1_343.png"><img src="https://www.redhat.com/rhdc/managed-files/image1_343.png" alt="<alt> Policy enforcement for security and authorization access "></a></p>
+<p><em>Fig.1 Outer-Inner ring policy enforcement with Ansible Automation Platform</em></p>
+<p>OPA evaluates the request against policy and returns an allow or deny. The playbook never executes if the outer ring says no. The OPA policy maps team membership to permitted template categories.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>``` package aap.gateway import rego.v1 default decision := {&quot;allowed&quot;: true, &quot;violations&quot;: []} patching_teams := {&quot;Infrastructure&quot;, &quot;Security&quot;} network_teams := {&quot;Infrastructure&quot;} app_teams := {&quot;Applications&quot;, &quot;DevOps&quot;} user_teams := {name</td>
+</tr>
+</tbody></table>
+<p><em>Fig.2 Example Rego policy for Policy as Code check</em></p>
+<p>The inner ring operates inside the template/workflow itself. For potentially high impact operations like VLAN changes, the playbook fetches a <a href="https://www.redhat.com/en/topics/security/spiffe-and-spire">SPIFFE identity</a> (a cryptographic workload identity) and sends it to OPA. OPA evaluates 3 conditions:</p>
+<ul>
+<li>The human is authorized via team membership</li>
+<li>The workload is legitimate via SPIFFE Verifiable Identity</li>
+<li>The requested change falls within an approved range</li>
+</ul>
+<p>All 3 must pass.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/image2_222.png"><img src="https://www.redhat.com/rhdc/managed-files/image2_222.png" alt="<alt> Automated multilayer policy enforcement "></a></p>
+<p><em>Fig.3 Example multiple policy enforcement with Ansible Automation Platform</em></p>
+<p>This is important against AI-driven attacks because the exploit chain breaks at the enforcement point, not at the vulnerability. An AI agent that chains bugs to gain access to a server is trapped on the data plane, where zero trust policies like network micro-segmentation and short-lived credentials starve it of external access or lateral movement. It can&#39;t abuse your deployment to push malicious applications, nor can it alter enterprise network policies without passing through Ansible Automation Platform. Once a local compromise is detected, <a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">Event-Driven Ansible</a>, included in Ansible Automation Platform, can automatically isolate the system and provide immediate context to your security teams.</p>
+<p>Stolen user credentials fail the SPIFFE check because the workload identity doesn&#39;t match. A compromised automation node fails the team membership check because the attacker doesn&#39;t control the user&#39;s Ansible Automation Platform session. Each ring is independent. Compromising one isn&#39;t enough. This is defense in depth in action.</p>
+<h2>Shrinking potential impact with dynamic credentials and micro-segmentation</h2>
+<p>Even with policy enforcement at the automation layer, credentials and network paths are still an attack surface. If database passwords are rotated monthly, an attacker who gains access has a month-long window. If network access control lists (ACLs) are permanently open between application and database tiers, the path is always available.</p>
+<p>When an application deployment workflow runs, Ansible Automation Platform is able to request a dynamic database credential from HashiCorp Vault, a PostgresSQL role scoped to the application&#39;s schema with a 5-minute time-to-live (TTL). The credential exists only for the deployment window. When the TTL expires, the role is deleted. There&#39;s nothing to steal because nothing is persistent.</p>
+<p>In the same workflow, Ansible Automation Platform configures the network to open an ACL entry to allow traffic from the application&#39;s IP address to the database port.</p>
+<p>Against AI exploit chains, this changes the attack. Tools might chain bugs to reach a database tier, but they find a credential that expired 4 minutes ago. The window of exploitability shrinks from &quot;until someone rotates the password&quot; to &quot;until the automation finishes&quot;—minutes, not months, and when running the application in production, the vault agent will handle the ongoing credential lifecycle.</p>
+<h2>Incident response at machine speed</h2>
+<p>If AI agents can generate exploits and chain them, then having an analyst in the Security Operations Center (SOC) who is notified, logs in, reads the alert, investigates, and manually revokes credentials is operating on a human-scale timeline against a digital threat.</p>
+<p>Event-Driven Ansible helps close that gap. A SIEM such as Splunk detects a brute-force pattern against an application&#39;s authentication endpoint. Splunk can trigger an alert to Event-Driven Ansible via event stream, and Event-Driven Ansible evaluates the event and launches an automation job to take action. This job calls the HashiCorp Vault&#39;s API to revoke every active dynamic database lease the application holds. The application loses database connectivity immediately.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>—     name: Splunk Brute-Force credential revocation   hosts: all   sources:     - ansible.eda.webhook:         host: 0.0.0.0         port: 5000   rules:     - name: Revoke credentials on SSH brute-force detection       condition: event.payload.search_name is search(&quot;SSH Brute Force Detected&quot;)       action:         run_job_template:           name: &quot;Emergency: Revoke App Credentials&quot;           organization: Default</code></td>
+</tr>
+</tbody></table>
+<p><em>Fig.4 Example Event-Driven Ansible Rulebook for brute force events from Splunk</em></p>
+<p>The detection-to-containment loop completes in seconds, reducing mean ime to resolution from hours to seconds. The potential impact shrinks from &quot;attacker may have database access&quot; to &quot;attacker has access to an application that can no longer reach its data.&quot;</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/image3_157.png"><img src="https://www.redhat.com/rhdc/managed-files/image3_157.png" alt="<alt> Zero trust incident response with Event-Driven Ansible"></a></p>
+<p><em>Fig.5 Example attack incident response for zero trust architecture with Event-Driven Ansible</em></p>
+<p>This is automated containment, which can be followed by manual restoration. Event-Driven Ansible can revoke credentials without human approval because revocation is a safe default—the application stops serving data, but nothing is destroyed. Restoration requires a human to investigate, confirm the threat is resolved, and launch a restore workflow that redeploys the application. The checkpoint in the recovery path exists because restoring access after a compromise isn&#39;t something you want to automate without human investigation.</p>
+<h2>Multiple layers, one defense</h2>
+<p>AI-assisted vulnerability discovery makes defense in depth non-negotiable. But defense in depth without an automated operational layer leaves a gap that machine speed attacks will find.</p>
+<p>Three layers can close this gap, each breaking the AI exploit chain at a different point:</p>
+<ul>
+<li><strong>Platform hardening</strong> (compiler flags, SELinux, container isolation, Address Space Layout Randomization (ASLR)) makes the initial bug harder to exploit. An AI model might find the vulnerability, but the hardened platform forces a multistep chain just to achieve code execution.</li>
+<li><strong>Policy enforcement with Ansible Automation Platform</strong> blocks unauthorized operational paths. Even if the exploit chain succeeds, the attacker cannot deploy, patch, reconfigure, or access secrets without passing through the automation control plane. Stolen credentials alone aren&#39;t enough.</li>
+<li><strong>Automated response with Event-Driven Ansible</strong> helps contain breaches before lateral movement begins. Detection-to-containment in seconds matches the speed of AI-driven attacks in a way that human-in-the-loop response cannot.</li>
+</ul>
+<p>Each layer works independently. Platform hardening doesn&#39;t depend on policy enforcement. Policy enforcement doesn&#39;t depend on automated response. If any single layer fails, the other 2 still limit the damage. This independence allows security teams to spend time on strategic risk reduction instead of chasing alerts, and it allows organizations to adopt AI-assisted operations with confidence that the guardrails will hold even when the tools evolve faster than the policies.</p>
+<p>Most organizations have platform hardening. Many are adopting zero trust principles. Few have connected enforcement to automation at the speed these threats demand. This gap is where the next breach will land. By combining the 3 layers described above, your defenses are strengthened against the impacts of an AI-driven attack.</p>
+<h2>Resources</h2>
+<ul>
+<li>Webinar: <a href="https://www.redhat.com/en/events/webinar/implementing-zero-trust-with-red-hat-ansible-automation-platform">Implementing Zero Trust with Red Hat Ansible Automation Platform</a></li>
+<li>Webinar: <a href="https://www.redhat.com/en/events/webinar/automate-security-align-itops">Automate Security. Align ITOps</a></li>
+<li>E-book: <a href="https://www.redhat.com/en/engage/automate-security-align-enterprise-ebook">Automate security to align enterprise IT</a></li>
+<li>E-book: <a href="https://www.redhat.com/en/resources/ansible-automation-platform-beginners-guide-ebook">Red Hat Ansible Automation Platform, a beginner’s guide</a></li>
+<li>Interactive walk-through: <a href="https://www.redhat.com/en/interactive-experiences">IT automation including security automation</a></li>
+<li>Web page: <a href="https://www.redhat.com/en/technologies/management/ansible/security-automation">Security automation</a></li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/red-hat-satellite-620-limited-availability-early-access-containerized-management-and-post-quantum-cryptographic-enablement">Red Hat Satellite 6.20 limited availability: Early access registration now open</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/compliance">Can Compliance Be A Piece Of Cake? | Compiler</a></h3>
+<h2>Keep exploring</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/hybrid-cloud-environments-s-202112070640" title="Security approaches for hybrid cloud environments">Security approaches for hybrid cloud environments</a><a href="https://www.redhat.com/en/engage/securing-hybrid-cloud-environments-esg-analyst-material" title="Security approaches for hybrid cloud environments">Whitepaper</a></li>
+<li>A layered approach to container and Kubernetes securityWhitepaper</li>
+</ul>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/ai-threats-move-fast-your-defenses-should-too">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask me Anything Recap - April — Ansible TMM Blog</title>
+  <meta name="description" content="For this webinar, we had an awesome group of individuals with a diverse talent range across multiple skill sets from Product Management, Technical Marketing and Engineering.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/ask-me-anything-recap-april">
+  <meta property="og:title" content="Ask me Anything Recap - April">
+  <meta property="og:description" content="For this webinar, we had an awesome group of individuals with a diverse talent range across multiple skill sets from Product Management, Technical Marketing and Engineering.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/ask-me-anything-recap-april">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/ask-me-anything-recap-april" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on May 15, 2022.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Ask me Anything Recap - April</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2022-05-16">May 15, 2022</time> · 6-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/ask%20me%20anything.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/ask%20me%20anything.png" alt="ask me anything"></a></p>
+<p>I recently had the opportunity to emcee an Ask me Anything webinar in April 12, These sessions are a good opportunity for the community, customers, partners and more to talk directly to Red Hat employees about what is happening on Red Hat Ansible Automation Platform and beyond. For this webinar, we had an awesome group of individuals with a diverse talent range across multiple skill sets from Product Management, Technical Marketing and Engineering:</p>
+<ul>
+<li><strong>Richard Henshall</strong> - based in England, Richard is head of Product Management for Ansible Automation Platform</li>
+<li><strong>Hicham Mourad</strong> - based in Canada, Hicham is a Technical Marketing manager for Ansible Automation Platform on Microsoft Azure</li>
+<li><strong>Anshul Behl</strong> - also in Canada, Anshul is a Technical Marketing manager for Ansible Automation Platform</li>
+<li><strong>Mike Graves -</strong> joining us from North Carolina, Mike is a senior software engineer working on Ansible for public clouds and Ansible for cloud native</li>
+<li><strong>Shane McDonald -</strong> senior principal software engineer working on automation controller, automation execution environments and Podman as well as Kubernetes and Red Hat OpenShift Integration</li>
+</ul>
+<p>To watch the webinar on-demand check it out here.</p>
+<p>As it turns out, we can’t get to every question that comes in, so we had some time to review and will try to provide the Q&amp;A right here! We also answered a series of questions in email after the event. If you still have questions, we will be doing future Ask Me Anything webinars. Once the date and registration link become available, we will update this blog with the information.</p>
+<h2>Questions and Answers:</h2>
+<h3>How do we convince other teams to shift over to Ansible in an extremely complex environment?</h3>
+<p>You can do communities of practice, lunch and learns, offer to do demos, curate jumpstart content and use Red Hat Ansible Certified Content Collections and more. Check out this <a href="https://www.redhat.com/en/resources/automation-architect-handbook-ebook">e-book</a>!</p>
+<p>From a purely technical perspective: the new tools that are available with the Ansible Automation Platform help you with just that, like with <code>ansible-navigator</code> you can test your automation against the execution environment that you can directly use in complex and production deployment.</p>
+<p>With private automation hub, you can set up a place to provide automation execution environments inside your organizations, so it’s used by the your automation controller as well as the automation developers providing reliable automation.</p>
+<p>With automation mesh, you can take automation closer to where it’s needed and use execution environment to execute distributed automation for your organization. Essentially, Ansible automation on developer machines can be taken to a global server and provide the same level of reliability.</p>
+<h3>What gotchas/caveats do you need to look for when automating Windows related tasks?</h3>
+<p>We recommend this talk that covers some common use cases and a discussion on the difference between Linux and Windows automation: <a href="https://www.youtube.com/watch?v=FEdXUv02Dbg">Manage Windows like Linux with Ansible</a>.</p>
+<h3>How is network automation different from automating server administration?</h3>
+<p>Network operating systems often don’t have the ability to install software, so they cannot run an agent. This is where Ansible Automation Platform is an ideal solution with an agentless design.  As you get more and more edge devices to manage, you can see that this is an important consideration.</p>
+<h3>How/Where can I learn more about ansible-navigator?</h3>
+<p>Check out the following links:</p>
+<p><a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/ansible_navigator_creator_guide/index">https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/ansible_navigator_creator_guide/index</a></p>
+<p><a href="https://ansible-navigator.readthedocs.io/en/latest/">https://ansible-navigator.readthedocs.io/en/latest/</a></p>
+<ul>
+<li>There are also multiple <a href="https://www.ansible.com/blog/topic/ansible-navigator">blogs</a> and an <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">self-learning lab</a> on this topic</li>
+<li>Check out our Red Hat training! <a href="https://www.ansible.com/products/ansible-training">https://www.ansible.com/products/ansible-training</a></li>
+</ul>
+<h3>I hear all the time, &quot;anything can be automated&quot;. How do I learn more modules that I can leverage for such automation? I know how to do this with Bash scripts but how do I translate the scripts to Ansible Playbooks?</h3>
+<p>If you are a subscribing customer, go to console.redhat.com to log in and then look for Ansible automation hub under Ansible Automation Platform. There are numerous, fully supported Red Hat Ansible Certified Content Collections that are continually updated.</p>
+<h3>How do we start to automate a simple scenario, a RHEL Server, a Cisco Switch or/and a Win10 client?</h3>
+<p>Check out our free workshop content on <a href="https://aap2.demoredhat.com/">https://aap2.demoredhat.com/</a> or our <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-Paced Labs</a>.</p>
+<h3>I want to populate automation controller (previously known as Ansible Tower) multiple selection survey questions with the hostnames from an inventory. How can this be done?</h3>
+<p>Not quite the same, but <a href="https://github.com/network-automation/toolkit/blob/master/playbooks/network_backup.yml#L52">check this out</a> where I dynamically create a survey using the timestamps of backups.  It is really easy to programmatically change the surveys for automation controller for job templates and workflows.</p>
+<h3>​​Are there any docs out there for getting up and running with Ansible Automation Platform 2 using a windows only environment using Windows Services for Linux WSL?</h3>
+<p>We only support Ansible Automation Platform installed on Red Hat Enterprise Linux. For connection specifics and options, we do have a <a href="https://docs.ansible.com/ansible/latest/user_guide/windows.html">Windows guide</a>,: and you can check out <a href="https://www.ansible.com/blog/connecting-to-a-windows-host">this blog</a>.</p>
+<h3>Does Red Hat intend to offer a redundant database configuration in Ansible Automation Platform?</h3>
+<p>Check out the following <a href="https://access.redhat.com/articles/4010491">knowledge base article</a> for more information about high availability (HA) and Disaster Recovery (DR). Also, check out this blog post <a href="https://www.ansible.com/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1">New reference architecture: Deploying Red Hat Ansible Automation Platform 2.1</a> for an opinionated reference architecture.</p>
+<h3>Where can I get more examples of usage of ansible-navigator?</h3>
+<p>The <code>ansible-navigator</code> tool is an upstream project as well, if there is something you feel is not working. Please file a bug on <a href="https://github.com/ansible/ansible-navigator">https://github.com/ansible/ansible-navigator</a> and someone should be able to answer that.</p>
+<p>Also, you can file a customer ticket if you are a customer on <a href="https://support.redhat.com/">https://support.redhat.com/</a>.</p>
+<h3>Collections: are the community Collections safe or should we stick with Red Hat Ansible Certified Content Collections?</h3>
+<p>Community Galaxy is free for all, so any user can publish there ideally, hence we cannot provide governance if something can work or not if downloaded from there.</p>
+<p>But the Red Hat Ansible Certified Content Collections go through the testing and certification process, and Red Hat is ready to provide support if customers face any issues on those. Check out supported and certified content on console.redhat.com.</p>
+<h3>Can you share a link to the Azure hosted option?</h3>
+<p>Please <a href="https://www.redhat.com/en/engage/ansible-microsoft-azure-e-202110220735">fill out this form</a>, and we&#39;d be happy to reach out and work with you, and provide more information or details.</p>
+<h3>I have been trying to convert my Bash scripts to Ansible. A problem I have come across is the output I get from Ansible plays as it is in json/yaml when filtered. Is there another way to output &quot;register&quot; variable to another format other than json or yaml? Perhaps something like the output you get on the terminal?</h3>
+<p>YAML/JSON actually provide you the capability to basically filter the output as you need, and there is tooling build into Ansible Automation Platform to filter the output and if you are able to use the filter plugins like <code>json_query</code> correctly, Ansible can be quite powerful and useful compared to Bash, where you might need to build things in. Check out the following <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html">documentation</a>.</p>
+<h3>Where can I learn more about using Ansible for managing my F5 solutions?</h3>
+<p>One great way to learn about this is through hands-on workshops. F5 built an Ansible automation workshop. You can find these at <a href="https://bit.ly/F5automation">bit.ly/F5automation</a></p>
+<h3>Where can I find Ansible Tower documentation for a secure deployment in AWS?</h3>
+<p>Ansible Tower has been replaced by automation controller as part of Ansible Automation Platform.</p>
+<p>I would highly recommend that you deploy Ansible Automation Platform, and take advantage of its many capabilities.  We have great documentation on how to deploy this if you want to do a self-managed implementation.</p>
+<p>Here is <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_installation_guide/index">the installation guide</a>.</p>
+<p>Red Hat currently also has a managed application implementation of Red Hat Ansible Automation Platform on Microsoft Azure if that’s of interest to you. You can get more <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.1/html/red_hat_ansible_automation_platform_on_microsoft_azure_guide/index">details on that here</a>.</p>
+<h2>​​What can I do next?</h2>
+<p>Whether you are beginning your automation journey or are a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - We have interactive, in-browser exercises to learn and dive into Ansible Automation Platform.</li>
+<li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to install on-premises? Get your own trial subscription for unlimited access to all the components of Ansible Automation Platform.</li>
+<li><a href="https://developers.redhat.com/about">Developer license</a> - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a> Be sure to check out our new web series, <a href="https://www.redhat.com/en/technologies/management/ansible/automated-live-videos">Automated Live hosted by Colin McNaughton.</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/ask-me-anything-recap-april">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

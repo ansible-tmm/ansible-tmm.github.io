@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automation Analytics: Part 2 - Looking at Data Collection — Ansible TMM Blog</title>
+  <meta name="description" content="Part 2 of the Automation Analytics blog post expanding on what data is collected and how to gain access to that data.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/automation-analytics-part-2-looking-at-data-collection">
+  <meta property="og:title" content="Automation Analytics: Part 2 - Looking at Data Collection">
+  <meta property="og:description" content="Part 2 of the Automation Analytics blog post expanding on what data is collected and how to gain access to that data.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/automation-analytics-part-2-looking-at-data-collection">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/automation-analytics-part-2-looking-at-data-collection" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on December 1, 2019.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Automation Analytics: Part 2 - Looking at Data Collection</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2019-12-02">December 1, 2019</time> · 7-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started-Automation-Analytics-Part-2.png" alt="blog_getting-started-Automation-Analytics-Part-2"></a></p>
+<p>We recently released <a href="https://www.ansible.com/products/automation-platform">Red Hat Ansible Automation Platform</a> which now includes multiple Software-as-a-Service (SaaS) offerings, one of which is Automation Analytics.  This offering provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire automation infrastructure.</p>
+<p>In a previous blog I wrote about <a href="https://www.ansible.com/blog/getting-started-with-automation-analytics">Getting Started with Automation Analytics</a>, but now want to expand on what data is collected and how to gain access to that data.  I highly recommend reading the previous blog if you are new to Red Hat Ansible Automation Platform, Ansible Tower concepts and our SaaS offerings. This is important to many customers because they all have their own security concerns with what data leaves their premises as well as  obligations to their own customers and stakeholders to make sure data sent will not be compromised in any way.</p>
+<p><a href="#Retrievingdata">Retrieving the data:</a></p>
+<p><a href="#Analyzedata">Analyzing the data</a></p>
+<p><a href="#config.json">config.json</a></p>
+<p><a href="#counts.json">counts.json</a></p>
+<p><a href="#cred_type_counts.json">cred_type_counts.json</a></p>
+<p><a href="#events_table.csv">events_table.csv</a></p>
+<p><a href="#instance_info.json">instance_info.json</a></p>
+<p><a href="#inventory_counts.json">inventory_counts.json</a></p>
+<p><a href="#job_counts.json">job_counts.json</a></p>
+<p><a href="#job_instance_counts.json">job_instance_counts.json</a></p>
+<p><a href="#manifest.json">manifest.json</a></p>
+<p><a href="#org_counts.json">org_counts.json</a></p>
+<p><a href="#projects_by_scm_type.json">projects_by_scm_type.json</a></p>
+<p><a href="#query_info.json">query_info.json</a></p>
+<p><a href="#unified_jobs_table.csv">unified_jobs_table.csv</a></p>
+<p><a href="#unified_job_template_table.csv">unified_job_template_table.csv</a></p>
+<p><a href="#Where-to-go-next">Where to go next?</a></p>
+<h2>Retrieving the data:</h2>
+<p>Login to the Ansible Tower host with an account that has root privileges.  Create a folder (or use an existing folder) to work from.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@rhel8]$ mkdir my_data</span></span></code></pre><p>Use the awx-manage gather_analytics command to gather data. Do not use the --ship argument - that will send your data to Red Hat and will delete the temporary tar.gz tarball created and you will not be able to look at the contents. You can also use the command awx-manage gather_analytics --help to get more details on which arguments are available and what they do.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@rhel8]$ sudo awx-manage gather_analytics</span></span>
+<span class="line"><span>Last analytics run was: 2019-11-22 20:37:27.185094+00:00</span></span>
+<span class="line"><span>/tmp/bed08c6b-19cc-4a49-bc9e-82c33936e91b_2019-11-22-203854+0000.tar.gz</span></span></code></pre><p>The output of the command will provide the temporary location of the tar.gz file. Copy the tarball file over into your directory, and untar it.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@rhel8]$  cp /tmp/bed08c6b-19cc-4a49-bc9e-82c33936e91b_2019-11-22-203854+0000.tar.gz ~/my_data/my_data.tar.gz</span></span>
+<span class="line"><span>[sean@rhel8]$ tar -zvf my_data.tar.gz</span></span></code></pre><p>Now you will have a directory full of the exact contents that are sent to cloud.redhat.com:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@rhel8]$ tree</span></span>
+<span class="line"><span>.</span></span>
+<span class="line"><span>├── config.json</span></span>
+<span class="line"><span>├── counts.json</span></span>
+<span class="line"><span>├── cred_type_counts.json</span></span>
+<span class="line"><span>├── events_table.csv</span></span>
+<span class="line"><span>├── instance_info.json</span></span>
+<span class="line"><span>├── inventory_counts.json</span></span>
+<span class="line"><span>├── job_counts.json</span></span>
+<span class="line"><span>├── job_instance_counts.json</span></span>
+<span class="line"><span>├── manifest.json</span></span>
+<span class="line"><span>├── mydata.tar.gz</span></span>
+<span class="line"><span>├── org_counts.json</span></span>
+<span class="line"><span>├── projects_by_scm_type.json</span></span>
+<span class="line"><span>├── query_info.json</span></span>
+<span class="line"><span>├── unified_jobs_table.csv</span></span>
+<span class="line"><span>└── unified_job_template_table.csv</span></span></code></pre><p>This blog describes the data collected as of Red Hat Ansible Tower 3.6. Later releases of the platform may gather different data, or format it differently.</p>
+<h2>Analyzing the data</h2>
+<p>This is your data, nothing is encrypted on the local file system. That means it is possible to cat each file (or open with the text editor or application of your choice). Please refer to the <a href="https://www.ansible.com/products/ansible-analytics/faq">Security FAQ</a> for high level answers.  All the created file types are either json or csv files, making them easy to read and understand. I will walk through each file and generally show what data is in there, and provide some thorough examples.</p>
+<h3>config.json</h3>
+<p>The config.json file contains data around the Ansible Tower system itself.  This includes the version of Red Hat Enterprise Linux, relevant universally unique identifiers (uuid), license types, license information, authentication backends and more.  Think of this as literally the Ansible Tower settings that you can find in the Web UI (<a href="https://docs.ansible.com/ansible-tower/latest/html/administration/configure_tower_in_tower.html">documentation is here</a>).  To pretty print this to make it more readable try using the | python -m json.tool, for example:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>cat config.json | python -m json.tool</span></span></code></pre><p>Here is an example from an Ansible Tower node I have stood up:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>{</span></span>
+<span class="line"><span>    "ansible_version": "2.9.1",</span></span>
+<span class="line"><span>    "authentication_backends": [</span></span>
+<span class="line"><span>        "awx.sso.backends.TACACSPlusBackend",</span></span>
+<span class="line"><span>        "social_core.backends.azuread.AzureADOAuth2",</span></span>
+<span class="line"><span>        "django.contrib.auth.backends.ModelBackend"</span></span>
+<span class="line"><span>    ],</span></span>
+<span class="line"><span>    "external_logger_enabled": true,</span></span>
+<span class="line"><span>    "external_logger_type": "splunk",</span></span>
+<span class="line"><span>    "free_instances": 0,</span></span>
+<span class="line"><span>    "install_uuid": "d3d497f7-9d07-43ab-b8de-9d5cc9752b7c",</span></span>
+<span class="line"><span>    "instance_uuid": "bed08c6b-19cc-4a49-bc9e-82c33936e91b",</span></span>
+<span class="line"><span>    "license_expiry": 34937373,</span></span>
+<span class="line"><span>    "license_type": "enterprise",</span></span>
+<span class="line"><span>    "logging_aggregators": [</span></span>
+<span class="line"><span>        "awx",</span></span>
+<span class="line"><span>        "activity_stream",</span></span>
+<span class="line"><span>        "job_events",</span></span>
+<span class="line"><span>        "system_tracking"</span></span>
+<span class="line"><span>    ],</span></span>
+<span class="line"><span>    "pendo_tracking": "detailed",</span></span>
+<span class="line"><span>    "platform": {</span></span>
+<span class="line"><span>        "dist": [</span></span>
+<span class="line"><span>            "redhat",</span></span>
+<span class="line"><span>            "7.4",</span></span>
+<span class="line"><span>            "Maipo"</span></span>
+<span class="line"><span>        ],</span></span>
+<span class="line"><span>        "release": "3.10.0-693.el7.x86_64",</span></span>
+<span class="line"><span>        "system": "Linux",</span></span>
+<span class="line"><span>        "type": "traditional"</span></span>
+<span class="line"><span>    },</span></span>
+<span class="line"><span>    "tower_url_base": "https://ansible.rhdemo.io",</span></span>
+<span class="line"><span>    "tower_version": "3.6.0"</span></span>
+<span class="line"><span>}</span></span></code></pre><p>Because of the large size of the data sets I will from here on start linking to <a href="https://help.github.com/en/github/writing-on-github/creating-gists">public gists</a> that are easier to consume then in-line in this blog.</p>
+<h3></h3>
+<h3>counts.json</h3>
+<p>The counts.json file simply contains the total amount of objects for each relevant category.  For example the total number of organizations, teams, users, inventories, etc. that exist on the Ansible Tower cluster.  The data is really straightforward and I am providing my Ansible Tower data collected in a <a href="https://gist.github.com/IPvSean/9e7e9e7b597ff1dff63f0736901a5735">public gist for counts.json</a>.</p>
+<h3>cred_type_counts.json</h3>
+<p>The file cred_type_counts.json provides information breakdowns on each <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#credential-types">credential type</a> that is configured in Ansible Tower, including <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credential_types.html">custom credential types</a>.  This simply records data on how many are configured, and if they are configured by Ansible Tower or an external source such as CyberArk.  To check out what this looks like and see all the data collected refer to my <a href="https://gist.github.com/IPvSean/02ac74da4346a6eac9d366f981909bed">public gist for cred_type_counts.json</a>.</p>
+<h3>events_table.csv</h3>
+<p>This table provides task by task detail from Job Templates such as the the playbook filename, the role that the tasks resides in, the named description in the task (if any is specified) and more.  This is a CSV versus a JSON because it is literally a table copy of the main_jobevent table within Ansible Tower (which is already a table). These are any job events that have happened since the last run, in my case since I ran the jobs back to back there is no data in here, since no job events took place.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>id,created,uuid,parent_uuid,event,task_action,failed,changed,playbook,play,task,role,job_id,host_id,host_name</span></span></code></pre><p>I created a full example where I ran a Job Template from my Ansible Tower cluster and recorded a awx gather_analytics immediatley after, this can be found <a href="https://gist.github.com/IPvSean/e7edb73f21a7eb6d9be058964b6bf9bb">on this gist</a> to see what type of data is provided.</p>
+<h3>instance_info.json</h3>
+<p>The instance_info.json info provided breakouts per instance versus the holistic Ansible Tower cluster. This allows granular differences between different nodes within an Ansible Tower cluster. This is helpful because if there was a bad install, decreased capacity or unreachable node we can grab additional info.  In this case capacity is a value we calculate on how much memory and cpu is available to that node, and how much the administer has weighted the usage of that capacity, more info can be <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/jobs.html#selecting-the-right-capacity">found in the documentation</a>.  The capacity value is used to determine how many forks can be allocated to run on that Ansible Tower Instance.  In my case I only have a single node in my Ansible Tower cluster so there is only one uuid in my info:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>{</span></span>
+<span class="line"><span>    "bed08c6b-19cc-4a49-bc9e-82c33936e91b": {</span></span>
+<span class="line"><span>        "capacity": 57,</span></span>
+<span class="line"><span>        "cpu": 2,</span></span>
+<span class="line"><span>        "enabled": true,</span></span>
+<span class="line"><span>        "last_isolated_check": "2018-08-15T14:48:58.553005+00:00",</span></span>
+<span class="line"><span>        "managed_by_policy": true,</span></span>
+<span class="line"><span>        "memory": 8201400320,</span></span>
+<span class="line"><span>        "uuid": "bed08c6b-19cc-4a49-bc9e-82c33936e91b",</span></span>
+<span class="line"><span>        "version": "3.6.0"</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>}</span></span></code></pre><h3>inventory_counts.json</h3>
+<p>The inventory_counts.json file provided all known inventories in the Ansible Tower cluster, the amount of hosts associated with each inventory, the <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/inventories.html#smart-inventories">kind of inventory</a> and the number of sources (inventories can have more than one source).  I have included my inventory_counts.json file in this <a href="https://gist.github.com/IPvSean/d1a1a54a1d153b0e7f3e8de16f94ad04">public gist.</a></p>
+<h3>job_counts.json</h3>
+<p>The jobs_counts.json file provided data around holistic job execution on this Ansible Tower cluster.  This includes total jobs, both successful, cancelled and failed. It will also do breakouts of manual jobs, relaunched jobs.  Refer to my <a href="https://gist.github.com/IPvSean/64d666f7cfcbd57fabd9ebf35126418c">public gist</a> to see what this data looks like.</p>
+<h3>job_instance_counts.json</h3>
+<p>This file provides breakouts of Job Runs by individual instances (also known as nodes) within an Ansible Tower cluster.  My Ansible Tower cluster only has one node so this file is less then interesting but refer to my <a href="https://gist.github.com/IPvSean/3bbfd0cb86f25e878d320ddd9625d050">public gist</a> to see what this data looks like.</p>
+<h3>manifest.json</h3>
+<p>The manifest.json file keeps track of the data schema for every other file provided.  If a file schema changes on different versions of Ansible Tower this allows cloud.redhat.com to understand each individual schema.  The data schemas may change over time as more and more features are rolled out. Check out <a href="https://gist.github.com/IPvSean/137edc192d5943e1e364d11f9bfbe8c5">my public gist here</a>.</p>
+<h3>org_counts.json</h3>
+<p>The org_counts.json file provides information on each <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/organizations.html">organization</a> on this Ansible Tower cluster and the amount of users and teams associated with that organization.  Refer to my <a href="https://gist.github.com/IPvSean/436044e704630846827c1e84348896fb">public gist</a> to see an example.</p>
+<h3>projects_by_scm_type.json</h3>
+<p>The projects_by_scm_type.json provides a breakdown of all <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#projects">project types</a> including Git, Subversion, Mercurial, and Red Hat Insights.  You can see in my Ansible Tower cluster that I have 19 git projects and 1 Red Hat Insights project:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>{</span></span>
+<span class="line"><span>    "git": 19,</span></span>
+<span class="line"><span>    "hg": 0,</span></span>
+<span class="line"><span>    "insights": 1,</span></span>
+<span class="line"><span>    "manual": 0,</span></span>
+<span class="line"><span>    "svn": 0</span></span>
+<span class="line"><span>}</span></span></code></pre><h3></h3>
+<h3>query_info.json</h3>
+<p>The query_info.json data simply states the last time the awx-manage gather_analytics process was run and if it was manual or automatic.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>{</span></span>
+<span class="line"><span>    "collection_type": "manual",</span></span>
+<span class="line"><span>    "current_time": "2019-11-22 20:10:27.751267+00:00",</span></span>
+<span class="line"><span>    "last_run": "2019-11-22 20:03:40.361225+00:00"</span></span>
+<span class="line"><span>}</span></span></code></pre><h3></h3>
+<h3>unified_jobs_table.csv</h3>
+<p>This file includes information about the job runs (any job template that was executed) including when it was run and if it was successful or failed.  Most of the data is quite clear what it represents, but the polymorphic_ctype_id may throw folks. The polymorphic_ctype_id is an internal mapping to get that tracks the Job Type such as if the id is a <a href="https://docs.ansible.com/ansible-tower/latest/html/administration/management_jobs.html">systemjob</a>, <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html">workflowjob</a>, job, etc.  This file corresponds to the events_table.csv, and can also be seen in the <a href="https://gist.github.com/IPvSean/e7edb73f21a7eb6d9be058964b6bf9bb">gist provided above</a>.  The events_table.csv file gives an entire breakdown of every task within the Job Template versus the unified_jobs_table.csv which just catalogs the Job Run, the start time, finish type, etc.</p>
+<h3>unified_job_template_table.csv</h3>
+<p>This file contains information about the Job Templates themselves (versus the Job Runs in the unified_job_table.csv file linked above).  This includes the id, polymorphic_ctype_id, when it was created, modified, the name of the job template and more. To see an example of this file check out my <a href="https://gist.github.com/IPvSean/18f06125f854a0adece060ce35275959">public gist here</a>.</p>
+<h2>Where to go next?</h2>
+<p>I hope this blog helps outline what type of data is sent to Red Hat to help alleviate any security concerns or data questions.  When I am talking to folks about the Red Hat Ansible Automation Platform I like to explain that they get all the Ansible they know and love today, but we are now bundling everything together in one simple platform for our customers.  The SaaS offering Automation Analytics is optional and included in the price of what folks were paying previously. We do not force any existing customers to use the tool and hand us data, but hope this will provide increased benefits.</p>
+<ul>
+<li><a href="https://www.ansible.com/products/automation-analytics">Learn more on Automation Analytics including a video demo</a></li>
+<li><a href="https://www.ansible.com/community/events/workshops">Attend an Ansible Automation Workshop and get hands-on with Ansible Tower</a></li>
+<li><a href="https://www.ansible.com/products/pricing">Contact us to get pricing information on the Ansible Automation Platform</a></li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/automation-analytics-part-2-looking-at-data-collection">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

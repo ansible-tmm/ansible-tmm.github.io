@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What's new in Ansible Automation Platform 2.4 — Ansible TMM Blog</title>
+  <meta name="description" content="An overview of new features found in the Ansible Automation Platform 2.4 release">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.4">
+  <meta property="og:title" content="What's new in Ansible Automation Platform 2.4">
+  <meta property="og:description" content="An overview of new features found in the Ansible Automation Platform 2.4 release">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.4">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.4" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on June 26, 2023.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">What's new in Ansible Automation Platform 2.4</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2023-06-27">June 26, 2023</time> · 7-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png" alt="2.4 banner"></a></p>
+<p>We are excited to announce the general availability of Red Hat Ansible Automation Platform 2.4, which continues to build on our core promise to help customers “Create, Manage, and Scale” their automation.</p>
+<p>This blog post outlines a number of new features and capabilities found in the 2.4 release, including the long-anticipated general availability of <a href="https://www.redhat.com/en/about/press-releases/red-hat-accelerates-it-automation-event-driven-ansible">Event-Driven Ansible</a>. Ansible Automation Platform 2.4 is going to greatly expand the scope of both <em>what</em> and <em>how</em> organizations are able to automate with Ansible—so let’s dive right in.</p>
+<h2>Event-Driven Ansible</h2>
+<p>Back at <a href="https://www.redhat.com/blog/introducing-event-driven-ansible">AnsibleFest 2022, we introduced</a> the Event-Driven Ansible developer preview and the results have been very exciting. By developing this set of capabilities in the upstream community, we worked alongside the Ansible community, partners and customers to release numerous certified and community source plugins right at launch. Now fully supported as a component of Ansible Automation Platform 2.4, Event-Driven Ansible comes with a new webUI, Event-Driven Ansible controller, to help you integrate your Event-Driven Ansible with Ansible Automation Platform and take advantage of a host of new capabilities.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-15-3156-PM.4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-15-3156-PM.4.png" alt=""></a></p>
+<p>Event-Driven Ansible controller for Event-Driven Ansible - Getting Started</p>
+<p>Event-Driven Ansible connects intelligent sources of events with corresponding actions via rules. Ansible Rulebooks define the event source and explain, in the form of conditional “if-this-then-that” statements, the action to take when the event occurs. Based on the rulebook you design, Event-Driven Ansible recognizes the specified event, matches it with the appropriate action, and automatically executes it. Actions can include executing existing Ansible Playbooks, templates, or modules to extend value from your trusted automation—as a user you have the option to decide.</p>
+<p>As part of the Ansible Automation Platform 2.4 release, the following integrations are now fully supported:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>In each Partner&#39;s collections</strong></td>
+</tr>
+<tr>
+<td>IBM Instana</td>
+</tr>
+<tr>
+<td>Palo Alto Networks PAN-OS</td>
+</tr>
+<tr>
+<td>Red Hat Insights</td>
+</tr>
+<tr>
+<td>Turbonomic</td>
+</tr>
+<tr>
+<td>Zabbix</td>
+</tr>
+<tr>
+<td><em>Cisco ThousandEyes</em> <em>(expected Q3 2023)</em></td>
+</tr>
+<tr>
+<td><em>CrowdStrike</em> <em>(expected Q3 2023)</em></td>
+</tr>
+<tr>
+<td><em>Dynatrace</em> <em>(expected Q3 2023)</em></td>
+</tr>
+<tr>
+<td><em>F5</em> <em>(expected Q3 2023)</em></td>
+</tr>
+<tr>
+<td><em>ServiceNow</em> <em>(expected Q3 2023)</em></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>In the</strong> <a href="https://github.com/ansible/event-driven-ansible/tree/main/extensions/eda/plugins/event_source"><strong>ansible.eda</strong></a><strong>Collection</strong></td>
+</tr>
+<tr>
+<td>Alertmanager</td>
+</tr>
+<tr>
+<td>Amazon AWS SQS Queue</td>
+</tr>
+<tr>
+<td>Amazon AWS Cloudtrail</td>
+</tr>
+<tr>
+<td>Azure Service Bus</td>
+</tr>
+<tr>
+<td>Kafka (AMQ Streams)</td>
+</tr>
+<tr>
+<td>Kubernetes (Openshift)</td>
+</tr>
+<tr>
+<td>Prometheus/AlertManager</td>
+</tr>
+<tr>
+<td>Webhooks</td>
+</tr>
+<tr>
+<td>…and many more</td>
+</tr>
+</tbody></table>
+<p>NOTE: Ansible partner Event-Driven Ansible source plugins can be certified asynchronously from release dates. A tracking page with a curated, up-to-date list of all Event-Driven Ansible content that has been certified will be made available soon.</p>
+<h3>Next steps with Event-Driven Ansible If you’re ready to get started, we encourage you to visit the<a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">Event-Driven Ansible</a> <a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">page</a> for more information, including links to helpful resources, blogs, videos and more. There are also some great demo videos available on the Red Hat Ansible Automation Platform YouTube channel. Check ‘em out!</h3>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=7i_EzHyrKQc&t=3s">Bridging observability and automation with Event-Driven Ansible</a></li>
+<li><a href="https://www.youtube.com/watch?v=emHLD4_YcLw&t=5s">Demo: Using Event-Driven Ansible with Elasticsearch logs!</a></li>
+<li><a href="https://www.youtube.com/watch?v=RBKKgawZiqI&t=1s">Demo: Respond to DNS events with Event-Driven Ansible!</a></li>
+</ul>
+<h2>Collection repository management</h2>
+<p>The goal of the private automation hub in Ansible Automation Platform is to help organizations better control and manage their automation content (and by automation content, we specifically mean <a href="https://www.ansible.com/products/content-collections">Ansible Content Collections</a> and <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html">Automation execution environments</a>). Whether you are producing private content, need to access trusted and fully supported content, or want to integrate community content, the private automation hub can allow an on-premises solution to help manage what teams get access to what content.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-15-1543-PM.4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-15-1543-PM.4.png" alt=""></a></p>
+<p>The new collection repository management feature found in Ansible Automation Platform 2.4 provides customers and partners much more control over <em>who</em> gets access to <em>what</em> automation content. Prior to this feature, platform users were only able to access the built-in repositories of content for Ansible Content Collections. This meant that everyone within an organization had access to these built-in repositories such as rh-certified content or community content, but there was no ability for more repositories to subdivide who had access to what.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-3871-PM.4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-3871-PM.4.png" alt=""></a></p>
+<p>Repositories view in private automation hub</p>
+<p>This new capability will make it much easier for customers and partners to securely distribute the automation content to the correct teams, which in turn will help them get even more value out of Ansible Automation Platform. Click <a href="https://www.redhat.com/products/automation-hub">here</a> for more info about Ansible automation hub and private automation hub. </p>
+<h2>Validated content integration</h2>
+<p>At AnsibleFest 2022, we introduced Ansible <a href="https://www.redhat.com/en/blog/automate-expert-ansible-validated-content">validated content</a>. Ansible validated content is a new set of collections containing pre-built YAML content to address the most common automation use cases. You can use Ansible validated content out-of-the-box or as a learning opportunity to develop your skills. It&#39;s a trusted starting point to bootstrap your automation: use it, customize it and learn from it.</p>
+<p>With Ansible Automation Platform 2.4, even more Ansible validated content is now fully integrated into private automation hub. This includes the following new collections:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Collection Name</strong></td>
+<td><strong>Domain</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr>
+<td>cloud.azure_ops</td>
+<td>Cloud</td>
+<td>Automate the management of cloud resources on Microsoft Azure.</td>
+</tr>
+<tr>
+<td>network.interfaces</td>
+<td>Network</td>
+<td>Manage Interfaces resources independent of platforms and perform interfaces health checks.</td>
+</tr>
+<tr>
+<td>network.ospf</td>
+<td>Network</td>
+<td>Manage Telemetry configuration on networking devices and setup a Telegraf - Kafka stack.</td>
+</tr>
+</tbody></table>
+<p>In addition, all Ansible validated content will also be available on <a href="https://console.redhat.com/ansible/automation-hub/">Ansible automation hub on console.redhat.com</a>. This means that content can be asynchronously updated at any time, and not dependent on downloading a new bundled installer to refresh content on private automation hub as it has been previously. For a full list of all Ansible validated content, you can reference this <a href="https://github.com/ansible/validated-content-discussion/blob/main/validated-content-list.md">curated list</a>.</p>
+<h2>Ansible Builder 3.0</h2>
+<p>The 2.4 release also includes <a href="https://ansible.readthedocs.io/projects/builder/en/latest/">ansible-builder</a> 3.0, a content tooling upgrade that will make the execution environment (EE) creation process much more efficient. First, Containerfile hacking is not required for common and advanced scenarios, and the execution environment definition provides broad customization options. Secondly, single file definition now allows for the inclusion of collections and related package requirements inline. Next, the Builder Image concept is dead, which means no more confusion around what version of builder image should go with the base image. And finally, teams now have the ability to create a base EE from scratch for development purposes.</p>
+<p>As execution environments continue to become an increasingly important part of the Ansible Automation Platform experience, we will continue to make upgrades like these to reduce complexity and boost efficiency.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-8467-PM.4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-8467-PM.4.png" alt=""></a></p>
+<p>ansible-builder v3 definition file</p>
+<h2>Platform install support for ARM</h2>
+<p>Ansible has always been a popular choice for a variety of data center and <a href="https://www.redhat.com/en/technologies/management/ansible/edge">edge environments</a>, and that adoption curve has continued to expand thanks to the inclusion of <a href="https://www.redhat.com/products/automation-mesh">automation mesh</a> in Ansible Automation Platform. Automation mesh enables customers to install execution nodes at remote sites including small data centers, Point of Presence (PoPs), retail locations, cruise ships and more.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-6415-PM.4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-6415-PM.4.png" alt=""></a></p>
+<p>We are excited to announce that as part of the Ansible Automation Platform 2.4 release, all platform components are now fully supported on ARM architectures. This means wherever you are installing Ansible Automation Platform, or even just adding execution nodes for automation mesh, you can have fully supported Ansible on the infrastructure of your choice.</p>
+<hr>
+<p>The Ansible Automation Platform 2.4 release also brings <a href="https://access.redhat.com/support/offerings/techpreview">technology previews</a> of some exciting platform enhancements on our product roadmap.</p>
+<h2>Platform install support for Linux on Power and Z are in Technology Preview support</h2>
+<p>In addition to the aforementioned ARM support, we are announcing technology preview support for installing Ansible Automating Platform on <a href="https://www.ibm.com/power">IBM Power</a> and <a href="https://www.ibm.com/z?utm_content=SRCWW&p1=Search&p4=43700051923373773&p5=e&gclid=EAIaIQobChMI0rvOpZLI_wIVk6zICh0CyQNrEAAYASAAEgJvivD_BwE&gclsrc=aw.ds">IBM Z</a> server hardware. This adds to the depth and breadth of CPU architecturesAnsible Automation Platform is installed on and continues to help in a variety of different deployment models across the diverse IT infrastructure our customers have deployed.</p>
+<h2>Updated user interface in Technology Preview support</h2>
+<p>The technology preview support of an updated graphical user interface is a glimpse into our vision for empowering customers to manage and scale all of these features into one simple user flow. The long-term goal is a unified user experience across the various platform components including automation controller, private automation hub and Event-Driven Ansible controller. For this initial release, the updated user interface is enabled just for automation controller, but this will expand over time into other platform components.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-13-9929-PM.4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-13-9929-PM.4.png" alt=""></a></p>
+<p>Automation controller dashboard shown in dark mode.</p>
+<p>The updated user interface includes many new capabilities including support for dark mode (shown above), which will default to match your operating system defaults, but can be pinned to your preference. The webUI is much more responsive, customizable and easy to use, but the reason this is in technical preview is so that we can get feedback from our customers and improve it further. Not all capabilities from the previous webUI have been matched, but these will improve over time.</p>
+<p>To learn how to enable the new user interface on Ansible Automation Platform 2.4 check out this quick four minute <a href="https://youtu.be/IBtGCQBkM0A">video demonstration</a>.</p>
+<h2>The Ansible Lightspeed with IBM Watson Code Assistant Technical Preview is now available</h2>
+<p>One final (and exciting) bit of news as we wrap this blog up. First <a href="https://www.redhat.com/en/about/press-releases/red-hat-introduces-ansible-lightspeed-ai-driven-it-automation">announced last month at Red Hat Summit and AnsibleFest 2023</a>, the Technical Preview of Ansible Lightspeed with IBM Watson Code Assistant is now available.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ansible Lightspeed with IBM Watson Code Assistant is <strong>NOT</strong> a part of Ansible Automation Platform at this time. It is a technical preview, and support policy is shown in the following <a href="https://access.redhat.com/support/offerings/techpreview">knowledge base article</a>.</td>
+</tr>
+</tbody></table>
+<p>If you missed the news, Ansible Lightspeed with IBM Watson Code Assistant is a new generative AI service focused on enhancing the Ansible Playbook creation experience. Interested? Head to <a href="http://www.redhat.com/ansible-lightspeed">redhat.com/ansible-lightspeed</a> for more information. You can also <a href="https://www.redhat.com/blog/now-in-technology-preview-ansible-lightspeed-with-ibm-watson-code-assistant?hs_preview=VRkefZIl-119908369436">check out this blog</a> for an in-depth look at what to expect and how to get connected.</p>
+<h2>Wrap-up, next steps and resources</h2>
+<p>Ansible Automation Platform 2.4 is built to be trusted, flexible, and easy to use - while offering customers more. If you’re already an Ansible Automation Platform customer, the first thing you should do is hit the <a href="https://access.redhat.com/">Customer Portal</a> to download the 2.4 release,<a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.4/html/red_hat_ansible_automation_platform_release_notes/index">check out the release notes</a>, and start exploring.</p>
+<ul>
+<li>You can also check out this <a href="https://youtu.be/kiGofmvawOg">video</a>, which covers a lot of the material in this blog, but also includes demos of everything so you can see it all in action. It also features a great walk through of Event-Driven Ansible by Colin McNaughton.</li>
+</ul>
+<p><strong>Event-Driven Ansible</strong> is all about doing more with automation and getting more value from existing technology investments. There are a ton of great resources available for anyone looking to get their event-driven journey started.</p>
+<ul>
+<li>Blog: <a href="https://www.redhat.com/blog/event-driven-ansible-is-here">Event-Driven Ansible is here</a></li>
+<li>Blog: <a href="https://www.redhat.com/blog/event-driven-ansible-driving-innovations-at-the-edge">Event-Driven Ansible: Driving Innovations at the Edge</a></li>
+<li>New hands-on, on-demand lab: <a href="https://www.redhat.com/en/engage/event-driven-ansible-20220907">Getting started with event-driven automation</a></li>
+<li>Webinar: <a href="https://www.redhat.com/resources/webinars-training/work-smarter-using-event-driven-automation-across-it-operation">Work smarter using event-driven automation across IT operations</a></li>
+<li>Checklist: <a href="https://www.redhat.com/en/resources/5-ways-event-driven-automation-checklist">5 ways event-driven automation can help you achieve more</a></li>
+<li>Checklist: <a href="https://www.redhat.com/rhdc/managed-files/ma-5-reasons-for-event-driven-automation-checklist-330650-202305-en.pdf">5 reasons to include event-driven automation in your IT strategy</a></li>
+</ul>
+<p><strong>Collection repository management</strong> will provide customers with the ability to grow their automation practices with more trust and more control.</p>
+<p><strong>Ansible validated content</strong> is a great resource for customers to get more done, more quickly. If you haven’t been taking advantage of Ansible validated content, it’s time to change that!</p>
+<ul>
+<li>Blog: <a href="https://www.redhat.com/en/blog/automate-expert-ansible-validated-content#:~:text=What%20does%20%E2%80%9Cvalidated%E2%80%9D%20mean%3F,on%20successfully%20deployed%20customer%20examples">Automate like an expert with Ansible validated content</a></li>
+<li>Datasheet: Start automating in less time with Ansible validated content</li>
+</ul>
+<p><strong>Ansible Builder v3</strong> will help developers create execution environments more efficiently.</p>
+<p>And <strong>platform support on an expanded set of CPU architectures</strong> will ensure more flexibility - and more possibilities.</p>
+<p>That’s all for now. Thanks for reading and stay tuned for additional blogs going deeper on some of the new features outlined here today. And as always - happy automating.</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.4">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

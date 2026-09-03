@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Hat Ansible Network Automation Updates — Ansible TMM Blog</title>
+  <meta name="description" content="Red Hat Ansible Networking product updates featuring new network automation modules, improved Ansible Tower user experience, Ansible Tower credential management for network devices, custom Ansible environment support for Ansible Tower and more.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/red-hat-ansible-network-automation-updates">
+  <meta property="og:title" content="Red Hat Ansible Network Automation Updates">
+  <meta property="og:description" content="Red Hat Ansible Networking product updates featuring new network automation modules, improved Ansible Tower user experience, Ansible Tower credential management for network devices, custom Ansible environment support for Ansible Tower and more.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/red-hat-ansible-network-automation-updates">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/red-hat-ansible-network-automation-updates" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on October 9, 2018.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Red Hat Ansible Network Automation Updates</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2018-10-10">October 9, 2018</time> · 11-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>With the recent success of the largest AnsibleFest to date I wanted to take a minute to reflect with a network automation perspective on the colossal enhancements the engineering team at Red Hat has done for the Ansible Engine 2.6 release, the Ansible Tower 3.3 release and the recent Ansible Engine 2.7 release. As a reminder for all Ansible lovers there is a <a href="https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html">porting guide</a> for every release to make upgrades as easy as possible!</p>
+<p>For this blog post I am going to cover the following topics:</p>
+<ul>
+<li><p>The httpapi connection plugin</p>
+</li>
+<li><p>Support for Arista eAPI and Cisco NX-API</p>
+</li>
+<li><p>New network automation modules</p>
+</li>
+<li><p>net_get and net_put</p>
+</li>
+<li><p>netconf_get, netconf_rpc and netconf_config</p>
+</li>
+<li><p>cli_command and cli_config</p>
+</li>
+<li><p>Improved Ansible Tower User Experience</p>
+</li>
+<li><p>Ansible Tower credential management for network devices</p>
+</li>
+<li><p>Custom Ansible Environment Support for Ansible Tower</p>
+</li>
+</ul>
+<h2>The HTTPAPI connection plugin</h2>
+<p><a href="https://docs.ansible.com/ansible/latest/plugins/connection.html">Connection plugins</a> allow Ansible to connect to target hosts so it can execute tasks on them. With the Ansible 2.5 release the network_cli connection plugin was introduced, removing the requirement for the provider parameter and standardizing network modules to allow playbooks to look, feel and operate just like they do on Linux hosts. This also allowed Red Hat Ansible Tower to treat network devices like other devices and utilize “machine credentials,” no longer needing “network credentials.” This was covered in a <a href="https://www.ansible.com/blog/coming-soon-networking-features-in-ansible-2.5">previous blog post</a>, but login information like username and password could be used and stored similarly for a Linux server and for an Arista EOS switch or Cisco router.</p>
+<p>However, connecting via eAPI and NX-API methods were previously only supported using the legacy provider method. With Ansible 2.6 this is no longer a restriction and the top level httpapi connection method can be used instead. Let’s demonstrate what this looks like.</p>
+<p>First, eAPI or NX-API must be enabled on the networking platform for the httpapi method to be usable. Luckily this is super simple with Ansible! An ad-hoc command can quickly turn on eAPI on my Arista EOS switch. </p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[user@rhel7]$ ansible -m eos_eapi -c network_cli leaf01  </span></span>
+<span class="line"><span>leaf01 | SUCCESS => {   </span></span>
+<span class="line"><span>   "ansible_facts": {   </span></span>
+<span class="line"><span>     "eos_eapi_urls": {   </span></span>
+<span class="line"><span>       "Ethernet1": [   </span></span>
+<span class="line"><span>            "https://192.168.0.14:443"   </span></span>
+<span class="line"><span>        ],   </span></span>
+<span class="line"><span>        "Management1": [   </span></span>
+<span class="line"><span>             "https://10.0.2.15:443"   </span></span>
+<span class="line"><span>        ]   </span></span>
+<span class="line"><span>     }   </span></span>
+<span class="line"><span>    },   </span></span>
+<span class="line"><span>    "changed": false,   </span></span>
+<span class="line"><span>    "commands": []  </span></span>
+<span class="line"><span>}</span></span></code></pre><p>When connecting to the actual Arista EOS switch, a show management api http-commands command shows us the API is turned on:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>leaf01# show management api http-commands  </span></span>
+<span class="line"><span>Enabled:      Yes  </span></span>
+<span class="line"><span>HTTPS server: running, set to use port 443  </span></span>
+<span class="line"><span>&#x3C;&#x3C;&#x3C;rest of output removed for brevity>>></span></span></code></pre><p>The following Ansible Playbook performs a simple “show version” and then a debug statement will return just the version from the JSON output provided from the task.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---  </span></span>
+<span class="line"><span>- hosts: leaf01   </span></span>
+<span class="line"><span>  connection: httpapi   </span></span>
+<span class="line"><span>  gather_facts: false   </span></span>
+<span class="line"><span>  tasks:   </span></span>
+<span class="line"><span>    - name: type a simple arista command   </span></span>
+<span class="line"><span>      eos_command:   </span></span>
+<span class="line"><span>      commands:   </span></span>
+<span class="line"><span>        - show version | json   </span></span>
+<span class="line"><span>      register: command_output   </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>    - name: print command output to terminal window   </span></span>
+<span class="line"><span>      debug:   </span></span>
+<span class="line"><span>        var: command_output.stdout[0]["version"]</span></span></code></pre><p>Running the playbook will result in the following:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[user@rhel7]$ ansible-playbook playbook.yml  </span></span>
+<span class="line"><span>PLAY [leaf01]********************************************************  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>TASK [type a simple arista command] *********************************  </span></span>
+<span class="line"><span>ok: [leaf01]  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>TASK [print command output to terminal window] **********************  </span></span>
+<span class="line"><span>ok: [leaf01] => {   </span></span>
+<span class="line"><span>     "command_output.stdout[0][\"version\"]": "4.20.1F"   </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>}   </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>PLAY RECAP***********************************************************  </span></span>
+<span class="line"><span>leaf01 : ok=2 changed=0 unreachable=0 failed=0</span></span></code></pre><p>As a side note, the short versions of commands (e.g. “show ver” vs “show version”) don’t work on Arista eAPI, you must use the full command. For more information on the httpapi connection plugin refer to the <a href="https://docs.ansible.com/ansible/latest/plugins/connection/httpapi.html">relevant documentation</a>.</p>
+<p>New network automation modules</p>
+<p>The Ansible 2.6 release and upcoming 2.7 release have seven new modules.</p>
+<h4><strong>net_get and net_put</strong></h4>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/net_get_module.html">net_get</a> - copy a file from a network device to Ansible Controller</li>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/net_put_module.html">net_put</a> - copy a file from Ansible Controller to a network device</li>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/netconf_get_module.html#netconf-get-module">netconf_get</a> - fetch configuration/state data from NETCONF enabled network devices</li>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/netconf_rpc_module.html#netconf-rpc-module">netconf_rpc</a> - execute operations on NETCONF enabled network devices</li>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/netconf_config_module.html#netconf-config-module">netconf_config</a> - netconf device configuration, module allows the user to send a configuration XML file to a netconf device, and detects if there was a configuration change.</li>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/cli_command_module.html#cli-command-module">cli_command</a> - run a cli command on cli-based network devices</li>
+<li><a href="https://docs.ansible.com/ansible/devel/modules/cli_config_module.html#cli-config-module">c</a><a href="https://docs.ansible.com/ansible/latest/modules/cli_config_module.html#cli-config-module">li_config</a> - push text based configuration to network devices over network_cli</li>
+</ul>
+<p>The net_get and net_put modules are agnostic modules that use standard SCP or SFTP transfer protocols (chosen by the protocol parameter) to copy files to and from network devices. Both modules require use of the network_cli connection method, and that scp is installed (pip install scp) on the controller, and that SCP (or SFTP) is enabled on the network device. </p>
+<p>For this playbook to work we will assume we already performed the following on Leaf01:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>leaf01#copy running-config flash:running_cfg_eos1.txt  </span></span>
+<span class="line"><span>Copy completed successfully.</span></span></code></pre><p>Here is a look at a playbook with two tasks. The first task copies a file from Leaf01 and the second task copies a file to Leaf01</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---  </span></span>
+<span class="line"><span>- hosts: leaf01   </span></span>
+<span class="line"><span>  connection: network_cli   </span></span>
+<span class="line"><span>  gather_facts: false   </span></span>
+<span class="line"><span>  tasks:   </span></span>
+<span class="line"><span>     </span></span>
+<span class="line"><span>   - name: COPY FILE FROM THE NETWORK DEVICE TO ANSIBLE CONTROLLER   </span></span>
+<span class="line"><span>     net_get:   </span></span>
+<span class="line"><span>       src: running_cfg_eos1.txt   </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  - name: COPY FILE FROM THE ANSIBLE CONTROLLER TO THE NETWORK DEVICE   </span></span>
+<span class="line"><span>    net_put:   </span></span>
+<span class="line"><span>      src: temp.txt</span></span></code></pre><p>netconf_get, netconf_rpc and netconf_config</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/netconf_get_module.html#netconf-get-module">netconf_get</a> - fetch configuration/state data from NETCONF enabled network devices</li>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/netconf_rpc_module.html#netconf-rpc-module">netconf_rpc</a> - execute operations on NETCONF enabled network devices</li>
+<li><a href="https://docs.ansible.com/ansible/latest/modules/netconf_config_module.html#netconf-config-module">netconf_config</a> - netconf device configuration, module allows the user to send a configuration XML file to a netconf device, and detects if there was a configuration change.</li>
+</ul>
+<p>The Network Configuration Protocol (NETCONF) is a network management protocol developed and standardized by the IETF. As defined in RFC 6241, NETCONF can be used to install, manipulate, and delete the configuration of network devices. NETCONF is an alternative to SSH command line (network_cli) and device APIs like Cisco NX-API and Arista eAPI (httpapi).  </p>
+<p>To showcase the new netconf modules, I will first enable netconf on some Juniper routers using the <a href="https://docs.ansible.com/ansible/latest/modules/junos_netconf_module.html">junos_netconf</a> module. Not all networking devices support netconf so please check your vendor’s documentation for which specific platforms support it.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[user@rhel7 ~]$ ansible -m junos_netconf juniper -c network_cli  </span></span>
+<span class="line"><span>rtr4 | CHANGED => {   </span></span>
+<span class="line"><span>    "changed": true,   </span></span>
+<span class="line"><span>    "commands": [   </span></span>
+<span class="line"><span>         "set system services netconf ssh port 830"   </span></span>
+<span class="line"><span>    ]  </span></span>
+<span class="line"><span>}  </span></span>
+<span class="line"><span>rtr3 | CHANGED => {   </span></span>
+<span class="line"><span>    "changed": true,   </span></span>
+<span class="line"><span>    "commands": [   </span></span>
+<span class="line"><span>         "set system services netconf ssh port 830"   </span></span>
+<span class="line"><span>    ]  </span></span>
+<span class="line"><span>}</span></span></code></pre><p>Juniper Networks has a Junos XML API Explorer for <a href="https://apps.juniper.net/xmlapi/operTags.jsp">Operational Tags</a> as well as <a href="https://apps.juniper.net/xmlapi/">Configuration Tags</a>. Lets look at an operational requests example Juniper Networks <a href="https://www.juniper.net/documentation/en_US/junos/topics/task/operational/netconf-session-request-sending.html">uses in their example documentation</a> for an RPC request for a specific interface:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>&#x3C;rpc>  </span></span>
+<span class="line"><span>  &#x3C;get-interface-information>  </span></span>
+<span class="line"><span>   &#x3C;interface-name>ge-2/3/0&#x3C;/interface-name>  </span></span>
+<span class="line"><span>    &#x3C;detail/>  </span></span>
+<span class="line"><span> &#x3C;/get-interface-information>  </span></span>
+<span class="line"><span>&#x3C;/rpc>  </span></span>
+<span class="line"><span>]]>]]></span></span></code></pre><p>This will translate elegantly to an Ansible Playbook. The get-interface-information is the RPC call, and additional parameters are defined under the content parameter as key, value pairs. In this case there is one option, the interface-name, and on our network device we just want to look at em1.0. We use the register task level parameter simply to save the results so we can use the debug module and print the output to the terminal window. The netconf_rpc module also allows us to translate the XML return values directly into JSON.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---  </span></span>
+<span class="line"><span>- name: RUN A NETCONF COMMAND   </span></span>
+<span class="line"><span>  hosts: juniper   </span></span>
+<span class="line"><span>  gather_facts: no   </span></span>
+<span class="line"><span>  connection: netconf   </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  tasks:   </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>    - name: GET INTERFACE INFO   </span></span>
+<span class="line"><span>      netconf_rpc:   </span></span>
+<span class="line"><span>        display: json   </span></span>
+<span class="line"><span>        rpc: get-interface-information   </span></span>
+<span class="line"><span>        content:   </span></span>
+<span class="line"><span>          interface-name: "em1.0"   </span></span>
+<span class="line"><span>      register: netconf_info   </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>    - name: PRINT OUTPUT TO TERMINAL WINDOW   </span></span>
+<span class="line"><span>      debug:   </span></span>
+<span class="line"><span>        var: netconf_info</span></span></code></pre><p>Running the playbook will return the following:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ok: [rtr4] => {  </span></span>
+<span class="line"><span>   "netconf_info": {  </span></span>
+<span class="line"><span>   "changed": false,  </span></span>
+<span class="line"><span>   "failed": false,  </span></span>
+<span class="line"><span>   "output": {  </span></span>
+<span class="line"><span>      "rpc-reply": {  </span></span>
+<span class="line"><span>        "interface-information": {  </span></span>
+<span class="line"><span>         "logical-interface": {  </span></span>
+<span class="line"><span>          "address-family": [  </span></span>
+<span class="line"><span>           {  </span></span>
+<span class="line"><span>              "address-family-flags": {  </span></span>
+<span class="line"><span>                 "ifff-is-primary": ""  </span></span>
+<span class="line"><span>               },  </span></span>
+<span class="line"><span>               "address-family-name": "inet",  </span></span>
+<span class="line"><span>               "interface-address": [  </span></span>
+<span class="line"><span>               {  </span></span>
+<span class="line"><span>                  "ifa-broadcast": "10.255.255.255",  </span></span>
+<span class="line"><span>                  "ifa-destination": "10/8",  </span></span>
+<span class="line"><span>                  "ifa-flags": {  </span></span>
+<span class="line"><span>                      "ifaf-current-preferred": ""  </span></span>
+<span class="line"><span>                  },  </span></span>
+<span class="line"><span>                  "ifa-local": "10.0.0.4"  </span></span>
+<span class="line"><span>                },  </span></span>
+<span class="line"><span>&#x3C;&#x3C;&#x3C;rest of output removed for brevity>>></span></span></code></pre><p>For more information on the Juniper platform refer to the <a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">Juniper P</a><a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">latform</a> <a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">G</a><a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_junos.html#junos-os-platform-options">uide</a>. For more information on the NETCONF connection plugin refer to <a href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">the</a> <a href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">NETCONF</a> <a href="https://docs.ansible.com/ansible/latest/plugins/connection/netconf.html">documentation</a>.</p>
+<h3>cli_command and cli_config</h3>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/devel/modules/cli_command_module.html#cli-command-module">cli_command</a> - run a cli command on cli-based network devices</li>
+<li><a href="https://docs.ansible.com/ansible/devel/modules/cli_config_module.html#cli-config-module">cli_config</a> - push text based configuration to network devices over network_cli</li>
+</ul>
+<p>Available in the Ansible Engine 2.7 release, the cli_command and cli_config modules are vendor agnostic modules for automating against network platforms. These modules key off of the ansible_network_os variable (defined in the inventory file or group_vars directory) to use the correct cliconf plugin. This results in a more vendor neutral approach to network automation playbooks. For a list of all the ansible_network_os values please <a href="https://docs.ansible.com/ansible/latest/network/user_guide/platform_index.html#settings-by-platform">refer to the documentation</a>. The platform modules are not being deprecated in this release, so there is no rush to update existing playbooks! Please refer to the <a href="https://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html">official porting guides</a> for more information.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Network-Automation-Module-Deprecation.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Network-Automation-Module-Deprecation.png" alt="Network-Automation-Module-Deprecation"></a></p>
+<p>Let&#39;s look at what an Ansible Playbook would look like. This playbook will be run against two Cisco Cloud Services Routers (CSR) running IOS-XE. We set ansible_network_os to ios in our inventory.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>&#x3C;config snippet from inventory>  </span></span>
+<span class="line"><span>[cisco]  </span></span>
+<span class="line"><span>rtr1 ansible_host=34.203.197.120   </span></span>
+<span class="line"><span>rtr2 ansible_host=34.224.60.230  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>[cisco:vars]  </span></span>
+<span class="line"><span>ansible_ssh_user=ec2-user  </span></span>
+<span class="line"><span>ansible_network_os=ios</span></span></code></pre><p>Here is a playbook using cli_config and cli_command:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---  </span></span>
+<span class="line"><span>- name: AGNOSTIC PLAYBOOK   </span></span>
+<span class="line"><span>  hosts: cisco   </span></span>
+<span class="line"><span>  gather_facts: no   </span></span>
+<span class="line"><span>  connection: network_cli   </span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>  tasks:   </span></span>
+<span class="line"><span>     - name: CONFIGURE DNS   </span></span>
+<span class="line"><span>       cli_config:   </span></span>
+<span class="line"><span>         config: ip name-server 8.8.8.8   </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>     - name: CHECK CONFIGURATION   </span></span>
+<span class="line"><span>         cli_command:   </span></span>
+<span class="line"><span>           command: show run | i ip name-server   </span></span>
+<span class="line"><span>       register: cisco_output   </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>     - name: PRINT OUTPUT TO SCREEN   </span></span>
+<span class="line"><span>       debug:   </span></span>
+<span class="line"><span>         var: cisco_output.stdout</span></span></code></pre><p>Finally, the output of the Ansible Playbook:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[user@rhel7 ~]$ ansible-playbook cli.yml  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>PLAY [AGNOSTIC PLAYBOOK] *********************************************  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>TASK [CONFIGURE DNS] *************************************************  </span></span>
+<span class="line"><span>ok: [rtr1]  </span></span>
+<span class="line"><span>ok: [rtr2]  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>TASK [CHECK CONFIGURATION] *******************************************  </span></span>
+<span class="line"><span>ok: [rtr1]  </span></span>
+<span class="line"><span>ok: [rtr2]  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>TASK [PRINT OUTPUT TO SCREEN] ****************************************  </span></span>
+<span class="line"><span>ok: [rtr1] => {   </span></span>
+<span class="line"><span>    "cisco_output.stdout": "ip name-server 8.8.8.8"  </span></span>
+<span class="line"><span>}  </span></span>
+<span class="line"><span>ok:   </span></span>
+<span class="line"><span>    [rtr2] => {   </span></span>
+<span class="line"><span>    "cisco_output.stdout": "ip name-server 8.8.8.8"  </span></span>
+<span class="line"><span>}  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>PLAY RECAP **********************************************************  </span></span>
+<span class="line"><span>rtr1 : ok=3 changed=0 unreachable=0 failed=0  </span></span>
+<span class="line"><span>rtr2 : ok=3 changed=0 unreachable=0 failed=0</span></span></code></pre><p>Looking at the output above you will also notice that the modules are <a href="https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html">idempotent</a> as long as you use the matching syntax for the appropriate network device.</p>
+<h2>Improved Ansible Tower User Experience</h2>
+<p>With the release of Red Hat Ansible Tower 3.3, the web user interface has been improved to be more functional and to get more things done with less clicks. When you login to your upgraded Ansible Tower 3.3 you will be greeted with the new refreshed UX. </p>
+<p>Credential management, job scheduling , inventory scripts, role based access control (RBAC), notifications and more are now one click away on the left menu. When looking under the Jobs View more information is provided at the top level, such as the start time, user who launched the job, inventory the job was run against and the project the playbook was retrieved from.</p>
+<h2>Ansible Tower Credential Management for Network Devices</h2>
+<p>With Red Hat Ansible Tower 3.3, credential management is now easier than ever for network devices. With the new Web UI, reaching the <strong>Credentials</strong> menu is just 1-click away. Select <strong>Credentials</strong> under <strong>Resources</strong> on the left-hand menubar. </p>
+<p>Previously, there was a credential type called <strong>Network</strong> which sets environment variables ANSIBLE_NET_USERNAME and ANSIBLE_NET_PASSWORD which works well with the legacy network provider method. This is documented in the <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html#network">credential section of the Tower documentation</a> and is still fully supported for existing Ansible Playbooks. However with the new top-level httpapi and network_cli connection methods, this is no longer required. Usernames and passwords work identically to how Ansible connects to standard Linux hosts. Therefore, the <strong>Machine</strong> credentials type can now be used for network devices. Select the Machine credential and just type in the username and password (or provide an SSH key). </p>
+<p>NOTE: Ansible Tower encrypts the password once you save the credential.</p>
+<p>With encryption, the credential can be delegated to groups or individuals without them seeing or knowing the actual password. For more information on how the credentials work, what encryption is being used, and other credential types (like Amazon AWS, Microsoft Azure and Google GCE) check out the relevant <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html">Ansible</a><a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/credentials.html">Tower Documentation</a>.</p>
+<p>For a more detailed description of the new Red Hat Ansible Tower 3.3 release checkout Chris Short’s <a href="https://www.ansible.com/blog/ansible-tower-3.3-available-now">blog post here</a>.</p>
+<p> <br>Custom Ansible Environment Support for Tower</p>
+<p>What if I want some Ansible Playbooks to run with Ansible Engine 2.4.2 and some playbooks to run with Ansible Engine 2.6.4? To solve this particular use case Tower uses virtualenv. Virtualenv is a tool to create isolated Python environments to avoid problems caused by conflicting dependencies and differing versions. With the Ansible Tower 3.3 release the virtualenv can be set at the Organization, Project or Job Template level. Here is a look at the Job Template we have setup in Ansible Tower for performing backups of our network.</p>
+<p>As soon as two or more virtual environments are configured on Ansible Tower, an <strong>Ansible Environment</strong> drop down menu will appear in the Web UI. This makes it incredibly easy to choose which version of Ansible a particular Job is run with.</p>
+<p>If,you have a mix of network automation playbooks that were written using the provider method (pre Ansible 2.4 and earlier) and newer playbooks using httpapi or network_cli connection plugins (2.5 and later) you could now easily assign different versions of Ansible to each particular Job. Other possible use-cases include having different versions of Ansible for your dev environment vs your production environment. To think about this another way, upgrading Tower does not mean your organization is locked to one particular version of Ansible Engine. This allows a lot more flexibility for automating different types of networking gear, environments and use cases.</p>
+<p>For more information on using virtualenv with Ansible Tower refer to the <a href="https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#using-virtualenv-with-at">re</a><a href="https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#using-virtualenv-with-at">levant</a> <a href="https://docs.ansible.com/ansible-tower/latest/html/upgrade-migration-guide/virtualenv.html#using-virtualenv-with-at">documentation</a>.</p>
+<h2>Thank You</h2>
+<p>The Ansible Networking team is excited about the forthcoming Ansible 2.7 release, and would like to extend a warm thank you to all networking partners and community members who helped make it possible. We love to hear your feedback, thoughts and ideas, and we welcome you to participate in the<a href="https://github.com/ansible/community/tree/master/group-network">Ansible networking community</a>.</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecting-true-autonomy-level-45-network">Architecting true autonomy with a level 4/5 network</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/solve-multi-controller-contention-red-hat-openshift-networking">Solve multi-controller contention with Red Hat OpenShift networking</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/red-hat-ansible-network-automation-updates">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

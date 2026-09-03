@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant — Ansible TMM Blog</title>
+  <meta name="description" content="In this blog, we’ll walk through the steps to get Ansible Lightspeed with IBM watsonx Code Assistant up and running for your organization. We’ll share how end users can set up the service in their Visual Studio Code (VS Code) environment. We’ll also share more on what to expect from the experience and supplemental tools available to turbocharge your Ansible creator journey with generative AI capabilities built on a foundation of transparency, accuracy, and choice">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant">
+  <meta property="og:title" content="Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant">
+  <meta property="og:description" content="In this blog, we’ll walk through the steps to get Ansible Lightspeed with IBM watsonx Code Assistant up and running for your organization. We’ll share how end users can set up the service in their Visual Studio Code (VS Code) environment. We’ll also share more on what to expect from the experience and supplemental tools available to turbocharge your Ansible creator journey with generative AI capabilities built on a foundation of transparency, accuracy, and choice">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on October 29, 2023.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant</h1>
+        <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2023-10-30">October 29, 2023</time> · 6-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>**Note from the editor:**This blog post was originally published in November 2023 and has been updated to include the latest feature enhancements for Red Hat Ansible Automation Platform subscribers.</p>
+<p><a href="https://www.redhat.com/en/about/press-releases/red-hat-launches-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant-ai-driven-enterprise-it-automation">Red Hat Ansible Lightspeed with IBM watsonx Code Assistant</a> is a generative AI (gen AI) service within Red Hat Ansible Automation Platform that is engineered to help automation teams create, adopt and maintain Ansible content more efficiently.</p>
+<p>In this post, we’ll walk through the capabilities of Ansible Lightspeed with IBM watsonx Code Assistant to help you turbocharge Ansible content creation experience and start automating faster. We&#39;ll also review the options available to help you get hands-on with the service.</p>
+<h2>Bringing AI to Ansible content creation through collaboration between Red Hat and IBM</h2>
+<p>Ansible Lightspeed with IBM watsonx Code Assistant is the culmination of Red Hat and IBM teams combining forces to create a cohesive AI experience for Ansible content creation. Tapping into automation-specific <a href="https://research.ibm.com/topics/foundation-models">IBM watsonx foundation models</a>, it turns text prompts into Ansible content for the creation of Ansible content. The generated content adheres to accepted Ansible best practices and, when combined with the Ansible code bot, helps teams build more confidence in their automation code base.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/Lightspeed%20layer%20slide.png"><img src="https://www.redhat.com/rhdc/managed-files/Lightspeed%20layer%20slide.png" alt="Ansible lightspeed layer" title="Ansible lightspeed layer"></a></p>
+<p>The service consists of three components:</p>
+<ol>
+<li>The developer interface: Built natively into the VS Code extension via the Ansible extension, this allows Ansible content creators to use natural language prompts in the Ansible Playbooks or task files to generate Ansible Lightspeed single and multi-task suggestions.</li>
+<li>The integrated service: This acts as the glue or broker between the developer interface and the watsonx.ai service. It brings the power of AI to Ansible Automation Platform and enhances the responses from the AI with its post-processing capabilities.</li>
+<li>Gen AI: <a href="https://www.ibm.com/products/watsonx-code-assistant-ansible-lightspeed">IBM watsonx Code Assistant</a> provides access to Ansible-specific watsonx.ai foundation model that generates Ansible content recommendations. This is the “AI guts&#39;&#39; of the solution.</li>
+</ol>
+<p>Ansible Lightspeed with IBM watsonx Code Assistant can be deployed as a software-as-a-service (SaaS) deployment or on-premise in your datacenter.</p>
+<h2>How to access Ansible Lightspeed</h2>
+<p>Ansible Lightspeed is included with a subscription to Ansible Automation Platform, however, there is an additional cost to access the IBM watsonx Code Assistant model.</p>
+<h3>SaaS-based service</h3>
+<p>Ansible Automation Platform customers: start a 90-day trial</p>
+<p>Existing Ansible Automation Platform customers can start experimenting with the service through a free 90-day trial to Ansible Lightspeed. <a href="https://www.redhat.com/en/products/interactive-walkthrough/install-ansible-lightspeed">Learn how</a>.</p>
+<p>Once your trial expires, explore pay-as-you-go options through an IBM Cloud account. <a href="https://www.ibm.com/products/watsonx-code-assistant-ansible-lightspeed/pricing">See IBM watsonx Code Assistant pricing plans</a>.</p>
+<p>Not currently an Ansible Automation Platform subscriber?</p>
+<p><a href="https://www.redhat.com/en/technologies/management/ansible/trial">Sign up for a trial subscription</a>, then follow these <a href="https://www.redhat.com/en/products/interactive-walkthrough/install-ansible-lightspeed">instructions to activate</a> your Ansible Lightspeed trial.</p>
+<h3>On-premise service</h3>
+<p>For on-premise deployments, you will need to install the Ansible Lightspeed software via the Red Hat OpenShift operator, as well as the IBM watsonx Code Assistant via IBM Cloud Pak for Data. <a href="https://www.ibm.com/products/watsonx-code-assistant-ansible-lightspeed">Please contact IBM</a> for pricing and additional information.</p>
+<p>Once you&#39;re connected,  it&#39;s time to experience its AI-enhanced content creation experience. The following features are available through both the SaaS and on-premise service.</p>
+<h3>Hybrid deployment</h3>
+<p>You can also deploy Red Hat Ansible Lightspeed on-premise and connect to the IBM watsonx Code Assistant model in the cloud. A hybrid deployment gives you more flexibility to run the Red Hat Ansible Lightspeed service in your regional datacenter while connecting to WCA hosted in an <a href="https://cloud.ibm.com/catalog/services/ibm-watsonx-code-assistant">IBM-supported location</a>. It also allows you to use Ansible Automation Platform for user authentication, eliminating the need to log into the Red Hat Ansible Lightspeed cloud-based service.</p>
+<h2>Create</h2>
+<h3>Create an Ansible Playbook</h3>
+<p>Ansible Lightspeed with watsonx Code Assistant supports full playbook generation and content explanation. You will need to install the latest version of the Ansible VS Code extension (&gt;=24.8.0) to access these features.</p>
+<p>To get started, click on the Ansible icon in the left-hand navigation and then the “Get Started” button under the Ansible content creator. Select “Playbook with Ansible Lightspeed” to enter the guided chat interface for full playbook generation.</p>
+<p>In the interface, enter your playbook prompt in natural language and click “Analyze”. The service will provide an editable outline of tasks (pseudo code). This chat-like interface allows real-time interaction with the gen AI service where you can refine your prompt. Both the playbook goal and outline are sent to Ansible Lightspeed with watsonx Code Assistant, which suggests a complete playbook. This intuitive and guided experience helps novice to intermediate users generate full Ansible Playbooks using gen AI.</p>
+<h3>Create an Ansible Role</h3>
+<p>You can also use Red Hat Ansible Lightspeed to quickly generate role files using the latest version of the VS Code editor (≥ 25.3.0). Once the role is created, you can further enhance the generated files using task generation.</p>
+<p>To use the new role generation feature, you need to create the role from within a collection. You can use the ansible-creator CLI tool or <a href="https://www.redhat.com/en/technologies/management/ansible/development-tools">Ansible development tools</a> view within the Ansible VSCode extension to scaffold your collection, ensuring that your roles follow best practices from the start.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/Lightspeed%20Role%20Creation.png"><img src="https://www.redhat.com/rhdc/managed-files/Lightspeed%20Role%20Creation.png" alt="2"></a></p>
+<h3>Content explanation</h3>
+<p>The Ansible VS Code extension also provides you capability to explain existing and newly generated playbooks and roles so that you can easily understand the details of any playbook. To explain any playbook, open it in VS Code and click on “Explain the current playbook” under the Ansible Lightspeed section. You can also right-click on a playbook and click on “Explain the playbook with Ansible Lightspeed”.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/playbookgenration.gif"><img src="https://www.redhat.com/rhdc/managed-files/playbookgenration.gif" alt="playbook generation" title="playbook generation"></a></p>
+<p>Full playbook generation with explanation</p>
+<p>Along with full playbook generation and playbook explanation, Ansible Lightspeed also provides more granular control over the creation process through features like single and multi-task generation.</p>
+<h3>Single and multiple task generation</h3>
+<p>When you need to add specific inline tasks to your playbooks, Ansible Lightspeed excels with its single and multi-task generation capabilities.</p>
+<p>Single task generation</p>
+<ul>
+<li>Start a new task in your playbook and provide a name using the name argument.</li>
+<li>Position your cursor at the end of the task name and hit “Enter” to get a suggestion from Ansible Lightspeed.</li>
+</ul>
+<p>Multi-task generation</p>
+<ul>
+<li>Create a comment line at the task block level in your playbook.</li>
+<li>Chain multiple natural language prompts together using ampersands (&amp;).</li>
+<li>At the end of the comment line, hit “Enter” to get a multi-task suggestion from Ansible Lightspeed.</li>
+</ul>
+<p>These features streamline the process of creating detailed, multi-step workflows in your Ansible Playbooks, enhancing efficiency and consistency.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/playbookgenration.gif"><img src="https://www.redhat.com/rhdc/managed-files/playbookgenration.gif" alt="playbook generation" title="playbook generation"></a></p>
+<p>Generating an Ansible task</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/single_task_0.gif"><img src="https://www.redhat.com/rhdc/managed-files/single_task_0.gif" alt="single task" title="single task"></a></p>
+<p>Generating multiple Ansible tasks</p>
+<h2>Adopt</h2>
+<h3>Content source matching</h3>
+<p>Another critical feature of Ansible Lightspeed with watsonx Code Assistant is transparency and openness using content source matching. We transparently share the potential source, author and content license of the training data used for the recommendation. Building trust in the community and supporting the relationships between authors and contributors is part of Red Hat’s DNA.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/content_source_matching_optimized_0.gif"><img src="https://www.redhat.com/rhdc/managed-files/content_source_matching_optimized_0.gif" alt="content source matching optimized" title="content source matching optimized"></a></p>
+<p>Ansible Lightspeed content source matching</p>
+<h3>Post-processing</h3>
+<p>Ansible Lightspeed is purpose-built for automation, providing a streamlined and accurate gen AI experience that is tailored by—and for—IT automation teams. Ansible Lightspeed&#39;s post-processing capabilities adhere to accepted Ansible best practices so automation teams can have confidence in the code they are accepting.</p>
+<p>Examples of post-processing include using FQCN, doing data anonymization and other variable substitutions. The example provided in the “How to generate a suggestion” section above shows the suggestions generated with FQCNs as one of the post-processing capabilities of the service.</p>
+<h2>Maintain</h2>
+<h2>Ansible code bot</h2>
+<p>Customers often ask, “we have the code, but what&#39;s next”? How do we move from siloed automation? How do we create a community of practice? Our answer starts with culture, and treating infrastructure workflows as software assets catalyzes the collaborative approach needed for enterprise-level automation. However, this could involve learning new skills like version control, automated testing and code review.</p>
+<p>Our goal with Ansible code bot is to extend Ansible content quality improvement beyond creation and into your entire workflow. The Ansible code bot scans existing <a href="https://www.redhat.com/en/technologies/management/ansible/content-collections">Ansible Content Collections</a>, roles and playbooks hosted in GitHub repositories, and proactively creates pull requests whenever best practices or quality improvement recommendations are available. The bot automatically submits pull requests to the repository, which proactively alerts the repository owner to a recommended change to their content. You can configure Ansible code bot to scan your existing Git repositories (both public and private).</p>
+<h3>Prerequisites</h3>
+<ul>
+<li>A Red Hat customer portal account that is attached to your organization.</li>
+<li>Your organization should have a valid Ansible Lightspeed subscription enabled.</li>
+</ul>
+<h3>Procedure</h3>
+<ol>
+<li>Log in to your GitHub by using an account associated with your organization.</li>
+<li>Install the GitHub app for the organization that you are a member of.</li>
+<li>Go to the Ansible code bot GitHub app:<ol>
+<li><a href="https://github.com/apps/ansible-code-bot">Ansible code bot - GitHub Apps</a></li>
+</ol>
+</li>
+<li>Select the repositories on which you want to install the Ansible code bot.</li>
+<li>Click Install &amp; Authorize.</li>
+<li>When prompted, log in to your Red Hat SSO account.</li>
+</ol>
+<p><a href="https://www.redhat.com/rhdc/managed-files/code_bot_optimized_0.gif"><img src="https://www.redhat.com/rhdc/managed-files/code_bot_optimized_0.gif" alt="code bot optimized" title="code bot optimized"></a></p>
+<p>Ansible code bot in action</p>
+<p>After the Ansible code bot is installed for the Git repositories you selected, you can configure a schedule to scan your Git repositories at regular intervals. You can also manually scan your Git repositories by adding a topic called “ansible-code-bot-scan” to your repository, if you have not set up a scanning schedule for your Ansible code bot or if you do not want to wait for the next scheduled scan.</p>
+<h2>Additional resources</h2>
+<ul>
+<li>Website: <a href="http://www.redhat.com/ansible-lightspeed">Red Hat Ansible Lightspeed with IBM watsonx Code Assistant</a></li>
+<li>Documentation: <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_lightspeed_with_ibm_watsonx_code_assistant/2.x_latest">Ansible Lightspeed with IBM watsonx Code Assistant</a></li>
+<li>Datasheet: <a href="https://www.redhat.com/en/engage/ansible-lightspeed-ibm-watsonx-code-assistant-datasheet">Ansible Lightspeed with IBM watsonx Code Assistant</a></li>
+</ul>
+<p>Thanks for reading and happy automating.</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/wa_profile%20-%20Anshul%20Behl.jpeg?itok=vYDgCAJj" alt="Anshul Behl, Principal Technical Marketing Manager, Red Hat"></a></p>
+<p>[### Anshul Behl</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/anshul-behl">https://www.redhat.com/en/authors/anshul-behl</a>)</p>
+<p>Anshul is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform&#39;s adoption experience for customers by producing technical content on all aspects of the product.</p>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/what-risk-aware-model-deployment-looks-regulated-industries">What risk-aware model deployment looks like in regulated industries</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/pytorch-AI-stack">Standardizing the AI stack with PyTorch</a></h3>
+<h2>Keep exploring</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/topics/ai/what-is-agentic-ai?intcmp=7013a000003Sq0iAAC" title="What is agentic AI?">What is agentic AI?Article</a></li>
+<li><a href="https://www.redhat.com/en/topics/ai/predictive-ai-vs-generative-ai?intcmp=7013a000003Sq0iAAC" title="Predictive AI vs. generative AI">Predictive AI vs. generative AIArticle</a></li>
+<li><a href="https://www.redhat.com/en/resources/building-production-ready-ai-environment-ebook?intcmp=7013a000003Sq0iAAC" title="Top considerations for building a production-ready AI environment">Top considerations for building a production-ready AI/ML environmentE-book</a></li>
+<li><a href="https://tv.redhat.com/detail/6347396983112/generative-ai-the-ansible-way?intcmp=7013a000003Sq0iAAC" title="Generative AI, the Ansible way">Generative AI, the Ansible wayVideo</a></li>
+<li><a href="https://www.redhat.com/en/engage/modern-application-platform-20230406?intcmp=7013a000003Sq0iAAC" title="Innovate and transform with a modern application platform">Innovate and transform with a modern application platform</a><a href="https://www.redhat.com/en/engage/openshift-application-transformation-ebook?intcmp=7013a000003Sq0iAAC" title="Innovate and transform with a modern application platform">E-book</a></li>
+</ul>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

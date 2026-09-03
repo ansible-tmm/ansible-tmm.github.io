@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ansible Automation Platform … You’re using it wrong. — Ansible TMM Blog</title>
+  <meta name="description" content="Discover 5 lesser-known features of Red Hat Ansible Automation Platform, like callback plugins &amp; job slicing, to optimize your automation experience.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/ansible-automation-platform-youre-using-it-wrong">
+  <meta property="og:title" content="Ansible Automation Platform … You’re using it wrong.">
+  <meta property="og:description" content="Discover 5 lesser-known features of Red Hat Ansible Automation Platform, like callback plugins &amp; job slicing, to optimize your automation experience.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/ansible-automation-platform-youre-using-it-wrong">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/ansible-automation-platform-youre-using-it-wrong" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on April 2, 2023.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Ansible Automation Platform … You’re using it wrong.</h1>
+        <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2023-04-03">April 2, 2023</time> · 3-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<h2>5 things you didn’t know your Red Hat Ansible Automation Platform could do</h2>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/5%20things%20blog%20post.png" alt="5 things blog post"></a></p>
+<p>When we think about automation, we tend to focus on efficiency. Automating simple or even complex tasks to streamline our processes - It’s one of the reasons organizations adopt and implement Red Hat Ansible Automation Platform.</p>
+<p>But what if we can take our automation abilities to the next level?</p>
+<p>In this blog post, I’m going to highlight 5 things you didn’t know your Ansible Automation Platform could do.</p>
+<h3>Callback Plugins</h3>
+<p>Ever need a job to notify you, log events, or capture the performance of a playbook?</p>
+<p>Say hello to callback plugins. These plugins provide a way for Ansible to respond to particular events. In order to enable callback plugins, you&#39;ll need to tweak your job settings and supply the directory location in the Ansible callback plugins section. </p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/hvme1ryAl_H_QiRC3XwmQEMddOI-2Xkwe_QR1RMosWAXa5vEAtxtUF8Ca-qiDfU-z4M_kbHqX5l9VNqMSKJWb_CkuLa5FSoAClmKREz01eySAa_4ZkJDcgnRf_I0XSoWfOQQXdT7JEKJ_U9_SrWctws_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/hvme1ryAl_H_QiRC3XwmQEMddOI-2Xkwe_QR1RMosWAXa5vEAtxtUF8Ca-qiDfU-z4M_kbHqX5l9VNqMSKJWb_CkuLa5FSoAClmKREz01eySAa_4ZkJDcgnRf_I0XSoWfOQQXdT7JEKJ_U9_SrWctws_0.png" alt=""></a></p>
+<p>For example, the <a href="https://docs.ansible.com/ansible/latest/collections/community/general/log_plays_callback.html#ansible-collections-community-general-log-plays-callback">log_plays</a> callback plugin records playbook events to a log file, while the <a href="https://docs.ansible.com/ansible/latest/collections/community/general/mail_callback.html#ansible-collections-community-general-mail-callback">mail</a> callback plugin can send emails on playbook failures. </p>
+<p>A list of available callback plugins can be found within the <a href="https://t.co/Pcpug18nfL">Ansible documentation</a>. </p>
+<h3>JSON Output</h3>
+<p>Looking for an easy way to view your Ansible output in JSON format? Take advantage of the Ansible API.</p>
+<p>When a job runs within Ansible Automation Platform, it contains a job ID.</p>
+<p>If you visit the job events URL for that particular job ID (<code>https://&lt;controller-server-name&gt;/api/v2/jobs/&lt;job_id&gt;/job_events</code>), you get instant access to your playbook output in JSON format!</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/veizmKgWg_IreDRsP-uGQ7HfiwNbqhXBZT9rjkRX1ByxC2n8SQQ2HqGs7dsA9uQnoQ0y5SswKDrY4VfGK2DT62_6sMO-qFr3_pzHRFbHKWe3WnXq40L4OX-Y3CssOhq71T90K73NL9cEWTMzCNTf3e4_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/veizmKgWg_IreDRsP-uGQ7HfiwNbqhXBZT9rjkRX1ByxC2n8SQQ2HqGs7dsA9uQnoQ0y5SswKDrY4VfGK2DT62_6sMO-qFr3_pzHRFbHKWe3WnXq40L4OX-Y3CssOhq71T90K73NL9cEWTMzCNTf3e4_0.png" alt=""></a></p>
+<h3>Dynamic Inventories</h3>
+<p>Do you ever use a dynamic inventory but only need to access a few servers from the list?</p>
+<p>Use the Limit field within your Job templates. This ensures that only the specific host(s) or group(s) specified within the Limit field apply to your Ansible Job.</p>
+<p>For example, if I want to make only changes to <code>webservers</code> and <code>dbservers</code> groups, add <code>webservers:dbservers</code> in the Limit field within your Ansible Job Template.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/b9dY6c4gr_sg4bafKvdMlsDSFgmzkDLCEnn9ZAO6XIQ7vuWvWQluYGuEvSwYYrYj7OBJEvQa3IlMJdY_Zuqo_xFeGhTwizF-E5TcFFc84ceGHQYYpt4nd4i9v-v_GED-N_LMwNthFfH6mh69oG7GGIc_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/b9dY6c4gr_sg4bafKvdMlsDSFgmzkDLCEnn9ZAO6XIQ7vuWvWQluYGuEvSwYYrYj7OBJEvQa3IlMJdY_Zuqo_xFeGhTwizF-E5TcFFc84ceGHQYYpt4nd4i9v-v_GED-N_LMwNthFfH6mh69oG7GGIc_0.png" alt=""></a></p>
+<h3>Managing the lifecycle of a containerized application via Git</h3>
+<p>One of the great things about Ansible Automation Platform is how it can integrate with other tools. This is especially useful when you integrate Ansible Automation Platform with GitHub Webhooks. </p>
+<p>When you combine GitHub Webhooks and Ansible workflows, you can trigger changes to your application automatically. </p>
+<p>A perfect scenario for this is when you&#39;re running containerized apps at the Edge but want an automated way to manage those apps.</p>
+<p>Here is a <a href="https://www.youtube.com/watch?v=NSuZrdsT1nk">YouTube video I made on managing the lifecycle of a Podman container</a></p>
+<h3>Improving Execution Time on Large-Scale Jobs</h3>
+<p>Running a job on 1000s of servers and it’s taking forever to complete?Increase your forks!</p>
+<p>Forks are used to determine how many hosts to automate against in parallel (default is 5). But be careful not to overcommit the value!</p>
+<p>One way to ensure you don’t overcommit is checking your Capacity Adjustment value. Within Instance Groups -&gt; <Your Group> -&gt; Instances, under Capacity Adjustment you’ll see what each server on that group can handle.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Ijk0ZQ0fNa-7GsA-6DhqJuvScrFhAFQChBAK28JVZLI7ro7rjxNtPJCz73B3fyD4mUXSEXfni6jopSCP5AXAi811TFSdeNbH2LxLWBnBt09uxEsQnc__35so_h3j_kxzqT08X_brb8U1S6K3xAqpOBo_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Ijk0ZQ0fNa-7GsA-6DhqJuvScrFhAFQChBAK28JVZLI7ro7rjxNtPJCz73B3fyD4mUXSEXfni6jopSCP5AXAi811TFSdeNbH2LxLWBnBt09uxEsQnc__35so_h3j_kxzqT08X_brb8U1S6K3xAqpOBo_0.png" alt=""></a></p>
+<h3>Optimizing Execution Performance with Multiple Nodes and Job Slicing</h3>
+<p>Do you have multiple execution nodes in your Ansible Automation Platform environment? Combine the increasing of forks with job slicing!</p>
+<p>Job slicing breaks a job (“slices”) and places a slice per execution node. It allows you to split a single job to run across multiple execution nodes providing faster performance.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/1TOEzoflTvjsuNadhaYh2hx9oQdQBhoUNROpgVwNqQSgQb2C7ZrLAA-3rPU6yqBfJDxaQffRmRPaZ6_F7mODE2cHDGSJl-XgB3T9QWT5nHng8CaPm09LeaYJCPe-Xvjv3U2rZEfNf2CxijlEhGbX03s_0.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/1TOEzoflTvjsuNadhaYh2hx9oQdQBhoUNROpgVwNqQSgQb2C7ZrLAA-3rPU6yqBfJDxaQffRmRPaZ6_F7mODE2cHDGSJl-XgB3T9QWT5nHng8CaPm09LeaYJCPe-Xvjv3U2rZEfNf2CxijlEhGbX03s_0.png" alt=""></a></p>
+<p>And there you have it! 5 things to take your automation to the next level!</p>
+<p>I hope you found these top 5 tips valuable in discovering new ways to leverage the power of Ansible Automation Platform.</p>
+<h2>What can I do next?</h2>
+<p>Whether you are beginning your automation journey or are a seasoned veteran, there are a variety of resources to enhance your automation knowledge.</p>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">Self-paced exercises</a> - Check out the interactive in-browser exercises to learn and dive into Ansible Automation Platform.</li>
+<li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to go? Get your own trial subscription for unlimited access to all the components of Ansible Automation Platform.</li>
+<li><a href="https://developers.redhat.com/about">Developer license</a> - Did you know that you can get a free developer license to learn in your home lab? Register and get access to all the latest tools, technologies and community that Red Hat has to offer.</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible</a> <a href="https://www.youtube.com/ansibleautomation">Automation Platform</a> <a href="https://twitter.com/ansible">on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez"><img src="https://www.redhat.com/themes/custom/rhdc/img/author-default-img.svg" alt="Roger Lopez"></a></p>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez">### Roger Lopez</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/ansible-automation-platform-youre-using-it-wrong">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

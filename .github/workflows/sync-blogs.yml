@@ -1,0 +1,57 @@
+name: Sync team blogs
+
+on:
+  schedule:
+    - cron: '30 12 * * *'
+  workflow_dispatch:
+    inputs:
+      full_backfill:
+        description: 'Re-fetch all posts since 2018'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync-blogs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/requirements-blog-sync.txt
+
+      - name: Sync blog posts
+        env:
+          BLOG_FULL_BACKFILL: ${{ github.event.inputs.full_backfill || 'false' }}
+        run: python scripts/sync-blogs.py
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: scripts/package-lock.json
+
+      - name: Install Node dependencies
+        working-directory: scripts
+        run: npm ci
+
+      - name: Render blog HTML
+        run: node scripts/render-blog-posts.mjs
+
+      - name: Commit synced blogs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/blog data/blog-index.json data/blog-sync-state.json data/blog-sources.json blog/ js/team.js
+          git diff --staged --quiet && echo "No blog changes." && exit 0
+          git commit -m "Sync team blog posts from Red Hat upstream sources."
+          git push

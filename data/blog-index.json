@@ -1,0 +1,1330 @@
+{
+  "updated_at": "2026-09-03T19:22:00Z",
+  "posts": [
+    {
+      "slug": "5-ways-augment-security-risk-management-ai-era",
+      "title": "5 ways to augment security risk management in the AI era",
+      "description": "Implement enterprise-wide automation for proactive vulnerability management with Ansible Automation Platform.",
+      "published": "2026-08-19",
+      "updated": "2026-09-01",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [
+        "Artificial intelligence",
+        "Security"
+      ],
+      "read_time_minutes": 6,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/5-ways-augment-security-risk-management-ai-era",
+      "url": "/blog/5-ways-augment-security-risk-management-ai-era/"
+    },
+    {
+      "slug": "navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation",
+      "title": "Navigating AI vulnerability discovery and achieving operational resilience with automation",
+      "description": "Find out more about automation techniques you can use to address areas where vulnerability patches are not yet present, and patch production environments.",
+      "published": "2026-07-13",
+      "updated": "2026-08-11",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 6,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation",
+      "url": "/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/"
+    },
+    {
+      "slug": "ai-threats-move-fast-your-defenses-should-too",
+      "title": "AI threats move fast. Your defenses should too.",
+      "description": "Learn how Red Hat Ansible Automation Platform helps organizations adopt zero trust security by automating policy enforcement and reducing the impact of security breaches. Discover the benefits of centralized enforcement with distributed execution and the dual-ring enforcement model.",
+      "published": "2026-06-08",
+      "updated": "2026-07-09",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [
+        "Artificial intelligence",
+        "Automation and management",
+        "Security"
+      ],
+      "read_time_minutes": 8,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/ai-threats-move-fast-your-defenses-should-too",
+      "url": "/blog/ai-threats-move-fast-your-defenses-should-too/"
+    },
+    {
+      "slug": "automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform",
+      "title": "Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform",
+      "description": "Learn how to streamline Windows management and automate tasks with the MECM Certified Collection for Red Hat Ansible Automation Platform. This collection offers 26 modules and a plug-in to handle software distribution, patch management, and configuration updates for Windows Servers through Ansible playbooks.",
+      "published": "2026-01-14",
+      "updated": "2026-01-20",
+      "authors": [
+        {
+          "slug": "aubrey-trotter",
+          "name": "Aubrey Trotter"
+        }
+      ],
+      "topics": [
+        "Automation and management"
+      ],
+      "read_time_minutes": 2,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform",
+      "url": "/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/"
+    },
+    {
+      "slug": "event-driven-ansible-simplified-event-routing-event-streams",
+      "title": "Event-Driven Ansible: Simplified event routing with Event Streams",
+      "description": "Learn how Event-Driven Ansible's simplified event routing with Event Streams improves flexibility in setting up event-driven automation scenarios. Discover new enhancements to Kafka for event source connections and additional content updates. Take your event-driven automation to the next level with AIOps.",
+      "published": "2026-01-13",
+      "updated": "2026-01-20",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [
+        "Automation and management"
+      ],
+      "read_time_minutes": 7,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/event-driven-ansible-simplified-event-routing-event-streams",
+      "url": "/blog/event-driven-ansible-simplified-event-routing-event-streams/"
+    },
+    {
+      "slug": "empower-everyone-automate-ansibles-self-service-automation-portal",
+      "title": "How Ansible's new self-service automation portal empowers everyone to automate",
+      "description": "Discover how the new self-service automation portal in Ansible Automation Platform 2.6 simplifies automation for all users, enabling the core team to build value and empowering SMEs to apply it in their daily tasks. Increase consistency, control over automation, and autonomy for teams across the organization.",
+      "published": "2025-10-16",
+      "updated": "2025-11-25",
+      "authors": [
+        {
+          "slug": "hicham-mourad",
+          "name": "Hicham Mourad"
+        }
+      ],
+      "topics": [
+        "Automation and management"
+      ],
+      "read_time_minutes": 2,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/empower-everyone-automate-ansibles-self-service-automation-portal",
+      "url": "/blog/empower-everyone-automate-ansibles-self-service-automation-portal/"
+    },
+    {
+      "slug": "installation-and-upgrade-guide-ansible-automation-platform-26",
+      "title": "What to know before you install or upgrade to Red Hat Ansible Automation Platform 2.6",
+      "description": "Learn about the supported installation methods for Ansible Automation Platform 2.6, including containerized and RPM installations on Red Hat Enterprise Linux and OpenShift Operator installations. Understand the difference between upgrades and migrations, and get guidance on upgrade planning, deployment type migrations, and underlying Red Hat Enterprise Linux version and database migrations.",
+      "published": "2025-10-13",
+      "updated": "2025-11-25",
+      "authors": [
+        {
+          "slug": "leonardo-gallego",
+          "name": "Leonardo Gallego"
+        }
+      ],
+      "topics": [
+        "Automation and management"
+      ],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/installation-and-upgrade-guide-ansible-automation-platform-26",
+      "url": "/blog/installation-and-upgrade-guide-ansible-automation-platform-26/"
+    },
+    {
+      "slug": "easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform",
+      "title": "Easy automation for Microsoft Windows Server and Azure with Ansible Automation Platform",
+      "description": "The latest update of Ansible Automation Platform has enhanced its capabilities, with support for OpenSSH to efficiently manage Windows servers as an alternative to using WinRM for connections.",
+      "published": "2025-03-20",
+      "updated": "2026-07-29",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [
+        "Cloud automation"
+      ],
+      "read_time_minutes": 3,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform",
+      "url": "/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform/"
+    },
+    {
+      "slug": "learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform",
+      "title": "Learn why Red Hat customer MAPFRE chose Red Hat Ansible Automation Platform",
+      "description": "In this blog, you\u2019ll learn why an automation platform is critical for an AI strategy and how MAPFRE, a global insurance company headquartered in Madrid, is taking advantage of Ansible Automation Platform to do just that.",
+      "published": "2025-01-27",
+      "updated": "2025-12-03",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [
+        "Automation and management",
+        "Customer success"
+      ],
+      "read_time_minutes": 3,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform",
+      "url": "/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform/"
+    },
+    {
+      "slug": "a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave",
+      "title": "A Deeper Look, Red Hat Named a Leader in the Forrester Wave",
+      "description": "This week, we announced that Red Hat has been named a leader in The Forrester Wave Infrastructure Automation, Q1 2023",
+      "published": "2024-12-06",
+      "updated": "2026-01-27",
+      "authors": [
+        {
+          "slug": "andrius-benokraitis",
+          "name": "Andrius Benokraitis"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 1,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave",
+      "url": "/blog/a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave/"
+    },
+    {
+      "slug": "ansible-and-packer-why-they-are-better-together",
+      "title": "blog post | Using Ansible and Packer, From Provisioning to Orchestration",
+      "description": "Red Hat Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud deployments.",
+      "published": "2024-12-05",
+      "updated": "2026-01-27",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/ansible-and-packer-why-they-are-better-together",
+      "url": "/blog/ansible-and-packer-why-they-are-better-together/"
+    },
+    {
+      "slug": "taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app",
+      "title": "blog post | Using Ansible and GitOps to Manage the Lifecycle of a Containerized Application",
+      "description": "One of the great advantages of combining GitOps with Ansible is that you get to streamline the automation delivery and the lifecycle of a containerized application.",
+      "published": "2024-12-05",
+      "updated": "2026-01-27",
+      "authors": [
+        {
+          "slug": "roger-lopez",
+          "name": "Roger Lopez"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 7,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app",
+      "url": "/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app/"
+    },
+    {
+      "slug": "the-anatomy-of-automation-execution-environments",
+      "title": "blog post | The anatomy of automation execution environments",
+      "description": "Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.",
+      "published": "2024-12-05",
+      "updated": "2026-01-27",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 7,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/the-anatomy-of-automation-execution-environments",
+      "url": "/blog/the-anatomy-of-automation-execution-environments/"
+    },
+    {
+      "slug": "migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2",
+      "title": "Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2",
+      "description": "The new capabilities of Ansible Platform 2 enable easier to scale automation across the globe and allow you to run your automation as close to the source as possible without being bound to running automation in a single data center.",
+      "published": "2024-12-04",
+      "updated": "2026-01-27",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2",
+      "url": "/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/"
+    },
+    {
+      "slug": "ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services",
+      "title": "Ansible Tips and Tricks, Dealing with Unreliable Connections and Services",
+      "description": "In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner.",
+      "published": "2024-12-02",
+      "updated": "2026-01-27",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 8,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services",
+      "url": "/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services/"
+    },
+    {
+      "slug": "providing-terraform-with-that-ansible-magic",
+      "title": "Providing Terraform with that Ansible Magic",
+      "description": "We are adding more value to infrastructure as code with an addition to the Ansible Certified Content Collection: The Ansible provider for Terraform.",
+      "published": "2024-12-02",
+      "updated": "2026-01-27",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/providing-terraform-with-that-ansible-magic",
+      "url": "/blog/providing-terraform-with-that-ansible-magic/"
+    },
+    {
+      "slug": "getting-started-with-event-driven-ansible",
+      "title": "blog post | Getting Started with Event-Driven Ansible",
+      "description": "As one technology advances, it expands the possibilities for other technologies and offers the solutions of tomorrow for the challenges we face today.",
+      "published": "2024-11-27",
+      "updated": "2026-01-27",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/getting-started-with-event-driven-ansible",
+      "url": "/blog/getting-started-with-event-driven-ansible/"
+    },
+    {
+      "slug": "red-hat-ansible-automation-platform-service-aws-now-available-aws-marketplace",
+      "title": "Red Hat Ansible Automation Platform Service on AWS now available in the AWS Marketplace",
+      "description": "Red Hat has released the latest cloud offering for Red Hat Ansible Automation Platform. Ansible Automation Platform Service on AWS is a Red Hat managed service available in AWS Marketplace.",
+      "published": "2024-11-20",
+      "updated": "2026-07-29",
+      "authors": [
+        {
+          "slug": "hicham-mourad",
+          "name": "Hicham Mourad"
+        }
+      ],
+      "topics": [
+        "Automation and management"
+      ],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-service-aws-now-available-aws-marketplace",
+      "url": "/blog/red-hat-ansible-automation-platform-service-aws-now-available-aws-marketplace/"
+    },
+    {
+      "slug": "red-hat-ansible-will-be-autocon2",
+      "title": "Join Red Hat Ansible Automation Platform at AutoCon 2",
+      "description": "We are heading to Denver, CO the week of November 18 to participate in AutoCon 2, an event dedicated to network automation.",
+      "published": "2024-11-05",
+      "updated": "2025-11-25",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [
+        "Network automation"
+      ],
+      "read_time_minutes": 2,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/red-hat-ansible-will-be-autocon2",
+      "url": "/blog/red-hat-ansible-will-be-autocon2/"
+    },
+    {
+      "slug": "new-red-hat-ansible-development-tools",
+      "title": "Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience",
+      "description": "In this post, we\u2019ll dive into the key features of this new release, explore the benefits of the accompanying Ansible development container, and discuss how this update lays the foundation for a broader Ansible developer experience.",
+      "published": "2024-10-03",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/new-red-hat-ansible-development-tools",
+      "url": "/blog/new-red-hat-ansible-development-tools/"
+    },
+    {
+      "slug": "what-you-need-know-about-vmware-automation-red-hat-ansible",
+      "title": "What you need to know about VMware Automation with Red Hat Ansible Automation Platform",
+      "description": "Automating your VMware infrastructure with Ansible is more important than ever. This is a common use case that delivers instant value.",
+      "published": "2024-08-02",
+      "updated": "2025-12-09",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [
+        "Automation and management"
+      ],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/what-you-need-know-about-vmware-automation-red-hat-ansible",
+      "url": "/blog/what-you-need-know-about-vmware-automation-red-hat-ansible/"
+    },
+    {
+      "slug": "introducing-ansible-plug-ins-red-hat-developer-hub",
+      "title": "Introducing Ansible plug-ins for Red Hat Developer Hub",
+      "description": "Discover Ansible plug-ins for Red Hat Developer Hub, a branded internal developer portal, purpose-built for automation content creation.",
+      "published": "2024-07-24",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [
+        "Application development and delivery",
+        "Automation and management"
+      ],
+      "read_time_minutes": 3,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/introducing-ansible-plug-ins-red-hat-developer-hub",
+      "url": "/blog/introducing-ansible-plug-ins-red-hat-developer-hub/"
+    },
+    {
+      "slug": "automating-your-centos-linux-rhel-migration",
+      "title": "Automating your CentOS Linux to RHEL migration",
+      "description": "CentOS Linux EOL is edging  closer and Ansible Automation Platform is just the tool to help you upgrade with speed, consistency and scale.",
+      "published": "2024-06-26",
+      "updated": "2026-04-23",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [
+        "Linux"
+      ],
+      "read_time_minutes": 6,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/automating-your-centos-linux-rhel-migration",
+      "url": "/blog/automating-your-centos-linux-rhel-migration/"
+    },
+    {
+      "slug": "windows-enterprise-ansible-galaxy",
+      "title": "The Windows enterprise in an Ansible galaxy",
+      "description": "Learn how to connect Windows servers with Ansible Automation Platform to help simplify, standardize, and scale your IT environment.",
+      "published": "2024-03-04",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [
+        "Automation and management"
+      ],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/windows-enterprise-ansible-galaxy",
+      "url": "/blog/windows-enterprise-ansible-galaxy/"
+    },
+    {
+      "slug": "fact-gathering-with-event-driven-ansible-and-ai",
+      "title": "Fact-Gathering with Event-Driven Ansible for Microsoft Windows ITSM",
+      "description": "Event-Driven Ansible is changing the automation landscape and AI is changing how we work with technology. What happens when we use both for fact gathering ?",
+      "published": "2023-11-02",
+      "updated": "2025-11-19",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/fact-gathering-with-event-driven-ansible-and-ai",
+      "url": "/blog/fact-gathering-with-event-driven-ansible-and-ai/"
+    },
+    {
+      "slug": "getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant",
+      "title": "Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant",
+      "description": "In this blog, we\u2019ll walk through the steps to get Ansible Lightspeed with IBM watsonx Code Assistant up and running for your organization. We\u2019ll share how end users can set up the service in their Visual Studio Code (VS Code) environment. We\u2019ll also share more on what to expect from the experience and supplemental tools available to turbocharge your Ansible creator journey with generative AI capabilities built on a foundation of transparency, accuracy, and choice",
+      "published": "2023-10-30",
+      "updated": "2025-11-23",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [
+        "Artificial intelligence",
+        "Automation and management"
+      ],
+      "read_time_minutes": 6,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant",
+      "url": "/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant/"
+    },
+    {
+      "slug": "importing-ansible-validated-content-into-private-automation-hub",
+      "title": "Importing Ansible Validated Content into Private Automation Hub",
+      "description": "Ansible validated content addresses common automation use cases. Learn how to access it from your cloud deployment to accelerate your automation.",
+      "published": "2023-10-03",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "hicham-mourad",
+          "name": "Hicham Mourad"
+        }
+      ],
+      "topics": [
+        "Cloud automation"
+      ],
+      "read_time_minutes": 3,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/importing-ansible-validated-content-into-private-automation-hub",
+      "url": "/blog/importing-ansible-validated-content-into-private-automation-hub/"
+    },
+    {
+      "slug": "event-driven-ansible-chatops-from-chat-to-action",
+      "title": "Event-Driven Ansible - ChatOps - From Chat to Action",
+      "description": "Implement Automated ChatOps: Learn how to use event-driven automation to take action from chat information.",
+      "published": "2023-09-01",
+      "updated": "2026-01-26",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [
+        "Network automation"
+      ],
+      "read_time_minutes": 7,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/event-driven-ansible-chatops-from-chat-to-action",
+      "url": "/blog/event-driven-ansible-chatops-from-chat-to-action/"
+    },
+    {
+      "slug": "unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform",
+      "title": "Unleashing the Potential of Multi-Cloud Automation with Ansible and Terraform",
+      "description": "In this blog, we will look at how to employ Ansible, a powerful automation tool, to tap into the immense potential of multi-cloud environments.",
+      "published": "2023-07-27",
+      "updated": "2026-07-29",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [
+        "Cloud automation"
+      ],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform",
+      "url": "/blog/unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform/"
+    },
+    {
+      "slug": "unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0",
+      "title": "Unlocking efficiency: Harnessing the capabilities of ansible-builder 3.0",
+      "description": "This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with Red Hat Ansible Automation Platform 2.4.",
+      "published": "2023-07-19",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 7,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0",
+      "url": "/blog/unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0/"
+    },
+    {
+      "slug": "whats-new-in-ansible-automation-platform-2.4",
+      "title": "What's new in Ansible Automation Platform 2.4",
+      "description": "An overview of new features found in the Ansible Automation Platform 2.4 release",
+      "published": "2023-06-27",
+      "updated": "2025-11-26",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 7,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.4",
+      "url": "/blog/whats-new-in-ansible-automation-platform-2.4/"
+    },
+    {
+      "slug": "ansible-automation-platform-youre-using-it-wrong",
+      "title": "Ansible Automation Platform \u2026 You\u2019re using it wrong.",
+      "description": "Discover 5 lesser-known features of Red Hat Ansible Automation Platform, like callback plugins & job slicing, to optimize your automation experience.",
+      "published": "2023-04-03",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "roger-lopez",
+          "name": "Roger Lopez"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 3,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/ansible-automation-platform-youre-using-it-wrong",
+      "url": "/blog/ansible-automation-platform-youre-using-it-wrong/"
+    },
+    {
+      "slug": "new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift",
+      "title": "New reference architecture: Deploying Ansible Automation Platform 2 on Red Hat OpenShift",
+      "description": "The latest reference architecture showcasing the best practices for deploying Red Hat Ansible Automation Platform 2.3 on Red Hat OpenShift!",
+      "published": "2023-03-21",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "roger-lopez",
+          "name": "Roger Lopez"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 1,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift",
+      "url": "/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift/"
+    },
+    {
+      "slug": "red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace",
+      "title": "Red Hat Ansible Automation Platform on Google Cloud Marketplace",
+      "description": "Breaking news! Red Hat just announced Ansible Automation Platform\u2019s availability on Google Cloud Marketplace.",
+      "published": "2023-02-20",
+      "updated": "2026-07-29",
+      "authors": [
+        {
+          "slug": "hicham-mourad",
+          "name": "Hicham Mourad"
+        }
+      ],
+      "topics": [
+        "Cloud automation"
+      ],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace",
+      "url": "/blog/red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace/"
+    },
+    {
+      "slug": "addressing-netops-issues-with-event-driven-ansible",
+      "title": "Addressing NetOps issues with Event-Driven Ansible",
+      "description": "Explore network events and what you could potentially do with something like Event-Driven Ansible. Read the blog to see examples.",
+      "published": "2023-01-12",
+      "updated": "2025-11-19",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [
+        "Network automation"
+      ],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/addressing-netops-issues-with-event-driven-ansible",
+      "url": "/blog/addressing-netops-issues-with-event-driven-ansible/"
+    },
+    {
+      "slug": "crank-up-your-automation-with-ansible-validated-content",
+      "title": "Crank up your automation with Ansible validated content",
+      "description": "Ansible validated content is expert-built automation content packaged as Collections that contain Ansible roles and playbooks that you can use \u201cout-the-box\u201d through Ansible Automation Platform.",
+      "published": "2022-12-12",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 3,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/crank-up-your-automation-with-ansible-validated-content",
+      "url": "/blog/crank-up-your-automation-with-ansible-validated-content/"
+    },
+    {
+      "slug": "why-event-driven-matters",
+      "title": "Why Event-Driven Automation Matters",
+      "description": "Learn why event-driven matters and how it can help you.",
+      "published": "2022-09-21",
+      "updated": "2025-11-26",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 3,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/why-event-driven-matters",
+      "url": "/blog/why-event-driven-matters/"
+    },
+    {
+      "slug": "monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way",
+      "title": "Monitoring Red Hat Ansible Automation Platform on Red Hat OpenShift - The Easy Way",
+      "description": "This blog post demonstrates how to monitor the API metrics provided by an Ansible Automation Platform environment when deployed within Red Hat OpenShift.",
+      "published": "2022-08-29",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "roger-lopez",
+          "name": "Roger Lopez"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 8,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way",
+      "url": "/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way/"
+    },
+    {
+      "slug": "creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules",
+      "title": "Creating Kubernetes Dynamic Inventories with kubernetes.core Modules",
+      "description": "A quick start guide on how you can create an Ansible Playbook to retrieve your pods within a namespace and generate a Kubernetes dynamic inventory.",
+      "published": "2022-08-10",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "roger-lopez",
+          "name": "Roger Lopez"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 2,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules",
+      "url": "/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/"
+    },
+    {
+      "slug": "peeling-back-the-layers-and-understanding-automation-mesh",
+      "title": "Peeling back the layers and understanding automation mesh",
+      "description": "Read about the technical implementation of automation mesh, what network ports it is using and how you can secure it.",
+      "published": "2022-08-01",
+      "updated": "2025-11-19",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 9,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/peeling-back-the-layers-and-understanding-automation-mesh",
+      "url": "/blog/peeling-back-the-layers-and-understanding-automation-mesh/"
+    },
+    {
+      "slug": "digitally-signing-ansible-content-collections-using-private-automation-hub",
+      "title": "Digitally signing Ansible Content Collections using private automation hub",
+      "description": "In this blog we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.",
+      "published": "2022-06-22",
+      "updated": "2026-03-06",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 6,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/digitally-signing-ansible-content-collections-using-private-automation-hub",
+      "url": "/blog/digitally-signing-ansible-content-collections-using-private-automation-hub/"
+    },
+    {
+      "slug": "whats-new-in-ansible-automation-platform-2.2",
+      "title": "What's new in Ansible Automation Platform 2.2",
+      "description": "An overview of the new features found in the Ansible Automation Platform 2.2 release",
+      "published": "2022-05-26",
+      "updated": "2026-02-27",
+      "authors": [
+        {
+          "slug": "andrius-benokraitis",
+          "name": "Andrius Benokraitis"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 8,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.2",
+      "url": "/blog/whats-new-in-ansible-automation-platform-2.2/"
+    },
+    {
+      "slug": "ask-me-anything-recap-april",
+      "title": "Ask me Anything Recap - April",
+      "description": "For this webinar, we had an awesome group of individuals with a diverse talent range across multiple skill sets from Product Management, Technical Marketing and Engineering.",
+      "published": "2022-05-16",
+      "updated": "2026-03-02",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 6,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/ask-me-anything-recap-april",
+      "url": "/blog/ask-me-anything-recap-april/"
+    },
+    {
+      "slug": "event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform",
+      "title": "Event-driven remediation with systemd and Red Hat Ansible Automation Platform",
+      "description": "Red Hat Ansible Automation Platform can assist you here with not only keeping your infrastructure in check, but also giving your teams the peace of mind that systems are running as they should.",
+      "published": "2022-04-25",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 7,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform",
+      "url": "/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform/"
+    },
+    {
+      "slug": "new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide",
+      "title": "New reference architecture: Red Hat Ansible Automation Platform 1.2 to 2 Migration Guide",
+      "description": "we created a simple reference architecture to help guide you migrate from Ansible Automation Platform 1.2 to Ansible Automation Platform 2.",
+      "published": "2022-04-20",
+      "updated": "2026-04-23",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [
+        "Automation and management"
+      ],
+      "read_time_minutes": 3,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide",
+      "url": "/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide/"
+    },
+    {
+      "slug": "configuring-an-aws-dynamic-inventory-with-automation-controller",
+      "title": "Configuring an AWS dynamic inventory with Automation controller",
+      "description": "Automation controller, the control plane and webUI for Red Hat Ansible Automation Platform, uses this IAM credential to build an inventory and execute automated tasks on your AWS account.",
+      "published": "2022-03-30",
+      "updated": "2025-11-19",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/configuring-an-aws-dynamic-inventory-with-automation-controller",
+      "url": "/blog/configuring-an-aws-dynamic-inventory-with-automation-controller/"
+    },
+    {
+      "slug": "whats-new-in-the-ansible-content-collection-for-kubernetes-2.3",
+      "title": "What\u2019s New in the Ansible Content Collection for Kubernetes 2.3",
+      "description": "In this blog post, we\u2019ll go over what\u2019s new and what\u2019s different in this release of our Kubernetes Collection.",
+      "published": "2022-03-21",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "roger-lopez",
+          "name": "Roger Lopez"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-the-ansible-content-collection-for-kubernetes-2.3",
+      "url": "/blog/whats-new-in-the-ansible-content-collection-for-kubernetes-2.3/"
+    },
+    {
+      "slug": "the-ansible-cookie-magic-in-the-middle",
+      "title": "The Ansible cookie: Magic in the middle",
+      "description": "Private automation hub provides organizations with a central location for their automation resources.",
+      "published": "2022-03-09",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/the-ansible-cookie-magic-in-the-middle",
+      "url": "/blog/the-ansible-cookie-magic-in-the-middle/"
+    },
+    {
+      "slug": "forecast-track-measure-roi-automation",
+      "title": "Forecasting and tracking the ROI of automation",
+      "description": "Red Hat Insights for Ansible Automation Platform can help CIOs and other IT leaders measure their ROI and validate their automation strategy.",
+      "published": "2022-03-02",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/forecast-track-measure-roi-automation",
+      "url": "/blog/forecast-track-measure-roi-automation/"
+    },
+    {
+      "slug": "ansible-automation-platform-a-video-tour",
+      "title": "Ansible Automation Platform - A video tour",
+      "description": "We released our latest version Ansible Automation Platform 2.1 and there are a ton of new components, features and capabilities - so the technical marketing team put together a video tour.",
+      "published": "2022-02-14",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 2,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/ansible-automation-platform-a-video-tour",
+      "url": "/blog/ansible-automation-platform-a-video-tour/"
+    },
+    {
+      "slug": "activate-insights-for-ansible-automation-platform",
+      "title": "How to Activate Automation Analytics and Red Hat Insights",
+      "description": "Red Hat Insights for Ansible Automation Platform is an analytics tool to help you identify, troubleshoot, and resolve issues across your entire ecosystem.",
+      "published": "2022-02-01",
+      "updated": "2026-06-03",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/activate-insights-for-ansible-automation-platform",
+      "url": "/blog/activate-insights-for-ansible-automation-platform/"
+    },
+    {
+      "slug": "new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1",
+      "title": "New reference architecture: Deploying Red Hat Ansible Automation Platform 2.1",
+      "description": "The latest reference architecture on the best practices for deploying a highly available Ansible Automation Platform 2.1 environment.",
+      "published": "2021-12-14",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "roger-lopez",
+          "name": "Roger Lopez"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 3,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1",
+      "url": "/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1/"
+    },
+    {
+      "slug": "introducing-red-hat-ansible-automation-platform-2.1",
+      "title": "Introducing Red Hat Ansible Automation Platform 2.1",
+      "description": "Red Hat Ansible Automation Platform 2.1 is available now! Create, manage and scale automation with more ease and efficiency than ever before.",
+      "published": "2021-12-02",
+      "updated": "2026-03-05",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 8,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/introducing-red-hat-ansible-automation-platform-2.1",
+      "url": "/blog/introducing-red-hat-ansible-automation-platform-2.1/"
+    },
+    {
+      "slug": "automation-for-the-cloud-cloud-field-day-12-recap",
+      "title": "Automation for the cloud: Cloud Field Day 12 recap",
+      "description": "Cloud Field Day 12 was a three day event that focused on the impact of cloud on enterprise IT. This blog offers a recap of key Red Hat automation content.",
+      "published": "2021-11-18",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 2,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/automation-for-the-cloud-cloud-field-day-12-recap",
+      "url": "/blog/automation-for-the-cloud-cloud-field-day-12-recap/"
+    },
+    {
+      "slug": "whats-new-in-ansible-automation-platform-2-private-automation-hub",
+      "title": "What's new in Ansible Automation Platform 2: private automation hub",
+      "description": "Ansible Automation Platform 2 includes private automation hub 4.3, which makes it easier to collaborate on,  publish, and deliver automation content.",
+      "published": "2021-10-06",
+      "updated": "2026-02-27",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-private-automation-hub",
+      "url": "/blog/whats-new-in-ansible-automation-platform-2-private-automation-hub/"
+    },
+    {
+      "slug": "whats-new-in-ansible-automation-platform-2-automation-execution-environments",
+      "title": "What's new in Ansible Automation Platform 2: automation execution environments",
+      "description": "Ansible Automation Platform 2 introduces \u201cautomation execution environments.\u201d These are atomic images on which all automation is run.",
+      "published": "2021-10-04",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments",
+      "url": "/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments/"
+    },
+    {
+      "slug": "introducing-ansible-automation-platform-2",
+      "title": "Introducing Ansible Automation Platform 2",
+      "description": "Introducing Red Hat Ansible Automation Platform 2 and changes to how automation is developed, managed, and operated in large, complex environments.",
+      "published": "2021-09-29",
+      "updated": "2026-03-05",
+      "authors": [
+        {
+          "slug": "andrius-benokraitis",
+          "name": "Andrius Benokraitis"
+        }
+      ],
+      "topics": [
+        "Events"
+      ],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/introducing-ansible-automation-platform-2",
+      "url": "/blog/introducing-ansible-automation-platform-2/"
+    },
+    {
+      "slug": "team-automation-numbers",
+      "title": "By the numbers: Getting your team on board with IT automation",
+      "description": "Automation enthusiasts are often born out of the results that teams achieve through successful automation projects. For many of us, \"sleep more\" is perha...",
+      "published": "2021-06-25",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "andrius-benokraitis",
+          "name": "Andrius Benokraitis"
+        }
+      ],
+      "topics": [
+        "Professional development",
+        "Automation and management"
+      ],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/team-automation-numbers",
+      "url": "/blog/team-automation-numbers/"
+    },
+    {
+      "slug": "ansible-network-resource-modules-deep-dive-on-return-values",
+      "title": "Ansible Network Resource Modules: Deep Dive on Return Values",
+      "description": "Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production.",
+      "published": "2021-01-12",
+      "updated": "2025-11-19",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [
+        "Network automation"
+      ],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/ansible-network-resource-modules-deep-dive-on-return-values",
+      "url": "/blog/ansible-network-resource-modules-deep-dive-on-return-values/"
+    },
+    {
+      "slug": "now-available-red-hat-ansible-automation-platform-1.2",
+      "title": "Now Available: Red Hat Ansible Automation Platform 1.2",
+      "description": "Red Hat Ansible Automation Platform 1.2 is now generally available with increased focus on improving efficiency, increasing productivity and controlling risk and expenses.",
+      "published": "2020-11-19",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 4,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/now-available-red-hat-ansible-automation-platform-1.2",
+      "url": "/blog/now-available-red-hat-ansible-automation-platform-1.2/"
+    },
+    {
+      "slug": "control-your-content-with-private-automation-hub",
+      "title": "Control your content with private Automation Hub",
+      "description": "Private Automation Hub is an on-premises solution for managing Ansible content. This allows an organization to create, share, and curate content for automation consumers in their organization.",
+      "published": "2020-11-02",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 2,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/control-your-content-with-private-automation-hub",
+      "url": "/blog/control-your-content-with-private-automation-hub/"
+    },
+    {
+      "slug": "automation-analytics-part-3",
+      "title": "Automation Analytics - ROI Calculator and Notifications enhancements",
+      "description": "If you are unfamiliar with Automation Analytics it is included as part of a Red Hat Ansible Automation Platform subscription and allows customers to analyze, aggregate, and report on data for their Red Hat Ansible Automation Platform deployments.",
+      "published": "2020-05-27",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 6,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/automation-analytics-part-3",
+      "url": "/blog/automation-analytics-part-3/"
+    },
+    {
+      "slug": "automation-analytics-part-2-looking-at-data-collection",
+      "title": "Automation Analytics: Part 2 - Looking at Data Collection",
+      "description": "Part 2 of the Automation Analytics blog post expanding on what data is collected and how to gain access to that data.",
+      "published": "2019-12-02",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 7,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/automation-analytics-part-2-looking-at-data-collection",
+      "url": "/blog/automation-analytics-part-2-looking-at-data-collection/"
+    },
+    {
+      "slug": "getting-started-with-automation-analytics",
+      "title": "Getting Started With Automation Analytics",
+      "description": "In this blog post, we go into how to get started with Automation Analytics, a part of Red Hat Ansible Automation Platform.",
+      "published": "2019-11-14",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 6,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/getting-started-with-automation-analytics",
+      "url": "/blog/getting-started-with-automation-analytics/"
+    },
+    {
+      "slug": "network-features-coming-soon-in-ansible-engine-2.9",
+      "title": "Network Features Coming Soon in Ansible Engine 2.9",
+      "description": "In this blog post, we discuss the network features coming soon in Ansible Engine 2.9.",
+      "published": "2019-10-14",
+      "updated": "2025-11-19",
+      "authors": [
+        {
+          "slug": "andrius-benokraitis",
+          "name": "Andrius Benokraitis"
+        }
+      ],
+      "topics": [
+        "Network automation"
+      ],
+      "read_time_minutes": 9,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/network-features-coming-soon-in-ansible-engine-2.9",
+      "url": "/blog/network-features-coming-soon-in-ansible-engine-2.9/"
+    },
+    {
+      "slug": "build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions",
+      "title": "Build a quick CI system using Red Hat Ansible Tower with GitHub Actions",
+      "description": "This blog post from Sean Cavanaugh covers his journey of getting Github Actions to work with Red Hat Ansible Tower.",
+      "published": "2019-05-16",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions",
+      "url": "/blog/build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions/"
+    },
+    {
+      "slug": "red-hat-ansible-network-automation-updates",
+      "title": "Red Hat Ansible Network Automation Updates",
+      "description": "Red Hat Ansible Networking product updates featuring new network automation modules, improved Ansible Tower user experience, Ansible Tower credential management for network devices, custom Ansible environment support for Ansible Tower and more.",
+      "published": "2018-10-10",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [
+        "Network automation"
+      ],
+      "read_time_minutes": 11,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/red-hat-ansible-network-automation-updates",
+      "url": "/blog/red-hat-ansible-network-automation-updates/"
+    },
+    {
+      "slug": "porting-ansible-network-playbooks-with-new-connection-plugins",
+      "title": "Porting Ansible Network Playbooks with New Connection Plugins",
+      "description": "With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin. In this post we take you through converting existing networking playbooks that use connection: local to using connection: network_cli.",
+      "published": "2018-04-19",
+      "updated": "2026-06-16",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [
+        "Network automation"
+      ],
+      "read_time_minutes": 7,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins",
+      "url": "/blog/porting-ansible-network-playbooks-with-new-connection-plugins/"
+    },
+    {
+      "slug": "coming-soon-networking-features-in-ansible-2.5",
+      "title": "Coming Soon: Networking Features in Ansible 2.5",
+      "description": "The upcoming Ansible 2.5 open source project release has some really exciting improvements. Here we highlight a few of the notable additions.",
+      "published": "2018-02-08",
+      "updated": "2025-11-19",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [
+        "Network automation"
+      ],
+      "read_time_minutes": 10,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/coming-soon-networking-features-in-ansible-2.5",
+      "url": "/blog/coming-soon-networking-features-in-ansible-2.5/"
+    },
+    {
+      "slug": "accelerate-ansible-networking-aggregate-resources",
+      "title": "Accelerate Network Automation with Aggregate Resources",
+      "description": "Accelerate Network Automation with aggregate resources as a better way to iterate without the need to execute each task one by one.",
+      "published": "2018-01-09",
+      "updated": "2025-11-24",
+      "authors": [
+        {
+          "slug": "sean-cavanaugh",
+          "name": "Sean Cavanaugh"
+        }
+      ],
+      "topics": [
+        "Network automation"
+      ],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/accelerate-ansible-networking-aggregate-resources",
+      "url": "/blog/accelerate-ansible-networking-aggregate-resources/"
+    }
+  ]
+}

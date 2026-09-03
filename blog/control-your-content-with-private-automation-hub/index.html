@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control your content with private Automation Hub — Ansible TMM Blog</title>
+  <meta name="description" content="Private Automation Hub is an on-premises solution for managing Ansible content. This allows an organization to create, share, and curate content for automation consumers in their organization.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/control-your-content-with-private-automation-hub">
+  <meta property="og:title" content="Control your content with private Automation Hub">
+  <meta property="og:description" content="Private Automation Hub is an on-premises solution for managing Ansible content. This allows an organization to create, share, and curate content for automation consumers in their organization.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/control-your-content-with-private-automation-hub">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/control-your-content-with-private-automation-hub" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on November 1, 2020.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Control your content with private Automation Hub</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2020-11-02">November 1, 2020</time> · 2-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>Private Automation Hub will be included as part of <a href="https://www.redhat.com/en/about/press-releases/red-hat-accelerates-hybrid-cloud-automation-catalog-ready-use-certified-and-supported-ansible-automation?source=pressreleaselisting&f%5B0%5D=taxonomy_region_tid%3A4521">Red Hat Ansible Automation Platform</a> release 1.2, providing an easier way for our customers to manage their Ansible content. Whether they produce private content, access trusted and supported content from Red Hat or obtain content from third party or other community sources, an internally controlled capability is essential to support the continued growth of automation. As automation becomes critical to managing IT activities, so too becomes the need to have a focal point where collaboration can be encouraged, content shared and trust reinforced.</p>
+<p>Private Automation Hub is a self-hosted Ansible content management system. Organizations can host private hubs on their own infrastructure and manage it themselves. Similar to how Red Hat Satellite enables Red Hat Enterprise Linux customers to manage operating system content, private Automation Hub enables automation teams to manage Ansible automation content.  Private Automation Hub allows curation and distribution of Ansible content as close as possible to Ansible Automation Platform clusters. Private Automation Hub is included in the Red Hat Ansible Automation Platform subscription.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Hub%20blog%201.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Hub%20blog%201.png" alt="Hub blog 1"></a></p>
+<p>Ansible content can be broken up into three main categories:</p>
+<ol>
+<li>Community content found in Ansible Galaxy</li>
+<li>Red Hat certified and supported content found in Automation Hub (on cloud.redhat.com)</li>
+<li>Private content created and curated by an organization and shared locally</li>
+</ol>
+<p>Private Automation Hub allows management of all three types of content, choosing which Ansible Content Collections, and which versions, are made available to automation consumers.</p>
+<p>All Ansible content is organized as Ansible Content Collections. <a href="https://www.ansible.com/blog/getting-started-with-ansible-collections">Ansible Content Collections are simply a standard directory structure of Ansible content</a>, including, roles, plugins and modules, stored in a tar.gz file. Private Automation Hub, just like hosted Automation Hub, which can be viewed on cloud.redhat.com, sorts collections into namespaces. So for an easy example, the ec2_key module for Amazon Web Services is stored in the namespace <a href="https://galaxy.ansible.com/amazon">amazon</a>, in the collection aws. In order to use the ec2_key module, the FQCN or fully qualified content name would be amazon.aws.ec2_key.</p>
+<p>Private Automation Hub allows administrators to build private namespaces and collections, and then allows Ansible Automation Platform clusters to authenticate and retrieve content from them on-demand. This content can also be ordered so that Ansible projects always choose content from Automation Hub before using unsupported content in Ansible Galaxy.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Hub%20blog%202.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Hub%20blog%202.png" alt="Hub blog 2"></a></p>
+<p>Content has a level of governance inside of private Automation Hub. Content is staged and can be certified or rejected by administrators. Ansible Automation Platform clusters sync to private Automation Hub using the credentials feature and a new Automation Hub credential type where the API token can be input.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/hub%20blog%203.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/hub%20blog%203.png" alt="hub blog 3"></a></p>
+<p>Finally, private Automation Hub can also sync existing content from both the community (Ansible Galaxy) and supported and certified content from Automation Hub on cloud.redhat.com. This content can be chosen on a per collection basis so that administrators can filter which collections are made available to their automation consumers.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/hub%20blog%204.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/hub%20blog%204.png" alt="hub blog 4"></a></p>
+<h2></h2>
+<h2>Where to go next?</h2>
+<p>I hope this blog helped outline private Automation Hub and where it fits into your automation infrastructure. We believe that private Automation Hub can help organizations manage, share and curate automation content. The hosted service offering Automation Hub is now extended into private networks with a self hosted option.</p>
+<p>Private Automation Hub is part of the Red Hat Ansible Automation Platform 1.2 release and included in your download on red.ht/try_ansible.</p>
+<ul>
+<li><p><a href="https://www.youtube.com/playlist?list=PLdu06OJoEf2aBf5nV5qQZmy2AH_Wif5vU">Check out our YouTube channel and learn more about Automation Hub and private Automation Hub</a></p>
+</li>
+<li><p><a href="https://youtu.be/YiwxPFcOWvE">How to use private Automation Hub with Red Hat Ansible Tower</a></p>
+</li>
+<li><p><a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/">Check out our Ansible Automation Platform Documentation page</a></p>
+</li>
+<li><p><a href="http://red.ht/try_ansible">Get a trial of Red Hat Ansible Automation Platform</a></p>
+</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/control-your-content-with-private-automation-hub">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

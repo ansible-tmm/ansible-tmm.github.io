@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introducing Ansible Automation Platform 2 — Ansible TMM Blog</title>
+  <meta name="description" content="Introducing Red Hat Ansible Automation Platform 2 and changes to how automation is developed, managed, and operated in large, complex environments.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/introducing-ansible-automation-platform-2">
+  <meta property="og:title" content="Introducing Ansible Automation Platform 2">
+  <meta property="og:description" content="Introducing Red Hat Ansible Automation Platform 2 and changes to how automation is developed, managed, and operated in large, complex environments.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/introducing-ansible-automation-platform-2">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/introducing-ansible-automation-platform-2" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on September 28, 2021.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Introducing Ansible Automation Platform 2</h1>
+        <p class="blog-post-meta"><a href="/team/#andrius-benokraitis">Andrius Benokraitis</a> · <time datetime="2021-09-29">September 28, 2021</time> · 4-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/aap%202-1.png" alt="aap 2-1"></a></p>
+<p>For the last two years, the Red Hat Ansible Automation Platform product team has been hard at work developing the next major release. We are incredibly excited to introduce Red Hat Ansible Automation Platform 2, which was <a href="https://www.redhat.com/en/about/press-releases/red-hat-ansible-automation-platform-2-drives-cloud-native-automation-and-helps-developers-become-automators">just announced</a> at <a href="http://ansiblefest.com">AnsibleFest 2021</a>.</p>
+<p><strong>What’s new in Ansible Automation Platform 2?</strong></p>
+<p>The main focus was to enhance the foundational pieces of the Ansible Automation Platform and to enable automators to automate at enterprise scale more easily and flexibly. This means everything you know and love about writing Ansible Playbooks is largely unchanged, but what is evolving is the underlying implementation of how automation is developed, managed, and operated in large complex environments. In the end, enterprise automation platforms must be designed, packaged, and supported with container native and hybrid cloud environments in mind.</p>
+<p>So how did we get here? It’s been years in the making, which included the following changes:</p>
+<p><em>1.</em> <a href="https://www.ansible.com/blog/the-future-of-ansible-content-delivery"><em>Ansible content was separated from the Ansible executable</em></a> <em>in the Ansible Project, creating a new construct called an</em> <a href="https://www.ansible.com/blog/getting-started-with-ansible-collections"><em>Ansible Content Collection</em></a><em>s to house Ansible modules, plugins, roles and more in a discrete and atomic form.</em></p>
+<p>The vast majority of time recently has been spent relocating the majority of Ansible content (modules, plugins) into standalone Ansible Collections developed and maintained separately from the <a href="https://github.com/ansible/ansible/">Ansible open source project</a>. The main benefit is that the updating of Ansible content is no longer dependent on updating the Ansible project itself, allowing for continuous and asynchronous releases of content while maintaining stable releases of the Ansible executable.</p>
+<p><em>2. The control plane was separated from the execution plane in Ansible Tower, and renamed these components to automation controller and automation execution environments.</em></p>
+<p>Ansible Tower was split into two components: automation controller (control plane) and automation execution environments (execution plane) in order to better scale and provide more predictable automation for enterprises. By splitting Tower into two components, you can now have execution running outside of the control node and is more conducive to running your automation in hybrid cloud and container native environments such as Red Hat OpenShift. You’ll also see additional features in the upcoming 2.1 release with a new component called automation mesh (think: a service mesh for Ansible), which replaces isolated nodes in Ansible Tower. This becomes more interesting by enabling new use cases such as automating at or to the edge as well as cloud automation.  </p>
+<p><em>3. New tools were created to better enable enterprise automation developers.</em>  </p>
+<p>Developing Ansible content has largely been up to the individual for building and curating content. New tools such as automation content navigator (ansible-navigator) and execution environment builder (ansible-builder) allow for a more consistent experience for content developed on a workstation that’s destined for an enterprise automation controller instance. This is made possible with  automation execution environments, which are now much more predictable, portable, and scalable compared to traditional Python virtual environments previously.</p>
+<p>Ansible Automation Platform 2 introduces an improved architecture and a variety of new tools to scale your automation while still providing a familiar Ansible experience to your teams.  We want to provide you with all the information you need to get your automation teams up to speed on the new features and start developing your migration strategy (if applicable) to best prepare for the forthcoming 2.1 general availability anticipated for later this year. Over the next month, keep an eye on the <a href="https://red.ht/AAP-20">Knowledgebase on Red Hat Customer Portal</a> for all the latest on documentation, installation, migration and component deep dives.</p>
+<p><strong>Where do I go next?</strong></p>
+<p>As automation becomes more strategic to your business, so will the changes you make in the way you can adopt, manage and operate automation. Ansible Automation Platform 2 introduces an improved architecture and flexibility with automation controller and automation execution environments, along with a variety of new tools to scale your automation while still providing a familiar experience to your teams.  We want to ensure you have all the information you need to get your automation teams up to speed on the new features and start developing your migration strategy.</p>
+<p>There are a number of resources available as you begin to explore Ansible Automation Platform 2:</p>
+<ul>
+<li>To learn more about new features and components, check out the<a href="https://www.ansible.com/products/automation-platform">updated product overview page on ansible.com</a>. You can also consult our new interactive features guide.</li>
+<li>If you’re ready to get hands on, we have <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">self-paced interactive labs available</a> to explore right now.</li>
+<li>It&#39;s not too late to <a href="http://ansiblefest.com">register (for free!) for AnsibleFest 2021</a>; you can follow along live on September 29th and 30th, or explore session content on-demand following the event.</li>
+<li>We also encourage you to register for our free upcoming webinar “Red Hat Ansible Automation Platform brings you a new way to automate,” which will be live on November 2 and available afterwards on demand.</li>
+</ul>
+<p><strong>How do I get more help?</strong></p>
+<p>If you are interested in hearing more about Ansible Automation Platform 2, please reach out to your Red Hat sales representative. In the meantime, you can log into the <a href="https://red.ht/AAP-20">Red Hat Customer Portal</a> for official resources around the launch, including migration considerations, getting started blogs, and official documentation which can be found at <a href="https://red.ht/AAP-20">the Early Access page</a><em>. (Note: a Red Hat subscription is required for access)</em></p>
+<p>Still need assistance? Can’t find your Red Hat Sales representative? Contact <a href="https://access.redhat.com/support/contact/technicalSupport/">Red Hat Technical support</a> for additional information. Please refer to the <a href="https://red.ht/AAP-20">official resources</a> that will help you on your automation journey.</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/andrius-benokraitis"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Andrius-Benokraitis.jpg?itok=bGBYkaZb" alt="Andrius Benokraitis"></a></p>
+<p>[### Andrius Benokraitis</p>
+<p>Senior Manager, Technical Marketing for Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/andrius-benokraitis">https://www.redhat.com/en/authors/andrius-benokraitis</a>)</p>
+<p>Andrius is a Senior Manager, Technical Marketing for Ansible Automation Platform. He brings over 20 years in the computer software industry from companies such as IBM, Nortel, and Cumulus Networks. Andrius is skilled in Network Automation, Enterprise Linux, Business Analytics, Technical Writing, and Strategic Alliances.</p>
+<p><a href="https://www.redhat.com/en/authors/andrius-benokraitis">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/agentic-paradox-and-case-hybrid-ai">The agentic paradox and the case for hybrid AI</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/save-date-red-hat-summit-2027-coming-boston">Save the date: Red Hat Summit 2027 is coming to Boston</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/introducing-ansible-automation-platform-2">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

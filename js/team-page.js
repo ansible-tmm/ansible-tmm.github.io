@@ -349,6 +349,11 @@
         '<div class="team-profile__content">' +
           '<h3 class="team-profile__section-title">About</h3>' +
           formatBio(member.bio) +
+          '<div class="team-profile__blogs" id="team-profile-blogs" hidden>' +
+            '<h3 class="team-profile__section-title">Blog posts</h3>' +
+            '<ul class="team-profile__blog-list" id="team-profile-blog-list"></ul>' +
+            '<p><a href="/blog/?author=' + escapeAttr(member.slug) + '">View all posts by ' + escapeHtml(member.name) + '</a></p>' +
+          '</div>' +
           (member.funFact
             ? '<details class="team-fun-fact">' +
                 '<summary class="team-fun-fact__summary">Behind the scenes</summary>' +
@@ -430,6 +435,51 @@
         attachGifEasterEgg(photoWrap, gifConfig);
       }
     }
+
+    loadMemberBlogPosts(member);
+  }
+
+  function loadMemberBlogPosts(member) {
+    const blogsSection = document.getElementById('team-profile-blogs');
+    const blogsList = document.getElementById('team-profile-blog-list');
+    if (!blogsSection || !blogsList) return;
+
+    fetch('../data/blog-index.json')
+      .then(function (response) {
+        if (!response.ok) throw new Error('Failed to load blog index');
+        return response.json();
+      })
+      .then(function (data) {
+        const posts = (data.posts || []).filter(function (post) {
+          return (post.authors || []).some(function (author) {
+            return author.slug === member.slug;
+          });
+        }).slice(0, 5);
+
+        if (!posts.length) return;
+
+        blogsList.innerHTML = posts
+          .map(function (post) {
+            const date = post.published
+              ? new Date(post.published).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric',
+                })
+              : '';
+            return (
+              '<li>' +
+              '<a href="/blog/' + escapeAttr(post.slug) + '/">' + escapeHtml(post.title) + '</a>' +
+              (date ? '<span class="team-profile__blog-meta">' + escapeHtml(date) + '</span>' : '') +
+              '</li>'
+            );
+          })
+          .join('');
+        blogsSection.hidden = false;
+      })
+      .catch(function () {
+        blogsSection.hidden = true;
+      });
   }
 
   function route() {

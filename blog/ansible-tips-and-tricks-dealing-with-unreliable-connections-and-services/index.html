@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ansible Tips and Tricks, Dealing with Unreliable Connections and Services — Ansible TMM Blog</title>
+  <meta name="description" content="In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services">
+  <meta property="og:title" content="Ansible Tips and Tricks, Dealing with Unreliable Connections and Services">
+  <meta property="og:description" content="In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on December 1, 2024.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2024-12-02">December 1, 2024</time> · 8-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>Red Hat Ansible Automation is widely known to automate and configure Linux and Windows hosts, as well as network automation for routers, switches, firewalls and load balancers. Plus, there are a variety of modules that deal with the cloud and the API around it such as Microsoft Azure, Amazon Web Services (AWS) and Google Compute Engine.  And there are other modules that interact with Software as a Service (SaaS) tools like Slack or ServiceNow. Although the downtime for these APIs is very minimal, it does happen, and it is even more likely that the connection between your Ansible control host (where you are running Ansible from) and the cloud-centric API could be down.</p>
+<p>In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner. As a technical marketing engineer, I consider my customers the Red Hat field teams, and often Solutions Architects are running playbooks from unreliable hotel wireless, coffee shops and sometimes even airplanes! I have to make sure playbooks have some more robustness built in for these odd situations. It is hair-pulling frustrating to get through a 20 task playbook for it to fail on the 19th task because your wireless went out for a couple seconds. This is especially frustrating if you are at the airport just trying to setup a demo or playground to show something to a client.</p>
+<h3>The Until Loop</h3>
+<p>Many people that use Ansible are very familiar with the loop construct. A loop (previously known as with_items) is very simple and powerful and allows you to iterate over a list or dictionary in an easy fashion. However, I find that many people are not aware of the until loop. Let us look at how this can work.</p>
+<p>The module <a href="https://docs.ansible.com/ansible/latest/modules/ec2_vpc_net_module.html">ec2_vpc_net</a> allows us to create an AWS Virtual Private Cloud.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: Create AWS VPC sean-vpc</span></span>
+<span class="line"><span>      ec2_vpc_net:</span></span>
+<span class="line"><span>        name: "sean-vpc”</span></span>
+<span class="line"><span>        cidr_block: "192.168.1.0/16”</span></span>
+<span class="line"><span>        region: "us-east-1”</span></span>
+<span class="line"><span>      register: create_vpc</span></span>
+<span class="line"><span>      until: create_vpc is not failed</span></span>
+<span class="line"><span>      retries: 5</span></span></code></pre><p>The name, cidr_block and region are module parameters for the ec2_vpc_net module. However the register, until and retries are task level parameters, meaning that you can use these on any module. This task will attempt to create the VPC five times before it gives up and fails.</p>
+<p>Let&#39;s step back a minute to see how this works. Each time we run a task there are some common variables that the task returns to let us know how the task performed:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: test local playbook</span></span>
+<span class="line"><span>      hosts: localhost</span></span>
+<span class="line"><span>      gather_facts: false</span></span>
+<span class="line"><span>      tasks:</span></span>
+<span class="line"><span>          - name: dumb easy command</span></span>
+<span class="line"><span>            shell: ls -la</span></span>
+<span class="line"><span>            register: task_variable</span></span>
+<span class="line"><span>          - name: debug the var</span></span>
+<span class="line"><span>            debug:</span></span>
+<span class="line"><span>              var: task_variable</span></span></code></pre><p>When we run this playbook with ansible-playbook test_output.yml we get some standard output (via the debug module) printed to the terminal window (or browser window when using Ansible Tower).</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>TASK [debug the var] **************************************************************</span></span>
+<span class="line"><span>    ok: [localhost] =></span></span>
+<span class="line"><span>     task_variable:</span></span>
+<span class="line"><span>          changed: true</span></span>
+<span class="line"><span>          cmd: ls -la</span></span>
+<span class="line"><span>          delta: '0:00:00.011018'</span></span>
+<span class="line"><span>          end: '2018-12-07 09:53:14.595811'</span></span>
+<span class="line"><span>          failed: false</span></span>
+<span class="line"><span>    ...</span></span></code></pre><p>One of the key, value pairs we always get returned from any Ansible task is a <strong>failed</strong> key. If the task completed successfully the task will return a failed: false. If the task failed, the task will return a failed: true. Looking back at the until loop logic for the AWS VPC task:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>register: create_vpc</span></span>
+<span class="line"><span>    until: create_vpc is not failed</span></span>
+<span class="line"><span>    retries: 5</span></span></code></pre><p>We are registering the result of the task so we can look at the failed key, value pair. The until value is the conditional we are applying. In this case we keep running the task until the create_vpc does not have failed: true. However we don&#39;t want the task to run this for infinity. The default value for &quot;retries&quot; is 3, however I have increased this to 5. The until loop provides significant robustness to the task. There is also a delay parameter that can be combined with the until loop.  The delay is how much time to wait between retries.  The default value for the delay is 5 seconds.  Check out the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html#do-until-loops">documentation</a> for more details and examples of the until loop and the delay parameter.</p>
+<h4>Changing What A Failure Means</h4>
+<p>By default, if Ansible fails the playbook will end on that task, for the respective host it was running on. If I had a playbook running on 10 hosts, and it failed on 1 host on task three out of ten, the 7 subsequent tasks would not run for that host. The other hosts would remain unaffected.</p>
+<p>With unreliable connections to an outside API we need to think about what is required and not required to define success for a playbook to finish. For example if you had a task spin up a DNS record on AWS&#39;s Route53 service, the DNS can be nice to have, but isn&#39;t required for you to begin using the instance you created. I can use an until loop to make the route53 tasks more reliable, but it might be OK if the Route53 service is down and unusable. I can use the IP address to get some work done done on my instance until I get a more reliable internet connection to re-run the playbook or the Route53 service becomes available again. There are some tasks that are &quot;nice to have&quot; vs. required.</p>
+<p>The way to ignore a failed value is to use the <strong>ignore_errors</strong> parameter which is a task level parameter outlined in the <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_error_handling.html">documentation here</a>. I think there is plenty of content in the docs and various blogs about using the ignore_errors so I think it is sufficient to summarize that ignore_errors will show red and report a failed: true key, value pair, but the playbook will continue on.</p>
+<p>What happens if we want to combine the until loop with an ignore_errors?</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: failure test playbook</span></span>
+<span class="line"><span>      hosts: localhost</span></span>
+<span class="line"><span>      gather_facts: false</span></span>
+<span class="line"><span>      tasks:</span></span>
+<span class="line"><span>        - name: purposely fail</span></span>
+<span class="line"><span>          shell: /bin/false</span></span>
+<span class="line"><span>          register: task_register_var</span></span>
+<span class="line"><span>          until: task_register_var is not failed</span></span>
+<span class="line"><span>          retries: 5</span></span>
+<span class="line"><span>          ignore_errors: yes</span></span>
+<span class="line"><span>        - name: debug task_register_var</span></span>
+<span class="line"><span>          debug:</span></span>
+<span class="line"><span>            msg: "{{ task_register_var }}"</span></span></code></pre><p>We actually get the best of both worlds with an unreliable task. We get robustness with the until loop, combined with an ignore_errors which allows the playbook to complete regardless of that task completing successfully. I find myself using this combination of ignore_errors and until loops in conjunction with services like Let&#39;s Encrypt where it&#39;s not 100% required for me to have an SSL cert to start using the web app (I can rely on a self-signed cert until I can figure out the problem).</p>
+<p>The Ansible Playbook outputs like this:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>TASK [purposely fail] *************************************************************</span></span>
+<span class="line"><span>    FAILED - RETRYING: purposely fail (5 retries left).</span></span>
+<span class="line"><span>    FAILED - RETRYING: purposely fail (4 retries left).</span></span>
+<span class="line"><span>    FAILED - RETRYING: purposely fail (3 retries left).</span></span>
+<span class="line"><span>    FAILED - RETRYING: purposely fail (2 retries left).</span></span>
+<span class="line"><span>    FAILED - RETRYING: purposely fail (1 retries left).</span></span>
+<span class="line"><span>    fatal: [localhost]: FAILED! => changed=true</span></span>
+<span class="line"><span>      attempts: 5</span></span>
+<span class="line"><span>      cmd: /bin/false</span></span>
+<span class="line"><span>      delta: '0:00:00.007936'</span></span>
+<span class="line"><span>      end: '2018-12-07 13:23:13.277624'</span></span>
+<span class="line"><span>      msg: non-zero return code</span></span>
+<span class="line"><span>      rc: 127</span></span>
+<span class="line"><span>      start: '2018-12-07 13:23:13.269688'</span></span>
+<span class="line"><span>      stderr: '/bin/sh: /bin/false: No such file or directory'</span></span>
+<span class="line"><span>      stderr_lines:</span></span>
+<span class="line"><span>      - '/bin/sh: /bin/false: No such file or directory'</span></span>
+<span class="line"><span>      stdout: ''</span></span>
+<span class="line"><span>      stdout_lines:</span></span>
+<span class="line"><span>    ...ignoring</span></span>
+<span class="line"><span>    TASK [debug task_register_var] ****************************************************</span></span>
+<span class="line"><span>      msg:</span></span>
+<span class="line"><span>        attempts: 5</span></span>
+<span class="line"><span>        changed: true</span></span></code></pre><p>In the Ansible workshops I am actually using this combination of error handling for Let&#39;s Encrypt to make it easy for Ansible users to troubleshoot the issue.  If there are any tasks that have a failure that can be skipped, I can add it to a variable and print it at the end of the workshop playbook (the playbook responsible for provisioning instances for students to use).</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: failure test playbook</span></span>
+<span class="line"><span>      hosts: localhost</span></span>
+<span class="line"><span>      gather_facts: false</span></span>
+<span class="line"><span>      vars:</span></span>
+<span class="line"><span>        summary_information: |</span></span>
+<span class="line"><span>          PROVISIONER SUMMARY</span></span>
+<span class="line"><span>          *******************</span></span>
+<span class="line"><span>      tasks:</span></span>
+<span class="line"><span>        - name: ISSUE CERT</span></span>
+<span class="line"><span>          shell: certbot certonly --standalone -d student1.testworkshop.rhdemo.io --email ansible-network@redhat.com --noninteractive --agree-tos</span></span>
+<span class="line"><span>          register: issue_cert</span></span>
+<span class="line"><span>          until: issue_cert is not failed</span></span>
+<span class="line"><span>          retries: 5</span></span>
+<span class="line"><span>          ignore_errors: yes</span></span>
+<span class="line"><span>        - name: set facts for output</span></span>
+<span class="line"><span>          set_fact:</span></span>
+<span class="line"><span>          summary_information: |</span></span>
+<span class="line"><span>            {{summary_information}}</span></span>
+<span class="line"><span>            - The Lets Encrypt certbot failed, please check https://letsencrypt.status.io/ to make sure the service is running</span></span>
+<span class="line"><span>          when: issue_cert is failed</span></span>
+<span class="line"><span>        - name: print out summary information</span></span>
+<span class="line"><span>          debug:</span></span>
+<span class="line"><span>            msg: "{{summary_information}}"</span></span></code></pre><p>This prints out a very easy to understand message to the terminal window:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/Ansible-Networking-Tips-Tricks-Terminal-Screenshot.png"><img src="https://www.redhat.com/rhdc/managed-files/Ansible-Networking-Tips-Tricks-Terminal-Screenshot.png" alt="Ansible networking tips and tricks terminal"></a></p>
+<p>In conclusion, Ansible is extremely flexible at adding some additional logic when it is necessary. The until loop can add robustness and the ignore_errors allows us to determine success criteria. In combination your Ansible Playbooks can be much more user proof, allowing you to have a proactive vs. a reactive approach to troubleshooting issues. Ansible can&#39;t control if an API or service is down, but we can definitely operate more robustly than home made scripts or DIY API implementations. The playbooks provided are extremely human readable and easy for novice users to understand.</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+<h2>Keep exploring</h2>
+<ul>
+<li><a href="https://www.redhat.com/en/engage/automated-enterprise-ebook-20171107?intcmp=7013a000003Sq0iAAC" title="E-book: The automated enterprise">The automated enterpriseE-book</a></li>
+<li>Try Red Hat Ansible Automation Platform with self-paced, hands-on labsInteractive lab</li>
+<li><a href="https://www.redhat.com/en/engage/redhat-ansible-automation-20220412" title="Red Hat Ansible Automation Platform: A beginner’s guide">Red Hat Ansible Automation Platform: A beginner’s guide</a><a href="https://www.redhat.com/en/engage/ansible-automation-platform-beginners-guide-ebook" title="Red Hat Ansible Automation Platform: A beginner’s guide">E-book</a></li>
+</ul>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Windows enterprise in an Ansible galaxy — Ansible TMM Blog</title>
+  <meta name="description" content="Learn how to connect Windows servers with Ansible Automation Platform to help simplify, standardize, and scale your IT environment.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/windows-enterprise-ansible-galaxy">
+  <meta property="og:title" content="The Windows enterprise in an Ansible galaxy">
+  <meta property="og:description" content="Learn how to connect Windows servers with Ansible Automation Platform to help simplify, standardize, and scale your IT environment.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/windows-enterprise-ansible-galaxy">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/windows-enterprise-ansible-galaxy" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on March 3, 2024.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">The Windows enterprise in an Ansible galaxy</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2024-03-04">March 3, 2024</time> · 5-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>“We are the Borg. Lower your shields and surrender your ships. We will add your technological distinctiveness to our own and add it to our Red Hat Ansible Automation Platform inventory.”</p>
+<p>Okay, so I added the last part but I am certain that in that sci-fi universe the Borg and Federation would be big users of Ansible.</p>
+<p>Spock once said, “Superior ability breeds superior ambition.” One of the biggest benefits of Ansible is that it is use case friendly, meaning that it is able to provide automation to almost every part of the technology stack. Multi-vendor network appliances, hybrid cloud, infrastructure–these are all common projects for Ansible automation. With the latest addition of Event-Driven Ansible to the platform, we have the ability to automate those mission critical platforms and applications. Ansible has the superior ability to your superior ambition.</p>
+<p>Now Windows–we all love Windows. We love it even more since it can also be automated with Ansible. Windows automation with Ansible is becoming increasingly popular. In this blog, I hope to add some “technical distinctiveness to our own” and show you how to “assimilate” Windows hosts using Ansible.</p>
+<p>Windows administrators around the galaxy have a number of tools they use to manage their enterprise. These tools might serve the purpose for Windows administration but they inherently create a silo and rely on specialized expertise which we want to avoid. Imagine not being able to get the USS Enterprise to bring its shields up because we don’t have the correct tool or a specific engineer to do the job. Using a centralized platform with shared skill sets that can control the shields, the warp drive, the Holodeck, and the captain’s massage chair just makes practical and business sense. In an IT environment, Red Hat Ansible Automation Platform does exactly this.</p>
+<h2>Captains Log: Connecting to Windows</h2>
+<p>To connect to Windows hosts and automate them, we need to use WinRM (instead of SSH) and create an execution environment to run our automation tasks with the collections we use for Windows. Yes, we have certified and supported content collections for Windows as well as for tools like Chocolatey that can be used to deploy applications on Windows hosts.</p>
+<p>If you are new to Ansible Automation Platform, execution environments are purpose-built containers that contain everything you need to automate with Ansible. You create these execution environments with the required collections that Ansible will need to run your job templates.</p>
+<p><strong>Note:</strong> To find out more about execution environments, have a look at: <a href="https://www.ansible.com/blog/the-anatomy-of-automation-execution-environments">The anatomy of automation execution environments</a></p>
+<p>The execution environment I&#39;m using for my Windows automation has the following requirement.yml:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>requirements.yml  --- collections:  - ansible.windows  - community.windows  - community.general  - ansible.utils  - ansible.posix  - chocolatey.chocolatey  - microsoft.ad</code></td>
+<td><code>requirements.txt    requests-credssp &gt; 2.2.0</code></td>
+</tr>
+</tbody></table>
+<p>Once the execution environment ready, you can push it into a container registry like Quay.io or to your private automation hub which is part of Ansible Automation Platform. Next, I can add it to my automation controller and use it for all my Windows related automation templates.</p>
+<p><img src="https://lh7-us.googleusercontent.com/fiqI0Cs1ACy-dcIe0eJbFOBqmcdY2DcB435IFPVmVtGtxcN7zXkPHxAka9UPlrxSB4ZTP_d8pCjuDrnumYmylsVm1KQFAe8hRJiYtwYvVQZY-2BIbl6qOBOPq0yjHnDucYpC3nLX2F8JQQhtsbxfZ0A" alt=""></p>
+<p>To prepare your Windows systems for Ansible assimilation, you can grab the latest copy of the <a href="https://github.com/ansible/ansible-documentation/blob/devel/examples/scripts/ConfigureRemotingForAnsible.ps1">ConfigureRemotingForAnsible</a> PowerShell script and run it on your hosts. This is a quick baseline that you can use to customize and configure your host.</p>
+<p>In my example, I will be using the following script to configure my hosts. I have a https listener configured, and I&#39;m planning to use NTLM authentication since I am not running Kerberos. It is always recommended to run at least NTLM authentication. I am also enabling PowerShell remote protocol to give me a slight speed improvement.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>## Enable PowerShell Remote protocol Enable-PSRemoting -Force $certParams = @{    DnsName           = $env:COMPUTERNAME    CertStoreLocation = &quot;Cert:\LocalMachine\My&quot; } $cert = New-SelfSignedCertificate @certParams  ## Configure HTTPS transport $wsmanParams = @{    ResourceURI = &quot;winrm/config/Listener&quot;    SelectorSet = @{        Transport = &quot;HTTPS&quot;        Address = &quot;*&quot;    }    ValueSet    = @{        CertificateThumbprint = $cert.Thumbprint        Enabled               = $true    } } New-WSManInstance @wsmanParams  ## Configure Firewall Rules $firewallParams = @{    DisplayName = &quot;Windows Remote Management (HTTPS-In)&quot;    Direction   = &quot;Inbound&quot;    LocalPort   = 5986    Protocol    = &quot;TCP&quot;    Action      = &quot;Allow&quot; } New-NetFirewallRule @firewallParams  ## Regedit to filter access tokens $regInfo = @{    Path         = &quot;HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&quot;    Name         = &quot;LocalAccountTokenFilterPolicy&quot;    Value        = 1    PropertyType = &quot;DWord&quot;    Force        = $true } New-ItemProperty @regInfo</code></td>
+</tr>
+</tbody></table>
+<h2>Windows: Engage!</h2>
+<p>We have our execution environment with our Windows collections and we have our hosts configured with WinRM. Now We need to configure these hosts in our inventory on Ansible Automation Platform and, since it&#39;s Windows, a bit more information around these hosts is needed. In my inventory, I have Windows hosts managed within a group and I have used group variables to define some of the details.</p>
+<p><img src="https://lh7-us.googleusercontent.com/zXNoRpQtZZlt2DETgf8E8iXFksOz1SDdAM4UsOrIGYSMmL7MfkZXFb6mrnQPnhKuEK1KVg_7JbCxbWXGGWwZNQG8D7C7HObyFO_y_sHvw1_dgI2CWFLlqXQUYjV6nsk_TioLYKI2HpQP36jOgIW8U34" alt=""></p>
+<p>We will use these details when we attempt to connect to the Windows systems. We can now add our hosts to this group so they inherit the inventory variables we have defined at the group level. In my example, just like a totally logical Vulcan, my host is called windows.</p>
+<p><img src="https://lh7-us.googleusercontent.com/qKfyYQ-zqUz7XTk1nl00v-aYUDgBbbYbHLDGvpRSb19St5sME4W20HCaJC-hICqnIamp0_m7SkZ9XgjuQbTRfXBMxI5NTxwGIeiystrm2WWzC2zDn2yuitgpRigwQgEC5l_MAY8PCvmq_gHdearg_yo" alt=""></p>
+<p>With our hosts in our inventory, we just need to create a credential to authenticate on our hosts. In this example I will use a standard machine credential with the local administrator account details.</p>
+<p>Note: There is a great blog about the new <a href="https://www.redhat.com/en/blog/introducing-microsoft-active-directory-inventory-plug-ansible">Active Directory Inventory plugin</a>which looks at how you can use Active Directory as a source of truth and credentials for your Windows hosts.</p>
+<p>Lastly, I like to check that my connectivity is working. So we can go back into our inventory on our controller and navigate to our host that we have just added. In the automation controller, we have the ability to run commands or ad-hoc modules to test or gather information from our inventory hosts. We will select the host and then select: <code>run command</code>.</p>
+<p><img src="https://lh7-us.googleusercontent.com/TOXhFy84qVIHPDIbmr-H9_Zgu-Bsr3x7XYIMuumGIbMu4Ffke2Z_P2w5xKZzNT4U0K2c1CET7SbydHsMn_ORq5JAVKoqzVA1bgnS40jTSULUoINsJcav3njUyl9OqivMSZo_jE_c-X2x0QApBmw0acM" alt=""></p>
+<p>We can use the <code>win_ping</code> module, which is used to check connectivity on Windows hosts with Ansible and not an ICMP ping.</p>
+<p><img src="https://lh7-us.googleusercontent.com/vLrKYaX0zufKWn3PPV6lBhhNPZHM8VEZA4-wA8mMdEbQeYG-gLTDVE5dxoovq3veZ5-QclFs6EztIR3jRNyqSue8cdkNE-8uADb6AOfY-en1pKi3p8fKgbs0DU4Bi49x9XhNOUU6l1RFoFZmaXT0gcQ" alt=""></p>
+<p>Next we need to make sure that we execute this module in our Windows execution environment.</p>
+<p><img src="https://lh7-us.googleusercontent.com/HRfTfcpUBrS6-22CqPcA8SxXymOtH1mH94AXZX4eEpVCg-szbE9PtPE7GGqSTCjO7ZJ27OtIhUI6qiMZpbAV80YDXa0QyPYOFTr5AHxhBUfzoipcLdATp2dPDLAXbA1u424QOa4TMv-kKRKSoldyiQk" alt=""></p>
+<p>We can then choose the desired credentials:</p>
+<p><img src="https://lh7-us.googleusercontent.com/npMNqctHShXolaN-T57VXbPyBjxu-iz9OQtSfyAhHeNEUIgm8V0TYjntYbDigDOG0ckZEEVkFs29CSlzMhRbhEDFRUCDOPHDoM8cpKt5A5AANnUFgOhvr0nP87xFxdChrHfLpK_WUtoi70D19933SgU" alt=""></p>
+<p>We can then engage, I mean, launch. Our module should return a ”pong” for our “ping” if connectivity is successful. This means we are ready to automate!</p>
+<p><img src="https://lh7-us.googleusercontent.com/zilR81etZWSy0GgrYbv0VbYfgKBuHMG6WWJW2TQWr9zLRFdS0f9OPTbiLUP0dpDHEx25rJRHCrF23T1A6kX7d-EcPDctaA5az8W4iCv9ont9GAMSceptLDSh7ymot-uNDStzPW-vy9841xd2gDUXz9A" alt=""></p>
+<p>We are ready to automate!</p>
+<h2>What can I do next?</h2>
+<p>Whether you are beginning your automation journey or a seasoned veteran, there are a variety of resources to enhance your automation knowledge:</p>
+<ul>
+<li>Self-paced exercises - We have interactive, in-browser exercises to learn and dive into Ansible Automation Platform.</li>
+<li><a href="http://red.ht/try_ansible">Trial subscription</a> - Are you ready to install on-premises? Get 60 days of unlimited access to all the components of Ansible Automation Platform.</li>
+<li><a href="https://www.youtube.com/ansibleautomation">Subscribe to the Red Hat Ansible Automation Platform YouTube channel.</a></li>
+<li><a href="https://twitter.com/ansible">Follow Red Hat Ansible Automation Platform on Twitter</a> - Do you have questions or an automation project you want to show off? Tweet at us!</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/red-hat-satellite-620-limited-availability-early-access-containerized-management-and-post-quantum-cryptographic-enablement">Red Hat Satellite 6.20 limited availability: Early access registration now open</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/unify-it-workflows-scale-new-automation-orchestrator-ansible-automation-platform">Unify IT workflows at scale with the new automation orchestrator for Ansible Automation Platform</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/operating-system-management">Operating System Management | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/windows-enterprise-ansible-galaxy">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

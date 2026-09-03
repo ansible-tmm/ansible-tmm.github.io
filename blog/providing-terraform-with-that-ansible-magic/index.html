@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Providing Terraform with that Ansible Magic — Ansible TMM Blog</title>
+  <meta name="description" content="We are adding more value to infrastructure as code with an addition to the Ansible Certified Content Collection: The Ansible provider for Terraform.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/providing-terraform-with-that-ansible-magic">
+  <meta property="og:title" content="Providing Terraform with that Ansible Magic">
+  <meta property="og:description" content="We are adding more value to infrastructure as code with an addition to the Ansible Certified Content Collection: The Ansible provider for Terraform.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/providing-terraform-with-that-ansible-magic">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/providing-terraform-with-that-ansible-magic" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on December 1, 2024.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Providing Terraform with that Ansible Magic</h1>
+        <p class="blog-post-meta"><a href="/team/#nuno-martins">Nuno Martins</a> · <time datetime="2024-12-02">December 1, 2024</time> · 4-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>Late last year, we introduced a Red Hat Ansible Certified Collection Collection for Terraform. This was an important step in automation, as these two tools really are great together and leveraging Ansible&#39;s ability to orchestrate other tools in the enterprise made this a no-brainer. Terraform with its infrastructure as code (IaC) provisioning and Ansible&#39;s strength in configuration as code are a synergy that cannot be ignored - we are better together! Organizations are now in the position to utilize their existing infrastructure as code manifests and extend their automation with Terraform and Ansible together.</p>
+<p>Now, we are back with help from our partners at Kyndryl and XLAB and adding more value and magic to infrastructure as code - This time we have some extra muscle with an addition to the Red Hat Ansible Certified Content Collection: The Ansible provider for Terraform.</p>
+<p>So what does the provider help us with?</p>
+<p>Without a provider, we would need to rely on inventory plugins for the different cloud platforms and use filters to grab instance information from our freshly &quot;Terraformed&quot; infrastructure. This allows us to update our inventory so we can run automated tasks against these hosts. This is pretty smooth in a workflow especially if you are using the automation controller with a workflow. However, this scenario is not without complexity, and what about the Terraform users who are not working with automation controller? How can we leverage Ansible and bring these two tools together? The Ansible provider for Terraform is here to help us!</p>
+<p>With the Ansible provider in the Collection, we are able to define the use of an Ansible inventory in the <code>main.tf</code> file and once the project is initialized and built by Terraform, we can gather Terraform resource information from the state file and push it into an inventory.</p>
+<p>Let&#39;s look a bit closer:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[…main.tf]</span></span>
+<span class="line"><span>terraform {</span></span>
+<span class="line"><span>  required_providers {                     #### ansible provider</span></span>
+<span class="line"><span>    ansible = {</span></span>
+<span class="line"><span>      version = "~> 0.0.1"</span></span>
+<span class="line"><span>      source  = "terraform-ansible.com/ansibleprovider/ansible"</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>    aws = {</span></span>
+<span class="line"><span>      source  = "hashicorp/aws"</span></span>
+<span class="line"><span>      version = "~> 4.0"</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span>…</span></span>
+<span class="line"><span>resource "ansible_host" "my_ec2" {          #### ansible host details</span></span>
+<span class="line"><span>  name   = aws_instance.my_ec2.public_dns</span></span>
+<span class="line"><span>  groups = ["nginx"]</span></span>
+<span class="line"><span>  variables = {</span></span>
+<span class="line"><span>    ansible_user                 = "ansible",</span></span>
+<span class="line"><span>    ansible_ssh_private_key_file = "~/.ssh/id_rsa",</span></span>
+<span class="line"><span>    ansible_python_interpreter   = "/usr/bin/python3"</span></span></code></pre><p>Using the provider in the <code>main.tf</code> allows us to indicate that we want to use an Ansible inventory and allows us to specify Ansible host details for the inventory. Terraform can then initialize and plan the project and embed the details. If we look at the resulting Terraform state file we can see host details defined:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…terraform.tfstate                      #### Inside main.tf</span></span>
+<span class="line"><span>"mode": "managed",</span></span>
+<span class="line"><span>      "type": "ansible_host",</span></span>
+<span class="line"><span>      "name": "my_ec2",</span></span>
+<span class="line"><span>      "provider": "provider[\"terraform-ansible.com/ansibleprovider/ansible\"]",</span></span>
+<span class="line"><span>      "instances": [</span></span>
+<span class="line"><span>        {</span></span>
+<span class="line"><span>          "schema_version": 0,</span></span>
+<span class="line"><span>          "attributes": {</span></span>
+<span class="line"><span>            "groups": [</span></span>
+<span class="line"><span>              "nginx"</span></span>
+<span class="line"><span>            ],</span></span>
+<span class="line"><span>            "id": "ec2-18-130-240-228.eu-west-2.compute.amazonaws.com",</span></span>
+<span class="line"><span>            "name": "ec2-18-130-240-228.eu-west-2.compute.amazonaws.com",</span></span>
+<span class="line"><span>            "variables": {</span></span>
+<span class="line"><span>              "ansible_python_interpreter": "/usr/bin/python3",</span></span>
+<span class="line"><span>              "ansible_ssh_private_key_file": "~/.ssh/id_rsa",</span></span>
+<span class="line"><span>              "ansible_user": "ansible"</span></span>
+<span class="line"><span>            }</span></span>
+<span class="line"><span>          },</span></span>
+<span class="line"><span>…</span></span></code></pre><p>Taking a deeper look at the inventory, we can see that the plugin has populated instance data from the defined resource in the Terraform state file.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>…inventory.yml</span></span>
+<span class="line"><span>---</span></span>
+<span class="line"><span>plugin: cloud.terraform.terraform_provider</span></span></code></pre><pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible-inventory -i inventory.yml --graph --vars</span></span>
+<span class="line"><span>@all:</span></span>
+<span class="line"><span>  |--@nginx:</span></span>
+<span class="line"><span>  |  |--ec2-18-130-240-228.eu-west-2.compute.amazonaws.com</span></span>
+<span class="line"><span>  |  |  |--{ansible_python_interpreter = /usr/bin/python3}</span></span>
+<span class="line"><span>  |  |  |--{ansible_ssh_private_key_file = ~/.ssh/id_rsa}</span></span>
+<span class="line"><span>  |  |  |--{ansible_user = ubuntu}</span></span>
+<span class="line"><span>  |--@ungrouped:</span></span></code></pre><p>We are now able to run playbooks against this inventory and automate the configuration or additional post-provisioning tasks on our hosts without any hassle.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>Step 1: …terraform plan</span></span>
+<span class="line"><span>Step 2: …terraform apply</span></span>
+<span class="line"><span>…Deploying with Terraform…</span></span>
+<span class="line"><span>Apply complete! Resources: 5 added, 0 changed, 0 destroyed.</span></span>
+<span class="line"><span>++ ansible-playbook -i inventory.yml playbook.yml</span></span>
+<span class="line"><span>PLAY [Install nginx on remote host] *****************************************************************************************</span></span>
+<span class="line"><span>TASK [wait_for_connection] **************************************************************************************************</span></span>
+<span class="line"><span>The authenticity of host 'ec2-18-130-240-228.eu-west-2.compute.amazonaws.com (18.130.240.228)' can't be established.</span></span>
+<span class="line"><span>ECDSA key fingerprint is SHA256:jRqiAGPDzuYGe+l7jNsmQays2qb/C/SJqtnH6pc42ns.</span></span>
+<span class="line"><span>Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span></span>
+<span class="line"><span>ok: [ec2-18-130-240-228.eu-west-2.compute.amazonaws.com]</span></span>
+<span class="line"><span>TASK [setup] ****************************************************************************************************************</span></span>
+<span class="line"><span>ok: [ec2-18-130-240-228.eu-west-2.compute.amazonaws.com]</span></span>
+<span class="line"><span>TASK [Install nginx] ********************************************************************************************************</span></span>
+<span class="line"><span>changed: [ec2-18-130-240-228.eu-west-2.compute.amazonaws.com]</span></span>
+<span class="line"><span>TASK [Start nginx] **********************************************************************************************************</span></span>
+<span class="line"><span>ok: [ec2-18-130-240-228.eu-west-2.compute.amazonaws.com]</span></span>
+<span class="line"><span>PLAY RECAP ******************************************************************************************************************</span></span>
+<span class="line"><span>ec2-18-130-240-228.eu-west-2.compute.amazonaws.com : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0</span></span></code></pre><p>This new provider is extremely useful when you are using Terraform for deployments while leveraging Ansible for cloud operations like application deployments and CI/CD pipelines, Lifecycle management and enforcement, OS patching and maintenance. With this provider being part of the Red Hat Ansible Certified Content Collection, we also have ongoing maintenance and support available!</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo" alt="Nuno Martins"></a></p>
+<p>[### Nuno Martins</p>
+<p>Technical Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/nuno-martins">https://www.redhat.com/en/authors/nuno-martins</a>)</p>
+<p>Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.</p>
+<p><a href="https://www.redhat.com/en/authors/nuno-martins">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/providing-terraform-with-that-ansible-magic">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

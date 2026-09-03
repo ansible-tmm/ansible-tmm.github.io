@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ansible Network Resource Modules: Deep Dive on Return Values — Ansible TMM Blog</title>
+  <meta name="description" content="Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/ansible-network-resource-modules-deep-dive-on-return-values">
+  <meta property="og:title" content="Ansible Network Resource Modules: Deep Dive on Return Values">
+  <meta property="og:description" content="Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/ansible-network-resource-modules-deep-dive-on-return-values">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/ansible-network-resource-modules-deep-dive-on-return-values" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on January 11, 2021.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Ansible Network Resource Modules: Deep Dive on Return Values</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2021-01-12">January 11, 2021</time> · 5-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>The Red Hat Ansible Network Automation engineering team is continually adding new resource modules <a href="https://access.redhat.com/articles/5531421">to its supported network platforms</a>.  Ansible Network Automation resource modules are opinionated network modules that make network automation easier to manage and more consistent for those automating various network platforms in production. The goal for resource modules is to avoid creating and maintaining overly complex jinja2 templates for rendering and pushing network configuration, as well as having to maintain complex fact gathering and parsing methodologies.  For this blog post, we will cover standard return values that are the same across all supported network platforms (e.g. Arista EOS, Cisco IOS, NXOS, IOS-XR, and Juniper Junos) and all resource modules.</p>
+<p>Before we get started, I wanted to call out three previous blog posts covering resource modules. If you are unfamiliar with resource modules, check any of these out:</p>
+<ul>
+<li><p>acls - the resource module for configuring access control lists on network devices. For example: <a href="https://docs.ansible.com/ansible/latest/collections/junipernetworks/junos/junos_acls_module.html">junos_acls</a> on Juniper Junos  </p>
+<p><a href="https://www.ansible.com/blog/deep-dive-acl-configuration-management-using-ansible-network-automation-resource-modules">Deep Dive: ACL Configuration Management Using Ansible Network Automation Resource Modules</a></p>
+</li>
+<li><p>ospfv2 - the resource module for configuring the routing protocol OSPF. For example: <a href="https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_ospfv2_module.html">ios_ospfv2</a> for OSPF configuration on Cisco IOS  </p>
+<p><a href="https://www.ansible.com/blog/getting-started-with-ospfv2-resource-modules">Getting Started With OSPFV2 Resource Modules</a> by <a href="https://www.ansible.com/blog/author/rohit-thakur">Rohit Thakur</a></p>
+</li>
+<li><p>vlans - the resource module for configuring VLANS on network devices. For example: <a href="https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_vlans_module.html">eos_vlans</a> for VLANS configuration on Arista EOS  </p>
+<p><a href="https://www.ansible.com/blog/deep-dive-on-vlans-resource-modules-for-network-automation">Deep dive on VLANS resource modules for network automation</a></p>
+</li>
+</ul>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-01-12%20at%202.56.22%20PM.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/Screen%20Shot%202021-01-12%20at%202.56.22%20PM.png" alt="Screen Shot 2021-01-12 at 2.56.22 PM"></a></p>
+<h2>What are resource module return values?</h2>
+<p>Return values are what are returned from the resource modules when it finishes execution. Let’s cover when you would use them, how to use them, and why you should care!</p>
+<p>So let&#39;s get started: All currently released resource modules have the exact same return values to make it easy to automate consistently across any network resource module. They are the following:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>after</strong></td>
+<td>The configuration as structured data after module completion.</td>
+</tr>
+<tr>
+<td><strong>before</strong></td>
+<td>The configuration as structured data prior to module invocation.</td>
+</tr>
+<tr>
+<td><strong>commands</strong></td>
+<td>The set of commands pushed to the remote device.</td>
+</tr>
+</tbody></table>
+<p>Why are return values important? They give you state <em>before and after</em> modifications happen. The before value lets you know the state of the device before you do any modification.  This makes it easy to revert changes or simply compare the before and after of any particular resource.  The commands return value will actually be in the network platform’s device syntax, so if you are automating an Arista EOS switch, you will get Arista commands.  This is important because it allows a network operator to quickly see what the automation actually did, and in the syntax that is expected of the operator.  There is no abstraction happening that impacts the network operator from the tool, so trust is gained with automation, which can help with establishing a positive culture between network automation engineers and folks that might just be starting their automation journey.</p>
+<h2>A practical example</h2>
+<p>Let&#39;s look at a practical example using the Arista <a href="https://docs.ansible.com/ansible/latest/collections/arista/eos/eos_l2_interfaces_module.html">eos_l2_interfaces module</a> from the Arista Network Collection. The quick summary for those that don’t know what a Collection is: it’s how content is packaged, including Ansible Modules. The modules that you know and love still work exactly the same way you are used to but packaged in a more portable and flexible format.</p>
+<p>The l2_interfaces resource modules configure layer 2 access and trunk ports on network devices.  Lets look at an Ansible Playbook example:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- name: l2_interfaces example for blog</span></span>
+<span class="line"><span>  hosts: arista</span></span>
+<span class="line"><span>  gather_facts: false</span></span>
+<span class="line"><span>  tasks:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    - name: merge configuration</span></span>
+<span class="line"><span>      arista.eos.eos_l2_interfaces:</span></span>
+<span class="line"><span>       config:</span></span>
+<span class="line"><span>       - name: Ethernet1</span></span>
+<span class="line"><span>         mode: trunk</span></span></code></pre><p>This Ansible Playbook turns network port Ethernet1 into a 802.1q trunk port.  We can run this with verbosity turned on using the -v option to see the return values quickly in our terminal window:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>[sean@RHEL8 ~]$ ansible-playbook arista_example.yml -v -l rtr2</span></span></code></pre><p>The -v refers to <a href="https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-v">verbosity</a> while the -l refers to a <a href="https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html#cmdoption-ansible-playbook-l">limit</a> where the Ansible Playbook will only run on the specified node rtr2 (which is a Arista vEOS device I have running 4.22.1FX-VEOSRouter-cloud on AWS for demonstration purposes).</p>
+<p>Here is output from the task:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%201.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%201.png" alt="sean module blog 1"></a></p>
+<p>(Output is also provided in <a href="https://gist.github.com/IPvSean/93490212e528e7607c4e6e76da52d9b6">Public Gist</a>)</p>
+<p>Let&#39;s break this down, but only for Ethernet1, to simplify this a bit for blog purposes!</p>
+<p>The before return value shows us the data model before we modify (execute any commands) on the Arista network switch.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>  before:</span></span>
+<span class="line"><span>  - name: Ethernet1</span></span></code></pre><p>The commands return value shows us the actual command that Ansible executes to enforce the configuration we specified in our Ansible Playbook.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>  commands:</span></span>
+<span class="line"><span>  - interface Ethernet1</span></span>
+<span class="line"><span>  - switchport mode trunk</span></span></code></pre><p>Finally, we can look at the after return value, which will show us the new data model on the network device, after we ran the commands specified above.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>  after:</span></span>
+<span class="line"><span>  - name: Ethernet1</span></span>
+<span class="line"><span>    mode: trunk</span></span></code></pre><h2>Using return values</h2>
+<p>The above example only shows verbosity of return values to the terminal window.  The return values can also be stored and used in subsequent tasks.  Let&#39;s look at the following example playbook:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>---</span></span>
+<span class="line"><span>- name: l2_interfaces example for blog</span></span>
+<span class="line"><span>  hosts: arista</span></span>
+<span class="line"><span>  gather_facts: false</span></span>
+<span class="line"><span>  tasks:</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    - name: merge configuration</span></span>
+<span class="line"><span>      arista.eos.eos_l2_interfaces:</span></span>
+<span class="line"><span>       config:</span></span>
+<span class="line"><span>       - name: Ethernet1</span></span>
+<span class="line"><span>         mode: trunk</span></span>
+<span class="line"><span>      register: example</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    - name: display output</span></span>
+<span class="line"><span>      debug:</span></span>
+<span class="line"><span>        msg:</span></span>
+<span class="line"><span>          - "before:"</span></span>
+<span class="line"><span>          - "{{ example.before | to_nice_yaml }}"</span></span>
+<span class="line"><span>          - ""</span></span>
+<span class="line"><span>          - "commands:"</span></span>
+<span class="line"><span>          - "{{ example.commands | to_nice_yaml }}"</span></span>
+<span class="line"><span>          - ""</span></span>
+<span class="line"><span>          - "{{ example.after | to_nice_yaml }}"</span></span></code></pre><p>We have added a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#registering-variables">register</a> to the first task.  This saves all return values to the variable example.  I also added one <a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html">debug</a> task where I broke out each of the three return values.  The debug task allows us to return output to the terminal window.  In an example for production, we would save this information into a SoT (source of truth) or create some dynamic documentation into markdown or a website.  For an example of a source of truth, check out our previous blog on <a href="https://www.ansible.com/blog/using-netbox-for-ansible-source-of-truth">Using NetBox for Ansible Source of Truth</a>.  I also added a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#formatting-data-yaml-and-json">filter</a> to_nice_yamlto convert the structured data to human readable YAML:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%202.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/sean%20module%20blog%202.png" alt="sean module blog 2"></a></p>
+<p>(output is also provided in <a href="https://gist.github.com/IPvSean/93490212e528e7607c4e6e76da52d9b6">Public Gist</a>)</p>
+<p>In summary, the return values can be stored and used for auditing, logging or simply helping network engineers understand what has changed, what commands were used to make the change, and what the final configuration looks like post execution.  The most important takeaway from these return values are that they are the same across all platforms and all network resource modules, making the experience predictable and stable for folks using Ansible Network Automation.</p>
+<h2>Where do I go next?</h2>
+<p><strong>Where can I get a trial?</strong></p>
+<p>If you want to get a trial to Red Hat Ansible Automation Platform, please visit <a href="http://red.ht/try_ansible">red.ht/try_ansible</a></p>
+<p><strong>Where can I learn Ansible?</strong></p>
+<p>Are you new to Ansible automation and want to learn?  Check out our getting started guide lessons on developers.redhat.com: <a href="https://developers.redhat.com/products/ansible/getting-started">developers.redhat.com/products/ansible/getting-started</a></p>
+<p>For network engineers check out our <a href="https://docs.ansible.com/ansible/latest/network/getting_started/index.html">Network Getting Started guide</a></p>
+<p><strong>Where can I learn about Ansible Content Collections?</strong></p>
+<p>If you are unfamiliar with Ansible Collections, check out our <a href="https://youtube.com/playlist?list=PLdu06OJoEf2Z85Lrc7_Sdw6mTt4aSKfwt">YouTube playlist for everything about Ansible Collections</a>.  We have tons of great videos that will get you up to speed quickly.</p>
+<p><strong>I missed AnsibleFest 2020. where is the content?</strong></p>
+<p>We got you covered, check out this video: <a href="https://www.youtube.com/watch?v=YjEPR9jjSD0&t=2s">AnsibleFest 2020! I missed it! Where is the content?</a>  </p>
+<p>Explore everything on-demand for free on <a href="https://www.ansible.com/ansiblefest">www.ansible.com/ansiblefest</a></p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecting-true-autonomy-level-45-network">Architecting true autonomy with a level 4/5 network</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/solve-multi-controller-contention-red-hat-openshift-networking">Solve multi-controller contention with Red Hat OpenShift networking</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/untangling-networks">Untangling Networks | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/ansible-network-resource-modules-deep-dive-on-return-values">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

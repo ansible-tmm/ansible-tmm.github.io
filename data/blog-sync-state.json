@@ -1,0 +1,424 @@
+{
+  "posts": {
+    "a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave": {
+      "source_url": "https://www.redhat.com/en/blog/a-deeper-look-red-hat-named-a-leader-in-the-forrester-wave",
+      "updated": "2026-01-27",
+      "content_hash": "18eef414e83accaab842147f872fd5eacbd33a874564294efc993a226b8e431f",
+      "synced_at": "2026-09-03T19:20:30Z"
+    },
+    "whats-new-in-ansible-automation-platform-2.2": {
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.2",
+      "updated": "2026-02-27",
+      "content_hash": "18da7315198b53e115993ced401909c257c11163f7d7471958c7fe291425a4a7",
+      "synced_at": "2026-09-03T19:20:31Z"
+    },
+    "introducing-ansible-automation-platform-2": {
+      "source_url": "https://www.redhat.com/en/blog/introducing-ansible-automation-platform-2",
+      "updated": "2026-03-05",
+      "content_hash": "2812194847855aa2e6774d847f7d8773fa273cc53f34040f480f5c1b0f1a217b",
+      "synced_at": "2026-09-03T19:20:31Z"
+    },
+    "team-automation-numbers": {
+      "source_url": "https://www.redhat.com/en/blog/team-automation-numbers",
+      "updated": "2025-11-24",
+      "content_hash": "1343b44daebb2d1c49b0b2f001617051976d4c3c491f63385ba7c9c60c01a84a",
+      "synced_at": "2026-09-03T19:20:31Z"
+    },
+    "network-features-coming-soon-in-ansible-engine-2.9": {
+      "source_url": "https://www.redhat.com/en/blog/network-features-coming-soon-in-ansible-engine-2.9",
+      "updated": "2025-11-19",
+      "content_hash": "b30141c996f866d193f46cedb7d9dec346bcef942495ffd6b1a18dc35e664c00",
+      "synced_at": "2026-09-03T19:20:31Z"
+    },
+    "getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant": {
+      "source_url": "https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant",
+      "updated": "2025-11-23",
+      "content_hash": "13c95e639495f41f530befa8b77d2ad902ff22d482e7012e6c362bb1716c1725",
+      "synced_at": "2026-09-03T19:20:33Z"
+    },
+    "new-red-hat-ansible-development-tools": {
+      "source_url": "https://www.redhat.com/en/blog/new-red-hat-ansible-development-tools",
+      "updated": "2025-11-24",
+      "content_hash": "b810d847371a398edc7675bcbb57c87712d133e9ad9f4c711010e3ac43540a0b",
+      "synced_at": "2026-09-03T19:20:35Z"
+    },
+    "introducing-ansible-plug-ins-red-hat-developer-hub": {
+      "source_url": "https://www.redhat.com/en/blog/introducing-ansible-plug-ins-red-hat-developer-hub",
+      "updated": "2025-11-24",
+      "content_hash": "2c97e1e12f2f331aae6e46e00d9d77bb2f72f9cc97e08ae1a16cb8f8e05542d6",
+      "synced_at": "2026-09-03T19:20:35Z"
+    },
+    "unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0": {
+      "source_url": "https://www.redhat.com/en/blog/unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0",
+      "updated": "2025-11-24",
+      "content_hash": "78ec8602a3926cbab7baefed86e78e466936cd8d63ac364fd37c54cb2b5da923",
+      "synced_at": "2026-09-03T19:20:36Z"
+    },
+    "the-anatomy-of-automation-execution-environments": {
+      "source_url": "https://www.redhat.com/en/blog/the-anatomy-of-automation-execution-environments",
+      "updated": "2026-01-27",
+      "content_hash": "e6c9608f8aaa9f46fa6bb5a079670d76a752aa313a5103c521a9bcf45c3ecf7f",
+      "synced_at": "2026-09-03T19:20:36Z"
+    },
+    "digitally-signing-ansible-content-collections-using-private-automation-hub": {
+      "source_url": "https://www.redhat.com/en/blog/digitally-signing-ansible-content-collections-using-private-automation-hub",
+      "updated": "2026-03-06",
+      "content_hash": "60dc8e8b1ab505143816b47ba7aa8e60316dcfdf30e8484921cb9db5cf74c1c7",
+      "synced_at": "2026-09-03T19:20:37Z"
+    },
+    "new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide": {
+      "source_url": "https://www.redhat.com/en/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide",
+      "updated": "2026-04-23",
+      "content_hash": "9e0e51741848b7389e3da235882574bed72720533fa88c08e1866d94df432a17",
+      "synced_at": "2026-09-03T19:20:39Z"
+    },
+    "migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2": {
+      "source_url": "https://www.redhat.com/en/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2",
+      "updated": "2026-01-27",
+      "content_hash": "95aa3f9b7d38d40fc57e2d90460e904af915de7ac318e2b982eb28336e5c612c",
+      "synced_at": "2026-09-03T19:20:40Z"
+    },
+    "whats-new-in-ansible-automation-platform-2-automation-execution-environments": {
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments",
+      "updated": "2025-11-24",
+      "content_hash": "01ac78c89dd9b3bf39071c8a49b1f6f9ea1143451f729bb17f37a95a0475bad6",
+      "synced_at": "2026-09-03T19:20:43Z"
+    },
+    "automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform": {
+      "source_url": "https://www.redhat.com/en/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform",
+      "updated": "2026-01-20",
+      "content_hash": "9f99b5e0b26178b15bb7acb446c9a1836b760537a0c15e243aec89145f35f374",
+      "synced_at": "2026-09-03T19:20:44Z"
+    },
+    "learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform": {
+      "source_url": "https://www.redhat.com/en/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform",
+      "updated": "2025-12-03",
+      "content_hash": "f2d44ebe1e6cab457c2f9f181a09eb88c29b35e3c1fa18e7d1b52fa8ac989e5f",
+      "synced_at": "2026-09-03T19:20:46Z"
+    },
+    "red-hat-ansible-will-be-autocon2": {
+      "source_url": "https://www.redhat.com/en/blog/red-hat-ansible-will-be-autocon2",
+      "updated": "2025-11-25",
+      "content_hash": "45633694e7bbce70035a89a993829f0996eb05ad2bdc562d595e626d4caa3d6a",
+      "synced_at": "2026-09-03T19:20:48Z"
+    },
+    "what-you-need-know-about-vmware-automation-red-hat-ansible": {
+      "source_url": "https://www.redhat.com/en/blog/what-you-need-know-about-vmware-automation-red-hat-ansible",
+      "updated": "2025-12-09",
+      "content_hash": "5c2c1205f8f8d280f5fdb5e7cd7ed73bca1751b6e33ff78d37b43345855b616a",
+      "synced_at": "2026-09-03T19:20:50Z"
+    },
+    "unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform": {
+      "source_url": "https://www.redhat.com/en/blog/unleashing-the-potential-of-multi-cloud-automation-with-ansible-and-terraform",
+      "updated": "2026-07-29",
+      "content_hash": "b8c846f9b1b1e54417cb0c6e0866dbabac3e575a0e50be0da8e79fa86bedfe22",
+      "synced_at": "2026-09-03T19:20:52Z"
+    },
+    "whats-new-in-ansible-automation-platform-2.4": {
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.4",
+      "updated": "2025-11-26",
+      "content_hash": "ba1e068c6cd66ca6d68c9f15898d02a3f0cc2e36f8ae02dda6990efbf46918ce",
+      "synced_at": "2026-09-03T19:20:54Z"
+    },
+    "ansible-and-packer-why-they-are-better-together": {
+      "source_url": "https://www.redhat.com/en/blog/ansible-and-packer-why-they-are-better-together",
+      "updated": "2026-01-27",
+      "content_hash": "8e26550ccf05ac186c4c576a33f85bfe5ecd64acb3dfce1887a1fb68ac2f79a5",
+      "synced_at": "2026-09-03T19:20:54Z"
+    },
+    "peeling-back-the-layers-and-understanding-automation-mesh": {
+      "source_url": "https://www.redhat.com/en/blog/peeling-back-the-layers-and-understanding-automation-mesh",
+      "updated": "2025-11-19",
+      "content_hash": "658c508416db26a761ade9247c044f87638b43edbab4b0537c2b57bd17e5032e",
+      "synced_at": "2026-09-03T19:20:56Z"
+    },
+    "ask-me-anything-recap-april": {
+      "source_url": "https://www.redhat.com/en/blog/ask-me-anything-recap-april",
+      "updated": "2026-03-02",
+      "content_hash": "6c803a3ebcfd23652dbdad226290088a52e331a407c5321f5accf2a168741eb9",
+      "synced_at": "2026-09-03T19:20:56Z"
+    },
+    "ansible-automation-platform-a-video-tour": {
+      "source_url": "https://www.redhat.com/en/blog/ansible-automation-platform-a-video-tour",
+      "updated": "2025-11-24",
+      "content_hash": "415c0779fe33f772cfd34128f12769f036d5741ad191033f07151a4ed8d50744",
+      "synced_at": "2026-09-03T19:20:58Z"
+    },
+    "introducing-red-hat-ansible-automation-platform-2.1": {
+      "source_url": "https://www.redhat.com/en/blog/introducing-red-hat-ansible-automation-platform-2.1",
+      "updated": "2026-03-05",
+      "content_hash": "7c96897eb9c9d69821456a5d99072ff7f7dc42ba2b4fb98127dedaccff090aa8",
+      "synced_at": "2026-09-03T19:20:59Z"
+    },
+    "automation-for-the-cloud-cloud-field-day-12-recap": {
+      "source_url": "https://www.redhat.com/en/blog/automation-for-the-cloud-cloud-field-day-12-recap",
+      "updated": "2025-11-24",
+      "content_hash": "7132b1ffe76234fa3e256346a1eb976171267a70051be3fd5c0167044ea261fc",
+      "synced_at": "2026-09-03T19:21:00Z"
+    },
+    "whats-new-in-ansible-automation-platform-2-private-automation-hub": {
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-private-automation-hub",
+      "updated": "2026-02-27",
+      "content_hash": "4b3b912911bba8cc2c32e305ec860bdc5b677a2c55f0c7b2037ce36c6662cc4f",
+      "synced_at": "2026-09-03T19:21:01Z"
+    },
+    "ansible-network-resource-modules-deep-dive-on-return-values": {
+      "source_url": "https://www.redhat.com/en/blog/ansible-network-resource-modules-deep-dive-on-return-values",
+      "updated": "2025-11-19",
+      "content_hash": "4a512f2570d1f72783262b3513b78836d03ff44c5b457c105a9aa90c5e4a4a1c",
+      "synced_at": "2026-09-03T19:21:02Z"
+    },
+    "now-available-red-hat-ansible-automation-platform-1.2": {
+      "source_url": "https://www.redhat.com/en/blog/now-available-red-hat-ansible-automation-platform-1.2",
+      "updated": "2025-11-24",
+      "content_hash": "165211a38b00a928a3263ab0044fb36fb039ff3a37a94a234d40571ca23aaf65",
+      "synced_at": "2026-09-03T19:21:04Z"
+    },
+    "control-your-content-with-private-automation-hub": {
+      "source_url": "https://www.redhat.com/en/blog/control-your-content-with-private-automation-hub",
+      "updated": "2025-11-24",
+      "content_hash": "1049dee57b18ff2376dfc4ddc4fa5e93fb18a79cc77d300a5916e3b3dded8952",
+      "synced_at": "2026-09-03T19:21:06Z"
+    },
+    "automation-analytics-part-3": {
+      "source_url": "https://www.redhat.com/en/blog/automation-analytics-part-3",
+      "updated": "2025-11-24",
+      "content_hash": "a8f8f1cac0853cbb008c6a130ac6e20b1d50f000a99723e3995315b13af3c017",
+      "synced_at": "2026-09-03T19:21:06Z"
+    },
+    "automation-analytics-part-2-looking-at-data-collection": {
+      "source_url": "https://www.redhat.com/en/blog/automation-analytics-part-2-looking-at-data-collection",
+      "updated": "2025-11-24",
+      "content_hash": "6e13c4167c7c92622a6d26649106073730872ea9e703570d8f9647ecbe594733",
+      "synced_at": "2026-09-03T19:21:10Z"
+    },
+    "getting-started-with-automation-analytics": {
+      "source_url": "https://www.redhat.com/en/blog/getting-started-with-automation-analytics",
+      "updated": "2025-11-24",
+      "content_hash": "0982d45ee3e5448554dded6ee69d1bc7a8c1753890bc8030f714079c201cbf63",
+      "synced_at": "2026-09-03T19:21:12Z"
+    },
+    "build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions": {
+      "source_url": "https://www.redhat.com/en/blog/build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions",
+      "updated": "2025-11-24",
+      "content_hash": "d70ee14b559657f341d8a6b5dbc09a286ecfd224a92a10055ec7237273596dd0",
+      "synced_at": "2026-09-03T19:21:14Z"
+    },
+    "ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services": {
+      "source_url": "https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services",
+      "updated": "2026-01-27",
+      "content_hash": "726cd69dc60ca033ae8a89229d2ddb1e91d6a547088e33ff5f8307f9c0bac09c",
+      "synced_at": "2026-09-03T19:21:16Z"
+    },
+    "red-hat-ansible-network-automation-updates": {
+      "source_url": "https://www.redhat.com/en/blog/red-hat-ansible-network-automation-updates",
+      "updated": "2025-11-24",
+      "content_hash": "9c575bdfea520755ecaf29af579ece26d11881d21f33912425cac6ebab6b430f",
+      "synced_at": "2026-09-03T19:21:18Z"
+    },
+    "porting-ansible-network-playbooks-with-new-connection-plugins": {
+      "source_url": "https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins",
+      "updated": "2026-06-16",
+      "content_hash": "b594e57a772d30596cf28d99f807eb9d8a02d2f670a63a5cf91674844205ccb9",
+      "synced_at": "2026-09-03T19:21:20Z"
+    },
+    "coming-soon-networking-features-in-ansible-2.5": {
+      "source_url": "https://www.redhat.com/en/blog/coming-soon-networking-features-in-ansible-2.5",
+      "updated": "2025-11-19",
+      "content_hash": "c3e0196d36564717e309010529750587f22c854e81c38402102fd9db7aecfb5b",
+      "synced_at": "2026-09-03T19:21:22Z"
+    },
+    "accelerate-ansible-networking-aggregate-resources": {
+      "source_url": "https://www.redhat.com/en/blog/accelerate-ansible-networking-aggregate-resources",
+      "updated": "2025-11-24",
+      "content_hash": "1a5c75618167a055d5bcc1ce2657350dc4204d6a79f346c1346a41b4059b384e",
+      "synced_at": "2026-09-03T19:21:24Z"
+    },
+    "empower-everyone-automate-ansibles-self-service-automation-portal": {
+      "source_url": "https://www.redhat.com/en/blog/empower-everyone-automate-ansibles-self-service-automation-portal",
+      "updated": "2025-11-25",
+      "content_hash": "2e693e3a0fa6140dd959609334c002ae55e2a34e354ef1d259c153b206de58ef",
+      "synced_at": "2026-09-03T19:21:24Z"
+    },
+    "red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace": {
+      "source_url": "https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-now-available-on-google-cloud-marketplace",
+      "updated": "2026-07-29",
+      "content_hash": "1ae827ccdc53f7844bedf369e27b4c1d91c2a6ab83653b010f4815535916d4c3",
+      "synced_at": "2026-09-03T19:21:26Z"
+    },
+    "red-hat-ansible-automation-platform-service-aws-now-available-aws-marketplace": {
+      "source_url": "https://www.redhat.com/en/blog/red-hat-ansible-automation-platform-service-aws-now-available-aws-marketplace",
+      "updated": "2026-07-29",
+      "content_hash": "3424f2a52d5977011665fb1cb3ead91c979655d0d0df374d2c82bcc41e4e88fa",
+      "synced_at": "2026-09-03T19:21:28Z"
+    },
+    "importing-ansible-validated-content-into-private-automation-hub": {
+      "source_url": "https://www.redhat.com/en/blog/importing-ansible-validated-content-into-private-automation-hub",
+      "updated": "2025-11-24",
+      "content_hash": "2d66f4de9ed8c8ff2970f49e12bae87732931548004c58179e2f7c38cd90b510",
+      "synced_at": "2026-09-03T19:21:28Z"
+    },
+    "installation-and-upgrade-guide-ansible-automation-platform-26": {
+      "source_url": "https://www.redhat.com/en/blog/installation-and-upgrade-guide-ansible-automation-platform-26",
+      "updated": "2025-11-25",
+      "content_hash": "b89298bdf8471640af3d2f5f46db7cbfc1df11022b37ea3b69eacd52ab94f3d0",
+      "synced_at": "2026-09-03T19:21:30Z"
+    },
+    "5-ways-augment-security-risk-management-ai-era": {
+      "source_url": "https://www.redhat.com/en/blog/5-ways-augment-security-risk-management-ai-era",
+      "updated": "2026-09-01",
+      "content_hash": "91625b42b8cd902551056d8afe5ab664ef42a3917af94c1014ddfda42aa69dab",
+      "synced_at": "2026-09-03T19:21:31Z"
+    },
+    "navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation": {
+      "source_url": "https://www.redhat.com/en/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation",
+      "updated": "2026-08-11",
+      "content_hash": "44e1eeb30d4720d7622889cc38183cc79b0d9e2d8d1ce676916ead11b7d2fe58",
+      "synced_at": "2026-09-03T19:21:31Z"
+    },
+    "ai-threats-move-fast-your-defenses-should-too": {
+      "source_url": "https://www.redhat.com/en/blog/ai-threats-move-fast-your-defenses-should-too",
+      "updated": "2026-07-09",
+      "content_hash": "bea7cf0e0537f5e94beb6025520cc57ba1a10d7ed20deac489d2438354737c8f",
+      "synced_at": "2026-09-03T19:21:34Z"
+    },
+    "event-driven-ansible-simplified-event-routing-event-streams": {
+      "source_url": "https://www.redhat.com/en/blog/event-driven-ansible-simplified-event-routing-event-streams",
+      "updated": "2026-01-20",
+      "content_hash": "c35529c2ec4fe69b3f6b3c24acfdd37e9c81a426f527ffb24de6606f3fedbe0a",
+      "synced_at": "2026-09-03T19:21:35Z"
+    },
+    "easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform": {
+      "source_url": "https://www.redhat.com/en/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform",
+      "updated": "2026-07-29",
+      "content_hash": "fb5bffb2b925438378f149f9becb8ded85453f802959de22a143ae087466d2ea",
+      "synced_at": "2026-09-03T19:21:35Z"
+    },
+    "automating-your-centos-linux-rhel-migration": {
+      "source_url": "https://www.redhat.com/en/blog/automating-your-centos-linux-rhel-migration",
+      "updated": "2026-04-23",
+      "content_hash": "87cfbc84c4acd7a8563483da02076a98242ebe3802ad366ad144cf8b395a1ad7",
+      "synced_at": "2026-09-03T19:21:37Z"
+    },
+    "windows-enterprise-ansible-galaxy": {
+      "source_url": "https://www.redhat.com/en/blog/windows-enterprise-ansible-galaxy",
+      "updated": "2025-11-24",
+      "content_hash": "55b53a1d056e6f42559c0af4caaa0a00e23929716e670cdef928ad92ad5b4020",
+      "synced_at": "2026-09-03T19:21:39Z"
+    },
+    "fact-gathering-with-event-driven-ansible-and-ai": {
+      "source_url": "https://www.redhat.com/en/blog/fact-gathering-with-event-driven-ansible-and-ai",
+      "updated": "2025-11-19",
+      "content_hash": "04ff48005a1c0dc6d30456ac1645bfddddc0a0f80ec89c8339a57952e39556c7",
+      "synced_at": "2026-09-03T19:21:40Z"
+    },
+    "event-driven-ansible-chatops-from-chat-to-action": {
+      "source_url": "https://www.redhat.com/en/blog/event-driven-ansible-chatops-from-chat-to-action",
+      "updated": "2026-01-26",
+      "content_hash": "0a230a7f302598a860d0f920f8c28e7feaea12b9e90b1db2f53f09351e9c3f90",
+      "synced_at": "2026-09-03T19:21:40Z"
+    },
+    "providing-terraform-with-that-ansible-magic": {
+      "source_url": "https://www.redhat.com/en/blog/providing-terraform-with-that-ansible-magic",
+      "updated": "2026-01-27",
+      "content_hash": "fb7291896a465f8183e73586ceb94b4393f6de2fc0b9e48efcf99da24bf2c5db",
+      "synced_at": "2026-09-03T19:21:41Z"
+    },
+    "addressing-netops-issues-with-event-driven-ansible": {
+      "source_url": "https://www.redhat.com/en/blog/addressing-netops-issues-with-event-driven-ansible",
+      "updated": "2025-11-19",
+      "content_hash": "6ec6297df00b6f35afd8bfed6f4cfcc9b3bb73725dcc6f6937f3e59e2f8fda5b",
+      "synced_at": "2026-09-03T19:21:42Z"
+    },
+    "crank-up-your-automation-with-ansible-validated-content": {
+      "source_url": "https://www.redhat.com/en/blog/crank-up-your-automation-with-ansible-validated-content",
+      "updated": "2025-11-24",
+      "content_hash": "974cf06975909894042186bd174de4e0db3c210094bfd00019cfedd3e34d6a07",
+      "synced_at": "2026-09-03T19:21:42Z"
+    },
+    "getting-started-with-event-driven-ansible": {
+      "source_url": "https://www.redhat.com/en/blog/getting-started-with-event-driven-ansible",
+      "updated": "2026-01-27",
+      "content_hash": "7ca39c5f3e7aea7bcabdbe3c04acbc9e7bde2c07a20e98c1856ff4ef4dc91bfc",
+      "synced_at": "2026-09-03T19:21:42Z"
+    },
+    "why-event-driven-matters": {
+      "source_url": "https://www.redhat.com/en/blog/why-event-driven-matters",
+      "updated": "2025-11-26",
+      "content_hash": "4dedd0d9580c3df0c4f28a67848d965524f438cfc5a1a6442028da6ebd871656",
+      "synced_at": "2026-09-03T19:21:44Z"
+    },
+    "event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform": {
+      "source_url": "https://www.redhat.com/en/blog/event-driven-remediation-with-systemd-and-red-hat-ansible-automation-platform",
+      "updated": "2025-11-24",
+      "content_hash": "5a988930a31501fa17e245bc82421352376332f3ee0234e0fd66db2af358cfa6",
+      "synced_at": "2026-09-03T19:21:45Z"
+    },
+    "configuring-an-aws-dynamic-inventory-with-automation-controller": {
+      "source_url": "https://www.redhat.com/en/blog/configuring-an-aws-dynamic-inventory-with-automation-controller",
+      "updated": "2025-11-19",
+      "content_hash": "0da0ef51df28ec5e3ab736cc90ae9406bfb554b009b7100158989df24c63f16a",
+      "synced_at": "2026-09-03T19:21:47Z"
+    },
+    "the-ansible-cookie-magic-in-the-middle": {
+      "source_url": "https://www.redhat.com/en/blog/the-ansible-cookie-magic-in-the-middle",
+      "updated": "2025-11-24",
+      "content_hash": "3c1814fc5202e827d79bfd7ad7b1ee38137819f50d97e7928def2514f3f624cd",
+      "synced_at": "2026-09-03T19:21:47Z"
+    },
+    "forecast-track-measure-roi-automation": {
+      "source_url": "https://www.redhat.com/en/blog/forecast-track-measure-roi-automation",
+      "updated": "2025-11-24",
+      "content_hash": "4d318e0548d939c105f43511c71419bc910ae14373616028d1cb17167f0efd32",
+      "synced_at": "2026-09-03T19:21:49Z"
+    },
+    "activate-insights-for-ansible-automation-platform": {
+      "source_url": "https://www.redhat.com/en/blog/activate-insights-for-ansible-automation-platform",
+      "updated": "2026-06-03",
+      "content_hash": "d1c67809a1a5f8ecd4d5ef2ea03c2d20926f75cecd9933530d425286359611e8",
+      "synced_at": "2026-09-03T19:21:51Z"
+    },
+    "ansible-automation-platform-youre-using-it-wrong": {
+      "source_url": "https://www.redhat.com/en/blog/ansible-automation-platform-youre-using-it-wrong",
+      "updated": "2025-11-24",
+      "content_hash": "d475eb3bea5d98996150204455397e72951505c72f395ed8fb9e7f1d514cf8c6",
+      "synced_at": "2026-09-03T19:21:55Z"
+    },
+    "new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift": {
+      "source_url": "https://www.redhat.com/en/blog/new-reference-architecture-deploying-ansible-automation-platform-2-on-red-hat-openshift",
+      "updated": "2025-11-24",
+      "content_hash": "725bac9573def3b0f23759aba9d5eff01ce9b07bc2448c773bc206a3aa8eb69f",
+      "synced_at": "2026-09-03T19:21:55Z"
+    },
+    "monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way": {
+      "source_url": "https://www.redhat.com/en/blog/monitoring-red-hat-ansible-automation-platform-on-red-hat-openshift-the-easy-way",
+      "updated": "2025-11-24",
+      "content_hash": "3839a788aabc562a14eaa456d9401dfd2a8d0f9f4fd5494da0520e007c782a9c",
+      "synced_at": "2026-09-03T19:21:57Z"
+    },
+    "creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules": {
+      "source_url": "https://www.redhat.com/en/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules",
+      "updated": "2025-11-24",
+      "content_hash": "261e6660175697b5fb6bd393aab277aed969f5535a2de0f826e36d2c8573e4d0",
+      "synced_at": "2026-09-03T19:21:58Z"
+    },
+    "taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app": {
+      "source_url": "https://www.redhat.com/en/blog/taking-automation-to-the-next-level-using-ansible-gitops-to-manage-the-lifecycle-of-a-containerized-app",
+      "updated": "2026-01-27",
+      "content_hash": "32c23cafd0ea28fc1873cdf086d5a2547cc0512b9793cadc56cd47e7f502d78a",
+      "synced_at": "2026-09-03T19:21:58Z"
+    },
+    "whats-new-in-the-ansible-content-collection-for-kubernetes-2.3": {
+      "source_url": "https://www.redhat.com/en/blog/whats-new-in-the-ansible-content-collection-for-kubernetes-2.3",
+      "updated": "2025-11-24",
+      "content_hash": "78cf27772997a77a8bb365f413d70d6f8f253eb61c613842fbd5b8878932df6c",
+      "synced_at": "2026-09-03T19:22:00Z"
+    },
+    "new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1": {
+      "source_url": "https://www.redhat.com/en/blog/new-reference-architecture-deploying-red-hat-ansible-automation-platform-2.1",
+      "updated": "2025-11-24",
+      "content_hash": "aa52f631621c0e64f2705c2dafe29a775534f491be0c0c5a8bcf5f73b4d3d58a",
+      "synced_at": "2026-09-03T19:22:00Z"
+    }
+  }
+}

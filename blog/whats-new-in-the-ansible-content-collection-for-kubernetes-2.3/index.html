@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What’s New in the Ansible Content Collection for Kubernetes 2.3 — Ansible TMM Blog</title>
+  <meta name="description" content="In this blog post, we’ll go over what’s new and what’s different in this release of our Kubernetes Collection.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/whats-new-in-the-ansible-content-collection-for-kubernetes-2.3">
+  <meta property="og:title" content="What’s New in the Ansible Content Collection for Kubernetes 2.3">
+  <meta property="og:description" content="In this blog post, we’ll go over what’s new and what’s different in this release of our Kubernetes Collection.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/whats-new-in-the-ansible-content-collection-for-kubernetes-2.3">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/whats-new-in-the-ansible-content-collection-for-kubernetes-2.3" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on March 20, 2022.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">What’s New in the Ansible Content Collection for Kubernetes 2.3</h1>
+        <p class="blog-post-meta"><a href="/team/#roger-lopez">Roger Lopez</a> · <time datetime="2022-03-21">March 20, 2022</time> · 4-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p>With increased adoption of container automation, IT organizations continue to expand their requirements when it comes to deploying and managing their Kubernetes clusters. As such, we at Red Hat continue to add new features and capabilities to meet those demands by announcing the availability of <code>kubernetes.core</code> version 2.3, our Red Hat Ansible Certified Content Collection for Kubernetes and Helm.</p>
+<p>In this blog post, we’ll go over what’s new and what’s different in this release of our Kubernetes Collection.</p>
+<h2>New Module - k8s_taint</h2>
+<p>With the release of <code>kubernetes.core</code> 2.3, we introduce the <code>k8s_taint</code> module. This module provides the ability for a Kuberentes node to repel a pod or set of pods from being scheduled unless they have a matching toleration. This establishes that with taints and tolerations in place, pods are not scheduled onto inappropriate nodes.</p>
+<p>This feature is quite useful when you are trying to ensure exclusivity of a particular set of nodes (only allow a particular group of users access) or you want to provide particular nodes with special hardware (such as GPUs) to only run pods that require the use of the specialized hardware and keep out the pods that don’t require it.</p>
+<p>An example of using the <code>k8s_taint</code> module where the toleration key has a value of <code>key1</code> and its effect is to not execute <code>NoExecute</code>. This means that no pod will be able to execute onto node <code>foo</code> unless it has a matching toleration.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: Taint node "foo"</span></span>
+<span class="line"><span>  kubernetes.core.k8s_taint:</span></span>
+<span class="line"><span>    state: present</span></span>
+<span class="line"><span>    name: foo</span></span>
+<span class="line"><span>    taints:</span></span>
+<span class="line"><span>    - effect: NoExecute</span></span>
+<span class="line"><span>      key: "key1"</span></span></code></pre><p>Additionally, more than one effect can be provided to apply additional effects:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: Taint node "foo"</span></span>
+<span class="line"><span>  kubernetes.core.k8s_taint:</span></span>
+<span class="line"><span>    state: present</span></span>
+<span class="line"><span>    name: foo</span></span>
+<span class="line"><span>    taints:</span></span>
+<span class="line"><span>    - effect: NoExecute</span></span>
+<span class="line"><span>      key: "key1"</span></span>
+<span class="line"><span>      value: "value1"</span></span>
+<span class="line"><span>    - effect: NoSchedule</span></span>
+<span class="line"><span>      key: "key1"</span></span>
+<span class="line"><span>      value: "value1"</span></span></code></pre><p>This means that no pod will be able to execute nor schedule onto node <code>foo</code> unless it has a matching toleration.  </p>
+<p><strong>NOTE</strong>: The available effects of the taint on pods are: <code>NoSchedule</code>, <code>NoExecute</code> and <code>PreferNoSchedule</code>.</p>
+<p>Lastly, a taint can be removed by changing the state from present to absent:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: Remove taint from "foo".</span></span>
+<span class="line"><span>  kubernetes.core.k8s_taint:</span></span>
+<span class="line"><span>    state: absent</span></span>
+<span class="line"><span>    name: foo</span></span>
+<span class="line"><span>    taints:</span></span>
+<span class="line"><span>    - effect: NoExecute</span></span>
+<span class="line"><span>      key: "key1"</span></span>
+<span class="line"><span>      value: "value1"</span></span>
+<span class="line"><span>      value: "value1"</span></span></code></pre><h2>Enablement of Server-Side Apply</h2>
+<p>Server Side Apply assists users and controllers in managing their resources via declarative configurations. One of the goals of Server Side Apply is to provide more robust handling of conflicts that might arise when a resource is modified by multiple agents concurrently. Client Side Apply works by first fetching the existing resource, then determining the difference between the existing state of resource and the desired state of the resource. If they differ, a patch is applied to the resource for the difference. When resources are modified concurrently, this can lead to race conditions where the same fields are being changed. Server Side Apply assigns ownership of individual fields, preventing unintended changes from being applied in situations where there is contention.</p>
+<p>To take advantage of Server Side Apply within <code>kubernetes.core.k8s</code>, a user can use the <code>server_side_apply</code> field that declare a <code>field_manager</code> as follows:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>- name: Create configmap using server side apply</span></span>
+<span class="line"><span>  kubernetes.core.k8s:</span></span>
+<span class="line"><span>    namespace: testing</span></span>
+<span class="line"><span>    definition:</span></span>
+<span class="line"><span>      apiVersion: v1</span></span>
+<span class="line"><span>      kind: ConfigMap</span></span>
+<span class="line"><span>      metadata:</span></span>
+<span class="line"><span>        name: my-configmap</span></span>
+<span class="line"><span>    apply: yes</span></span>
+<span class="line"><span>    server_side_apply:</span></span>
+<span class="line"><span>      field_manager: ansible</span></span></code></pre><p><strong>NOTE</strong>: This option requires Kubernetes Python Client 19.15.0 or higher.</p>
+<h2>Incremental Improvements</h2>
+<p>In this release, we have replaced the client side implementation of dry run with server side dry run. With this switch, we can make sure that admission controllers are run and schema validation occurs, providing a more accurate representation of the changes. This feature requires a Kubernetes Python Client version &gt;= 18.20.0, and is used automatically when running the <code>kubernetes.core.k8s</code> module in <code>check</code> mode.</p>
+<p>We have also added the ability to impersonate users and groups through the new <code>impersonate_user</code> and <code>impersonate_groups</code> parameters in the <code>kubernetes.core.k8s</code> module. To use this feature, the authenticating user must have the ability to perform the <code>impersonate</code> verb. This can be configured using Kubernetes RBAC.</p>
+<p>There have been a number of small improvements to our Helm modules. The <code>kubernetes.core.helm_info</code> module now has a <code>release_state</code> parameter that gives you expanded control over filtering releases. The default behavior of returning only releases in the failed or deployed state remains the same. Additional release states are now supported, as well.</p>
+<p>A new <code>plugin_version</code> parameter has been added to the <code>kubernetes.core.helm_plugin</code> module. In addition to being able to install a specific version of Helm plugin, a new latest state was added. This state verifies that the requested plugin is always at the latest version. This differs from the default present state in that with <code>state: present</code>, the latest version will only be installed if the plugin is not currently installed.</p>
+<p>Finally, the <code>wait</code> parameter on the <code>kubernetes.core.helm</code> module will now work when deleting releases. Previously, this only worked when installing or upgrading a release due to limitations in helm itself. This functionality requires a helm version &gt;= 3.7.0.</p>
+<h2>Summary</h2>
+<p>With the newest release of Ansible Content Collection for <code>kubernetes.core</code>, users now have:</p>
+<ul>
+<li>the flexibility to set taints and tolerations to repel a pod or set of pods from being scheduled unless they have a matching toleration.</li>
+<li>the ability to implement Server Side Apply to manage their resources via declarative configurations.</li>
+<li>the ability to impersonate users and groups through the new <code>impersonate_user</code> and <code>impersonate_groups</code> parameters in the <code>kubernetes.core.k8s</code> module.</li>
+<li>additional improvements to various Helm modules.</li>
+</ul>
+<p>If you want to dive deeper into Ansible and Kubernetes, check out the following resources:</p>
+<ul>
+<li>The <a href="https://github.com/ansible-collections/kubernetes.core">Ansible Content Collection</a> for <a href="https://github.com/ansible-collections/kubernetes.core">Kubernetes</a> project repo</li>
+<li><a href="https://console.redhat.com/ansible/automation-hub/repo/published/redhat/openshift">Ansible Content Collection for OpenShift</a></li>
+<li><a href="https://www.ansible.com/blog/automating-helm-using-ansible">Automating Helm Using Ansible</a></li>
+<li><a href="https://www.ansible.com/blog/whats-new-in-the-ansible-content-collection-for-kubernetes-2.0">What&#39;s New in the Ansible Content Collection for Kubernetes - 2.0</a></li>
+<li><a href="https://www.ansible.com/blog/introducing-the-ansible-content-collection-for-red-hat-openshift">Introducing the Ansible Content Collection for Red Hat OpenShift</a></li>
+<li><a href="https://www.ansible.com/resources/ebooks">Ansible e-books</a> with topic-specific insights</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez"><img src="https://www.redhat.com/themes/custom/rhdc/img/author-default-img.svg" alt="Roger Lopez"></a></p>
+<p><a href="https://www.redhat.com/en/authors/roger-lopez">### Roger Lopez</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/whats-new-in-the-ansible-content-collection-for-kubernetes-2.3">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

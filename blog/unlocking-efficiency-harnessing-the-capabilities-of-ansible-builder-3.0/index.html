@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unlocking efficiency: Harnessing the capabilities of ansible-builder 3.0 — Ansible TMM Blog</title>
+  <meta name="description" content="This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with Red Hat Ansible Automation Platform 2.4.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0">
+  <meta property="og:title" content="Unlocking efficiency: Harnessing the capabilities of ansible-builder 3.0">
+  <meta property="og:description" content="This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with Red Hat Ansible Automation Platform 2.4.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on July 18, 2023.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Unlocking efficiency: Harnessing the capabilities of ansible-builder 3.0</h1>
+        <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2023-07-19">July 18, 2023</time> · 7-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image%20%281%29.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image%20%281%29.png" alt="image (1)"></a></p>
+<p>We recently announced the general availability of <a href="https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.4">Red Hat Ansible Automation Platform 2.4</a>, This blog outlines the features of execution environment builder (ansible-builder) 3.0 that was included with this latest release.</p>
+<p>With the introduction of Ansible Automation Platform 2, we introduced the concept of <a href="https://www.ansible.com/blog/the-anatomy-of-automation-execution-environments">automation execution environments</a>. A key part of enabling our customers to create, manage, and scale their automation, they are portable Ansible runtime environments which enable us to truly decouple the control and execution planes in Ansible Automation Platform. Automation execution environments replace the traditional virtual environments in Ansible Tower by providing a powerful dependency management solution. Customers can also improve their automation run efficiency, as they are lightweight Ansible runtime environments.</p>
+<p>In general, an automation execution environment includes:</p>
+<ul>
+<li>Base <a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image">UBI 8/9</a> image.</li>
+<li>A version of Python</li>
+<li>A version of ansible-core</li>
+<li>Python modules/dependencies</li>
+<li>Ansible Content Collections (optional)</li>
+</ul>
+<p>The execution environment builder tool was built to aid in the creation of execution environments for Ansible customers and users. It provides a definition schema that is based on the above execution environment requirements.</p>
+<h2>Ansible-builder 3.0 enhancements</h2>
+<p>ansible-builder version 3.0 introduces some major changes in the definition schema to help customers create execution environments with more efficiency. There were a few design principles that were kept in mind while working on this latest release, some of which came through feedback from users and customers who worked with ansible-builder v1 (included with the initial release of Ansible Automation Platform 2.)</p>
+<p>Let’s talk about these design principles:</p>
+<ul>
+<li><strong>Fix common issues of build context hacking</strong> - We wanted to fix the common causes of things that require people to hack the builder context that ansible-builder generates. It is hard to achieve any complex or advanced execution environment images without touching the Containerfile that gets generated in the builder context. We want users to version the builder definition file instead of the Containerfile or the builder context.</li>
+<li><strong>Single-file definition</strong> - We offer optional file definition. You can still refer to the other files such as requirements.yml or requirements.txt if you have them or need them, but you should be able to define everything inline as well.</li>
+<li><strong>Consolidate ansible-builder components</strong> - ansible-builder 1.x required two sets of images in combination with matching Python and Ansible versions to complete an execution environment build, so we consolidated all the build steps starting from a single base image. This will simplify the builds and result in fewer images to maintain as a side-effect.</li>
+</ul>
+<h2>How to install ansible-builder version 3</h2>
+<p>As with all projects at Red Hat, ansible-builder follows an open development model and an upstream-first approach. The upstream project for <a href="https://github.com/ansible/ansible-builder">ansible-builder</a> is distributed as a Python package, then packaged into an RPM for Ansible Automation Platform downstream. This also means that there are different ways to install the upstream package and the downstream ansible-builder.</p>
+<p><strong>NOTE:</strong> To get the downstream package for ansible-builder v3, you must subscribe to Ansible Automation Platform 2.4 repos from Red Hat.</p>
+<p>Upstream Community:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>pip3 install ansible-builder==3.0.0</span></span></code></pre><p><strong>NOTE:</strong> ansible-builder requires python&gt;=3.9</p>
+<p>Downstream <a href="https://access.redhat.com/downloads/content/480/">Ansible Automation Platform product</a>:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>dnf install ansible-builder</span></span></code></pre><p>The only difference between the upstream and downstream packages is the default base image. The downstream one points to the ee-minimal-rhel8 for Ansible Automation Platform 2.4 in Red Hat container registry while the upstream one points to the latest ansible-runner image from quay.io.</p>
+<p>Ansible-builder version 3 allows you to specify any base image, any architecture, any Python version or any platform. As an Ansible Automation Platform customer, we want you to use the ee-minimal-rhel8 one as the recommended base image to build your execution environments.</p>
+<h2>Changes to the definition schema</h2>
+<p>The execution environment definition format has changed with ansible-builder version 3, so I want to highlight the important things that you need to consider while building an execution environment with ansible-builder v3. All the items below should be part of a definition file. In the editor of your choosing, you can open a new file called execution-environment.yml, which is the default name that the builder will search for. You can also declare another name, but you will need to direct ansible-builder to look for that execution environment definition.</p>
+<p>Different sections in the definition file include:</p>
+<h3>Version</h3>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>version: 3</span></span></code></pre><p>This version of the execution environment definition file offers substantially more configurability and functionality over the previous versions. To use all the new features of ansible-builder v3 , you need to specify the version in the definition as “3”, otherwise you will encounter JSON schema errors. Just as a rule of thumb, if you are using ansible-builder v3, please start with this line as the first one in your execution environment definition.</p>
+<h3>Images</h3>
+<p>This section is a dictionary that lists the definitions of the base images. In a simple scenario, if you are using the upstream/pip install of ansible-builder where you need to use ee-minimal-rhel8 as the base image, the section would look like this:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>images:</span></span>
+<span class="line"><span>  base_image:</span></span>
+<span class="line"><span>    name: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel8:latest</span></span></code></pre><p><strong>NOTE:</strong> As an Ansible Automation Platform customer, you will need to authenticate with <a href="https://access.redhat.com/RegistryAuthentication">Red Hat Container Registry</a> before building your execution environment with ee-minimal-rhel8 as the base image.</p>
+<p>If you are using the downstream package, you don’t need to specify this section - the default base image for the downstream package is the one specified.</p>
+<h3>Options</h3>
+<p>This section is a dictionary that contains keywords/options that can affect ansible-builder runtime functionality. You can set the default package manager path in this section. If you are using the ee-minimal-rhel8 image as the base image, you will need to specify the package manager path differently. This is important as the minimal base images have microdnf as the package manager instead of dnf.</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>options:</span></span>
+<span class="line"><span>  package_manager_path: /usr/bin/microdnf</span></span></code></pre><h3>Dependencies</h3>
+<p>This section allows you to describe any dependencies that need to be installed into the final image. This is another big advantage of ansible-builder v3 as you can now specify all dependencies inline. For example, if you want to build an execution environment with the ansible.netcommon collection from Ansible Galaxy (default source), you would specify the section like this:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>dependencies:</span></span>
+<span class="line"><span>  galaxy:</span></span>
+<span class="line"><span>    collections:</span></span>
+<span class="line"><span>      - ansible.netcommon</span></span></code></pre><p>Specifying collections inline is optional. You can also specify Python and system dependencies in the definition. An example from ansible-builder <a href="https://ansible.readthedocs.io/projects/builder/en/stable/">documentation</a> looks like this:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>dependencies:</span></span>
+<span class="line"><span>  galaxy: requirements.yml</span></span>
+<span class="line"><span>  python:</span></span>
+<span class="line"><span>    - six</span></span>
+<span class="line"><span>    - psutil</span></span>
+<span class="line"><span>  system: bindep.txt</span></span></code></pre><p>This example includes a combination of inline and file-based dependencies, where collection/role and system requirements come from different files that are adjacent to the definition file while the Python dependencies are declared inline.</p>
+<h3>Combining above sections</h3>
+<p>The following example is how your execution-environment.yml file should appear after combining the above sections to create a simple execution environment with the ansible.netcommon collection:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>version: 3</span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>images:</span></span>
+<span class="line"><span>  base_image:</span></span>
+<span class="line"><span>    name: registry.redhat.io/ansible-automation-platform-24/ee-minimal-rhel8:latest</span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>dependencies:</span></span>
+<span class="line"><span>  galaxy:</span></span>
+<span class="line"><span>    collections:</span></span>
+<span class="line"><span>      - ansible.netcommon</span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>options:</span></span>
+<span class="line"><span>  package_manager_path: /usr/bin/microdnf</span></span></code></pre><p>Pretty straightforward, right? The only step left is to run the build using the below command in the directory that includes this definition file and you will have your new execution environment:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ansible-builder build</span></span></code></pre><h2>Using collections in Ansible automation hub</h2>
+<p>What if you want to pull collections from Ansible automation hub instead of Ansible Galaxy? You will need an ansible.cfg file that points to Ansible automation hub. The following sections explain how to include the anisble.cfg file in the execution environment definition with a few more sections:</p>
+<h3>additional_build_files</h3>
+<p>This section allows you to add any file to the build context directory. These can then be referenced or copied by additional_build_steps during any build stage. The format is a list of dictionary values, each with a src and dest key and value.</p>
+<p>For this scenario, we will add the ansible.cfg file to the files/ directory and it will act as our source directory. The destination directory gets created in the build context.</p>
+<p>The directory tree would look something like this:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>|--execution-environment.yml</span></span>
+<span class="line"><span>|--files/</span></span>
+<span class="line"><span>|   |--ansible.cfg</span></span></code></pre><h3>additional_build_steps</h3>
+<p>In previous versions of ansible-builder, you were limited to one prepend and one append section which restricted where you could add different pieces into the container file. With ansible-builder 3.0, these sections have been expanded and are now associated with the different build phases. This means you can execute commands at specific points in your execution environment build process. For instance, you can add in additional repositories, copy arbitrary files, pull Python packages from specific Python repositories, or add custom root certificates during various stages of the build. This gives you a much finer level of control over the build process, allowing for more customization and flexibility.</p>
+<p>This section enables you to specify custom build commands for any build phase. These commands will be inserted directly into the instruction file for the container runtime (e.g., Containerfile or Dockerfile). There are <a href="https://ansible.readthedocs.io/projects/builder/en/stable/definition/#additional-build-steps">different build phases</a> that you can specify in this section. For this scenario, as we are working with the Ansible Galaxy stage (download build dependencies stage), we will specify the command in prepend_galaxy stage.</p>
+<p>After combining the two sections, we can append this to our original execution environment definition:</p>
+<pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>additional_build_files:</span></span>
+<span class="line"><span>  - src: files # copy contents from files to configs dir in build context</span></span>
+<span class="line"><span>    dest: configs</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>additional_build_steps:</span></span>
+<span class="line"><span>  prepend_galaxy:</span></span>
+<span class="line"><span>    # reference the file from build context like this</span></span>
+<span class="line"><span>    - COPY _build/configs/ansible.cfg /etc/ansible/ansible.cfg</span></span></code></pre><p><strong>NOTE:</strong> Check the COPY command in prepend_galaxy section. Whenever you want to copy files, you need to copy then from the build context or the _build directory.</p>
+<p>You can run the build command again as mentioned above to create your execution environment which will pull the ansible.netcommon collection from Ansible automation hub.</p>
+<h2>Conclusion</h2>
+<p>Ansible-builder v3 provides you with a rich API to create custom execution environments with improved efficiency. The feature now provides options to cover any and all scenarios so you should never need to hack the Containerfile in the build context.</p>
+<p>You can find detailed information on ansible-builder v3 in the <a href="https://ansible.readthedocs.io/projects/builder/en/stable/">latest builder documentation</a>. We also have a hands-on, self-paced lab, &quot;Get started with ansible-builder&quot;, which you can find on the <a href="https://www.redhat.com/en/interactive-labs/ansible">Red Hat interactive labs page for Ansible Automation Platform</a>.</p>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/wa_profile%20-%20Anshul%20Behl.jpeg?itok=vYDgCAJj" alt="Anshul Behl, Principal Technical Marketing Manager, Red Hat"></a></p>
+<p>[### Anshul Behl</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/anshul-behl">https://www.redhat.com/en/authors/anshul-behl</a>)</p>
+<p>Anshul is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform&#39;s adoption experience for customers by producing technical content on all aspects of the product.</p>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/unlocking-efficiency-harnessing-the-capabilities-of-ansible-builder-3.0">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>

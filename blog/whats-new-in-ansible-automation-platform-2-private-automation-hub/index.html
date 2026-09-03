@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What's new in Ansible Automation Platform 2: private automation hub — Ansible TMM Blog</title>
+  <meta name="description" content="Ansible Automation Platform 2 includes private automation hub 4.3, which makes it easier to collaborate on,  publish, and deliver automation content.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-private-automation-hub">
+  <meta property="og:title" content="What's new in Ansible Automation Platform 2: private automation hub">
+  <meta property="og:description" content="Ansible Automation Platform 2 includes private automation hub 4.3, which makes it easier to collaborate on,  publish, and deliver automation content.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-private-automation-hub">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-private-automation-hub" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on October 5, 2021.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">What's new in Ansible Automation Platform 2: private automation hub</h1>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2021-10-06">October 5, 2021</time> · 5-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <ul>
+<li><a href="https://www.redhat.com/en/blog">Back to all posts</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/AAP%202%20gray%20rising%20a.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/AAP%202%20gray%20rising%20a.png" alt="AAP 2 gray rising a"></a></p>
+<p>We are excited to announce that the Ansible Automation Platform 2 release includes <a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.0/html/installing_and_upgrading_private_automation_hub/index">private automation hub 4.3</a>. Private automation hub provides automation developers the ability to collaborate and publish their own automation content and streamline delivery of Ansible code within their organization.</p>
+<p>Private automation hub in Ansible Automation Platform 2 primarily delivers support for automation execution environments. Execution environments are a standardized way to define, build and distribute the environments that the automation runs in. In a nutshell, automation execution environments are container images that allow for easier administration of Ansible by the platform administrator. If you are unfamiliar with execution environments, please <a href="https://www.redhat.com/blog/whats-new-in-ansible-automation-platform-2-automation-execution-environments?hs_preview=batunIYu-56182547470">refer to this blog</a> written by Technical Marketing manager Anshul Behl.</p>
+<p>Private automation hub will serve as the on-premises execution environment container image repository for customers who wish to use this feature, aimed at customers who run the platform on physical or virtual environments. Ansible Automation Platform will seamlessly integrate with private automation hub for publishing and pulling execution environment container images.</p>
+<h4><strong>Who uses private automation hub?</strong></h4>
+<p>Private automation hub is intended for curating automation content from creators and making it seamlessly accessible to operators. It makes it easy to share these execution environments, which make it simple to package everything into turnkey automation, to other developers or operators for production use cases across your organization. <a href="https://www.redhat.com/products/controller">Automation controller</a> can sync directly to private automation hub, pull curated execution environments to use and provide governance around what is available.</p>
+<p>The intended persona is the administrator or operator that is in charge of curating and distributing automation content across an organization. This is commonly referred to as a distribution engineer or a release engineer. Picture a Venn diagram between your content creator and your operator/administrator; private automation hub is geared for the person that interacts with both circles (or could sit in either box, depending on your organizational structure).</p>
+<ul>
+<li>Automation creators develop Ansible Playbooks, roles and modules.</li>
+<li>Automation architects elevate automation across teams to align with IT processes and streamline adoption.</li>
+<li>Automation operators ensure the automation platform and framework are operational.</li>
+</ul>
+<p>These roles are not necessarily dedicated to a person or team. Many organizations assign multiple roles to people or outsource specific automation tasks based on their needs.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub.png" alt=""></a></p>
+<h4><strong>Using private automation hub</strong></h4>
+<p>In the high level diagram above, you can see that automation developers will still create content like they did before this release. The command line utility execution environment builder ansible-builder creates an execution environment based on your execution-enviornment.yml definition file as outlined <a href="https://access.redhat.com/articles/6177982">in this blog</a>. Automation creators can publish content to private automation hub.</p>
+<p><em>Practical Example</em><strong>:</strong></p>
+<p>For this example, we will pull a supported automation execution environment from the Red Hat Ecosystem Catalog (<a href="http://registry.redhat.io/">registry.redhat.io</a>), tag it locally and then push it to private automation hub.  First we need to authenticate to <a href="http://registry.redhat.io/">registry.redhat.io</a>.</p>
+<p>For example, on Red Hat Enterprise Linux 8:</p>
+<p>$ podman login registry.redhat.io</p>
+<p>Username: <a href="mailto:seanc@redhat.com">seanc@redhat.com</a></p>
+<p>Password: ********************</p>
+<p>Login Succeeded!</p>
+<p>$</p>
+<p>We can now download one of the supplied execution environments with Ansible Automation Platform 2. At launch, there are three fully supported execution environments:</p>
+<ul>
+<li>Minimal (<a href="https://catalog.redhat.com/software/containers/ansible-automation-platform-20-early-access/ee-minimal-rhel8/60e4bd0fdb72db7d0fadcf31">ee-minimal-rhel8</a>) - Contains Ansible Core 2.11 built on top of UBI8 and Python 3.8. This image doesn’t contain any Collections. You can use this image as the base image to build additional execution environments with your custom Collections or the certified Collections available on Ansible automation hub.</li>
+<li>Supported (<a href="https://catalog.redhat.com/software/containers/ansible-automation-platform-20-early-access/ee-supported-rhel8/60e4bc63c1af85c3015b8588?container-tabs=overview">ee-supported-rhel8</a>) - This is the default image available with the automation controller. It is built on top of the minimal image and contains Ansible Content Collections developed, maintained and supported by Red Hat.</li>
+<li>Compatibility (<a href="http://ansible-automation-platform-20-early-access/ee-29-rhel8">ee-29-rhel8</a>) - Contains Ansible 2.9 and all the required Ansible dependencies. This image is best for customers who are planning to migrate from Ansible Automation Platform 1.2  to 2.0.</li>
+</ul>
+<p>For this example, we will download the <strong>ee-minimal-rhel8</strong> execution environment. However, private automation hub can host multiple execution environments, and automation developers can create their own using the command line tool ansible-builder,<a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.0-ea/html-single/ansible_builder_guide/index?lb_target=production">as documented here</a>.</p>
+<p>$ podman pull registry.redhat.io/<container image name>:<tag></p>
+<p>$ podman pull registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0-11</p>
+<p>Trying to pull registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0-11...</p>
+<p>Getting image source signatures</p>
+<p>Checking if image destination supports signatures</p>
+<p>Copying blob 4644f822544e skipped: already exists</p>
+<p>Copying blob 4d0d850cd4ad skipped: already exists</p>
+<p>Copying blob 96965a3a8424 skipped: already exists</p>
+<p>Copying blob 3bbba07a88b0 skipped: already exists</p>
+<p>Copying blob 895c54e89fd8 [--------------------------------------] 0.0b / 0.0b</p>
+<p>Copying config 408bd0e3a5 done</p>
+<p>Writing manifest to image destination</p>
+<p>Storing signatures</p>
+<p>408bd0e3a56123cabe76a5afaa16c7487173e74f745f6051a139813d702a0c</p>
+<p>To list all downloaded automation execution environments, use the podman images command.</p>
+<p>$ podman images</p>
+<p>REPOSITORY TAG IMAGE ID CREATED SIZE</p>
+<p>registry.redhat.io/ansible-automation-platform-20 early-access/ee-supported-rhel8 latest 408bd0e3a561 6 days ago 920 MB</p>
+<p>After you pull images from a registry, tag them for use in your private automation hub container registry:</p>
+<p>$ podman tag registry.redhat.io/[container image name]:[tag] [automation hub URL]/[container image name]</p>
+<p>For this environment, the private automation hub instance does not have a DNS setup yet. I will use the IP address of the host instead:</p>
+<p>$ podman tag registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8 192.168.1.5/example_ee</p>
+<p>We will now see the new container image tag example_ee:</p>
+<p>$ podman tag registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8 192.168.1.5/example_ee</p>
+<p>Use the credentials you set up during the installation to authenticate to private automation hub:</p>
+<p>$ podman login -u=[username] -p=[password] [automation-hub-url]</p>
+<p>For this environment, it would look like this:</p>
+<p>$ podman login --tls-verify=false -u=&quot;admin&quot; -p=&quot;mypassword&quot; 192.168.1.5</p>
+<p>Login Succeeded!</p>
+<p>The --tls-verify=false flag was used because DNS and TLS certificates were not set up yet.</p>
+<p>Finally, we can publish using the follow command:</p>
+<p>$ podman push [automation-hub-url]/[container image name]</p>
+<p>For this environment, it would look like this:</p>
+<p>$ podman push --tls-verify=false 192.168.1.5/example_ee</p>
+<p>Getting image source signatures</p>
+<p>Copying blob d7ecef9dcc97 done</p>
+<p>Copying blob 9132e95b7c1b done</p>
+<p>Copying blob bc7bdf0ec1b9 done</p>
+<p>Copying blob 0122cc8a95bd done</p>
+<p>Copying blob 12a68283d0e0 done</p>
+<p>Copying config 408bd0e3a5 done</p>
+<p>Writing manifest to image destination</p>
+<p>Storing signatures</p>
+<p>$ podman --version</p>
+<p>podman version 3.2.2</p>
+<p>Logging into the Web UI, you will notice there is a new Container Registry and the example_ee is displayed:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub-2.png" alt=""></a></p>
+<h4><strong>Synchronize private automation hub with automation controller</strong></h4>
+<p>To synchronize execution environments with automation controller, create a Container Registry credential.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub-3.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub-3.png" alt=""></a></p>
+<p>The authentication URL is just the DNS name or IP address of your private automation hub host (no https header).</p>
+<p>Next, under “Execution Environments” create a new execution environment and source the credential you just created. Refer to the <a href="https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html#use-an-ee-in-jobs">documentation for additional information.</a></p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub-1.png" alt=""></a></p>
+<p>Finally on the job template (under templates) assign the execution environment as highlighted in the red square below:</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub-4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/%5BDRAFT%5D%20MBU%20%7C%20Blog%20%7C%20Ansible%20Automation%20Platform%202.0%20New%20and%20improved%20Private%20Automation%20Hub-4.png" alt=""></a></p>
+<p>Want to learn more about automation controller? Read the blog: <a href="https://www.redhat.com/blog/whats-new-in-ansible-automation-platform-2-automation-controller?hs_preview=LPfWTeMm-56159544176">What’s New in Ansible Automation Platform 2: automation controller</a> by Technical Marketing Manager Craig Brandt.</p>
+<p>Documentation references:</p>
+<ul>
+<li><a href="https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html#use-an-ee-in-jobs">Automation controller - Use an execution environment in jobs</a></li>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_ansible_automation_platform/2.0-ea/html-single/managing_containers_in_private_automation_hub/index?lb_target=production">Private automation hub - Managing containers in private automation hub</a></li>
+</ul>
+<h4><strong>What&#39;s****next?</strong></h4>
+<ul>
+<li>If you’re ready to get hands on, we have <a href="https://www.redhat.com/en/engage/redhat-ansible-automation-202108061218">self-paced interactive labs available</a> to explore Ansible Automation Platform 2.</li>
+<li>If you are a Red Hat customer, you can visit the <a href="https://red.ht/AAP-20">Ansible Automation Platform 2 landing page</a> in the Red Hat Customer Portal that consolidates all of the documentation and guidance available to you.</li>
+<li>To learn more about new Ansible Automation Platform features and components, check out the <a href="https://www.ansible.com/products/automation-platform">updated product overview page on ansible.com</a>. You can also consult our new interactive features guide.</li>
+<li>Make sure to catch up on announcements, demos, keynotes and more great content from <a href="http://ansiblefest.com">AnsibleFest 2021</a>, which is now available on-demand.</li>
+<li><a href="https://www.ansible.com/contact-us">Please reach out to your local Red Hat representative</a> to assist your organization in getting started with Ansible Automation Platform 2.</li>
+</ul>
+<hr>
+<h3>About the author</h3>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<h2>More like this</h2>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/architecture-autonomy-how-ing-built-future-proof-tech-strategy">The architecture of autonomy: How ING built a future-proof tech strategy</a></h3>
+<p>Blog post</p>
+<h3><a href="https://www.redhat.com/en/blog/last-mile-problem-agentic-ai-why-tool-calling-reliability-harder-it-looks">The last mile problem in agentic AI: Why tool calling reliability is harder than it looks</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/technically-speaking/ai-ready-data-cleanup">How Red Hat cleared IT debt for scalable AI</a></h3>
+<p>Original podcast</p>
+<h3><a href="https://www.redhat.com/en/compiler-podcast/virtualization-ai">Virtualization Is (Still) King | Compiler</a></h3>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2-private-automation-hub">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>
