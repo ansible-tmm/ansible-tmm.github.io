@@ -5,11 +5,6 @@
   const ASSET_BASE = '../assets/team/';
   const INDEX_URL = '../data/blog-index.json';
 
-  const SOURCE_LABELS = {
-    redhat: 'Red Hat Blog',
-    developers: 'Red Hat Developer Blog',
-  };
-
   const listEl = document.getElementById('blog-list');
   const featuredEl = document.getElementById('blog-featured');
   const filterEl = document.getElementById('blog-filter');
@@ -77,28 +72,6 @@
       .join(', ');
   }
 
-  function sourceLabel(source) {
-    return SOURCE_LABELS[source] || 'Original publisher';
-  }
-
-  function sourceLink(post, className) {
-    const label = sourceLabel(post.source);
-    const classes = className || 'blog-card__source';
-    const icon =
-      '<svg class="icon icon--sm blog-card__source-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-external"></use></svg>';
-
-    if (!post.source_url) {
-      return '<span class="' + classes + '">' + icon + escapeHtml(label) + '</span>';
-    }
-
-    return (
-      '<a href="' + escapeAttr(post.source_url) + '" class="' + classes + '" target="_blank" rel="noopener noreferrer">' +
-      icon +
-      escapeHtml(label) +
-      '</a>'
-    );
-  }
-
   function authorAvatar(authors, extraClass) {
     const primary = (authors || []).find(function (author) {
       return author.slug;
@@ -148,8 +121,8 @@
 
   function cardFooter(post) {
     const topics = topicsHtml(post);
-    const footerClass = topics ? 'blog-card__footer blog-card__footer--with-topics' : 'blog-card__footer';
-    return '<div class="' + footerClass + '">' + sourceLink(post) + topics + '</div>';
+    if (!topics) return '';
+    return '<div class="blog-card__footer blog-card__footer--with-topics">' + topics + '</div>';
   }
 
   function renderCard(post) {
@@ -181,10 +154,7 @@
       (post.description ? '<p class="blog-featured-card__excerpt">' + escapeHtml(post.description) + '</p>' : '') +
       (topics ? '<div class="blog-featured-card__topics">' + topics + '</div>' : '') +
       '<div class="blog-featured-card__actions">' +
-      '<a href="/blog/' + escapeAttr(post.slug) + '/" class="btn">Read here</a>' +
-      (post.source_url
-        ? '<a href="' + escapeAttr(post.source_url) + '" class="btn btn--secondary" target="_blank" rel="noopener noreferrer">Read on ' + escapeHtml(sourceLabel(post.source)) + '</a>'
-        : '') +
+      '<a href="/blog/' + escapeAttr(post.slug) + '/" class="btn">Read post</a>' +
       '</div>' +
       '</div>' +
       '</div>' +
