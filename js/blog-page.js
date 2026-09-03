@@ -119,20 +119,34 @@
     );
   }
 
+  function primaryTopicHtml(post) {
+    const topic = (post.topics || []).find(function (item) {
+      return item && item !== 'General';
+    });
+    if (!topic) return '';
+    return '<span class="blog-card__topic">' + escapeHtml(topic) + '</span>';
+  }
+
   function cardFooter(post) {
-    const topics = topicsHtml(post);
-    if (!topics) return '';
-    return '<div class="blog-card__footer blog-card__footer--with-topics">' + topics + '</div>';
+    const topic = primaryTopicHtml(post);
+    return (
+      '<div class="blog-card__footer">' +
+      (topic ? '<div class="blog-card__footer-topics">' + topic + '</div>' : '<span class="blog-card__footer-spacer" aria-hidden="true"></span>') +
+      '<span class="blog-card__read-more" aria-hidden="true">Read post →</span>' +
+      '</div>'
+    );
   }
 
   function renderCard(post) {
     return (
       '<article class="blog-card">' +
       '<a href="/blog/' + escapeAttr(post.slug) + '/" class="blog-card__link">' +
-      authorAvatar(post.authors) +
       '<div class="blog-card__body">' +
-      '<h2 class="blog-card__title">' + escapeHtml(post.title) + '</h2>' +
+      '<div class="blog-card__author-row">' +
+      authorAvatar(post.authors, 'blog-card__avatar--inline') +
       postMetaLine(post) +
+      '</div>' +
+      '<h2 class="blog-card__title">' + escapeHtml(post.title) + '</h2>' +
       (post.description ? '<p class="blog-card__excerpt">' + escapeHtml(post.description) + '</p>' : '') +
       cardFooter(post) +
       '</div>' +
