@@ -174,17 +174,37 @@ def summary_callout(description: str) -> str:
     )
 
 
+NUMBERED_H2_RE = re.compile(r"^\d+\.\s+")
+
+
 def toc_callout(h2_headings: list[str]) -> str:
     if len(h2_headings) < 4:
         return ""
     seen: dict[str, int] = {}
-    lines = ["> [!toc]", "> **On this page**", ">"]
-    for heading in h2_headings:
+
+    def anchor_for(heading: str) -> str:
         base = slugify_heading(heading)
         count = seen.get(base, 0)
         seen[base] = count + 1
-        anchor = base if count == 0 else f"{base}-{count + 1}"
-        lines.append(f"> - [{heading}](#{anchor})")
+        return base if count == 0 else f"{base}-{count + 1}"
+
+    lines = ["> [!toc]", "> **On this page**", ">"]
+    index = 0
+    while index < len(h2_headings):
+        heading = h2_headings[index]
+        if NUMBERED_H2_RE.match(heading):
+            lines.append(f"> - [{heading}](#{anchor_for(heading)})")
+            index += 1
+            continue
+
+        lines.append(f"> - [{heading}](#{anchor_for(heading)})")
+        child_index = index + 1
+        while child_index < len(h2_headings) and NUMBERED_H2_RE.match(h2_headings[child_index]):
+            child = h2_headings[child_index]
+            lines.append(f">   - [{child}](#{anchor_for(child)})")
+            child_index += 1
+        index = child_index
+
     return "\n".join(lines)
 
 

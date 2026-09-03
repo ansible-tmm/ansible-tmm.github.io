@@ -2323,6 +2323,8 @@ a:hover {
   color: #fff;
 }
 
+.blog-post-content .blog-toc ul,
+.blog-post-content .blog-toc ol,
 .blog-toc ul,
 .blog-related ul {
   margin: 0;
@@ -2330,6 +2332,16 @@ a:hover {
   list-style: none;
   background: transparent;
   border: 0;
+}
+
+.blog-toc__sub {
+  margin: 0.35rem 0 0.15rem;
+  padding: 0 0 0 1.25rem;
+  list-style: none;
+}
+
+.blog-toc__sub li {
+  margin: 0 0 0.35rem;
 }
 
 .blog-toc li,

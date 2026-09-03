@@ -259,17 +259,52 @@ function renderCalloutBlock(firstLine, bodyText) {
 }
 
 function renderListAside(lines, className, title) {
-  const items = lines
-    .map((line) => line.trim())
-    .filter((line) => line.startsWith('- '))
-    .map((line) => {
-      const linkMatch = line.match(/^- \[(.+?)\]\((.+?)\)/);
-      if (!linkMatch) return '';
-      return `<li><a href="${escapeHtml(linkMatch[2])}">${escapeHtml(linkMatch[1])}</a></li>`;
-    })
-    .filter(Boolean)
-    .join('');
-  if (!items) return '';
+  const entries = [];
+  for (const rawLine of lines) {
+    const trimmed = rawLine.trim();
+    if (!trimmed.startsWith('- ')) continue;
+    const indent = rawLine.length - rawLine.trimStart().length;
+    const linkMatch = trimmed.match(/^- \[(.+?)\]\((.+?)\)/);
+    if (!linkMatch) continue;
+    entries.push({
+      text: linkMatch[1],
+      href: linkMatch[2],
+      nested: indent >= 2,
+    });
+  }
+  if (!entries.length) return '';
+
+  let items = '';
+  let index = 0;
+  while (index < entries.length) {
+    const entry = entries[index];
+    if (entry.nested) {
+      items += `<li><a href="${escapeHtml(entry.href)}">${escapeHtml(entry.text)}</a></li>`;
+      index += 1;
+      continue;
+    }
+
+    const children = [];
+    let childIndex = index + 1;
+    while (childIndex < entries.length && entries[childIndex].nested) {
+      children.push(entries[childIndex]);
+      childIndex += 1;
+    }
+
+    if (children.length) {
+      const childHtml = children
+        .map(
+          (child) =>
+            `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.text)}</a></li>`,
+        )
+        .join('');
+      items += `<li><a href="${escapeHtml(entry.href)}">${escapeHtml(entry.text)}</a><ul class="${className}__sub">${childHtml}</ul></li>`;
+    } else {
+      items += `<li><a href="${escapeHtml(entry.href)}">${escapeHtml(entry.text)}</a></li>`;
+    }
+    index = childIndex;
+  }
+
   return `<aside class="${className}">
   <p class="${className}__title">${escapeHtml(title)}</p>
   <ul>${items}</ul>

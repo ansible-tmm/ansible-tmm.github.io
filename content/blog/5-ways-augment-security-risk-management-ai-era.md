@@ -26,11 +26,11 @@ synced_at: '2026-09-03T19:21:31Z'
 > **On this page**
 >
 > - [Building proactive automated approaches to IT vulnerabilities](#building-proactive-automated-approaches-to-it-vulnerabilities)
-> - [1. Accelerated patching cycles](#1-accelerated-patching-cycles)
-> - [2. Deploy automated responses to vulnerabilities](#2-deploy-automated-responses-to-vulnerabilities)
-> - [3. Initiate workarounds prior to patch availability to mitigate impacts](#3-initiate-workarounds-prior-to-patch-availability-to-mitigate-impacts)
-> - [4. Establish strong perimeter defenses](#4-establish-strong-perimeter-defenses)
-> - [5. Explore enterprise-wide risk management](#5-explore-enterprise-wide-risk-management)
+>   - [1. Accelerated patching cycles](#1-accelerated-patching-cycles)
+>   - [2. Deploy automated responses to vulnerabilities](#2-deploy-automated-responses-to-vulnerabilities)
+>   - [3. Initiate workarounds prior to patch availability to mitigate impacts](#3-initiate-workarounds-prior-to-patch-availability-to-mitigate-impacts)
+>   - [4. Establish strong perimeter defenses](#4-establish-strong-perimeter-defenses)
+>   - [5. Explore enterprise-wide risk management](#5-explore-enterprise-wide-risk-management)
 > - [Getting started](#getting-started)
 > - [Automation for security threats in the AI era](#automation-for-security-threats-in-the-ai-era)
 > - [Additional resources](#additional-resources)
