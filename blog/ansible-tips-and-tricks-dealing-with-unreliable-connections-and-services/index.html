@@ -44,10 +44,10 @@
   <main id="main-content" class="blog-post-page">
     <article class="blog-post-container">
       <a href="/blog/" class="blog-post-back">← Back to blog</a>
-      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on December 1, 2024.</aside>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on December 2, 2024.</aside>
       <header class="blog-post-header">
         <h1 class="blog-post-title">Ansible Tips and Tricks, Dealing with Unreliable Connections and Services</h1>
-        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2024-12-02">December 1, 2024</time> · 8-minute read</p>
+        <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2024-12-02">December 2, 2024</time> · 8-minute read</p>
       </header>
       <div class="blog-post-content">
         <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner.</aside><p>Red Hat Ansible Automation is widely known to automate and configure Linux and Windows hosts, as well as network automation for routers, switches, firewalls and load balancers. Plus, there are a variety of modules that deal with the cloud and the API around it such as Microsoft Azure, Amazon Web Services (AWS) and Google Compute Engine.  And there are other modules that interact with Software as a Service (SaaS) tools like Slack or ServiceNow. Although the downtime for these APIs is very minimal, it does happen, and it is even more likely that the connection between your Ansible control host (where you are running Ansible from) and the cloud-centric API could be down.</p>
