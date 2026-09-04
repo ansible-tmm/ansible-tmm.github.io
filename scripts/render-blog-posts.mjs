@@ -360,6 +360,11 @@ function authorLinks(authors) {
 
 const FAVICON_LINKS = `  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../../favicon.svg">`;
+const HUB_HOME_URL = 'https://ansible-tmm.github.io/';
+
+function footerTitleHtml() {
+  return `<p class="site-footer__title"><a href="${HUB_HOME_URL}">Ansible TMM Project Hub</a></p>`;
+}
 
 function pageShell({ title, description, canonical, bodyHtml, attributionHtml, metaLine, authorFooter }) {
   const metaDescription = escapeHtml(description || title);
@@ -425,7 +430,7 @@ ${FAVICON_LINKS}
   <footer class="site-footer" role="contentinfo">
     <div class="site-footer__inner">
       <div class="site-footer__content">
-        <p class="site-footer__title">Ansible TMM Project Hub</p>
+        ${footerTitleHtml()}
         <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
         <p class="site-footer__links">
           <a href="../../">Project hub</a>

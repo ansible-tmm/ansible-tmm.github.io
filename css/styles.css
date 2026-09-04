@@ -782,6 +782,15 @@ a:hover {
   font-size: 0.9375rem;
 }
 
+.site-footer__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-footer__title a:hover {
+  color: var(--color-accent);
+}
+
 .site-footer__note {
   margin: 0 0 1rem;
   font-size: 0.8125rem;
