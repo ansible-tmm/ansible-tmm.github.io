@@ -44,7 +44,7 @@ Vulnerabilities in code are only the entry point. The real damage comes after—
 
 This is the definition of [zero trust](https://www.redhat.com/en/topics/security/what-is-zero-trust). This first tidal wave of security vulnerabilities has a second and third coming behind it, and organizations need to adopt zero trust to move from pure prevention to containing the breach—enforcing least privilege across identity, secrets, network segmentation, and policy at every layer. Organizations require automated enforcement that executes at the velocity of these AI-driven threats. [Red Hat Ansible Automation Platform](https://www.redhat.com/en/technologies/management/ansible) helps make this possible.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## The AI attack surface shift
@@ -61,7 +61,7 @@ None of these are overly dangerous alone. Individually each would sit in a backl
 
 These advanced AI models write, compile, and execute exploit code, using failure outputs to iteratively refine and retry their attacks. While organizations use this to their advantage by finding and fixing previously unknown vulnerabilities at speed, the uncomfortable truth is that this capability is also available to attackers. As Danen wrote, "the same tools that help defenders find bugs will inevitably help attackers find them too." The attacker skill ceiling just dropped. Faster patching is part of the answer, but it must be supplemented by good defenses.
 
-> [!callout type=tmm label="TMM tool" title="AAP CVE Report" url="https://ansible-tmm.github.io/aap_cve_report/" cta="Open tool"]
+> [!callout type=tmm label="TMM resource" title="AAP CVE Report" url="https://ansible-tmm.github.io/aap_cve_report/" cta="Open tool"]
 > Explore CVE information relevant to Ansible Automation Platform.
 
 ## Defense needs an automated operational layer

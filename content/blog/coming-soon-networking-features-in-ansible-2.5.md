@@ -392,7 +392,7 @@ The following new platforms have been added to date:
 
 The Ansible Networking team is excited for the forthcoming Ansible 2.5 release, and would like to extend a warm thank you to all networking partners and community members that helped make it possible. We love to hear your feedback, thoughts and ideas, and we welcome you to participate in the [Ansible networking community](https://github.com/ansible/community/tree/master/group-network).
 
-> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> [!callout type=tmm label="TMM resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
 > More posts on network automation from the Ansible Technical Marketing team.
 
 <!-- blog-enrichment:related -->

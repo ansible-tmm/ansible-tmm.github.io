@@ -60,7 +60,7 @@ In this section, we’ll dive into the new [Ansible development tools](https://
 
 This package simplifies the management of Ansible development capabilities by bundling them into a single, supported package within the **Ansible Automation Platform**. Instead of dealing with separate packages, versions, and dependencies, all tools are now updated and maintained consistently. This not only saves time and reduces complexity but also verifies that all components are aligned and supported within Ansible Automation Platform, making it easier to build and scale automation across your enterprise.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Introducing the Ansible development container
@@ -87,7 +87,7 @@ One of the most significant updates with the new Ansible development container i
 
 This greatly expands the accessibility of Ansible tooling, ensuring that even non-RHEL users on **Windows** and **macOS** can enjoy a consistent, reliable, and fully supported Ansible development environment.
 
-> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
 > Collections, inventories, and patterns from the Ansible TMM team.
 
 ## Building the future of Ansible tooling

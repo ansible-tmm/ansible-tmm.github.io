@@ -58,7 +58,7 @@ The Ansible Automation Platform 2.6 RPM-based install is only available on RHEL 
 
 When we released Ansible Automation Platform 2.5, we announced that the RPM install method was being deprecated. 2.6 will be the last version with an RPM installer and will only be available for RHEL 9. There will be no RPM-based installer for RHEL 8 or RHEL 10. Ansible Automation Platform  2.7 will not include the RPM installer for any version of RHEL. [Learn more](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/release_notes/index#rpm_installation).
 
-> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
 > Collections, inventories, and patterns from the Ansible TMM team.
 
 ## Installing on Red Hat OpenShift

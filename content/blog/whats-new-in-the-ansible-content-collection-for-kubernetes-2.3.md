@@ -120,7 +120,7 @@ A new `plugin_version` parameter has been added to the `kubernetes.core.helm_plu
 
 Finally, the `wait` parameter on the `kubernetes.core.helm` module will now work when deleting releases. Previously, this only worked when installing or upgrading a release due to limitations in helm itself. This functionality requires a helm version >= 3.7.0.
 
-> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
 > Collections, inventories, and patterns from the Ansible TMM team.
 
 ## Summary

@@ -81,7 +81,7 @@ If you want to disable publishing an Ansible validated content to the private au
 
 Although the content is currently installed this way through the bundle installer, there are plans to bring Ansible validated content into console.redhat.com. This would allow you to automatically synchronize the latest content from Ansible automation hub on console.redhat.com much as you do with certified content.
 
-> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> [!callout type=tmm label="TMM resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
 > More posts on network automation from the Ansible Technical Marketing team.
 
 ## Additional resources

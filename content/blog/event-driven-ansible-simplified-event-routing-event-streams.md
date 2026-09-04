@@ -42,7 +42,7 @@ A foundational use case that can be used almost anywhere to provide a great deal
 
 Event-Driven Ansible enables integration into your technology ecosystem as well, transforming Ansible Automation Platform into an active participant in your infrastructure. Responses can be much more than issue remediation and can include proactive scenarios. For example, as you make changes to systems, you can trigger Event-Driven Ansible to run compliance checks and update a configuration management database (CMDB) and ITSM records for you. If systems are found to be out of compliance, Event-Driven Ansible could create an ITSM ticket and restore configurations from the source of truth.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Webhooks, Kafka, and event bus connection methods

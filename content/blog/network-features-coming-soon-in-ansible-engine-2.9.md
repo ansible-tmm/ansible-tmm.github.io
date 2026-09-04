@@ -50,7 +50,7 @@ As was recently announced, [Red Hat Ansible Automation](https://www.redhat.com/e
 
 A full list of the platforms that are fully supported by Red Hat via an Ansible Automation subscription can be found at the following location: <https://docs.ansible.com/ansible/2.9/modules/network_maintained.html#network-supported>
 
-> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
 > From chat message to automated action with the TMM team walkthrough.
 
 ## What we’ve learned

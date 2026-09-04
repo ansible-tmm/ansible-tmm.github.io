@@ -251,13 +251,12 @@ function renderCalloutBlock(firstLine, bodyText) {
     const summaryHtml = marked.parseInline(bodyText);
     return `<aside class="blog-callout blog-callout--summary">${summaryHtml}</aside>`;
   }
-  const label = attrs.label || 'Resource';
+  const label = attrs.label || 'TMM resource';
   const title = attrs.title || '';
   const url = attrs.url || '#';
   const cta = attrs.cta || 'Learn more';
   const body = bodyText || '';
   return `<aside class="blog-tmm-insert blog-callout blog-callout--${escapeHtml(type)}">
-  ${tmmInsertEyebrowHtml()}
   <span class="blog-callout__label">${escapeHtml(label)}</span>
   <p class="blog-callout__title">${escapeHtml(title)}</p>
   ${body ? `<p class="blog-callout__body">${escapeHtml(body)}</p>` : ''}
@@ -359,6 +358,9 @@ function authorLinks(authors) {
     .join(', ');
 }
 
+const FAVICON_LINKS = `  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../favicon.svg">`;
+
 function pageShell({ title, description, canonical, bodyHtml, attributionHtml, metaLine, authorFooter }) {
   const metaDescription = escapeHtml(description || title);
   return `<!DOCTYPE html>
@@ -373,6 +375,7 @@ function pageShell({ title, description, canonical, bodyHtml, attributionHtml, m
   <meta property="og:description" content="${metaDescription}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="${escapeHtml(canonical)}">
+${FAVICON_LINKS}
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>

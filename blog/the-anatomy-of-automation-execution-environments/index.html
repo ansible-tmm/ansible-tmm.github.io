@@ -10,6 +10,8 @@
   <meta property="og:description" content="Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.redhat.com/en/blog/the-anatomy-of-automation-execution-environments">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../favicon.svg">
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -66,7 +68,6 @@
 <p><a href="https://www.redhat.com/rhdc/managed-files/execution-environment-ubi.png"><img src="https://www.redhat.com/rhdc/managed-files/execution-environment-ubi.png" alt="Automation execution environment universal base image."></a></p>
 <p>In this blog, I will take you through the inner workings of ansible-builder and <strong>how</strong> all the above requirements are packaged inside automation execution environments and delivered as part of Ansible Automation Platform.</p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
@@ -137,8 +138,7 @@
 <p>This python-base image serves as the base image for both the python-builder image as well as the ansible-runner (ee-minimal downstream) image. To summarize the purpose of python-builder and ansible-builder images, they build Python projects such as ansible-core and any Collections that are dependent on Python. For instance, if your Collection relies on Python dependencies for which wheels need to be built on the machine itself, they are built on the python-builder image.</p>
 <p>Finally, the ansible-runner (ee-minimal downstream) image includes a version of the ansible-core package. The ansible-builder image works in conjunction with this image to build Python wheels, so that the final automation execution environment size is minimal by only keeping things that are necessary to run your required automation. custom-ee1 and custom-ee2 in the diagram represent any custom automation execution environments that can be created using ansible-runner (ee-minimal downstream) and the ansible-builder image.</p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
-  <span class="blog-callout__label">Team resource</span>
+  <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Kubernetes automation content</p>
   <p class="blog-callout__body">Collections, inventories, and patterns from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/">Read the guide →</a>

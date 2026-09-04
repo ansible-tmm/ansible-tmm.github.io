@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Ansible TMM">
+  <defs>
+    <linearGradient id="flow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ee0000" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#ee0000"/>
+      <stop offset="100%" stop-color="#ee0000" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="#08080d"/>
+  <rect x="0.5" y="0.5" width="31" height="31" rx="6.5" fill="none" stroke="#2a2a38" stroke-width="1"/>
+  <path d="M8 23 L16 9 L24 19" fill="none" stroke="url(#flow)" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="8" cy="23" r="3.25" fill="#e8e8ef"/>
+  <circle cx="16" cy="9" r="3.25" fill="#e8e8ef"/>
+  <circle cx="24" cy="19" r="3.25" fill="#e8e8ef"/>
+  <circle cx="8" cy="23" r="1.35" fill="#ee0000"/>
+  <circle cx="16" cy="9" r="1.35" fill="#ee0000"/>
+  <circle cx="24" cy="19" r="1.35" fill="#ee0000"/>
+</svg>

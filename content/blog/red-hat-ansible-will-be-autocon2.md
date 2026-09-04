@@ -29,7 +29,7 @@ On November 19th, I will join two of my Red Hat colleagues to lead a workshop ti
 
 Many of our strategic network partners will be at AutoCon 2. My favorite aspect of [Red Hat Ansible Automation Platform for network automation](https://www.redhat.com/en/technologies/management/ansible/network-automation) is the ability to be a truly multi-vendor automation tool. We can automate across a variety of solutions and vendors, all with a single platform. Many of our customers have different vendors for switches and routers, firewalls, and load balancers, so this multi-vendor automation feature is often viewed as a game changer for  successful network automation adoption. The Red Hat Ansible Automation Platform team continues to align and collaborate with strategic network automation partners to add to our robust Red Hat Ansible [Certified Content Collections](https://catalog.redhat.com/search?searchType=software&target_platforms=Red%20Hat%20Ansible%20Automation%20Platform&subcategories=Networking), resulting in a quick path for customers to get up and running, as well as an end to end supported experience.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ### What is the Red Hat Ansible Automation Platform team planning with technology partners at AutoCon?

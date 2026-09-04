@@ -10,6 +10,8 @@
   <meta property="og:description" content="Introducing Red Hat Ansible Automation Platform 2 and changes to how automation is developed, managed, and operated in large, complex environments.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.redhat.com/en/blog/introducing-ansible-automation-platform-2">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../favicon.svg">
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -56,7 +58,6 @@
 <p>The main focus was to enhance the foundational pieces of the Ansible Automation Platform and to enable automators to automate at enterprise scale more easily and flexibly. This means everything you know and love about writing Ansible Playbooks is largely unchanged, but what is evolving is the underlying implementation of how automation is developed, managed, and operated in large complex environments. In the end, enterprise automation platforms must be designed, packaged, and supported with container native and hybrid cloud environments in mind.</p>
 <p>So how did we get here? It’s been years in the making, which included the following changes:</p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Solution Guides</p>
   <p class="blog-callout__body">Outcome-focused guides for infrastructure and IT automation challenges.</p>
@@ -66,7 +67,6 @@
 <p><em>2. The control plane was separated from the execution plane in Ansible Tower, and renamed these components to automation controller and automation execution environments.</em></p>
 <p>Ansible Tower was split into two components: automation controller (control plane) and automation execution environments (execution plane) in order to better scale and provide more predictable automation for enterprises. By splitting Tower into two components, you can now have execution running outside of the control node and is more conducive to running your automation in hybrid cloud and container native environments such as Red Hat OpenShift. You’ll also see additional features in the upcoming 2.1 release with a new component called automation mesh (think: a service mesh for Ansible), which replaces isolated nodes in Ansible Tower. This becomes more interesting by enabling new use cases such as automating at or to the edge as well as cloud automation.  </p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>

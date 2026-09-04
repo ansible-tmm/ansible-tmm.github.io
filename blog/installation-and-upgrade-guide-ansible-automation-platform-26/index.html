@@ -10,6 +10,8 @@
   <meta property="og:description" content="Learn about the supported installation methods for Ansible Automation Platform 2.6, including containerized and RPM installations on Red Hat Enterprise Linux and OpenShift Operator installations. Understand the difference between upgrades and migrations, and get guidance on upgrade planning, deployment type migrations, and underlying Red Hat Enterprise Linux version and database migrations.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.redhat.com/en/blog/installation-and-upgrade-guide-ansible-automation-platform-26">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../favicon.svg">
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -61,8 +63,7 @@
 <h3 id="rhel-rpm-installation-deprecated">RHEL RPM installation (deprecated)</h3><p>The Ansible Automation Platform 2.6 RPM-based install is only available on RHEL 9. We suggest using the RHEL RPM install method only for specific upgrade scenarios, not for net new installations.  <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/rpm_installation/index">Read the documentation to learn more.</a></p>
 <p>When we released Ansible Automation Platform 2.5, we announced that the RPM install method was being deprecated. 2.6 will be the last version with an RPM installer and will only be available for RHEL 9. There will be no RPM-based installer for RHEL 8 or RHEL 10. Ansible Automation Platform  2.7 will not include the RPM installer for any version of RHEL. <a href="https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/release_notes/index#rpm_installation">Learn more</a>.</p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
-  <span class="blog-callout__label">Team resource</span>
+  <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Kubernetes automation content</p>
   <p class="blog-callout__body">Collections, inventories, and patterns from the Ansible TMM team.</p>
   <a class="blog-callout__cta" href="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/">Read the guide →</a>
@@ -89,7 +90,6 @@
 <h3 id="migrating-across-postgresql-versions">Migrating across PostgreSQL versions</h3><p>PostgreSQL databases managed by the Ansible Automation Platform installer get upgraded to PostgreSQL 15 automatically.</p>
 <p>A strict requirement for a successful upgrade to Ansible Automation Platform 2.6 is that the PostgreSQL database must be running versions 15, 16, or 17. If your current environment is currently using an external PostgreSQL 13 or earlier database, then you must upgrade to version 15, 16, or 17 before attempting an upgrade to Ansible Automation Platform 2.6.  Red Hat recommends using PostgreSQL 15 whenever possible.</p>
 <aside class="blog-tmm-insert blog-callout blog-callout--redhat">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">Red Hat</span>
   <p class="blog-callout__title">Ansible Automation Platform documentation</p>
   <p class="blog-callout__body">Official product documentation from Red Hat.</p>

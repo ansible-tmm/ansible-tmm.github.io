@@ -31,7 +31,7 @@ At the 2023 AnsibleFest, as part of the main stage demonstration, I used the mag
 
 We know that Event-Driven Ansible requires a source for events, a list of conditions which we call rulesets, and ultimately an action to match those conditions, which makes it perfect to use as a chatbot-type system.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 For me to have a heart-to-heart with my beloved network, I will need to configure my chat as a source of events for Event-Driven Ansible, and to do this, I will use the webhook source plugin, which is part of the [ansible.eda](https://galaxy.ansible.com/ansible/eda) collection. Many enterprise chat platforms provide a method to send and receive webhooks to trigger words in the chat, which is perfect for what we want to do.
@@ -47,7 +47,7 @@ For me to have a heart-to-heart with my beloved network, I will need to configur
 
 Now that the fundamentals are done, let's look at how we could use this.
 
-> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
 > From chat message to automated action with the TMM team walkthrough.
 
 I have a network configured with three interconnected switches, got my chat system up and have Event-Driven Ansible listening with my rulebooks activated!

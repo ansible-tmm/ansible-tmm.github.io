@@ -33,7 +33,7 @@ Now Windows–we all love Windows. We love it even more since it can also be aut
 
 Windows administrators around the galaxy have a number of tools they use to manage their enterprise. These tools might serve the purpose for Windows administration but they inherently create a silo and rely on specialized expertise which we want to avoid. Imagine not being able to get the USS Enterprise to bring its shields up because we don’t have the correct tool or a specific engineer to do the job. Using a centralized platform with shared skill sets that can control the shields, the warp drive, the Holodeck, and the captain’s massage chair just makes practical and business sense. In an IT environment, Red Hat Ansible Automation Platform does exactly this.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Captains Log: Connecting to Windows

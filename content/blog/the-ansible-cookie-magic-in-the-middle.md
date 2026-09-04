@@ -142,7 +142,7 @@ Now that we have our execution environment, we can send it to our automation con
 
 Now we have our automation cookie up and running, it's time to indulge in our sweet automation!
 
-> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
 > Collections, inventories, and patterns from the Ansible TMM team.
 
 ## Additional resources

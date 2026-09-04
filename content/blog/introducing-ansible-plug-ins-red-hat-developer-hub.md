@@ -60,7 +60,7 @@ Creating Ansible content often involves using various tools such as integrated d
 
 Organizations often have a wealth of Ansible content that is purpose-built and tested for reuse. With this in mind, Developer Hub provides a centralized catalog that tracks ownership and metadata, making it easier for developers to find and reuse existing automation resources. This promotes the standardization of automation content and discourages the use of untested, one-off automation scripts.
 
-> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
 > Collections, inventories, and patterns from the Ansible TMM team.
 
 ## Key Features

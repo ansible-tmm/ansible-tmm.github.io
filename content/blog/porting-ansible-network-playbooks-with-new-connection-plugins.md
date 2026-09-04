@@ -248,7 +248,7 @@ A: Nothing, except your playbooks won't be as quick and efficient as they could 
 
 Please note that deprecating something in Ansible doesn’t mean that it will be immediately removed. Currently, all deprecated parameters, features, modules, etc, are supported for four release cycles after deprecation before they are removed from the Ansible project. When looking at the release cycle you can see that four release cycles is roughly 16 months. You will see a deprecation warning when you run a playbook with a deprecated parameter, feature, or module. Please refer to the Porting Guide before upgrading Ansible.  
 
-> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> [!callout type=tmm label="TMM resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
 > More posts on network automation from the Ansible Technical Marketing team.
 
 For more information, you can check out the change log on GitHub to look at what is being deprecated per release.

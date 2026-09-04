@@ -64,7 +64,7 @@ So let's get started: All currently released resource modules have the exact sam
 
 Why are return values important? They give you state *before and after* modifications happen. The before value lets you know the state of the device before you do any modification.  This makes it easy to revert changes or simply compare the before and after of any particular resource.  The commands return value will actually be in the network platform’s device syntax, so if you are automating an Arista EOS switch, you will get Arista commands.  This is important because it allows a network operator to quickly see what the automation actually did, and in the syntax that is expected of the operator.  There is no abstraction happening that impacts the network operator from the tool, so trust is gained with automation, which can help with establishing a positive culture between network automation engineers and folks that might just be starting their automation journey.
 
-> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> [!callout type=tmm label="TMM resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
 > More posts on network automation from the Ansible Technical Marketing team.
 
 ## A practical example

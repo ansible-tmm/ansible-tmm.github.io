@@ -54,7 +54,7 @@ Ansible Automation Platform also includes access to multiple hosted services fou
 
 - Learn more on YouTube: [automation services catalog](https://www.youtube.com/playlist?list=PLdu06OJoEf2ZN_AWwwJ3jxp6G03dCivlp)
 
-> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
 > From chat message to automated action with the TMM team walkthrough.
 
 ## What's new with Ansible Automation Platform 1.2?

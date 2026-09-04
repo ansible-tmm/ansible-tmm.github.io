@@ -88,7 +88,7 @@ NOTE: Ansible partner Event-Driven Ansible source plugins can be certified async
 - [Demo: Using Event-Driven Ansible with Elasticsearch logs!](https://www.youtube.com/watch?v=emHLD4_YcLw&t=5s)
 - [Demo: Respond to DNS events with Event-Driven Ansible!](https://www.youtube.com/watch?v=RBKKgawZiqI&t=1s)
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Collection repository management

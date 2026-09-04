@@ -125,7 +125,7 @@ When it is not used, it only enforced that the VLANs exist in the state the aggr
 
 Where else can I use **aggregate**? Other Arista examples include those such as the [eos\_user](http://docs.ansible.com/ansible/latest/eos_user_module.html) module and the [eos\_vrf](http://docs.ansible.com/ansible/latest/eos_vrf_module.html) module. Users and VRFs can be handled in a single aggregate rather than a collection of looped tasks. Instead of sending configuration user by user, or VRF by VRF with a loop it is now possible to use the aggregate. This will speed up configurations and give an alternative to using os\_config modules with Jinja templating.
 
-> [!callout type=tmm label="Team resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
+> [!callout type=tmm label="TMM resource" title="Network automation on the TMM blog" url="/blog/?author=sean-cavanaugh" cta="Browse posts"]
 > More posts on network automation from the Ansible Technical Marketing team.
 
 |  |

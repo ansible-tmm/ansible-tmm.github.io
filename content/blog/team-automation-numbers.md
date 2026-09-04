@@ -25,7 +25,7 @@ But there are other benefits, too, such as allowing for more time to work on key
 
 ***[ Download now:  [A system administrator's guide to IT automation](https://www.redhat.com/en/engage/system-administrator-guide-s-202107300146?intcmp=701f20000012ngPAAQ). ]***
 
-> [!callout type=tmm label="TMM tool" title="AAP CVE Report" url="https://ansible-tmm.github.io/aap_cve_report/" cta="Open tool"]
+> [!callout type=tmm label="TMM resource" title="AAP CVE Report" url="https://ansible-tmm.github.io/aap_cve_report/" cta="Open tool"]
 > Explore CVE information relevant to Ansible Automation Platform.
 
 ## Hours-to-minutes stories

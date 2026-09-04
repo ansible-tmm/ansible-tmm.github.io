@@ -30,7 +30,7 @@ The benefit with this is we are able to provide consistent automated troubleshoo
 
 What if we could assist with filling the gap when an incident takes place, and we could receive information or even options on how to resolve the issues? This is where we could use Event-Driven Ansible with the power of AI to enhance our team's approach to an incident.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Event - Condition - Action!
@@ -169,7 +169,7 @@ To see these examples in action please click on the demo below!
 
 - Demo: [Windows and Event-Driven Ansible w/ ServiceNow](https://youtu.be/0vQACe3shW0?si=yzQF84YWSbakFLjj)
 
-> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
 > From chat message to automated action with the TMM team walkthrough.
 
 ## Additional resources and next steps

@@ -35,7 +35,7 @@ Life comes down to moments. These events are often how we define our achievement
 
 In an IT context, events come from monitoring or other tools to tell us when something needs attention.  With this event data, we are able respond faster with automated tasks, resolving issues or enhancing observation where needed, often so we can identify and address festering issues before they are full blown problems. A byproduct of this means teams are now able to spend more time innovating, and are able to realize greater work-life balance because  troubleshooting patterns and remediation approaches are automatically initiated based on an initial event in your environments.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Events on the Infrastructure

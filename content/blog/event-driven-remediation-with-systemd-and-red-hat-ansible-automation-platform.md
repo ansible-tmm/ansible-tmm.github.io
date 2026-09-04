@@ -39,7 +39,7 @@ Now, the issue with this habit is that it might help you in the moment, but over
 
 Being able to schedule compliance checks on your systems with Ansible Automation Platform enables you to preserve configuration and system states, and keep them running the way you prefer. But sometimes this is not proactive enough. What if you have a security breach? Or if your application data is removed in error? In some instances, you cannot afford to wait for the regular maintenance schedule to trigger remediation. Enabling your systems to self-remediate or trigger self-compliance is an awesome way of keeping you cozy in your bed dreaming about the next Ansible Automation Platform release with all its magic and wizardry.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Event-driven automation with systemd
@@ -192,7 +192,7 @@ The following demo video will be monitoring components with systemd and use the 
 
 ## 
 
-> [!callout type=tmm label="TMM tool" title="AAP CVE Report" url="https://ansible-tmm.github.io/aap_cve_report/" cta="Open tool"]
+> [!callout type=tmm label="TMM resource" title="AAP CVE Report" url="https://ansible-tmm.github.io/aap_cve_report/" cta="Open tool"]
 > Explore CVE information relevant to Ansible Automation Platform.
 
 ## What can I do next?

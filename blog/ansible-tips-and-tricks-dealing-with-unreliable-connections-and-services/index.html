@@ -10,6 +10,8 @@
   <meta property="og:description" content="In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../favicon.svg">
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -53,8 +55,7 @@
         <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner.</aside><p>Red Hat Ansible Automation is widely known to automate and configure Linux and Windows hosts, as well as network automation for routers, switches, firewalls and load balancers. Plus, there are a variety of modules that deal with the cloud and the API around it such as Microsoft Azure, Amazon Web Services (AWS) and Google Compute Engine.  And there are other modules that interact with Software as a Service (SaaS) tools like Slack or ServiceNow. Although the downtime for these APIs is very minimal, it does happen, and it is even more likely that the connection between your Ansible control host (where you are running Ansible from) and the cloud-centric API could be down.</p>
 <p>In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner. As a technical marketing engineer, I consider my customers the Red Hat field teams, and often Solutions Architects are running playbooks from unreliable hotel wireless, coffee shops and sometimes even airplanes! I have to make sure playbooks have some more robustness built in for these odd situations. It is hair-pulling frustrating to get through a 20 task playbook for it to fail on the 19th task because your wireless went out for a couple seconds. This is especially frustrating if you are at the airport just trying to setup a demo or playground to show something to a client.</p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
-  <span class="blog-callout__label">Team resource</span>
+  <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Event-Driven Ansible ChatOps</p>
   <p class="blog-callout__body">From chat message to automated action with the TMM team walkthrough.</p>
   <a class="blog-callout__cta" href="/blog/event-driven-ansible-chatops-from-chat-to-action/">Read the guide →</a>
@@ -118,7 +119,6 @@
 <h4 id="changing-what-a-failure-means">Changing What A Failure Means</h4><p>By default, if Ansible fails the playbook will end on that task, for the respective host it was running on. If I had a playbook running on 10 hosts, and it failed on 1 host on task three out of ten, the 7 subsequent tasks would not run for that host. The other hosts would remain unaffected.</p>
 <p>With unreliable connections to an outside API we need to think about what is required and not required to define success for a playbook to finish. For example if you had a task spin up a DNS record on AWS&#39;s Route53 service, the DNS can be nice to have, but isn&#39;t required for you to begin using the instance you created. I can use an until loop to make the route53 tasks more reliable, but it might be OK if the Route53 service is down and unusable. I can use the IP address to get some work done done on my instance until I get a more reliable internet connection to re-run the playbook or the Route53 service becomes available again. There are some tasks that are &quot;nice to have&quot; vs. required.</p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Workshops and Labs</p>
   <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>

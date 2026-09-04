@@ -31,7 +31,7 @@ The following image illustrates how event-driven automation is used in the suppo
 
 Event-Driven Ansible has the potential to change the way we respond to issues and illuminates many new automation possibilities. So, how do you take the next step with Event-Driven Ansible?
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Let's get started!

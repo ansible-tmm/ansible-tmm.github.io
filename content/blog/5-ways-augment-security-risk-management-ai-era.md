@@ -155,7 +155,7 @@ Finally, solidify and fine-tune this new level of security risk automation. For 
 - Continue extending automation across operational domains
 - Rotate keys, passwords and certificates on all systems regularly
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Automation for security threats in the AI era

@@ -10,6 +10,8 @@
   <meta property="og:description" content="With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin. In this post we take you through converting existing networking playbooks that use connection: local to using connection: network_cli.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../favicon.svg">
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -55,7 +57,6 @@
 <p>In this post, I convert existing networking playbooks that use <code>connection: local</code> to use <code>connection: network_cli</code>. Please note that the passwords are in plain text for demonstration purposes only. Refer to the following Ansible Networking documentation page recommendation for using Ansible Vault for secure password storage and usage.  </p>
 <p>To demonstrate, let’s use an existing GitHub repository with working playbooks using the legacy connection local method. NOTE: The connection local method will continue to be supported for quite some time, and has not been announced as deprecated yet. This repository has several examples using Ansible and NAPALM but we are highlighting the Ansible Playbooks in this post.  The GitHub repository can be <a href="https://github.com/network-automation/ansible-napalm-samples">found here</a>.</p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
@@ -316,8 +317,7 @@
 <h3 id="faq">FAQ</h3><p><strong>Q: What happens if I don’t convert my playbooks for Ansible 2.5?</strong><br>A: Nothing, except your playbooks won&#39;t be as quick and efficient as they could be. The <code>connection: local</code> and <code>provider</code> method are not being deprecated for the Ansible 2.5 release. However, in relation to Ansible networking modules, it is planned for future deprecation (TBD).   </p>
 <p>Please note that deprecating something in Ansible doesn’t mean that it will be immediately removed. Currently, all deprecated parameters, features, modules, etc, are supported for four release cycles after deprecation before they are removed from the Ansible project. When looking at the release cycle you can see that four release cycles is roughly 16 months. You will see a deprecation warning when you run a playbook with a deprecated parameter, feature, or module. Please refer to the Porting Guide before upgrading Ansible.  </p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
-  <span class="blog-callout__label">Team resource</span>
+  <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Network automation on the TMM blog</p>
   <p class="blog-callout__body">More posts on network automation from the Ansible Technical Marketing team.</p>
   <a class="blog-callout__cta" href="/blog/?author=sean-cavanaugh">Browse posts →</a>

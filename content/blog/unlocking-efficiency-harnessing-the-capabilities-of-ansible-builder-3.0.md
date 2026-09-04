@@ -60,7 +60,7 @@ Let’s talk about these design principles:
 - **Single-file definition** - We offer optional file definition. You can still refer to the other files such as requirements.yml or requirements.txt if you have them or need them, but you should be able to define everything inline as well.
 - **Consolidate ansible-builder components** - ansible-builder 1.x required two sets of images in combination with matching Python and Ansible versions to complete an execution environment build, so we consolidated all the build steps starting from a single base image. This will simplify the builds and result in fewer images to maintain as a side-effect.
 
-> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
 > Collections, inventories, and patterns from the Ansible TMM team.
 
 ## How to install ansible-builder version 3

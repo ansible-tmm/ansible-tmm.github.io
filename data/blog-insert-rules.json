@@ -9,7 +9,7 @@
         "topics": ["Event-driven automation"]
       },
       "callout": {
-        "label": "Team resource",
+        "label": "TMM resource",
         "title": "Getting started with Event-Driven Ansible",
         "body": "Step-by-step guide from the Ansible TMM team.",
         "url": "/blog/getting-started-with-event-driven-ansible/",
@@ -24,7 +24,7 @@
         "keywords": ["chatops", "slack", "teams integration"]
       },
       "callout": {
-        "label": "Team resource",
+        "label": "TMM resource",
         "title": "Event-Driven Ansible ChatOps",
         "body": "From chat message to automated action with the TMM team walkthrough.",
         "url": "/blog/event-driven-ansible-chatops-from-chat-to-action/",
@@ -39,7 +39,7 @@
         "keywords": ["cve", "vulnerability", "cvss", "security defect", "zero trust"]
       },
       "callout": {
-        "label": "TMM tool",
+        "label": "TMM resource",
         "title": "AAP CVE Report",
         "body": "Explore CVE information relevant to Ansible Automation Platform.",
         "url": "https://ansible-tmm.github.io/aap_cve_report/",
@@ -100,7 +100,7 @@
         "topics": ["Network automation"]
       },
       "callout": {
-        "label": "Team resource",
+        "label": "TMM resource",
         "title": "Network automation on the TMM blog",
         "body": "More posts on network automation from the Ansible Technical Marketing team.",
         "url": "/blog/?author=sean-cavanaugh",
@@ -115,7 +115,7 @@
         "keywords": ["kubernetes", "openshift", "k8s", "container", "helm"]
       },
       "callout": {
-        "label": "Team resource",
+        "label": "TMM resource",
         "title": "Kubernetes automation content",
         "body": "Collections, inventories, and patterns from the Ansible TMM team.",
         "url": "/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/",

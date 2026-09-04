@@ -160,7 +160,7 @@ Our upgrades are done, but we can still do more with Ansible Automation Platform
 
 [Automation analytics](https://console.redhat.com/ansible/ansible-dashboard)can help provide clarity on the automated process or help us identify possible anomalies in the hosts during the process, which we can then address later.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ## Learn more

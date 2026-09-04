@@ -243,7 +243,7 @@ def toc_callout(h2_headings: list[str]) -> str:
 def promo_callout(rule: dict[str, Any]) -> str:
     callout = rule["callout"]
     kind = rule.get("kind", "tmm")
-    label = callout.get("label", "Resource")
+    label = callout.get("label", "TMM resource")
     title = callout.get("title", "")
     body = callout.get("body", "")
     url = callout.get("url", "")

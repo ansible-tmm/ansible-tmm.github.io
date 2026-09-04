@@ -31,7 +31,7 @@ I started having a look at the fantastic work that one of our engineers, [Nilash
 
 Reaching out to the team at [Arista](https://www.arista.com/en/), we started discussing and looking at the mechanisms they are using to get telemetry data. With Arista we are able to use gNMI, gNMI is an open source protocol [specification](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md) created by the OpenConfig working group that is used to stream data to and from network devices. The OpenConfig working group operates as an open source project with contributions from network operators, equipment vendors in providing vendor-neutral software to manage network devices. I configured gNMI on my Arista switches and queried the interface with the gNMI client on my machine to make sure I was able to get what I needed.
 
-> [!callout type=tmm label="Team resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Getting started with Event-Driven Ansible" url="/blog/getting-started-with-event-driven-ansible/" cta="Read the guide"]
 > Step-by-step guide from the Ansible TMM team.
 
 ```
@@ -165,7 +165,7 @@ So, with Event-Driven Ansible we are able to respond to events we gather from th
 
 Arista has created an awesome [source plugin](https://github.com/arista-netdevops-community/Ansible-Event-Driven-Automation-Examples/tree/main/nats) that we can use instead of Telegraf and Kafka. [Daniel Hertzberg](https://www.linkedin.com/in/dhertzberg/) and [Julio Perez](https://www.linkedin.com/in/julioperez-pdx/) really grasped Event-Driven Ansible concepts and created this magical source plugin in a week. This plugin utilizes [NATS](https://nats.io/), and if you are like me and haven't heard of NATS, It is similar to Kafka in the sense that it is a messaging queue, but there are some differences and you can read up a bit more about them [here](https://docs.nats.io/nats-concepts/overview/compare-nats). This plugin simplifies and reduces the toolset needed to get all-important telemetry data to ansible-rulebook. 
 
-> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
 > From chat message to automated action with the TMM team walkthrough.
 
 Watch for another blog that is coming soon around using the Arista source plugin and a juicy network automation use case. 

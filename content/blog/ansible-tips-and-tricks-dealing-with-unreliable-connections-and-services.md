@@ -27,7 +27,7 @@ Red Hat Ansible Automation is widely known to automate and configure Linux and W
 
 In this blog post, I will cover some tips and tricks for dealing with unreliable connections to cloud-centric APIs and how I build Ansible Playbooks in a reliable manner. As a technical marketing engineer, I consider my customers the Red Hat field teams, and often Solutions Architects are running playbooks from unreliable hotel wireless, coffee shops and sometimes even airplanes! I have to make sure playbooks have some more robustness built in for these odd situations. It is hair-pulling frustrating to get through a 20 task playbook for it to fail on the 19th task because your wireless went out for a couple seconds. This is especially frustrating if you are at the airport just trying to setup a demo or playground to show something to a client.
 
-> [!callout type=tmm label="Team resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Event-Driven Ansible ChatOps" url="/blog/event-driven-ansible-chatops-from-chat-to-action/" cta="Read the guide"]
 > From chat message to automated action with the TMM team walkthrough.
 
 ### The Until Loop

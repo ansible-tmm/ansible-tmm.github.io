@@ -130,7 +130,7 @@ This python-base image serves as the base image for both the python-builder imag
 
 Finally, the ansible-runner (ee-minimal downstream) image includes a version of the ansible-core package. The ansible-builder image works in conjunction with this image to build Python wheels, so that the final automation execution environment size is minimal by only keeping things that are necessary to run your required automation. custom-ee1 and custom-ee2 in the diagram represent any custom automation execution environments that can be created using ansible-runner (ee-minimal downstream) and the ansible-builder image.
 
-> [!callout type=tmm label="Team resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
+> [!callout type=tmm label="TMM resource" title="Kubernetes automation content" url="/blog/creating-kubernetes-dynamic-inventories-with-kubernetes.core-modules/" cta="Read the guide"]
 > Collections, inventories, and patterns from the Ansible TMM team.
 
 ## Verifying your base images
