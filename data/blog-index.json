@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-08T12:47:05Z",
+  "updated_at": "2026-09-09T12:47:11Z",
   "posts": [
     {
       "slug": "5-ways-augment-security-risk-management-ai-era",
@@ -43,9 +43,9 @@
     {
       "slug": "ai-threats-move-fast-your-defenses-should-too",
       "title": "AI threats move fast. Your defenses should too.",
-      "description": "Learn how Red Hat Ansible Automation Platform helps organizations adopt zero trust security by automating policy enforcement and reducing the impact of security breaches. Discover the benefits of centralized enforcement with distributed execution and the dual-ring enforcement model.",
+      "description": "Defend against AI-driven threats with Red Hat Ansible Automation Platform: Learn how to enforce policy and reduce breach impact.",
       "published": "2026-06-08",
-      "updated": "2026-07-09",
+      "updated": "2026-09-08",
       "authors": [
         {
           "slug": "nuno-martins",

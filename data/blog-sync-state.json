@@ -278,9 +278,9 @@
     },
     "ai-threats-move-fast-your-defenses-should-too": {
       "source_url": "https://www.redhat.com/en/blog/ai-threats-move-fast-your-defenses-should-too",
-      "updated": "2026-07-09",
-      "content_hash": "bea7cf0e0537f5e94beb6025520cc57ba1a10d7ed20deac489d2438354737c8f",
-      "synced_at": "2026-09-03T19:21:34Z"
+      "updated": "2026-09-08",
+      "content_hash": "a008e1c631a2fcbafb38767b3520da59465622cc3b6fbc21b4e36ca5200b6051",
+      "synced_at": "2026-09-09T12:47:11Z"
     },
     "event-driven-ansible-simplified-event-routing-event-streams": {
       "source_url": "https://www.redhat.com/en/blog/event-driven-ansible-simplified-event-routing-event-streams",

@@ -5,25 +5,23 @@ authors:
 - slug: nuno-martins
   name: Nuno Martins
 published: '2026-06-08'
-updated: '2026-07-09'
+updated: '2026-09-08'
 source: redhat
 source_url: https://www.redhat.com/en/blog/ai-threats-move-fast-your-defenses-should-too
-description: Learn how Red Hat Ansible Automation Platform helps organizations adopt
-  zero trust security by automating policy enforcement and reducing the impact of
-  security breaches. Discover the benefits of centralized enforcement with distributed
-  execution and the dual-ring enforcement model.
+description: 'Defend against AI-driven threats with Red Hat Ansible Automation Platform:
+  Learn how to enforce policy and reduce breach impact.'
 topics:
 - Artificial intelligence
 - Automation and management
 - Security
 read_time_minutes: 8
-synced_at: '2026-09-03T19:21:34Z'
+synced_at: '2026-09-09T12:47:11Z'
 ---
 
 <!-- blog-enrichment:start -->
 
 > [!callout type=summary]
-> **Summary:** Learn how Red Hat Ansible Automation Platform helps organizations adopt zero trust security by automating policy enforcement and reducing the impact of security breaches. Discover the benefits of centralized enforcement with distributed execution and the dual-ring enforcement model.
+> **Summary:** Defend against AI-driven threats with Red Hat Ansible Automation Platform: Learn how to enforce policy and reduce breach impact.
 
 > [!toc]
 > **On this page**
@@ -37,6 +35,8 @@ synced_at: '2026-09-03T19:21:34Z'
 > - [Resources](#resources)
 
 <!-- blog-enrichment:end -->
+
+---
 
 Recently, Red Hat's Vincent Danen [highlighted](https://www.redhat.com/en/blog/when-ai-finds-bugs-why-defense-depth-was-always-answer) how AI models found 271 real security defects in Firefox in a single pass during Mozilla's collaboration with Anthropic. If AI can do that for defenders, it can do the same for attackers. As Danen put it, "if your security strategy is solely predicated on the assumption that software will be vulnerability-free, you've already lost."
 
@@ -91,14 +91,22 @@ OPA evaluates the request against policy and returns an allow or deny. The playb
 ```rego
 package aap.gateway
 import rego.v1
-default
-decision := {"allowed": true, "violations": []}
+default decision := {"allowed": true, "violations": []}
 patching_teams := {"Infrastructure", "Security"}
 network_teams := {"Infrastructure"}
 app_teams := {"Applications", "DevOps"}
 user_teams := {name | name := input.created_by.teams[_].name}
-decision := {     "allowed": false,     "violations": [sprintf(         "user '%s' is not in an authorised team for patching templates (requires: %v, has: %v)",         [input.created_by.username, patching_teams, user_teams],     )],
-} if {     not input.created_by.is_superuser     is_patching_template     not team_match(patching_teams) }
+decision := {
+    "allowed": false,
+    "violations": [sprintf(
+        "user '%s' is not in an authorised team for patching templates (requires: %v, has: %v)",
+        [input.created_by.username, patching_teams, user_teams],
+    )],
+} if {
+    not input.created_by.is_superuser
+    is_patching_template
+    not team_match(patching_teams)
+}
 ```
 
 *Fig.2 Example Rego policy for Policy as Code check*
@@ -137,13 +145,18 @@ Event-Driven Ansible helps close that gap. A SIEM such as Splunk detects a brute
 
 ```yaml
 name: Splunk Brute-Force credential revocation
-hosts: all
-sources:
-- ansible.eda.webhook:         host: 0.0.0.0         port: 5000
-rules:
-- name: Revoke credentials on SSH brute-force detection
-condition: event.payload.search_name is search("SSH Brute Force Detected")
-action:         run_job_template:           name: "Emergency: Revoke App Credentials"           organization: Default
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+  rules:
+    - name: Revoke credentials on SSH brute-force detection
+      condition: event.payload.search_name is search("SSH Brute Force Detected")
+      action:
+        run_job_template:
+          name: "Emergency: Revoke App Credentials"
+          organization: Default
 ```
 
 *Fig.4 Example Event-Driven Ansible Rulebook for brute force events from Splunk*
@@ -178,6 +191,24 @@ Most organizations have platform hardening. Many are adopting zero trust princip
 - E-book: [Red Hat Ansible Automation Platform, a beginner’s guide](https://www.redhat.com/en/resources/ansible-automation-platform-beginners-guide-ebook)
 - Interactive walk-through: [IT automation including security automation](https://www.redhat.com/en/interactive-experiences)
 - Web page: [Security automation](https://www.redhat.com/en/technologies/management/ansible/security-automation)
+
+---
+
+[![Nuno Martins](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo)](https://www.redhat.com/en/authors/nuno-martins)
+
+[### Nuno Martins
+
+Technical Marketing Manager, Red Hat Ansible Automation Platform](https://www.redhat.com/en/authors/nuno-martins)
+
+Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.
+
+[More from this author](https://www.redhat.com/en/authors/nuno-martins)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 
