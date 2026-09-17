@@ -5,7 +5,7 @@ authors:
 - slug: nuno-martins
   name: Nuno Martins
 published: '2026-08-19'
-updated: '2026-09-01'
+updated: '2026-09-17'
 source: redhat
 source_url: https://www.redhat.com/en/blog/5-ways-augment-security-risk-management-ai-era
 description: Implement enterprise-wide automation for proactive vulnerability management
@@ -14,7 +14,7 @@ topics:
 - Artificial intelligence
 - Security
 read_time_minutes: 6
-synced_at: '2026-09-03T19:21:31Z'
+synced_at: '2026-09-17T12:48:16Z'
 ---
 
 <!-- blog-enrichment:start -->
@@ -36,6 +36,8 @@ synced_at: '2026-09-03T19:21:31Z'
 > - [Additional resources](#additional-resources)
 
 <!-- blog-enrichment:end -->
+
+---
 
 IT operations and security teams receive thousands of alerts every day from threat intelligence sources, such as vulnerability scanners, observability tools, Red Hat Lightspeed, and more. The challenge is identifying, correlating, and addressing impactful alerts from an ongoing, high-volume stream of information as quickly as possible, especially now that vulnerabilities can be exploited in a matter of hours.
 
@@ -173,6 +175,27 @@ Read our blog series:
 Watch an interactive demo: [Automate security with AIOPs](https://app.arcade.software/share/IPZDfNcMdl10jjSpHIdN?ref=share-link)
 
 Join our webinar: [Security automation in the age of AI: Responding to threats at scale](https://www.redhat.com/en/events/webinar/security-automation-in-the-age-of-ai-responding-to-threats-at-scale)
+
+---
+
+[![Nuno Martins](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo)](https://www.redhat.com/en/authors/nuno-martins)
+
+[### Nuno Martins
+
+Technical Marketing Manager, Red Hat Ansible Automation Platform](https://www.redhat.com/en/authors/nuno-martins)
+
+Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.
+
+> [!callout type=tmm label="TMM resource" title="AAP CVE Report" url="https://ansible-tmm.github.io/aap_cve_report/" cta="Open tool"]
+> Explore CVE information relevant to Ansible Automation Platform.
+
+[More from this author](https://www.redhat.com/en/authors/nuno-martins)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 
