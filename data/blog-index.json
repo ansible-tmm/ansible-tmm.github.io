@@ -1,6 +1,26 @@
 {
-  "updated_at": "2026-09-25T12:49:03Z",
+  "updated_at": "2026-09-26T12:45:05Z",
   "posts": [
+    {
+      "slug": "automate-security-risk-management-across-enterprise-it-operations",
+      "title": "Automate security risk management across enterprise IT operations",
+      "description": "Strengthen your enterprise security posture with Red Hat Ansible Automation Platform. Learn how automation accelerates patch deployment and safeguards tech environments.",
+      "published": "2026-09-16",
+      "updated": "2026-09-24",
+      "authors": [
+        {
+          "slug": "nuno-martins",
+          "name": "Nuno Martins"
+        }
+      ],
+      "topics": [
+        "Automation"
+      ],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/automate-security-risk-management-across-enterprise-it-operations",
+      "url": "/blog/automate-security-risk-management-across-enterprise-it-operations/"
+    },
     {
       "slug": "5-ways-augment-security-risk-management-ai-era",
       "title": "5 ways to augment security risk management in the AI era",
