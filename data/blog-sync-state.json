@@ -200,9 +200,9 @@
     },
     "build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions": {
       "source_url": "https://www.redhat.com/en/blog/build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions",
-      "updated": "2025-11-24",
-      "content_hash": "d70ee14b559657f341d8a6b5dbc09a286ecfd224a92a10055ec7237273596dd0",
-      "synced_at": "2026-09-03T19:21:14Z"
+      "updated": "2026-10-08",
+      "content_hash": "e46a24d189aa961b63d544c617868b05369d40d03b701ac2c098e0c2945cfa0a",
+      "synced_at": "2026-10-09T12:52:38Z"
     },
     "ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services": {
       "source_url": "https://www.redhat.com/en/blog/ansible-tips-and-tricks-dealing-with-unreliable-connections-and-services",
@@ -374,9 +374,9 @@
     },
     "activate-insights-for-ansible-automation-platform": {
       "source_url": "https://www.redhat.com/en/blog/activate-insights-for-ansible-automation-platform",
-      "updated": "2026-06-03",
-      "content_hash": "d1c67809a1a5f8ecd4d5ef2ea03c2d20926f75cecd9933530d425286359611e8",
-      "synced_at": "2026-09-03T19:21:51Z"
+      "updated": "2026-10-08",
+      "content_hash": "96e96cd165d480c8aea7279953c42cb3b28e626fb9c1c416220b5f4a1ced3c0c",
+      "synced_at": "2026-10-09T12:52:40Z"
     },
     "ansible-automation-platform-youre-using-it-wrong": {
       "source_url": "https://www.redhat.com/en/blog/ansible-automation-platform-youre-using-it-wrong",

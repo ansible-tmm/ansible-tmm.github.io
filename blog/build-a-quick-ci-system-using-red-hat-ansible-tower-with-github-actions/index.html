@@ -52,7 +52,8 @@
         <p class="blog-post-meta"><a href="/team/#sean-cavanaugh">Sean Cavanaugh</a> · <time datetime="2019-05-16">May 16, 2019</time> · 5-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> This blog post from Sean Cavanaugh covers his journey of getting Github Actions to work with Red Hat Ansible Tower.</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg"><img src="https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg" alt="RH-Ansible-TowerAPI-with-Github-Actions-Blog"></a></p>
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> This blog post from Sean Cavanaugh covers his journey of getting Github Actions to work with Red Hat Ansible Tower.</aside><hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg"><img src="https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg" alt="RH-Ansible-TowerAPI-with-Github-Actions-Blog"></a></p>
 <p>Red Hat Ansible Tower can be considered the API (Application Programmatic Interface) for your Ansible Playbooks. Even if you don’t take advantage of the Web UI (User Interface) many Ansible users still benefit from using Ansible Tower because they can fit it in their existing ecosystem of tools. Are you new to using the API on Ansible Tower and want to learn how to get started? This blog post will cover my own journey of getting Github Actions to work with Red Hat Ansible Tower. My goal was to be able to have Github PRs (Pull Requests) to trigger a workflow template to perform some automated testing using an Ansible <a href="https://docs.ansible.com/ansible-tower/latest/html/userguide/workflows.html">Tower workflow</a>. The popularity of <a href="https://github.com/network-automation/linklight">some Ansible Playbooks I wrote</a> is on the rise, so I thought I’d add some automated testing – just to make sure I didn’t accidentally break something the community was using.</p>
 <p>I created a workflow in Red Hat Ansible Tower to provision instances into AWS (Amazon Web Services), run some Ansible Playbooks on the provisioned Red Hat Enterprise Linux control nodes, then perform a teardown and remove the instances, VPCs and any other artifacts from AWS. This provisioning, testing and teardown allows me to help ensure changes to my Github repo are tested methodically before anything is merged into the master branch. This also helps save time, and that is what automation is all about.</p>
 <p>I think the best approach to building an automated workflow is to reduce the test cases to discrete items and test each one to make sure they work repeatedly before adding the next. This blog post won’t cover my existing Ansible Tower workflow, but we will assume that the workflow works before I start using the API. The second thing I want to do is make sure the API requests are working before I start using Github Actions. I can use the browsable API on Ansible Tower to figure out the exact command I need. I will navigate to https://&lt;my_tower&gt;.<testing>.com/api and find exactly what I want to do. In my case I want to kick off a job template launch, which makes Ansible Tower run the entire workflow.</p>
@@ -97,13 +98,22 @@
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image1-1.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image1-1.png" alt="image1-1"></a></p>
 <p>Now I simply created a test repo in my organization to play around with my new Github Action workflow. I submitted a test PR from one test branch to another one and it shows up after only 4-5 seconds!</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/image2-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/image2-2.png" alt="image2-2"></a></p>
-<p>The call httpbin is the name from my Github Action workflow file. You can click on the Details link and see API request and how Red Hat Ansible Tower responded. I hope to show a more feature complete demonstration in the future, but I was able to accomplish my original goal pretty easily after just looking at a few examples! Super big thanks to <a href="https://www.redhat.com/blog/author/chris-short">Chris Short</a> who educated me about Github Actions and encouraged me to sign up for the beta.</p>
+<p>The call httpbin is the name from my Github Action workflow file. You can click on the Details link and see API request and how Red Hat Ansible Tower responded. I hope to show a more feature complete demonstration in the future, but I was able to accomplish my original goal pretty easily after just looking at a few examples! Super big thanks to Chris Short who educated me about Github Actions and encouraged me to sign up for the beta.</p>
 <aside class="blog-tmm-insert blog-callout blog-callout--tmm">
   <span class="blog-callout__label">TMM resource</span>
   <p class="blog-callout__title">Ansible Product Demos</p>
   <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
   <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
-</aside><h2 id="ansiblefest-2019">AnsibleFest 2019</h2><p>Want to talk to the folks writing the blog posts? Come join us in Atlanta, GA September 24-26 at <a href="https://www.redhat.com/ansiblefest">AnsibleFest 2019</a>!</p>
+</aside><h2 id="ansiblefest-2019">AnsibleFest 2019</h2><p>Want to talk to the folks writing the blog posts? Come join us in Atlanta, GA September 24-26 at AnsibleFest 2019!</p>
+<hr>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
 <aside class="blog-tmm-insert blog-related">
   <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>

@@ -5,14 +5,14 @@ authors:
 - slug: nuno-martins
   name: Nuno Martins
 published: '2022-02-01'
-updated: '2026-06-03'
+updated: '2026-10-08'
 source: redhat
 source_url: https://www.redhat.com/en/blog/activate-insights-for-ansible-automation-platform
 description: Red Hat Insights for Ansible Automation Platform is an analytics tool
   to help you identify, troubleshoot, and resolve issues across your entire ecosystem.
 topics: []
 read_time_minutes: 4
-synced_at: '2026-09-03T19:21:51Z'
+synced_at: '2026-10-09T12:52:40Z'
 ---
 
 <!-- blog-enrichment:start -->
@@ -32,6 +32,8 @@ synced_at: '2026-09-03T19:21:51Z'
 > - [Additional resources](#additional-resources)
 
 <!-- blog-enrichment:end -->
+
+---
 
 Two indispensable but sometimes overlooked tools included with an Ansible Automation Platform subscription are the cloud-based services, Automation Analytics and Red Hat Insights for Ansible Automation Platform.
 
@@ -144,7 +146,7 @@ The visibility you gain with the dashboards and reports can also be used to exte
 
 |  |
 | --- |
-| **Concerned about sharing your data with Red Hat?**  Red Hat does not collect credential secrets, personal data, automation variables, or task output. For more information about which data are collected and stored by Red Hat, check out our [automation analytics data security FAQ](https://www.redhat.com/products/insights-for-ansible/faq). |
+| **Concerned about sharing your data with Red Hat?**  Red Hat does not collect credential secrets, personal data, automation variables, or task output. For more information about which data are collected and stored by Red Hat, check out our automation analytics data security FAQ. |
 
 ## Additional resources
 
@@ -152,15 +154,33 @@ Insights has gone through significant changes in recent months, and additional d
 
 - Checklist: [3 ways IT leaders can measure automation performance](https://www.redhat.com/rhdc/managed-files/ma-3-ways-it-leaders-measure-automation-performance-overview-f31060pr-202202-en_1.pdf)
 - Webinar: Analyze and expand automation with hosted services
-- Graphic: [Automation analytics and Red Hat Insights role-based benefits](https://www.redhat.com/hubfs/RH_INFRA_007862_03_SRC_AnsibleAutomationAnalytics_PersonaBenefitsTable_rh.pdf?hsLang=en-us)
+- Graphic: Automation analytics and Red Hat Insights role-based benefits
+
+---
+
+[![Nuno Martins](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo)](https://www.redhat.com/en/authors/nuno-martins)
+
+[### Nuno Martins
+
+Technical Marketing Manager, Red Hat Ansible Automation Platform](https://www.redhat.com/en/authors/nuno-martins)
+
+Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.
+
+[More from this author](https://www.redhat.com/en/authors/nuno-martins)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 
 > [!related]
 > **More from the team**
 >
+> - [Automate security risk management across enterprise IT operations](/blog/automate-security-risk-management-across-enterprise-it-operations/)
 > - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
 > - [Navigating AI vulnerability discovery and achieving operational resilience with automation](/blog/navigating-ai-vulnerability-discovery-and-achieving-operational-resilience-automation/)
-> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
 
 <!-- blog-enrichment:related-end -->

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T12:54:27Z",
+  "updated_at": "2026-10-09T12:52:40Z",
   "posts": [
     {
       "slug": "automate-security-risk-management-across-enterprise-it-operations",
@@ -974,7 +974,7 @@
       "title": "How to Activate Automation Analytics and Red Hat Insights",
       "description": "Red Hat Insights for Ansible Automation Platform is an analytics tool to help you identify, troubleshoot, and resolve issues across your entire ecosystem.",
       "published": "2022-02-01",
-      "updated": "2026-06-03",
+      "updated": "2026-10-08",
       "authors": [
         {
           "slug": "nuno-martins",
@@ -1253,7 +1253,7 @@
       "title": "Build a quick CI system using Red Hat Ansible Tower with GitHub Actions",
       "description": "This blog post from Sean Cavanaugh covers his journey of getting Github Actions to work with Red Hat Ansible Tower.",
       "published": "2019-05-16",
-      "updated": "2025-11-24",
+      "updated": "2026-10-08",
       "authors": [
         {
           "slug": "sean-cavanaugh",

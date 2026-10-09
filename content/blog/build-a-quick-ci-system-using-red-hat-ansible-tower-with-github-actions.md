@@ -5,14 +5,14 @@ authors:
 - slug: sean-cavanaugh
   name: Sean Cavanaugh
 published: '2019-05-16'
-updated: '2025-11-24'
+updated: '2026-10-08'
 source: redhat
 source_url: https://www.redhat.com/en/blog/build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions
 description: This blog post from Sean Cavanaugh covers his journey of getting Github
   Actions to work with Red Hat Ansible Tower.
 topics: []
 read_time_minutes: 5
-synced_at: '2026-09-03T19:21:14Z'
+synced_at: '2026-10-09T12:52:38Z'
 ---
 
 <!-- blog-enrichment:start -->
@@ -21,6 +21,8 @@ synced_at: '2026-09-03T19:21:14Z'
 > **Summary:** This blog post from Sean Cavanaugh covers his journey of getting Github Actions to work with Red Hat Ansible Tower.
 
 <!-- blog-enrichment:end -->
+
+---
 
 [![RH-Ansible-TowerAPI-with-Github-Actions-Blog](https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg)](https://www.redhat.com/rhdc/managed-files/ansible/RH-Ansible-TowerAPI-with-Github-Actions-Blog.jpg)
 
@@ -73,7 +75,10 @@ action "Call httpbin" {
  uses = "swinton/httpie.action@master"  
  args = ["POST", "https://ansible.io/api/v2/job_templates/84/launch/", "--auth=$USER_PASSWORD"]  
  secrets = ["USER_PASSWORD"]  
-}
+}  
+  
+  
+ 
 ```
 
 As you can see my Github Action workflow file is pretty simple. If I receive a Pull Request on any branch I will initiate a HTTPie request to my Red Hat Ansible Tower job for the workflow template. The only major ‘gotcha’ I had with the process was storing my credentials. This seemed very simple in the Visual Editor, you can click on the Action and add secrets. In my case I create a variable (as seen above) called USER\_PASSWORD and put my username and password in there. The SECRET\_KEY is USER\_PASSWORD and the Secret value is simply my password (e.g. seanc:password123!)
@@ -84,14 +89,32 @@ Now I simply created a test repo in my organization to play around with my new G
 
 [![image2-2](https://www.redhat.com/rhdc/managed-files/ansible/image2-2.png)](https://www.redhat.com/rhdc/managed-files/ansible/image2-2.png)
 
-The call httpbin is the name from my Github Action workflow file. You can click on the Details link and see API request and how Red Hat Ansible Tower responded. I hope to show a more feature complete demonstration in the future, but I was able to accomplish my original goal pretty easily after just looking at a few examples! Super big thanks to [Chris Short](https://www.redhat.com/blog/author/chris-short) who educated me about Github Actions and encouraged me to sign up for the beta.
+The call httpbin is the name from my Github Action workflow file. You can click on the Details link and see API request and how Red Hat Ansible Tower responded. I hope to show a more feature complete demonstration in the future, but I was able to accomplish my original goal pretty easily after just looking at a few examples! Super big thanks to Chris Short who educated me about Github Actions and encouraged me to sign up for the beta.
 
 > [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
 > Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ## AnsibleFest 2019
 
-Want to talk to the folks writing the blog posts? Come join us in Atlanta, GA September 24-26 at [AnsibleFest 2019](https://www.redhat.com/ansiblefest)!
+Want to talk to the folks writing the blog posts? Come join us in Atlanta, GA September 24-26 at AnsibleFest 2019!
+
+---
+
+[![Sean Cavanaugh](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S)](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+[### Sean Cavanaugh
+
+Principal Technical Marketing Manager](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from [@IPvSean](https://twitter.com/ipvsean).
+
+[More from this author](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 
