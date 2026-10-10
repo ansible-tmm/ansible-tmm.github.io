@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T12:52:40Z",
+  "updated_at": "2026-10-10T12:49:18Z",
   "posts": [
     {
       "slug": "automate-security-risk-management-across-enterprise-it-operations",
@@ -792,7 +792,7 @@
       "title": "Digitally signing Ansible Content Collections using private automation hub",
       "description": "In this blog we will explain how to enable and consume this new digital content signing feature using Ansible Automation Platform 2.2.",
       "published": "2022-06-22",
-      "updated": "2026-03-06",
+      "updated": "2026-10-09",
       "authors": [
         {
           "slug": "anshul-behl",

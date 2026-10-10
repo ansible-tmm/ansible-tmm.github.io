@@ -62,9 +62,9 @@
     },
     "digitally-signing-ansible-content-collections-using-private-automation-hub": {
       "source_url": "https://www.redhat.com/en/blog/digitally-signing-ansible-content-collections-using-private-automation-hub",
-      "updated": "2026-03-06",
-      "content_hash": "60dc8e8b1ab505143816b47ba7aa8e60316dcfdf30e8484921cb9db5cf74c1c7",
-      "synced_at": "2026-09-03T19:20:37Z"
+      "updated": "2026-10-09",
+      "content_hash": "e6b203318205af1e8e98fe57d886533644bdae255e597b075c8e5d61bd953c05",
+      "synced_at": "2026-10-10T12:49:18Z"
     },
     "new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide": {
       "source_url": "https://www.redhat.com/en/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide",

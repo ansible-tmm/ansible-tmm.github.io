@@ -5,14 +5,14 @@ authors:
 - slug: anshul-behl
   name: Anshul Behl
 published: '2022-06-22'
-updated: '2026-03-06'
+updated: '2026-10-09'
 source: redhat
 source_url: https://www.redhat.com/en/blog/digitally-signing-ansible-content-collections-using-private-automation-hub
 description: In this blog we will explain how to enable and consume this new digital
   content signing feature using Ansible Automation Platform 2.2.
 topics: []
 read_time_minutes: 6
-synced_at: '2026-09-03T19:20:37Z'
+synced_at: '2026-10-10T12:49:18Z'
 ---
 
 <!-- blog-enrichment:start -->
@@ -30,6 +30,8 @@ synced_at: '2026-09-03T19:20:37Z'
 > - [Next Steps](#next-steps)
 
 <!-- blog-enrichment:end -->
+
+---
 
 [![Digitally signing content in Private Automation Hub](https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png)](https://www.redhat.com/rhdc/managed-files/ansible/Digitally%20signing%20content%20in%20Private%20Automation%20Hub.png)
 
@@ -57,7 +59,7 @@ In the following sections, we will explain how to enable and consume this new di
 
 To successfully sign and publish Ansible Content Collections, private automation hub needs to be configured for signing. The inventory configuration for the installer with signing enabled requires extra key-value pairs in the `[all:vars]` section like below:
 
-```
+```json
 [all:vars]
 .
 .
@@ -74,7 +76,7 @@ Notice the two keys called `automationhub_collection_signing_service_key` and `a
 - `automationhub_collection_signing_service_key`- This represents the absolute path to the  private key file from the GPG keypair.
 - `automationhub_collection_signing_service_script`- This represents the absolute path to the signing script that accepts a filename as the only argument. The script needs to generate an ascii-armored detached GPG signature for that file, using the key specified via the `PULP_SIGNING_KEY_FINGERPRINT` environment variable. The script should then print out a JSON structure with the following format.
 
-```
+```json
 {"file": "filename", "signature": "filename.asc"}
 ```
 
@@ -82,7 +84,7 @@ Notice the two keys called `automationhub_collection_signing_service_key` and `a
 
 Below is a sample set of bash commands to set up a key pair and export the associated public and private keys. You can use these directly or change the individual parameters based on your requirements.
 
-```
+```text
 cat >gpg.txt <<EOF
 %echo Generating a basic OpenPGP key
 Key-Type: default
@@ -109,19 +111,19 @@ rm -rf ~/.gnupg
 
 Below is a signing script that adheres to the requirements, which you can use as the same script in your setup.
 
-```
+```powershell
 #!/usr/bin/env bash
 FILE_PATH=$1
 SIGNATURE_PATH="$1.asc"
-          
+
 ADMIN_ID="$PULP_SIGNING_KEY_FINGERPRINT"
 PASSWORD="password"
-          
+
 # Create a detached signature
 gpg --quiet --batch --yes --passphrase \
    $PASSWORD --homedir ~/.gnupg/ --detach-sign --default-key $ADMIN_ID \
    --armor --output $SIGNATURE_PATH $FILE_PATH
-          
+
 # Check the exit status
 STATUS=$?
 if [ $STATUS -eq 0 ]; then
@@ -139,7 +141,7 @@ With the above changes complete,  you can now run the Ansible Automation Platfo
 
 Once you deploy a private automation hub with signing enabled to your Ansible Automation Platform cluster, you will see some new UI additions when you interact with Collections. We used two new keys in the deployment configuration as explained in the above sections.
 
-```
+```text
 automationhub_auto_sign_collections = True
 automationhub_require_content_approval = True
 ```
@@ -171,13 +173,13 @@ Using our example above, we will explain how you can use the public key to verif
 
 To add the public key to a local non-default keyring:
 
-```
+```text
 gpg --import --no-default-keyring --keyring ~/keyring.kbx galaxy_signing_service.asc
 ```
 
 Use the keyring created in the last step with `ansible-galaxy` CLI to install and verify the signed Collections.
 
-```
+```text
 ansible-galaxy collection install community.lab_collection --keyring ~/keyring.kbx -c -vvvv
 ```
 
@@ -187,7 +189,7 @@ You will see the signature verification happening to validate the source of this
 
 With `ansible-builder` version 1.1.0 that comes with Ansible Automation Platform 2.2, it is possible to supply the keyring as explained in the previous section. If this option is not provided, no signature verification will be performed. If it is provided, and the version of Ansible in the base execution environment is not recent enough (`ansible-core` < 2.13), an error will occur in the image build process.
 
-```
+```text
 ansible-builder create --galaxy-keyring=/path/to/pubring.kbx
 ansible-builder build --galaxy-keyring=/path/to/pubring.kbx
 ```
@@ -207,7 +209,7 @@ Try the self-paced lab designed by us on digitally [signing content collections 
 
 ### More Ansible Automation Platform 2.2 resources
 
-Read the [blog on Ansible Automation Platform 2.2](https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.2). You can get a rundown of what’s new in this checklist, [What’s new: Ansible Automation Platform 2.2](https://www.redhat.com/en/resources/whats-new-ansible-automation-platform-2-2-checklist). For additional context, including a recap of Ansible Automation Platform 2 releases to date and a look ahead at 2.3, check out the free, on-demand webinar, Ansible Automation Platform 2.2: next generation platform enhancements.
+Read the [blog on Ansible Automation Platform 2.2](https://www.ansible.com/blog/whats-new-in-ansible-automation-platform-2.2). You can get a rundown of what’s new in this checklist, What’s new: Ansible Automation Platform 2.2. For additional context, including a recap of Ansible Automation Platform 2 releases to date and a look ahead at 2.3, check out the free, on-demand webinar, Ansible Automation Platform 2.2: next generation platform enhancements.
 
 ### Take a video tour
 
@@ -225,6 +227,24 @@ If you are still operating Ansible Automation Platform 1.2, it is time to start 
 
 - Get started with this checklist, “5 ways to prepare for migration to Ansible Automation Platform 2.”
 - Register for a free webinar, “Migrating to the next generation IT automation platform.”
+
+---
+
+[![Anshul Behl, Principal Technical Marketing Manager, Red Hat](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/wa_profile%20-%20Anshul%20Behl.jpeg?itok=vYDgCAJj)](https://www.redhat.com/en/authors/anshul-behl)
+
+[### Anshul Behl
+
+Principal Technical Marketing Manager](https://www.redhat.com/en/authors/anshul-behl)
+
+Anshul is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform's adoption experience for customers by producing technical content on all aspects of the product.
+
+[More from this author](https://www.redhat.com/en/authors/anshul-behl)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 
