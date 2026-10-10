@@ -1,27 +1,27 @@
 {
   "org": "ansible-tmm",
-  "updated_at": "2026-10-09T12:04:52Z",
+  "updated_at": "2026-10-10T12:04:26Z",
   "repositories": 73,
   "stars": 94,
   "forks": 137,
-  "commits": 14562,
-  "pull_requests": 265,
-  "merged_pull_requests": 224,
+  "commits": 14589,
+  "pull_requests": 269,
+  "merged_pull_requests": 226,
   "recent_repos": [
     {
       "name": "aap_cve_report",
       "url": "https://github.com/ansible-tmm/aap_cve_report",
-      "pushed_at": "2026-10-09T11:16:29Z"
-    },
-    {
-      "name": "aiops-summitlab",
-      "url": "https://github.com/ansible-tmm/aiops-summitlab",
-      "pushed_at": "2026-10-08T19:18:27Z"
+      "pushed_at": "2026-10-10T11:16:26Z"
     },
     {
       "name": "solution-guides",
       "url": "https://github.com/ansible-tmm/solution-guides",
-      "pushed_at": "2026-10-08T19:14:48Z"
+      "pushed_at": "2026-10-09T14:58:47Z"
+    },
+    {
+      "name": "ansible-tmm.github.io",
+      "url": "https://github.com/ansible-tmm/ansible-tmm.github.io",
+      "pushed_at": "2026-10-09T12:52:48Z"
     }
   ]
 }
