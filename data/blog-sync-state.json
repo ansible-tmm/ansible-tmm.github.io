@@ -194,9 +194,9 @@
     },
     "getting-started-with-automation-analytics": {
       "source_url": "https://www.redhat.com/en/blog/getting-started-with-automation-analytics",
-      "updated": "2025-11-24",
-      "content_hash": "0982d45ee3e5448554dded6ee69d1bc7a8c1753890bc8030f714079c201cbf63",
-      "synced_at": "2026-09-03T19:21:12Z"
+      "updated": "2026-10-12",
+      "content_hash": "29ec6293cab082c834677fc21032c85c42c4fc5d01091fd36d5c15c83bac722f",
+      "synced_at": "2026-10-13T12:56:53Z"
     },
     "build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions": {
       "source_url": "https://www.redhat.com/en/blog/build-a-quick-ci-system-using-red-hat-ansible-tower-with-github-actions",

@@ -5,14 +5,14 @@ authors:
 - slug: sean-cavanaugh
   name: Sean Cavanaugh
 published: '2019-11-14'
-updated: '2025-11-24'
+updated: '2026-10-12'
 source: redhat
 source_url: https://www.redhat.com/en/blog/getting-started-with-automation-analytics
 description: In this blog post, we go into how to get started with Automation Analytics,
   a part of Red Hat Ansible Automation Platform.
 topics: []
 read_time_minutes: 6
-synced_at: '2026-09-03T19:21:12Z'
+synced_at: '2026-10-13T12:56:53Z'
 ---
 
 <!-- blog-enrichment:start -->
@@ -33,25 +33,22 @@ synced_at: '2026-09-03T19:21:12Z'
 
 <!-- blog-enrichment:end -->
 
+---
+
 [![blog_getting-started_automation-analytics](https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png)](https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png)
 
-With the upcoming release of the Red Hat Ansible Automation Platform there are now included Software as a Service (SaaS) offerings, one of which is [Automation Analytics](https://www.redhat.com/products/automation-analytics).  This application provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire infrastructure.
+With the upcoming release of the Red Hat Ansible Automation Platform there are now included Software as a Service (SaaS) offerings, one of which is Automation Analytics.  This application provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire infrastructure.
 
 When talking to the community and our customers, a question that often comes up is: “How do we measure success?”.  Automation Analytics provides key data on Job Template usage, Ansible Module usage, organizational comparisons across your enterprise, and much more.  This data can be used to assess usage, success criteria, and even charge backs between different groups. This blog post will outline how to get started with Automation Analytics and start collecting data right away.
 
 ## 
 
-> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
-> Launch guided lab environments for Ansible and Red Hat technologies.
-
 ## What you need to get started:
 
 - Red Hat Ansible Tower 3.5.3 or newer
-
-- [Download Red Hat Ansible Tower](https://docs.ansible.com/ansible-tower/latest/html/quickinstall/download_tower.html)
-- [Documentation for how to upgrade](https://docs.ansible.com/ansible-tower/latest/html/installandreference/upgrade_tower.html)
-
-- An active [Red Hat Ansible Automation Platform subscription](https://www.redhat.com/products/pricing)
+  - [Download Red Hat Ansible Tower](https://docs.ansible.com/ansible-tower/latest/html/quickinstall/download_tower.html)
+  - [Documentation for how to upgrade](https://docs.ansible.com/ansible-tower/latest/html/installandreference/upgrade_tower.html)
+- An active Red Hat Ansible Automation Platform subscription
 - A Red Hat Ansible Tower instance that can reach <https://cloud.redhat.com&nbsp>;
 
 ## Ansible Automation Platform terminology
@@ -65,8 +62,8 @@ There are some terms used in this blog post that may be unfamiliar for folks new
 
 ## 
 
-> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
-> Reusable demos that showcase Ansible Automation Platform capabilities.
+> [!callout type=tmm label="TMM resource" title="Workshops and Labs" url="https://labs.demoredhat.com/" cta="Launch a lab"]
+> Launch guided lab environments for Ansible and Red Hat technologies.
 
 ## Activating Data Collection
 
@@ -81,9 +78,7 @@ Next click on the System button:
 There are three settings you need to set under Settings->System:
 
 - **GATHER DATA FOR AUTOMATION INSIGHTS** must be set to **ON**
-
-- The name “Automation Insights” may be different depending on the version of Red Hat Ansible Tower you are running.  The name Automation Insights is an older name for the SaaS known as Automation Analytics. This software is not the same as Red Hat Insights and this name change took place to help differentiate the two different SaaS tools on cloud.redhat.com.
-
+  - The name “Automation Insights” may be different depending on the version of Red Hat Ansible Tower you are running.  The name Automation Insights is an older name for the SaaS known as Automation Analytics. This software is not the same as Red Hat Insights and this name change took place to help differentiate the two different SaaS tools on cloud.redhat.com.
 - **RED HAT CUSTOMER USERNAME** is your cloud.redhat.com username.
 - **RED HAT CUSTOMER PASSWORD** is your cloud.redhat.com password for the corresponding username.
 
@@ -98,6 +93,9 @@ Finally, click the SAVE button:
 Once this is saved, Red Hat Ansible Tower will sync to cloud.redhat.com up to four times a day.  At the time of writing this blog post this is not configurable.
 
 ## 
+
+> [!callout type=tmm label="TMM resource" title="Ansible Product Demos" url="https://ansible.github.io/product-demos/" cta="Browse demos"]
+> Reusable demos that showcase Ansible Automation Platform capabilities.
 
 ## Manual Data Collection
 
@@ -179,7 +177,7 @@ There are also two pie graphs in panels below the main line graph comparison too
 
 ## Going Further
 
-We highly encourage you to turn on Automation Analytics today and start gaining useful data around your automation. Curious about what data automation analytics will collect across your Ansible Tower deployments? [Read this FAQ](https://www.redhat.com/products/ansible-analytics/faq) around Security and Data Handling for Automation Analytics, detailing how you can control which data is collected, where it is held, and for how long.  This tool was developed jointly with customers to help bring their automation to the next level and allow employees to engage with different groups and personas at an enterprise level.  
+We highly encourage you to turn on Automation Analytics today and start gaining useful data around your automation. Curious about what data automation analytics will collect across your Ansible Tower deployments? Read this FAQ around Security and Data Handling for Automation Analytics, detailing how you can control which data is collected, where it is held, and for how long.  This tool was developed jointly with customers to help bring their automation to the next level and allow employees to engage with different groups and personas at an enterprise level.  
 
 For example, it could potentially be fun to gamify the amount of automation one organization is using to help encourage other groups to start contributing and automating more..  Another great use-case would allow the group hosting Ansible Tower Clusters to perform chargebacks to other groups due to the value they are providing organizations within their company.  Finally it might be beneficial to see all the top modules being used because you might notice non-stateful shell and command modules being used in situations when there is a better way with a dedicated Ansible Module.
 
@@ -191,6 +189,24 @@ In addition, here are some additional links to help you in your automation journ
 - [Ansible Automates events](https://www.ansible.com/community/events/automates)
 
 Also check out the next post in this series: [Getting Started with Automation Analytics: Part 2](https://www.redhat.com/blog/automation-analytics-part-2-looking-at-data-collection)
+
+---
+
+[![Sean Cavanaugh](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S)](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+[### Sean Cavanaugh
+
+Principal Technical Marketing Manager](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from [@IPvSean](https://twitter.com/ipvsean).
+
+[More from this author](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 

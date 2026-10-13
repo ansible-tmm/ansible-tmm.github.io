@@ -56,25 +56,18 @@
   
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#what-you-need-to-get-started">What you need to get started:</a></li><li><a href="#ansible-automation-platform-terminology">Ansible Automation Platform terminology</a></li><li><a href="#activating-data-collection">Activating Data Collection</a></li><li><a href="#manual-data-collection">Manual Data Collection</a></li><li><a href="#verifying-ansible-tower-is-syncing">Verifying Ansible Tower is syncing</a></li><li><a href="#exploring-automation-analytics">Exploring Automation Analytics</a></li><li><a href="#going-further">Going Further</a></li></ul>
-</aside><p><a href="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png" alt="blog_getting-started_automation-analytics"></a></p>
-<p>With the upcoming release of the Red Hat Ansible Automation Platform there are now included Software as a Service (SaaS) offerings, one of which is <a href="https://www.redhat.com/products/automation-analytics">Automation Analytics</a>.  This application provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire infrastructure.</p>
+</aside><hr>
+<p><a href="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/blog_getting-started_automation-analytics.png" alt="blog_getting-started_automation-analytics"></a></p>
+<p>With the upcoming release of the Red Hat Ansible Automation Platform there are now included Software as a Service (SaaS) offerings, one of which is Automation Analytics.  This application provides a visual dashboard, health notifications and organization statistics for your Ansible Automation. Automation Analytics works across multiple Ansible Tower clusters allowing holistic analytics across your entire infrastructure.</p>
 <p>When talking to the community and our customers, a question that often comes up is: “How do we measure success?”.  Automation Analytics provides key data on Job Template usage, Ansible Module usage, organizational comparisons across your enterprise, and much more.  This data can be used to assess usage, success criteria, and even charge backs between different groups. This blog post will outline how to get started with Automation Analytics and start collecting data right away.</p>
-<h2 id="section"></h2><aside class="blog-tmm-insert blog-callout blog-callout--tmm">
-  <span class="blog-callout__label">TMM resource</span>
-  <p class="blog-callout__title">Workshops and Labs</p>
-  <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
-  <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
-</aside><h2 id="what-you-need-to-get-started">What you need to get started:</h2><ul>
-<li><p>Red Hat Ansible Tower 3.5.3 or newer</p>
+<h2 id="section"></h2><h2 id="what-you-need-to-get-started">What you need to get started:</h2><ul>
+<li>Red Hat Ansible Tower 3.5.3 or newer<ul>
+<li><a href="https://docs.ansible.com/ansible-tower/latest/html/quickinstall/download_tower.html">Download Red Hat Ansible Tower</a></li>
+<li><a href="https://docs.ansible.com/ansible-tower/latest/html/installandreference/upgrade_tower.html">Documentation for how to upgrade</a></li>
+</ul>
 </li>
-<li><p><a href="https://docs.ansible.com/ansible-tower/latest/html/quickinstall/download_tower.html">Download Red Hat Ansible Tower</a></p>
-</li>
-<li><p><a href="https://docs.ansible.com/ansible-tower/latest/html/installandreference/upgrade_tower.html">Documentation for how to upgrade</a></p>
-</li>
-<li><p>An active <a href="https://www.redhat.com/products/pricing">Red Hat Ansible Automation Platform subscription</a></p>
-</li>
-<li><p>A Red Hat Ansible Tower instance that can reach <a href="https://cloud.redhat.com&nbsp">https://cloud.redhat.com&amp;nbsp</a>;</p>
-</li>
+<li>An active Red Hat Ansible Automation Platform subscription</li>
+<li>A Red Hat Ansible Tower instance that can reach <a href="https://cloud.redhat.com&nbsp">https://cloud.redhat.com&amp;nbsp</a>;</li>
 </ul>
 <h2 id="ansible-automation-platform-terminology">Ansible Automation Platform terminology</h2><p>There are some terms used in this blog post that may be unfamiliar for folks new to the Red Hat Ansible Automation Platform.  In addition to the <a href="https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html">Ansible Engine glossary</a> and the <a href="https://docs.ansible.com/ansible-tower/latest/html/installandreference/glossary.html#glossary">Ansible Tower glossary</a> I want to outline some quick terms to help folks understand this post:</p>
 <ul>
@@ -85,30 +78,33 @@
 </ul>
 <h2 id="section-2"></h2><aside class="blog-tmm-insert blog-callout blog-callout--tmm">
   <span class="blog-callout__label">TMM resource</span>
-  <p class="blog-callout__title">Ansible Product Demos</p>
-  <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
-  <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+  <p class="blog-callout__title">Workshops and Labs</p>
+  <p class="blog-callout__body">Launch guided lab environments for Ansible and Red Hat technologies.</p>
+  <a class="blog-callout__cta" href="https://labs.demoredhat.com/">Launch a lab →</a>
 </aside><h2 id="activating-data-collection">Activating Data Collection</h2><p>First login to your Red Hat Ansible Tower web UI (user interface).  The user account must have administrative privileges to turn on data collection.  Click on the Settings button on the left menu. If the menu is in compact mode there will only be a small gear representing the settings.</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200.png" alt="pasted image 0"></a></p>
 <p>Next click on the System button:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200-2.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200-2.png" alt="pasted image 0-2"></a></p>
 <p>There are three settings you need to set under Settings-&gt;System:</p>
 <ul>
-<li><p><strong>GATHER DATA FOR AUTOMATION INSIGHTS</strong> must be set to <strong>ON</strong></p>
+<li><strong>GATHER DATA FOR AUTOMATION INSIGHTS</strong> must be set to <strong>ON</strong><ul>
+<li>The name “Automation Insights” may be different depending on the version of Red Hat Ansible Tower you are running.  The name Automation Insights is an older name for the SaaS known as Automation Analytics. This software is not the same as Red Hat Insights and this name change took place to help differentiate the two different SaaS tools on cloud.redhat.com.</li>
+</ul>
 </li>
-<li><p>The name “Automation Insights” may be different depending on the version of Red Hat Ansible Tower you are running.  The name Automation Insights is an older name for the SaaS known as Automation Analytics. This software is not the same as Red Hat Insights and this name change took place to help differentiate the two different SaaS tools on cloud.redhat.com.</p>
-</li>
-<li><p><strong>RED HAT CUSTOMER USERNAME</strong> is your cloud.redhat.com username.</p>
-</li>
-<li><p><strong>RED HAT CUSTOMER PASSWORD</strong> is your cloud.redhat.com password for the corresponding username.</p>
-</li>
+<li><strong>RED HAT CUSTOMER USERNAME</strong> is your cloud.redhat.com username.</li>
+<li><strong>RED HAT CUSTOMER PASSWORD</strong> is your cloud.redhat.com password for the corresponding username.</li>
 </ul>
 <p>Here is an example snippet of the Settings&gt;System page:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200-3.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200-3.png" alt="pasted image 0-3"></a></p>
 <p>Finally, click the SAVE button:</p>
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200-4.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/pasted%20image%200-4.png" alt="pasted image 0-4"></a></p>
 <p>Once this is saved, Red Hat Ansible Tower will sync to cloud.redhat.com up to four times a day.  At the time of writing this blog post this is not configurable.</p>
-<h2 id="section-3"></h2><h2 id="manual-data-collection">Manual Data Collection</h2><p>If it is desired to sync to cloud.redhat.com right away and register a system, this can be done manually on the Red Hat Ansible Tower command line.  This will allow you to verify quickly that everything is setup correctly.</p>
+<h2 id="section-3"></h2><aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Ansible Product Demos</p>
+  <p class="blog-callout__body">Reusable demos that showcase Ansible Automation Platform capabilities.</p>
+  <a class="blog-callout__cta" href="https://ansible.github.io/product-demos/">Browse demos →</a>
+</aside><h2 id="manual-data-collection">Manual Data Collection</h2><p>If it is desired to sync to cloud.redhat.com right away and register a system, this can be done manually on the Red Hat Ansible Tower command line.  This will allow you to verify quickly that everything is setup correctly.</p>
 <p>Login as the awx user or an administrative user on the control node and run the following command:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
@@ -159,7 +155,7 @@
 <p><a href="https://www.redhat.com/rhdc/managed-files/ansible/org_stats.png"><img src="https://www.redhat.com/rhdc/managed-files/ansible/org_stats.png" alt="org_stats"></a></p>
 <p>Just like with the Analytics dashboard it is possible to filter by time, going back over the last month.  In addition, Organizational Statistics makes it possible to filter by individual organization, and toggle multiple organizations at the same time.  </p>
 <p>There are also two pie graphs in panels below the main line graph comparison tool.  Job Runs by Organization refers to the total amount of Job Templates executed by an organization and then comparing that holistically across all organizations.  Usage by Organization (Tasks) refers to an individual task within a Job Template. This allows an administrator to compare organizations that use large Job Templates with many tasks versus an Ansible Tower Organization that uses many Job Templates that have just a few tasks each. </p>
-<h2 id="section-6"></h2><h2 id="going-further">Going Further</h2><p>We highly encourage you to turn on Automation Analytics today and start gaining useful data around your automation. Curious about what data automation analytics will collect across your Ansible Tower deployments? <a href="https://www.redhat.com/products/ansible-analytics/faq">Read this FAQ</a> around Security and Data Handling for Automation Analytics, detailing how you can control which data is collected, where it is held, and for how long.  This tool was developed jointly with customers to help bring their automation to the next level and allow employees to engage with different groups and personas at an enterprise level.  </p>
+<h2 id="section-6"></h2><h2 id="going-further">Going Further</h2><p>We highly encourage you to turn on Automation Analytics today and start gaining useful data around your automation. Curious about what data automation analytics will collect across your Ansible Tower deployments? Read this FAQ around Security and Data Handling for Automation Analytics, detailing how you can control which data is collected, where it is held, and for how long.  This tool was developed jointly with customers to help bring their automation to the next level and allow employees to engage with different groups and personas at an enterprise level.  </p>
 <p>For example, it could potentially be fun to gamify the amount of automation one organization is using to help encourage other groups to start contributing and automating more..  Another great use-case would allow the group hosting Ansible Tower Clusters to perform chargebacks to other groups due to the value they are providing organizations within their company.  Finally it might be beneficial to see all the top modules being used because you might notice non-stateful shell and command modules being used in situations when there is a better way with a dedicated Ansible Module.</p>
 <p>In addition, here are some additional links to help you in your automation journey:</p>
 <ul>
@@ -169,6 +165,15 @@
 <li><a href="https://www.ansible.com/community/events/automates">Ansible Automates events</a></li>
 </ul>
 <p>Also check out the next post in this series: <a href="https://www.redhat.com/blog/automation-analytics-part-2-looking-at-data-collection">Getting Started with Automation Analytics: Part 2</a></p>
+<hr>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S" alt="Sean Cavanaugh"></a></p>
+<p>[### Sean Cavanaugh</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/sean-cavanaugh">https://www.redhat.com/en/authors/sean-cavanaugh</a>)</p>
+<p>Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from <a href="https://twitter.com/ipvsean">@IPvSean</a>.</p>
+<p><a href="https://www.redhat.com/en/authors/sean-cavanaugh">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
 <aside class="blog-tmm-insert blog-related">
   <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>

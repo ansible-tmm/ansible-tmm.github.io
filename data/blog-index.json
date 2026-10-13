@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T13:12:36Z",
+  "updated_at": "2026-10-13T12:56:53Z",
   "posts": [
     {
       "slug": "automate-security-risk-management-across-enterprise-it-operations",
@@ -1215,7 +1215,7 @@
       "title": "Getting Started With Automation Analytics",
       "description": "In this blog post, we go into how to get started with Automation Analytics, a part of Red Hat Ansible Automation Platform.",
       "published": "2019-11-14",
-      "updated": "2025-11-24",
+      "updated": "2026-10-12",
       "authors": [
         {
           "slug": "sean-cavanaugh",
