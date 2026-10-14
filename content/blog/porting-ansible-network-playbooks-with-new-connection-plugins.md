@@ -5,7 +5,7 @@ authors:
 - slug: sean-cavanaugh
   name: Sean Cavanaugh
 published: '2018-04-19'
-updated: '2026-06-16'
+updated: '2026-10-13'
 source: redhat
 source_url: https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins
 description: 'With the release of new networking features in Ansible 2.5 one of the
@@ -15,7 +15,7 @@ description: 'With the release of new networking features in Ansible 2.5 one of 
 topics:
 - Network automation
 read_time_minutes: 7
-synced_at: '2026-09-03T19:21:20Z'
+synced_at: '2026-10-14T12:48:48Z'
 ---
 
 <!-- blog-enrichment:start -->
@@ -25,9 +25,11 @@ synced_at: '2026-09-03T19:21:20Z'
 
 <!-- blog-enrichment:end -->
 
+---
+
 [![](https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png)](https://www.redhat.com/rhdc/managed-files/ansible/Porting-Ansible%20Ansible-Network%20Playbooks-with-Connection%20Plugins.png)
 
-The Ansible Networking Team is excited about the release of [Ansible 2.5](https://www.redhat.com/blog/ansible-2.5-traveling-space-and-time). Back in February, I wrote about new [Networking Features in Ansible 2.5](https://www.redhat.com/blog/coming-soon-networking-features-in-ansible-2.5), and one of the biggest areas of feedback was around the network\_cli connection plugin. For more background on this connection plugin, please refer to the previous blog post.
+The Ansible Networking Team is excited about the release of Ansible 2.5. Back in February, I wrote about new [Networking Features in Ansible 2.5](https://www.redhat.com/blog/coming-soon-networking-features-in-ansible-2.5), and one of the biggest areas of feedback was around the network\_cli connection plugin. For more background on this connection plugin, please refer to the previous blog post.
 
 In this post, I convert existing networking playbooks that use `connection: local` to use `connection: network_cli`. Please note that the passwords are in plain text for demonstration purposes only. Refer to the following Ansible Networking documentation page recommendation for using Ansible Vault for secure password storage and usage.  
 
@@ -40,7 +42,7 @@ To demonstrate, let’s use an existing GitHub repository with working playbooks
 
 Networking platforms use their specific `*_config` platform module for easy backups within Ansible. For this playbook we are running the Ansible Playbook against a Cisco NX-OS platform, so we are using the nxos\_config module. Using this module, set the `backup` parameter to `yes`.  This is how the playbook looked using the `connection: local` and `provider` method in Ansible 2.4:
 
-```
+```yaml
 ---
 - hosts: cisco
   connection: local
@@ -52,7 +54,7 @@ Networking platforms use their specific `*_config` platform module for easy back
 
 For all of the Ansible samples the provider variables such as `login_info` are located in `group_vars/all`:
 
-```
+```powershell
 [sean@centos]$ cat group_vars/all.yml                                                                                               ---
 login_info:
   username: admin
@@ -81,7 +83,7 @@ login_info:
 
 Local Connection (2.4):
 
-```
+```yaml
 ---
 - hosts: cisco
   connection: local
@@ -93,7 +95,7 @@ Local Connection (2.4):
 
 Network\_cli Connection (2.5):
 
-```
+```yaml
 ---
 - hosts: cisco
   connection: network_cli
@@ -104,7 +106,7 @@ Network\_cli Connection (2.5):
 
 **Modify the inventory for steps 3 and 4:**
 
-```
+```powershell
 [sean@centos]$ cat hosts
 [cisco]
 n9k ansible_host=192.168.2.3
@@ -121,7 +123,7 @@ For this specific scenario, a few assumptions are required:
 - The username and password is specific for a particular host (in other words, n9k’s username and password is different from n9k-2’s username and password).
 - All the devices in the `[cisco]` group are Cisco Nexus devices.
 
-```
+```powershell
 [sean@centos]$ cat hosts
 [cisco]
 n9k ansible_host=192.168.2.3 ansible_user=admin ansible_password=Bullf00d
@@ -132,7 +134,7 @@ ansible_network_os=nxos
 
 As you can see above we can tie inventory parameters to a particular host, or to the entire group. The old playbook is named `backup-oldmethod.yml`, and the new playbook is named `backup.yml`. The playbook now runs with the `ansible-playbook` command:
 
-```
+```powershell
 [sean@centos]$ ansible-playbook backup.yml
 
 PLAY [cisco] *******************************************************************************************
@@ -150,8 +152,8 @@ In the second Ansible Playbook example we are running against an Arista EOS plat
 
 The login information for the Arista EOS device for this example is different from the Cisco NX-OS device, and requires an enable password for privileged commands:
 
-```
-[sean@centos]$ cat group_vars/all.yml   
+```powershell
+[sean@centos]$ cat group_vars/all.yml
 ---
 login_info_eos:
   username: admin
@@ -176,7 +178,7 @@ Just like in the first example, we need to perform the following activities:
 
 For our particular example, we assume all Arista devices (devices within the group named `[arista]`) use the same username, password and enable password. This means we can set those parameters under the group `[arista:vars]`. This is what the inventory for it looks like:
 
-```
+```json
 [arista]
 eos ansible_host=192.168.2.10
 
@@ -193,7 +195,7 @@ ansible_become_pass=DURHAM!
 
 Local Connection (2.4):
 
-```
+```yaml
 ---
 - hosts: arista
   connection: local
@@ -208,31 +210,23 @@ Local Connection (2.4):
 
 Network\_cli Connection (2.5):
 
-```
----
-- hosts: arista
-  connection: network_cli
-  tasks:
-    - eos_config:
-        lines:
-          - no switchport
-          - ip address 172.16.1.1/24
-        parents: interface Ethernet1
-```
+```powershell
+[sean@centos]$ cat group_vars/all.yml                                                                                               ---
+login_info:
+  username: admin
+  password: Bullf00d!
+  authorize: True
+```0
 
 The old playbook is called `ipaddress-oldmethod.yml`, and the new playbook is called `ipaddress.yml`. The playbook now runs the `ansible-playbook` command:
 
-```
-[sean@centos]$ ansible-playbook backup.yml
-
-PLAY [cisco] *******************************************************************************************
-
-TASK [nxos_config] ***********************************************************************************
-ok: [n9k]
-
-PLAY RECAP ******************************************************************************************
-n9k                        : ok=1    changed=0    unreachable=0    failed=0
-```
+```powershell
+[sean@centos]$ cat group_vars/all.yml                                                                                               ---
+login_info:
+  username: admin
+  password: Bullf00d!
+  authorize: True
+```1
 
 There are also two more examples on the GitHub repo:
 
@@ -272,26 +266,13 @@ A:  Not yet. In Ansible 2.5, you still need to use the `connection: local` and 
 **Q: What if I have a playbook using a non-networking module (e.g., template module)?**  
 A: Modules (or rather, tasks that use modules) that are not networking modules will run locally. Let’s look at an example:
 
-```
----
-- hosts: cisco
-  connection: network_cli
-  tasks:
-    - name: backup device configurations
-      nxos_config:
-        backup: yes
-      register: nxos_config_backup
-
-    - name: copy the backup to the desired location
-      copy:
-        src: "{{ nxos_config_backup['backup_path'] }}"
-        dest: "nxos/{{ inventory_hostname }}"
-
-    - name: delete the original file
-      file:
-        path: "{{ nxos_config_backup['backup_path'] }}"
-        state: absent
-```
+```powershell
+[sean@centos]$ cat group_vars/all.yml                                                                                               ---
+login_info:
+  username: admin
+  password: Bullf00d!
+  authorize: True
+```2
 
 This playbook has three tasks:
 
@@ -303,24 +284,23 @@ The first task uses a network-specific module (`nxos_config`), while the other t
 
 As a side note: it’s very common to see Ansible Networking Playbooks where someone might template a file, then push it to the device like this:
 
-```
-- name: render a jinja2 template
-  template:
-    src: network_config.j2
-    dest: network_config
-
-- name: push device configurations
-  nxos_config:
-    src: network_config
-```
+```powershell
+[sean@centos]$ cat group_vars/all.yml                                                                                               ---
+login_info:
+  username: admin
+  password: Bullf00d!
+  authorize: True
+```3
 
 The above works with **network\_cli** and **netconf** connection plugins.  The template module runs locally while the nxos\_config module runs against the specified hosts. However, the \*os\_config modules, including `nxos_config`, can take jinja2 files directly, without the need to use the template module.  Below is an example of what the playbook would look like:
 
-```
-- name: template AND push device configurations
-  nxos_config:
-    src: network_config.j2
-```
+```powershell
+[sean@centos]$ cat group_vars/all.yml                                                                                               ---
+login_info:
+  username: admin
+  password: Bullf00d!
+  authorize: True
+```4
 
 ---
 
@@ -328,6 +308,24 @@ The above works with **network\_cli** and **netconf** connection plugins.  The 
 
 A: Check out the offical Ansible 2.5 porting guide and   
 the new Ansible Networking documentation
+
+---
+
+[![Sean Cavanaugh](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S)](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+[### Sean Cavanaugh
+
+Principal Technical Marketing Manager](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from [@IPvSean](https://twitter.com/ipvsean).
+
+[More from this author](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 

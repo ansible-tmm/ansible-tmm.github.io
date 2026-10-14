@@ -218,9 +218,9 @@
     },
     "porting-ansible-network-playbooks-with-new-connection-plugins": {
       "source_url": "https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins",
-      "updated": "2026-06-16",
-      "content_hash": "b594e57a772d30596cf28d99f807eb9d8a02d2f670a63a5cf91674844205ccb9",
-      "synced_at": "2026-09-03T19:21:20Z"
+      "updated": "2026-10-13",
+      "content_hash": "6c8cb65fc62e648d74e40be7261a29c1e5aa07461e745fb227c19abed8142c8a",
+      "synced_at": "2026-10-14T12:48:48Z"
     },
     "coming-soon-networking-features-in-ansible-2.5": {
       "source_url": "https://www.redhat.com/en/blog/coming-soon-networking-features-in-ansible-2.5",
