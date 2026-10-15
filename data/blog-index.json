@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T12:48:48Z",
+  "updated_at": "2026-10-15T12:51:31Z",
   "posts": [
     {
       "slug": "automate-security-risk-management-across-enterprise-it-operations",
@@ -608,7 +608,7 @@
       "title": "What's new in Ansible Automation Platform 2.4",
       "description": "An overview of new features found in the Ansible Automation Platform 2.4 release",
       "published": "2023-06-27",
-      "updated": "2025-11-26",
+      "updated": "2026-10-14",
       "authors": [
         {
           "slug": "sean-cavanaugh",
@@ -810,7 +810,7 @@
       "title": "What's new in Ansible Automation Platform 2.2",
       "description": "An overview of the new features found in the Ansible Automation Platform 2.2 release",
       "published": "2022-05-26",
-      "updated": "2026-02-27",
+      "updated": "2026-10-14",
       "authors": [
         {
           "slug": "andrius-benokraitis",

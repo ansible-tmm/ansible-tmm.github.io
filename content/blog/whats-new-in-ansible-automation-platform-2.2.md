@@ -5,14 +5,14 @@ authors:
 - slug: andrius-benokraitis
   name: Andrius Benokraitis
 published: '2022-05-26'
-updated: '2026-02-27'
+updated: '2026-10-14'
 source: redhat
 source_url: https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.2
 description: An overview of the new features found in the Ansible Automation Platform
   2.2 release
 topics: []
 read_time_minutes: 8
-synced_at: '2026-09-03T19:20:31Z'
+synced_at: '2026-10-15T12:51:30Z'
 ---
 
 <!-- blog-enrichment:start -->
@@ -33,6 +33,8 @@ synced_at: '2026-09-03T19:20:31Z'
 > - [Next Steps](#next-steps)
 
 <!-- blog-enrichment:end -->
+
+---
 
 [![aap2.2](https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap2.2.png)
 
@@ -191,7 +193,7 @@ New additions to the `rhel_system_roles` Collection, available on Ansible automa
 
 **More Ansible Automation Platform 2.2 Resources**
 
-You can get a rundown of what’s new in this checklist, [What’s new: Ansible Automation Platform 2.2](https://www.redhat.com/en/resources/whats-new-ansible-automation-platform-2-2-checklist). For even more context, including a recap of Ansible Automation Platform 2 releases to date, and a look ahead at 2.3, check out the free, on-demand webinar, Ansible Automation Platform 2.2: next generation platform enhancements.
+You can get a rundown of what’s new in this checklist, What’s new: Ansible Automation Platform 2.2. For even more context, including a recap of Ansible Automation Platform 2 releases to date, and a look ahead at 2.3, check out the free, on-demand webinar, Ansible Automation Platform 2.2: next generation platform enhancements.
 
 **Take a video tour**
 
@@ -206,6 +208,24 @@ Sign up for an Ansible Automation Platform [60-day trial](https://www.redhat.com
 **Plan your upgrade**
 
 If you are still operating Ansible Automation Platform 1.2, it is time to start planning your upgrade. Get started with this checklist, “5 ways to prepare for migration to Ansible Automation Platform 2.” You can also register for a free webinar, “Migrating to the next generation IT automation platform.”
+
+---
+
+[![Andrius Benokraitis](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Andrius-Benokraitis.jpg?itok=bGBYkaZb)](https://www.redhat.com/en/authors/andrius-benokraitis)
+
+[### Andrius Benokraitis
+
+Senior Manager, Technical Marketing for Ansible Automation Platform](https://www.redhat.com/en/authors/andrius-benokraitis)
+
+Andrius is a Senior Manager, Technical Marketing for Ansible Automation Platform. He brings over 20 years in the computer software industry from companies such as IBM, Nortel, and Cumulus Networks. Andrius is skilled in Network Automation, Enterprise Linux, Business Analytics, Technical Writing, and Strategic Alliances.
+
+[More from this author](https://www.redhat.com/en/authors/andrius-benokraitis)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 

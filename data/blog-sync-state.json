@@ -8,9 +8,9 @@
     },
     "whats-new-in-ansible-automation-platform-2.2": {
       "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.2",
-      "updated": "2026-02-27",
-      "content_hash": "18da7315198b53e115993ced401909c257c11163f7d7471958c7fe291425a4a7",
-      "synced_at": "2026-09-03T19:20:31Z"
+      "updated": "2026-10-14",
+      "content_hash": "68508acbea93cfd047bd9fb1d2936f45819288f02f7414cee7e7ba64480bad9e",
+      "synced_at": "2026-10-15T12:51:30Z"
     },
     "introducing-ansible-automation-platform-2": {
       "source_url": "https://www.redhat.com/en/blog/introducing-ansible-automation-platform-2",
@@ -116,9 +116,9 @@
     },
     "whats-new-in-ansible-automation-platform-2.4": {
       "source_url": "https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.4",
-      "updated": "2025-11-26",
-      "content_hash": "ba1e068c6cd66ca6d68c9f15898d02a3f0cc2e36f8ae02dda6990efbf46918ce",
-      "synced_at": "2026-09-03T19:20:54Z"
+      "updated": "2026-10-14",
+      "content_hash": "cdf78e59b70dbb2f08999a0f46a69d71575dca2be3b0d9dbc026ba7aec52685d",
+      "synced_at": "2026-10-15T12:51:31Z"
     },
     "ansible-and-packer-why-they-are-better-together": {
       "source_url": "https://www.redhat.com/en/blog/ansible-and-packer-why-they-are-better-together",

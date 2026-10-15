@@ -5,14 +5,14 @@ authors:
 - slug: sean-cavanaugh
   name: Sean Cavanaugh
 published: '2023-06-27'
-updated: '2025-11-26'
+updated: '2026-10-14'
 source: redhat
 source_url: https://www.redhat.com/en/blog/whats-new-in-ansible-automation-platform-2.4
 description: An overview of new features found in the Ansible Automation Platform
   2.4 release
 topics: []
 read_time_minutes: 7
-synced_at: '2026-09-03T19:20:54Z'
+synced_at: '2026-10-15T12:51:31Z'
 ---
 
 <!-- blog-enrichment:start -->
@@ -34,6 +34,8 @@ synced_at: '2026-09-03T19:20:54Z'
 > - [Wrap-up, next steps and resources](#wrap-up-next-steps-and-resources)
 
 <!-- blog-enrichment:end -->
+
+---
 
 [![2.4 banner](https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png)](https://www.redhat.com/rhdc/managed-files/ansible/2.4%20banner.png)
 
@@ -103,7 +105,7 @@ The new collection repository management feature found in Ansible Automation Pla
 
 Repositories view in private automation hub
 
-This new capability will make it much easier for customers and partners to securely distribute the automation content to the correct teams, which in turn will help them get even more value out of Ansible Automation Platform. Click [here](https://www.redhat.com/products/automation-hub) for more info about Ansible automation hub and private automation hub. 
+This new capability will make it much easier for customers and partners to securely distribute the automation content to the correct teams, which in turn will help them get even more value out of Ansible Automation Platform. Click here for more info about Ansible automation hub and private automation hub. 
 
 > [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
 > Outcome-focused guides for infrastructure and IT automation challenges.
@@ -135,7 +137,7 @@ ansible-builder v3 definition file
 
 ## Platform install support for ARM
 
-Ansible has always been a popular choice for a variety of data center and [edge environments](https://www.redhat.com/en/technologies/management/ansible/edge), and that adoption curve has continued to expand thanks to the inclusion of [automation mesh](https://www.redhat.com/products/automation-mesh) in Ansible Automation Platform. Automation mesh enables customers to install execution nodes at remote sites including small data centers, Point of Presence (PoPs), retail locations, cruise ships and more.
+Ansible has always been a popular choice for a variety of data center and [edge environments](https://www.redhat.com/en/technologies/management/ansible/edge), and that adoption curve has continued to expand thanks to the inclusion of automation mesh in Ansible Automation Platform. Automation mesh enables customers to install execution nodes at remote sites including small data centers, Point of Presence (PoPs), retail locations, cruise ships and more.
 
 [![](https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-6415-PM.4.png)](https://www.redhat.com/rhdc/managed-files/ansible/WIP%20Blog%20Whats%20new%20in%20Ansible%20Automation%20Platform%202-Jun-26-2023-09-13-14-6415-PM.4.png)
 
@@ -169,7 +171,7 @@ One final (and exciting) bit of news as we wrap this blog up. First [announced l
 | --- |
 | Ansible Lightspeed with IBM Watson Code Assistant is **NOT** a part of Ansible Automation Platform at this time. It is a technical preview, and support policy is shown in the following [knowledge base article](https://access.redhat.com/support/offerings/techpreview). |
 
-If you missed the news, Ansible Lightspeed with IBM Watson Code Assistant is a new generative AI service focused on enhancing the Ansible Playbook creation experience. Interested? Head to [redhat.com/ansible-lightspeed](http://www.redhat.com/ansible-lightspeed) for more information. You can also [check out this blog](https://www.redhat.com/blog/now-in-technology-preview-ansible-lightspeed-with-ibm-watson-code-assistant?hs_preview=VRkefZIl-119908369436) for an in-depth look at what to expect and how to get connected.
+If you missed the news, Ansible Lightspeed with IBM Watson Code Assistant is a new generative AI service focused on enhancing the Ansible Playbook creation experience. Interested? Head to [redhat.com/ansible-lightspeed](http://www.redhat.com/ansible-lightspeed) for more information. You can also check out this blog for an in-depth look at what to expect and how to get connected.
 
 ## Wrap-up, next steps and resources
 
@@ -183,7 +185,7 @@ Ansible Automation Platform 2.4 is built to be trusted, flexible, and easy to us
 - Blog: [Event-Driven Ansible: Driving Innovations at the Edge](https://www.redhat.com/blog/event-driven-ansible-driving-innovations-at-the-edge)
 - New hands-on, on-demand lab: [Getting started with event-driven automation](https://www.redhat.com/en/engage/event-driven-ansible-20220907)
 - Webinar: [Work smarter using event-driven automation across IT operations](https://www.redhat.com/resources/webinars-training/work-smarter-using-event-driven-automation-across-it-operation)
-- Checklist: [5 ways event-driven automation can help you achieve more](https://www.redhat.com/en/resources/5-ways-event-driven-automation-checklist)
+- Checklist: 5 ways event-driven automation can help you achieve more
 - Checklist: [5 reasons to include event-driven automation in your IT strategy](https://www.redhat.com/rhdc/managed-files/ma-5-reasons-for-event-driven-automation-checklist-330650-202305-en.pdf)
 
 **Collection repository management** will provide customers with the ability to grow their automation practices with more trust and more control.
@@ -198,6 +200,24 @@ Ansible Automation Platform 2.4 is built to be trusted, flexible, and easy to us
 And **platform support on an expanded set of CPU architectures** will ensure more flexibility - and more possibilities.
 
 That’s all for now. Thanks for reading and stay tuned for additional blogs going deeper on some of the new features outlined here today. And as always - happy automating.
+
+---
+
+[![Sean Cavanaugh](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S)](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+[### Sean Cavanaugh
+
+Principal Technical Marketing Manager](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from [@IPvSean](https://twitter.com/ipvsean).
+
+[More from this author](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 
