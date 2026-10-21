@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-20T12:50:50Z",
+  "updated_at": "2026-10-21T12:51:29Z",
   "posts": [
     {
       "slug": "automate-security-risk-management-across-enterprise-it-operations",
@@ -1289,9 +1289,9 @@
     {
       "slug": "porting-ansible-network-playbooks-with-new-connection-plugins",
       "title": "Porting Ansible Network Playbooks with New Connection Plugins",
-      "description": "With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin. In this post we take you through converting existing networking playbooks that use connection: local to using connection: network_cli.",
+      "description": "With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin.",
       "published": "2018-04-19",
-      "updated": "2026-10-13",
+      "updated": "2026-10-20",
       "authors": [
         {
           "slug": "sean-cavanaugh",

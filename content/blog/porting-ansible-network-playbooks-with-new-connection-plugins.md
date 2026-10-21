@@ -5,23 +5,21 @@ authors:
 - slug: sean-cavanaugh
   name: Sean Cavanaugh
 published: '2018-04-19'
-updated: '2026-10-13'
+updated: '2026-10-20'
 source: redhat
 source_url: https://www.redhat.com/en/blog/porting-ansible-network-playbooks-with-new-connection-plugins
-description: 'With the release of new networking features in Ansible 2.5 one of the
-  biggest areas of feedback was around the network_cli connection plugin. In this
-  post we take you through converting existing networking playbooks that use connection:
-  local to using connection: network_cli.'
+description: With the release of new networking features in Ansible 2.5 one of the
+  biggest areas of feedback was around the network_cli connection plugin.
 topics:
 - Network automation
 read_time_minutes: 7
-synced_at: '2026-10-14T12:48:48Z'
+synced_at: '2026-10-21T12:51:29Z'
 ---
 
 <!-- blog-enrichment:start -->
 
 > [!callout type=summary]
-> **Summary:** With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin. In this post we take you through converting existing networking playbooks that use connection: local to using connection: network_cli.
+> **Summary:** With the release of new networking features in Ansible 2.5 one of the biggest areas of feedback was around the network_cli connection plugin.
 
 <!-- blog-enrichment:end -->
 
