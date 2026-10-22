@@ -5,19 +5,20 @@ authors:
 - slug: anshul-behl
   name: Anshul Behl
 published: '2024-12-05'
-updated: '2026-01-27'
+updated: '2026-10-20'
 source: redhat
 source_url: https://www.redhat.com/en/blog/the-anatomy-of-automation-execution-environments
-description: Red Hat Ansible Automation Platform 2 introduced  major architectural
-  changes, like automation mesh and automation execution environments, that help extend
-  Ansible automation across your organization in a flexible manner, providing a single
-  solution to all your organizational and hybrid cloud automation needs.
+description: Build automation execution environments with Ansible Builder for enterprise-wide
+  automation
 topics: []
 read_time_minutes: 7
-synced_at: '2026-09-03T19:20:36Z'
+synced_at: '2026-10-22T12:51:44Z'
 ---
 
 <!-- blog-enrichment:start -->
+
+> [!callout type=summary]
+> **Summary:** Build automation execution environments with Ansible Builder for enterprise-wide automation
 
 > [!toc]
 > **On this page**
@@ -30,6 +31,8 @@ synced_at: '2026-09-03T19:20:36Z'
 > - [Looking forward](#looking-forward)
 
 <!-- blog-enrichment:end -->
+
+---
 
 Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.
 
@@ -57,13 +60,13 @@ NOTE: To get the downstream packages, you must subscribe to Ansible Automation P
 
 Upstream:
 
-```
+```text
 pip3 install ansible-builder
 ```
 
 Downstream:
 
-```
+```bash
 dnf install ansible-builder
 ```
 
@@ -71,14 +74,14 @@ This has sometimes led to confusions among users, as customers of Ansible Automa
 
 As mentioned earlier, automation execution environments are container images that act as Ansible runtimes and ansible-builder is quite similar to generally available container engines such as Podman and Docker. So like any other container engine, the concept of building an image starts with a base image; that is where the upstream and downstream packages for ansible-builder differ. The base images used in upstream ansible-builder (Python package) as predefined constants are as follows:
 
-```
+```text
 EE_BASE_IMAGE='quay.io/ansible/ansible-runner:latest'
 EE_BUILDER_IMAGE='quay.io/ansible/ansible-builder:latest'
 ```
 
 Base images in the downstream package are as follows:
 
-```
+```text
 EE_BASE_IMAGE='registry.redhat.io/ansible-automation-platform-22/ee-minimal-rhel8:latest'
 EE_BUILDER_IMAGE='registry.redhat.io/ansible-automation-platform-22/ansible-builder-rhel8:latest'
 ```
@@ -106,12 +109,12 @@ Let's take an example: Suppose your Ansible Content Collection depends on a Pyth
 
 In most cases it doesn't matter. When you build your automation execution environment using ansible-builder, you just need `EE_BASE_IMAGE` and not `EE_BUILDER_IMAGE`. However, you should understand how a compile time binary dependency is applied in the execution-environment definition file called bindep.txt. For the above example, if you need to install the NumPy Python package as a dependency for your Collection on UBI8, you specify the bindep.txt and requirements.txt as follows:
 
-```
+```text
 # bindep.txt
 python38-devel [compile platform:rhel-8] #compile time dependency
 ```
 
-```
+```text
 # requirements.txt
 NumPy
 ```
@@ -137,19 +140,19 @@ Finally, the ansible-runner (ee-minimal downstream) image includes a version of 
 
 To start building your custom automation execution environments, you should first verify which `EE_BASE_IMAGE` and `EE_BUILDER_IMAGE` are used in ansible-builder by default. To verify, first create an empty automation execution environment definition file called execution-environment.yml
 
-```
+```text
 touch execution-environment.yml
 ```
 
 Then create a build context from the empty definition file by running this command in the same directory where you created the empty definition file:
 
-```
+```text
 ansible-builder create
 ```
 
 This will create a context directory in your working directory which includes a Containerfile. Opening the Containerfile shows which images are set as the BASE and BUILDER images and tells you which ansible-builder you are using, the upstream or the downstream one. For instance, if you open the Containerfile created through the above process and a pip install of ansible-builder, you see the following content:
 
-```
+```text
 ARG EE_BASE_IMAGE=quay.io/ansible/ansible-runner:latest
 ARG EE_BUILDER_IMAGE=quay.io/ansible/ansible-builder:latest
 
@@ -171,7 +174,7 @@ In the first two lines you can observe that the images point to the upstream ima
 
 The context building is an important aspect of ansible-builder. You can use the context to change the Containerfile and customize your automation execution environments to your needs. You can use this context and the knowledge of multi-stage builds using BUILDER and BASE images to build an automation execution environment in a disconnected environment. The following shows an execution-environment definition that pulls the BUILDER and BASE images from a private automation hub instance:
 
-```
+```yaml
 # cat execution-environment.yml
 ---
 version: 1
@@ -185,17 +188,15 @@ dependencies:
 
 And the contents of the requirements.txt file are as follows:
 
-```
-# cat requirements.txt
-dnspython==1.15.0
-```
+```bash
+dnf install ansible-builder
+```0
 
 Let's create a context for the above definition file, execution-environment.yml:
 
-```
-# ansible-builder create
-Complete! The build context can be found at: /root/disconnected_ee/context
-```
+```bash
+dnf install ansible-builder
+```1
 
 The following issues may arise when building an automation execution environment in a disconnected environment (this example takes into account the building of a downstream image):
 
@@ -205,60 +206,17 @@ The following issues may arise when building an automation execution environment
 
 Firstly, create a pip.conf that points to the local mirror:
 
-```
-# cat context/pip.conf
-[global]
-index-url = https://nexus-nexus.apps.celeron.demolab.local/repository/pypi-proxy/simple/
-```
+```bash
+dnf install ansible-builder
+```2
 
 You add the above pip.conf file and the certificate to the context folder for the targeted automation execution environment creation to add these files inside your custom execution-environment.
 
 Using the multi-stage build knowledge and context editing, edit the Containerfile. Note the sections marked in bold text as well as some comments. These are the changes to build an automation execution environment in a disconnected fashion.
 
-```
-# cat Containerfile
-ARG EE_BASE_IMAGE=automation-hub.demolab.local/ansible-automation-platform-21/ee-supported-rhel8:latest
-ARG EE_BUILDER_IMAGE=automation-hub.demolab.local/ansible-automation-platform-21/ansible-builder-rhel8:latest
-
-FROM $EE_BASE_IMAGE as galaxy
-ARG ANSIBLE_GALAXY_CLI_COLLECTION_OPTS=
-USER root
-
-ADD _build /build
-WORKDIR /build
-
-FROM $EE_BUILDER_IMAGE as builder
-ADD _build/requirements.txt requirements.txt
-RUN ansible-builder introspect --sanitize --user-pip=requirements.txt --write-bindep=/tmp/src/bindep.txt --write-pip=/tmp/src/requirements.txt
-
-####### Changes to create EE in a disconnected environment
-# Remove ubi repo which tries to reach external links
-RUN rm -f /etc/yum.repos.d/ubi.repo
-# Add pip.conf for internal pypi proxy
-ADD pip.conf /etc/pip.conf
-# Add CA certificate and update trust
-ADD demolab-ca.crt /etc/pki/ca-trust/source/anchors/demolab-ca.crt
-RUN update-ca-trust
-####### This marks the end of edits for the builder stage
-
-RUN assemble
-
-FROM $EE_BASE_IMAGE
-USER root
-COPY --from=builder /output/ /output/
-
-####### Changes to create EE in a disconnected environment
-# Remove ubi repo which tries to reach external links
-RUN rm -f /etc/yum.repos.d/ubi.repo
-# Add pip.conf for internal pypi proxy
-ADD pip.conf /etc/pip.conf
-# Add CA certificate and update trust
-ADD demolab-ca.crt /etc/pki/ca-trust/source/anchors/demolab-ca.crt
-RUN update-ca-trust
-####### This marks the end of edits for the main image
-
-RUN /output/install-from-bindep && rm -rf /output/wheels
-```
+```bash
+dnf install ansible-builder
+```3
 
 If you look closely in the above Containerfile, you can notice the additions that fix all the issues previously mentioned in both the BUILDER and the BASE image stages because both images use this information to pull and build Python dependencies.
 
@@ -266,21 +224,37 @@ Understanding what happens in each stage helps you understand where to edit your
 
 Finally let's build the above execution-environment with the following command:
 
-```
-podman build -f context/Containerfile -t disconnected_ee:1.0
-```
+```bash
+dnf install ansible-builder
+```4
 
 When the build succeeds, you should see a message like this:
 
-```
---> 2316db485a1
-Successfully tagged localhost/disconnected_ee:1.0
-2316db485a1c4e7be4a687c682d0fc90335372d7e5564774f1ff6451840ac35f
-```
+```bash
+dnf install ansible-builder
+```5
 
 ## Looking forward
 
 Our ultimate goal is to make the developer experience as seamless as possible for customers. Ansible engineering teams are working on enhancements to the automation execution environment building experience, with several improvements already in the planning stage. Until those enhancements are available, this blog should help you tackle any challenges around the process of building automation execution environments. Following the upstream first model means you can also participate in community discussions and provide your thoughts and feedback through IRC. Please follow the link [here](https://docs.ansible.com/ansible/latest/community/communication.html#ansible-community-on-irc) to join us. One of the main enhancements to the automation execution environment experience is being discussed in this [GitHub pull request](https://github.com/ansible/ansible-builder/pull/411), so you can participate in the GitHub discussions as well.
+
+---
+
+[![Anshul Behl, Principal Technical Marketing Manager, Red Hat](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/wa_profile%20-%20Anshul%20Behl.jpeg?itok=vYDgCAJj)](https://www.redhat.com/en/authors/anshul-behl)
+
+[### Anshul Behl
+
+Principal Technical Marketing Manager](https://www.redhat.com/en/authors/anshul-behl)
+
+Anshul is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform's adoption experience for customers by producing technical content on all aspects of the product.
+
+[More from this author](https://www.redhat.com/en/authors/anshul-behl)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform — Ansible TMM Blog</title>
-  <meta name="description" content="Learn how to streamline Windows management and automate tasks with the MECM Certified Collection for Red Hat Ansible Automation Platform. This collection offers 26 modules and a plug-in to handle software distribution, patch management, and configuration updates for Windows Servers through Ansible playbooks.">
+  <meta name="description" content="Implement enterprise-wide automation with MECM for Windows Server tasks via Red Hat Ansible Automation Platform.">
   <link rel="canonical" href="https://www.redhat.com/en/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform">
   <meta property="og:title" content="Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform">
-  <meta property="og:description" content="Learn how to streamline Windows management and automate tasks with the MECM Certified Collection for Red Hat Ansible Automation Platform. This collection offers 26 modules and a plug-in to handle software distribution, patch management, and configuration updates for Windows Servers through Ansible playbooks.">
+  <meta property="og:description" content="Implement enterprise-wide automation with MECM for Windows Server tasks via Red Hat Ansible Automation Platform.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.redhat.com/en/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
@@ -52,11 +52,12 @@
         <p class="blog-post-meta"><a href="/team/#aubrey-trotter">Aubrey Trotter</a> · <time datetime="2026-01-14">January 14, 2026</time> · 2-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Learn how to streamline Windows management and automate tasks with the MECM Certified Collection for Red Hat Ansible Automation Platform. This collection offers 26 modules and a plug-in to handle software distribution, patch management, and configuration updates for Windows Servers through Ansible playbooks.</aside><aside class="blog-toc">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Implement enterprise-wide automation with MECM for Windows Server tasks via Red Hat Ansible Automation Platform.</aside><aside class="blog-toc">
   
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#what-is-the-mecm-red-hat-ansible-certified-collection">What Is the MECM Red Hat Ansible Certified Collection?</a></li><li><a href="#orchestrating-safer-rollouts">Orchestrating safer rollouts</a></li><li><a href="#why-it-matters">Why it matters</a></li><li><a href="#learn-more">Learn more</a></li></ul>
-</aside><p>Automation isn’t just an option, it’s a necessity. Organizations managing complex infrastructures often face a divide between Windows management tools and their broader automation strategy to streamline operations, reduce manual overhead, and ensure consistency across environments. That’s where the <a href="https://console.redhat.com">Microsoft Endpoint Configuration Manager (MECM) Certified Collection for Red Hat Ansible Automation Platform</a> comes in, offering a bridge between MECM and automation.</p>
+</aside><hr>
+<p>Automation isn’t just an option, it’s a necessity. Organizations managing complex infrastructures often face a divide between Windows management tools and their broader automation strategy to streamline operations, reduce manual overhead, and ensure consistency across environments. That’s where the <a href="https://console.redhat.com">Microsoft Endpoint Configuration Manager (MECM) Certified Collection for Red Hat Ansible Automation Platform</a> comes in, offering a bridge between MECM and automation.</p>
 <h2 id="what-is-the-mecm-red-hat-ansible-certified-collection">What Is the MECM Red Hat Ansible Certified Collection?</h2><p>The Red Hat Ansible Certified Collection for MECM, formerly known as System Center Configuration Manager (SCCM), has 26 modules and one plug-in for Red Hat Ansible Automation Platform, developed to automate tasks and use MECM as the source of truth. With this collection, administrators can handle tasks like software distribution, patch management, and configuration updates to Windows Server, all through Ansible Playbooks.</p>
 <p>Core capabilities and modules</p>
 <p>The <code>microsoft.mecm</code> collection provides a suite of specialized modules that allow Ansible Automation Platform to interact directly with the Configuration Manager site server. Key functional areas include:</p>
@@ -80,11 +81,11 @@
 <li>Workflow example: Beyond just checking if an update is installed, you can use the <code>site_ps_drive</code> and <code>site_status_message_info</code> modules to query the site server for specific success codes or error messages that might not trigger a standard alert, providing a second layer of validation.</li>
 </ul>
 <h3 id="zero-downtime">Zero downtime</h3><p>Automatically redirect traffic away from the server and allow active tasks to finish before patching begins so that no connections are lost.</p>
-<aside class="blog-tmm-insert blog-callout blog-callout--redhat">
-  <span class="blog-callout__label">Red Hat</span>
-  <p class="blog-callout__title">Try Ansible Automation Platform</p>
-  <p class="blog-callout__body">60-day trial for hands-on evaluation.</p>
-  <a class="blog-callout__cta" href="https://www.redhat.com/en/technologies/management/ansible/try-it">Start trial →</a>
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Network automation on the TMM blog</p>
+  <p class="blog-callout__body">More posts on network automation from the Ansible Technical Marketing team.</p>
+  <a class="blog-callout__cta" href="/blog/?author=sean-cavanaugh">Browse posts →</a>
 </aside><h2 id="why-it-matters">Why it matters</h2><ul>
 <li>Compliance: MECM can be used as the source of truth for the patching level and configuration status of Windows Servers throughout your environment.</li>
 <li>Certified and supported: Provided by Red Hat, the collection is certified and backed by enterprise‑grade support, giving organizations confidence in its reliability.</li>
@@ -97,10 +98,21 @@
 <li>View the <a href="https://console.redhat.com">microsoft.mecm</a> Certified Collection</li>
 <li>See a <a href="https://interact.redhat.com/share/idjdi8FjHr3O9jkQkhnf">demo of the MECM Certified Collection</a> in action</li>
 </ul>
+<hr>
+<p><a href="https://www.redhat.com/en/authors/matthew-packer"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Packer%2C%20Matthew-3%20-%20Matthew%20Packer.jpg?itok=r0gJyEam" alt="Packer, Matthew-3 - Matthew Packer"></a></p>
+<p>[### Matthew Packer</p>
+<p>Principal Product Marketing Manager](<a href="https://www.redhat.com/en/authors/matthew-packer">https://www.redhat.com/en/authors/matthew-packer</a>)</p>
+<p>Matthew Packer is a Principal Product Marketing Manager for Ansible Automation Platform and is responsible for cloud automation. Prior to joining Red Hat, he worked in product marketing specializing in retail payment technology at Vontier and product management at Cisco in cloud-based networking. Matthew also worked as a consultant at Honeywell in the manufacturing and utilities industries with a focus on the Internet of Things (IoT) and predictive analytics space.</p>
+<p><a href="https://www.redhat.com/en/authors/matthew-packer">More from this author</a></p>
+<p><a href="https://www.redhat.com/en/authors/aubrey-trotter"><img src="https://www.redhat.com/themes/custom/rhdc/img/author-default-img.svg" alt="Aubrey trotter"></a></p>
+<p><a href="https://www.redhat.com/en/authors/aubrey-trotter">### Aubrey trotter</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
 <aside class="blog-tmm-insert blog-related">
   <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
   <p class="blog-related__title">More from the team</p>
-  <ul><li><a href="/blog/ai-threats-move-fast-your-defenses-should-too/">AI threats move fast. Your defenses should too.</a></li><li><a href="/blog/event-driven-ansible-simplified-event-routing-event-streams/">Event-Driven Ansible: Simplified event routing with Event Streams</a></li><li><a href="/blog/empower-everyone-automate-ansibles-self-service-automation-portal/">How Ansible's new self-service automation portal empowers everyone to automate</a></li></ul>
+  <ul><li><a href="/blog/automate-security-risk-management-across-enterprise-it-operations/">Automate security risk management across enterprise IT operations</a></li></ul>
 </aside>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#aubrey-trotter">Aubrey Trotter</a></p></footer>

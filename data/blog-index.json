@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-21T12:51:29Z",
+  "updated_at": "2026-10-22T12:51:45Z",
   "posts": [
     {
       "slug": "automate-security-risk-management-across-enterprise-it-operations",
@@ -85,9 +85,9 @@
     {
       "slug": "automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform",
       "title": "Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform",
-      "description": "Learn how to streamline Windows management and automate tasks with the MECM Certified Collection for Red Hat Ansible Automation Platform. This collection offers 26 modules and a plug-in to handle software distribution, patch management, and configuration updates for Windows Servers through Ansible playbooks.",
+      "description": "Implement enterprise-wide automation with MECM for Windows Server tasks via Red Hat Ansible Automation Platform.",
       "published": "2026-01-14",
-      "updated": "2026-01-20",
+      "updated": "2026-10-20",
       "authors": [
         {
           "slug": "aubrey-trotter",
@@ -95,7 +95,7 @@
         }
       ],
       "topics": [
-        "Automation and management"
+        "Automation"
       ],
       "read_time_minutes": 2,
       "source": "redhat",
@@ -105,9 +105,9 @@
     {
       "slug": "event-driven-ansible-simplified-event-routing-event-streams",
       "title": "Event-Driven Ansible: Simplified event routing with Event Streams",
-      "description": "Learn how Event-Driven Ansible's simplified event routing with Event Streams improves flexibility in setting up event-driven automation scenarios. Discover new enhancements to Kafka for event source connections and additional content updates. Take your event-driven automation to the next level with AIOps.",
+      "description": "Implement enterprise-wide automation with Event-Driven Ansible (EDA) for faster response to infrastructure events.",
       "published": "2026-01-13",
-      "updated": "2026-01-20",
+      "updated": "2026-10-20",
       "authors": [
         {
           "slug": "nuno-martins",
@@ -115,7 +115,7 @@
         }
       ],
       "topics": [
-        "Automation and management"
+        "Automation"
       ],
       "read_time_minutes": 7,
       "source": "redhat",
@@ -260,9 +260,9 @@
     {
       "slug": "the-anatomy-of-automation-execution-environments",
       "title": "The anatomy of automation execution environments",
-      "description": "Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.",
+      "description": "Build automation execution environments with Ansible Builder for enterprise-wide automation",
       "published": "2024-12-05",
-      "updated": "2026-01-27",
+      "updated": "2026-10-20",
       "authors": [
         {
           "slug": "anshul-behl",

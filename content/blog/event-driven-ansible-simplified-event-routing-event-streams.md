@@ -5,23 +5,21 @@ authors:
 - slug: nuno-martins
   name: Nuno Martins
 published: '2026-01-13'
-updated: '2026-01-20'
+updated: '2026-10-20'
 source: redhat
 source_url: https://www.redhat.com/en/blog/event-driven-ansible-simplified-event-routing-event-streams
-description: Learn how Event-Driven Ansible's simplified event routing with Event
-  Streams improves flexibility in setting up event-driven automation scenarios. Discover
-  new enhancements to Kafka for event source connections and additional content updates.
-  Take your event-driven automation to the next level with AIOps.
+description: Implement enterprise-wide automation with Event-Driven Ansible (EDA)
+  for faster response to infrastructure events.
 topics:
-- Automation and management
+- Automation
 read_time_minutes: 7
-synced_at: '2026-09-03T19:21:35Z'
+synced_at: '2026-10-22T12:51:45Z'
 ---
 
 <!-- blog-enrichment:start -->
 
 > [!callout type=summary]
-> **Summary:** Learn how Event-Driven Ansible's simplified event routing with Event Streams improves flexibility in setting up event-driven automation scenarios. Discover new enhancements to Kafka for event source connections and additional content updates. Take your event-driven automation to the next level with AIOps.
+> **Summary:** Implement enterprise-wide automation with Event-Driven Ansible (EDA) for faster response to infrastructure events.
 
 > [!toc]
 > **On this page**
@@ -35,6 +33,8 @@ synced_at: '2026-09-03T19:21:35Z'
 > - [Learn more](#learn-more)
 
 <!-- blog-enrichment:end -->
+
+---
 
 The systems running an organization's infrastructure and applications are interconnected, creating an environment of controlled chaos where events in one area can ripple unpredictably through others. Red Hat Ansible Automation Platform features Event-Driven Ansible as an automation mechanism for reacting to these ripples. Event-Driven Ansible listens to external event or alert sources so you can design automated responses for these events, enabling faster response to problems with consistency and accuracy.
 
@@ -160,13 +160,31 @@ I have provided additional learning and how-to information throughout this blog,
 
  [Watch the webinar](https://www.redhat.com/en/events/webinar/whats-new-ansible-automation-platforms-event-driven-ansible)
 
+---
+
+[![Nuno Martins](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Nuno%20Martins.webp?itok=-RZ_7BCo)](https://www.redhat.com/en/authors/nuno-martins)
+
+[### Nuno Martins
+
+Technical Marketing Manager, Red Hat Ansible Automation Platform](https://www.redhat.com/en/authors/nuno-martins)
+
+Nuno is a Technical Marketing Manager for the Ansible Automation Platform. He is a Red Hat Certified Architect and a Certified Instructor with over 15 years of experience in multiple technologies. Currently based in South Africa, he has international experience with having worked all over Europe and Africa.
+
+[More from this author](https://www.redhat.com/en/authors/nuno-martins)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
+
 <!-- blog-enrichment:related -->
 
 > [!related]
 > **More from the team**
 >
-> - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
-> - [The Windows enterprise in an Ansible galaxy](/blog/windows-enterprise-ansible-galaxy/)
+> - [Automate security risk management across enterprise IT operations](/blog/automate-security-risk-management-across-enterprise-it-operations/)
 > - [Automating Microsoft Endpoint Configuration Manager with Red Hat Ansible Automation Platform](/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform/)
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
 
 <!-- blog-enrichment:related-end -->

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The anatomy of automation execution environments — Ansible TMM Blog</title>
-  <meta name="description" content="Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.">
+  <meta name="description" content="Build automation execution environments with Ansible Builder for enterprise-wide automation">
   <link rel="canonical" href="https://www.redhat.com/en/blog/the-anatomy-of-automation-execution-environments">
   <meta property="og:title" content="The anatomy of automation execution environments">
-  <meta property="og:description" content="Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.">
+  <meta property="og:description" content="Build automation execution environments with Ansible Builder for enterprise-wide automation">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.redhat.com/en/blog/the-anatomy-of-automation-execution-environments">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
@@ -52,11 +52,12 @@
         <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2024-12-05">December 5, 2024</time> · 7-minute read</p>
       </header>
       <div class="blog-post-content">
-        <aside class="blog-toc">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Build automation execution environments with Ansible Builder for enterprise-wide automation</aside><aside class="blog-toc">
   
   <p class="blog-toc__title">On this page</p>
   <ul><li><a href="#a-tale-of-two-ansible-builder-packages">A tale of two ansible-builder packages</a></li><li><a href="#why-does-the-ansible-builder-package-have-two-base-images">Why does the ansible-builder package have two base images?</a></li><li><a href="#automation-execution-environment-design">Automation execution environment design</a></li><li><a href="#verifying-your-base-images">Verifying your base images</a></li><li><a href="#using-the-ansible-builder-context">Using the ansible-builder context</a></li><li><a href="#looking-forward">Looking forward</a></li></ul>
-</aside><p>Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.</p>
+</aside><hr>
+<p>Red Hat Ansible Automation Platform 2 introduced  major architectural changes, like automation mesh and automation execution environments, that help extend Ansible automation across your organization in a flexible manner, providing a single solution to all your organizational and hybrid cloud automation needs.</p>
 <p>Automation execution environments are container images that act as Ansible runtimes for automation controller jobs. Ansible Automation Platform also includes a command-line tool called ansible-builder(execution environment builder)that lets you create automation execution environments by specifying Ansible Content Collections and Python dependencies.</p>
 <p>In general, an automation execution environment includes:</p>
 <ul>
@@ -159,22 +160,22 @@
 </div><p>This will create a context directory in your working directory which includes a Containerfile. Opening the Containerfile shows which images are set as the BASE and BUILDER images and tells you which ansible-builder you are using, the upstream or the downstream one. For instance, if you open the Containerfile created through the above process and a pip install of ansible-builder, you see the following content:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">PowerShell</span>
+    <span class="blog-code-block__lang">Text</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">ARG EE_BASE_IMAGE</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">quay.io</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ansible</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">runner:latest</span></span>
-<span class="line"><span style="color:#E1E4E8">ARG EE_BUILDER_IMAGE</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">quay.io</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ansible</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">builder:latest</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> $EE_BASE_IMAGE as galaxy</span></span>
-<span class="line"><span style="color:#E1E4E8">ARG ANSIBLE_GALAXY_CLI_COLLECTION_OPTS</span><span style="color:#F97583">=</span></span>
-<span class="line"><span style="color:#E1E4E8">USER root</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> $EE_BUILDER_IMAGE as builder</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> $EE_BASE_IMAGE</span></span>
-<span class="line"><span style="color:#E1E4E8">USER root</span></span>
-<span class="line"><span style="color:#E1E4E8">COPY </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">from</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">builder </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">output</span><span style="color:#F97583">/</span><span style="color:#F97583"> /</span><span style="color:#E1E4E8">output</span><span style="color:#F97583">/</span></span>
-<span class="line"><span style="color:#E1E4E8">RUN </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">output</span><span style="color:#F97583">/</span><span style="color:#79B8FF">install-from</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">bindep &#x26;&#x26; rm </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">rf </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">output</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">wheels</span></span></code></pre>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>ARG EE_BASE_IMAGE=quay.io/ansible/ansible-runner:latest</span></span>
+<span class="line"><span>ARG EE_BUILDER_IMAGE=quay.io/ansible/ansible-builder:latest</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>FROM $EE_BASE_IMAGE as galaxy</span></span>
+<span class="line"><span>ARG ANSIBLE_GALAXY_CLI_COLLECTION_OPTS=</span></span>
+<span class="line"><span>USER root</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>FROM $EE_BUILDER_IMAGE as builder</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>FROM $EE_BASE_IMAGE</span></span>
+<span class="line"><span>USER root</span></span>
+<span class="line"><span>COPY --from=builder /output/ /output/</span></span>
+<span class="line"><span>RUN /output/install-from-bindep &#x26;&#x26; rm -rf /output/wheels</span></span></code></pre>
 </div><p>In the first two lines you can observe that the images point to the upstream images. If you do the same process on the downstream install of ansible-builder, you find the downstream images in a similar Containerfile.</p>
 <h2 id="using-the-ansible-builder-context">Using the ansible-builder context</h2><p>The context building is an important aspect of ansible-builder. You can use the context to change the Containerfile and customize your automation execution environments to your needs. You can use this context and the knowledge of multi-stage builds using BUILDER and BASE images to build an automation execution environment in a disconnected environment. The following shows an execution-environment definition that pulls the BUILDER and BASE images from a private automation hub instance:</p>
 <div class="blog-code-block">
@@ -194,107 +195,84 @@
 </div><p>And the contents of the requirements.txt file are as follows:</p>
 <div class="blog-code-block">
   <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
+    <span class="blog-code-block__lang">Bash</span>
     <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
   </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span># cat requirements.txt</span></span>
-<span class="line"><span>dnspython==1.15.0</span></span></code></pre>
-</div><p>Let&#39;s create a context for the above definition file, execution-environment.yml:</p>
-<div class="blog-code-block">
-  <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
-    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
-  </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span># ansible-builder create</span></span>
-<span class="line"><span>Complete! The build context can be found at: /root/disconnected_ee/context</span></span></code></pre>
-</div><p>The following issues may arise when building an automation execution environment in a disconnected environment (this example takes into account the building of a downstream image):</p>
-<ul>
-<li>Cannot reach the external yum repositories.</li>
-<li>Cannot pull Python dependencies from an external PyPI server, so using an internal PyPI proxy when building an automation execution environment.</li>
-<li>(Optional) SSL certificate issues when pulling from internal PyPI mirror.</li>
-</ul>
-<p>Firstly, create a pip.conf that points to the local mirror:</p>
-<div class="blog-code-block">
-  <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
-    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
-  </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span># cat context/pip.conf</span></span>
-<span class="line"><span>[global]</span></span>
-<span class="line"><span>index-url = https://nexus-nexus.apps.celeron.demolab.local/repository/pypi-proxy/simple/</span></span></code></pre>
-</div><p>You add the above pip.conf file and the certificate to the context folder for the targeted automation execution environment creation to add these files inside your custom execution-environment.</p>
-<p>Using the multi-stage build knowledge and context editing, edit the Containerfile. Note the sections marked in bold text as well as some comments. These are the changes to build an automation execution environment in a disconnected fashion.</p>
-<div class="blog-code-block">
-  <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">PowerShell</span>
-    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
-  </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D"># cat Containerfile</span></span>
-<span class="line"><span style="color:#E1E4E8">ARG EE_BASE_IMAGE</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">automation</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">hub.demolab.local</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">automation</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">platform</span><span style="color:#F97583">-</span><span style="color:#79B8FF">21</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ee</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">supported</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">rhel8:latest</span></span>
-<span class="line"><span style="color:#E1E4E8">ARG EE_BUILDER_IMAGE</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">automation</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">hub.demolab.local</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">automation</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">platform</span><span style="color:#F97583">-</span><span style="color:#79B8FF">21</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">builder</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">rhel8:latest</span></span>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">dnf</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> ansible-builder</span></span>
+<span class="line"><span style="color:#9ECBFF">```</span><span style="color:#B392F0">0</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> $EE_BASE_IMAGE as galaxy</span></span>
-<span class="line"><span style="color:#E1E4E8">ARG ANSIBLE_GALAXY_CLI_COLLECTION_OPTS</span><span style="color:#F97583">=</span></span>
-<span class="line"><span style="color:#E1E4E8">USER root</span></span>
+<span class="line"><span style="color:#B392F0">Let's create a context for the above definition file, execution-environment.yml:</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">ADD _build </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">build</span></span>
-<span class="line"><span style="color:#E1E4E8">WORKDIR </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">build</span></span>
+<span class="line"><span style="color:#B392F0">```bash</span></span>
+<span class="line"><span style="color:#B392F0">dnf install ansible-builder</span></span>
+<span class="line"><span style="color:#B392F0">```1</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> $EE_BUILDER_IMAGE as builder</span></span>
-<span class="line"><span style="color:#E1E4E8">ADD _build</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">requirements.txt requirements.txt</span></span>
-<span class="line"><span style="color:#E1E4E8">RUN ansible</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">builder introspect </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">sanitize </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">user</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">pip</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">requirements.txt </span><span style="color:#F97583">--</span><span style="color:#79B8FF">write-bindep</span><span style="color:#F97583">=/</span><span style="color:#E1E4E8">tmp</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">src</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">bindep.txt </span><span style="color:#F97583">--</span><span style="color:#79B8FF">write-pip</span><span style="color:#F97583">=/</span><span style="color:#E1E4E8">tmp</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">src</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">requirements.txt</span></span>
+<span class="line"><span style="color:#B392F0">The following issues may arise when building an automation execution environment in a disconnected environment (this example takes into account the building of a downstream image):</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#6A737D">####### Changes to create EE in a disconnected environment</span></span>
-<span class="line"><span style="color:#6A737D"># Remove ubi repo which tries to reach external links</span></span>
-<span class="line"><span style="color:#E1E4E8">RUN rm </span><span style="color:#F97583">-f</span><span style="color:#F97583"> /</span><span style="color:#E1E4E8">etc</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">yum.repos.d</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ubi.repo</span></span>
-<span class="line"><span style="color:#6A737D"># Add pip.conf for internal pypi proxy</span></span>
-<span class="line"><span style="color:#E1E4E8">ADD pip.conf </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">etc</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">pip.conf</span></span>
-<span class="line"><span style="color:#6A737D"># Add CA certificate and update trust</span></span>
-<span class="line"><span style="color:#E1E4E8">ADD demolab</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">ca.crt </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">etc</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">pki</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ca</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">trust</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">source</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">anchors</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">demolab</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">ca.crt</span></span>
-<span class="line"><span style="color:#E1E4E8">RUN </span><span style="color:#79B8FF">update-ca</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">trust</span></span>
-<span class="line"><span style="color:#6A737D">####### This marks the end of edits for the builder stage</span></span>
+<span class="line"><span style="color:#B392F0">- Cannot reach the external yum repositories.</span></span>
+<span class="line"><span style="color:#B392F0">- Cannot pull Python dependencies from an external PyPI server, so using an internal PyPI proxy when building an automation execution environment.</span></span>
+<span class="line"><span style="color:#B392F0">- (Optional) SSL certificate issues when pulling from internal PyPI mirror.</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">RUN assemble</span></span>
+<span class="line"><span style="color:#B392F0">Firstly, create a pip.conf that points to the local mirror:</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> $EE_BASE_IMAGE</span></span>
-<span class="line"><span style="color:#E1E4E8">USER root</span></span>
-<span class="line"><span style="color:#E1E4E8">COPY </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">from</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">builder </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">output</span><span style="color:#F97583">/</span><span style="color:#F97583"> /</span><span style="color:#E1E4E8">output</span><span style="color:#F97583">/</span></span>
+<span class="line"><span style="color:#B392F0">```bash</span></span>
+<span class="line"><span style="color:#B392F0">dnf install ansible-builder</span></span>
+<span class="line"><span style="color:#B392F0">```2</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#6A737D">####### Changes to create EE in a disconnected environment</span></span>
-<span class="line"><span style="color:#6A737D"># Remove ubi repo which tries to reach external links</span></span>
-<span class="line"><span style="color:#E1E4E8">RUN rm </span><span style="color:#F97583">-f</span><span style="color:#F97583"> /</span><span style="color:#E1E4E8">etc</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">yum.repos.d</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ubi.repo</span></span>
-<span class="line"><span style="color:#6A737D"># Add pip.conf for internal pypi proxy</span></span>
-<span class="line"><span style="color:#E1E4E8">ADD pip.conf </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">etc</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">pip.conf</span></span>
-<span class="line"><span style="color:#6A737D"># Add CA certificate and update trust</span></span>
-<span class="line"><span style="color:#E1E4E8">ADD demolab</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">ca.crt </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">etc</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">pki</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">ca</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">trust</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">source</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">anchors</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">demolab</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">ca.crt</span></span>
-<span class="line"><span style="color:#E1E4E8">RUN </span><span style="color:#79B8FF">update-ca</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">trust</span></span>
-<span class="line"><span style="color:#6A737D">####### This marks the end of edits for the main image</span></span>
+<span class="line"><span style="color:#B392F0">You add the above pip.conf file and the certificate to the context folder for the targeted automation execution environment creation to add these files inside your custom execution-environment.</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">RUN </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">output</span><span style="color:#F97583">/</span><span style="color:#79B8FF">install-from</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">bindep &#x26;&#x26; rm </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">rf </span><span style="color:#F97583">/</span><span style="color:#E1E4E8">output</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">wheels</span></span></code></pre>
-</div><p>If you look closely in the above Containerfile, you can notice the additions that fix all the issues previously mentioned in both the BUILDER and the BASE image stages because both images use this information to pull and build Python dependencies.</p>
-<p>Understanding what happens in each stage helps you understand where to edit your Containerfile, and at which stage, allowing you to make endless customizations to your custom automation execution environments.</p>
-<p>Finally let&#39;s build the above execution-environment with the following command:</p>
-<div class="blog-code-block">
-  <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
-    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
-  </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>podman build -f context/Containerfile -t disconnected_ee:1.0</span></span></code></pre>
-</div><p>When the build succeeds, you should see a message like this:</p>
-<div class="blog-code-block">
-  <div class="blog-code-block__toolbar">
-    <span class="blog-code-block__lang">Text</span>
-    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
-  </div>
-  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>--> 2316db485a1</span></span>
-<span class="line"><span>Successfully tagged localhost/disconnected_ee:1.0</span></span>
-<span class="line"><span>2316db485a1c4e7be4a687c682d0fc90335372d7e5564774f1ff6451840ac35f</span></span></code></pre>
-</div><h2 id="looking-forward">Looking forward</h2><p>Our ultimate goal is to make the developer experience as seamless as possible for customers. Ansible engineering teams are working on enhancements to the automation execution environment building experience, with several improvements already in the planning stage. Until those enhancements are available, this blog should help you tackle any challenges around the process of building automation execution environments. Following the upstream first model means you can also participate in community discussions and provide your thoughts and feedback through IRC. Please follow the link <a href="https://docs.ansible.com/ansible/latest/community/communication.html#ansible-community-on-irc">here</a> to join us. One of the main enhancements to the automation execution environment experience is being discussed in this <a href="https://github.com/ansible/ansible-builder/pull/411">GitHub pull request</a>, so you can participate in the GitHub discussions as well.</p>
-<aside class="blog-tmm-insert blog-related">
-  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
-  <p class="blog-related__title">More from the team</p>
-  <ul><li><a href="/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/">Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2</a></li><li><a href="/blog/new-red-hat-ansible-development-tools/">Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience</a></li><li><a href="/blog/introducing-ansible-plug-ins-red-hat-developer-hub/">Introducing Ansible plug-ins for Red Hat Developer Hub</a></li></ul>
-</aside>
+<span class="line"><span style="color:#B392F0">Using the multi-stage build knowledge and context editing, edit the Containerfile. Note the sections marked in bold text as well as some comments. These are the changes to build an automation execution environment in a disconnected fashion.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">```bash</span></span>
+<span class="line"><span style="color:#B392F0">dnf install ansible-builder</span></span>
+<span class="line"><span style="color:#B392F0">```3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">If you look closely in the above Containerfile, you can notice the additions that fix all the issues previously mentioned in both the BUILDER and the BASE image stages because both images use this information to pull and build Python dependencies.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">Understanding what happens in each stage helps you understand where to edit your Containerfile, and at which stage, allowing you to make endless customizations to your custom automation execution environments.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">Finally let's</span><span style="color:#9ECBFF"> build the above execution-environment with the following command:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">```</span><span style="color:#B392F0">bash</span></span>
+<span class="line"><span style="color:#B392F0">dnf</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> ansible-builder</span></span>
+<span class="line"><span style="color:#9ECBFF">```</span><span style="color:#B392F0">4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">When</span><span style="color:#9ECBFF"> the build succeeds, you should see a message like this:</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">```</span><span style="color:#B392F0">bash</span></span>
+<span class="line"><span style="color:#B392F0">dnf</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> ansible-builder</span></span>
+<span class="line"><span style="color:#9ECBFF">```</span><span style="color:#B392F0">5</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">## Looking forward</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">Our</span><span style="color:#9ECBFF"> ultimate goal is to make the developer experience as seamless as possible for customers. Ansible engineering teams are working on enhancements to the automation execution environment building experience, with several improvements already in the planning stage. Until those enhancements are available, this blog should help you tackle any challenges around the process of building automation execution environments. Following the upstream first model means you can also participate in community discussions and provide your thoughts and feedback through IRC. Please follow the link [here](</span><span style="color:#B392F0">https://docs.ansible.com/ansible/latest/community/communication.html#ansible-community-on-irc</span><span style="color:#9ECBFF">) to join us. One of the main enhancements to the automation execution environment experience is being discussed in this [GitHub pull request](</span><span style="color:#B392F0">https://github.com/ansible/ansible-builder/pull/411</span><span style="color:#9ECBFF">), so you can participate in the GitHub discussions as well.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">[</span><span style="color:#F97583">!</span><span style="color:#9ECBFF">[Anshul Behl, Principal Technical Marketing Manager, Red Hat](</span><span style="color:#E1E4E8">https</span><span style="color:#F97583">://</span><span style="color:#E1E4E8">www</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">redhat</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">com</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">rhdc</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">managed</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">files</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">styles</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">media_thumbnail</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">private</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">wa_profile</span><span style="color:#F97583">%</span><span style="color:#79B8FF">20</span><span style="color:#F97583">-%</span><span style="color:#79B8FF">20</span><span style="color:#9ECBFF">Anshul</span><span style="color:#F97583">%</span><span style="color:#79B8FF">20</span><span style="color:#9ECBFF">Behl.</span><span style="color:#E1E4E8">jpeg</span><span style="color:#F97583">?</span><span style="color:#E1E4E8">itok</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">vYDgCAJj</span><span style="color:#9ECBFF">)](</span><span style="color:#B392F0">https://www.redhat.com/en/authors/anshul-behl</span><span style="color:#9ECBFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">[### Anshul Behl</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">Principal Technical Marketing Manager](</span><span style="color:#B392F0">https://www.redhat.com/en/authors/anshul-behl</span><span style="color:#9ECBFF">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">Anshul</span><span style="color:#9ECBFF"> is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform's adoption experience for customers by producing technical content on all aspects of the product.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">[More from this author](https://www.redhat.com/en/authors/anshul-behl)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">Enter keywords here to search blogs</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">UI\_Icon-Red\_Hat-Close-A-Black-RGB</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">Search</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">> [!related]</span></span>
+<span class="line"><span style="color:#9ECBFF">> **More from the team**</span></span>
+<span class="line"><span style="color:#9ECBFF">></span></span>
+<span class="line"><span style="color:#9ECBFF">> - [Migrating from Python virtual environments to automation execution environments in Ansible Automation Platform 2](/blog/migrating-from-python-virtual-environments-to-automation-execution-environments-in-ansible-automation-platform-2/)</span></span>
+<span class="line"><span style="color:#9ECBFF">> - [Introducing the new Red Hat Ansible development tools: Streamlining the Ansible creator experience](/blog/new-red-hat-ansible-development-tools/)</span></span>
+<span class="line"><span style="color:#9ECBFF">> - [Introducing Ansible plug-ins for Red Hat Developer Hub](/blog/introducing-ansible-plug-ins-red-hat-developer-hub/)</span></span></code></pre>
+</div>
       </div>
       <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#anshul-behl">Anshul Behl</a></p></footer>
     </article>

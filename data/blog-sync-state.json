@@ -56,9 +56,9 @@
     },
     "the-anatomy-of-automation-execution-environments": {
       "source_url": "https://www.redhat.com/en/blog/the-anatomy-of-automation-execution-environments",
-      "updated": "2026-01-27",
-      "content_hash": "e6c9608f8aaa9f46fa6bb5a079670d76a752aa313a5103c521a9bcf45c3ecf7f",
-      "synced_at": "2026-09-03T19:20:36Z"
+      "updated": "2026-10-20",
+      "content_hash": "24ce625cd9c9665870ad49895cb5726472621028c7692e39885dbc8b7bcf0bdd",
+      "synced_at": "2026-10-22T12:51:44Z"
     },
     "digitally-signing-ansible-content-collections-using-private-automation-hub": {
       "source_url": "https://www.redhat.com/en/blog/digitally-signing-ansible-content-collections-using-private-automation-hub",
@@ -86,9 +86,9 @@
     },
     "automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform": {
       "source_url": "https://www.redhat.com/en/blog/automating-microsoft-endpoint-configuration-manager-red-hat-ansible-automation-platform",
-      "updated": "2026-01-20",
-      "content_hash": "9f99b5e0b26178b15bb7acb446c9a1836b760537a0c15e243aec89145f35f374",
-      "synced_at": "2026-09-03T19:20:44Z"
+      "updated": "2026-10-20",
+      "content_hash": "716a4566984f2d318baf38d460af65295b72c11d34f91ae2bcc6bf33970ecd17",
+      "synced_at": "2026-10-22T12:51:44Z"
     },
     "learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform": {
       "source_url": "https://www.redhat.com/en/blog/learn-why-red-hat-customer-mapfre-chose-red-hat-ansible-automation-platform",
@@ -284,9 +284,9 @@
     },
     "event-driven-ansible-simplified-event-routing-event-streams": {
       "source_url": "https://www.redhat.com/en/blog/event-driven-ansible-simplified-event-routing-event-streams",
-      "updated": "2026-01-20",
-      "content_hash": "c35529c2ec4fe69b3f6b3c24acfdd37e9c81a426f527ffb24de6606f3fedbe0a",
-      "synced_at": "2026-09-03T19:21:35Z"
+      "updated": "2026-10-20",
+      "content_hash": "f9c3284a145d2c83e7a028b0729830ed4f3ca470ec8330b74180409bfecd7c4a",
+      "synced_at": "2026-10-22T12:51:45Z"
     },
     "easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform": {
       "source_url": "https://www.redhat.com/en/blog/easy-automation-microsoft-windows-server-and-azure-ansible-automation-platform",
