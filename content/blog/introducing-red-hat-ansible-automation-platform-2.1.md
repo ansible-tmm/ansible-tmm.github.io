@@ -5,14 +5,14 @@ authors:
 - slug: sean-cavanaugh
   name: Sean Cavanaugh
 published: '2021-12-02'
-updated: '2026-03-05'
+updated: '2026-10-22'
 source: redhat
 source_url: https://www.redhat.com/en/blog/introducing-red-hat-ansible-automation-platform-2.1
 description: Red Hat Ansible Automation Platform 2.1 is available now! Create, manage
   and scale automation with more ease and efficiency than ever before.
 topics: []
 read_time_minutes: 8
-synced_at: '2026-09-03T19:20:59Z'
+synced_at: '2026-10-23T12:49:18Z'
 ---
 
 <!-- blog-enrichment:start -->
@@ -21,6 +21,8 @@ synced_at: '2026-09-03T19:20:59Z'
 > **Summary:** Red Hat Ansible Automation Platform 2.1 is available now! Create, manage and scale automation with more ease and efficiency than ever before.
 
 <!-- blog-enrichment:end -->
+
+---
 
 [![](https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png)](https://www.redhat.com/rhdc/managed-files/ansible/YgQ-g6F0LaaLWI9-f9K6lnd2TVCleZw1ILN_vBEOBqOxmAjkHfVjX9KiwhH8JwOIS976Wnow7uG7sbJ4lFB-FVCRA0b98woBPzsJilys5JVu2uGkcZOyP30tNWh73CU1DSLK3o1k.png)
 
@@ -31,7 +33,7 @@ You can download the latest version directly from the [Red Hat Customer Portal](
 > [!callout type=tmm label="TMM resource" title="Solution Guides" url="https://ansible-tmm.github.io/solution-guides/" cta="Browse guides"]
 > Outcome-focused guides for infrastructure and IT automation challenges.
 
-[[![aap 2 ebook copy](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png)](https://www.redhat.com/en/resources/ansible-automation-platform-2-ebook)
+[![aap 2 ebook copy](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png)](https://www.redhat.com/rhdc/managed-files/ansible/aap%202%20ebook%20copy.png)
 
 *Take a look at our latest e-book to learn what common automation roles you can expect from Red Hat Ansible Automation Platform 2.*
 
@@ -122,7 +124,7 @@ You can check out all the certified and fully supported Collections on [Ansible 
 
 **Automation hub** ([console](https://console.redhat.com/ansible/ansible-dashboard)): This is the counterpart to private automation hub. This is a publicly hosted and curated automation content repository on console.redhat.com for all the fully supported and certified Ansible Content Collections. IT Operators can sync specific Collections from Ansible automation hub to their on-premises private automation hub and control which content they want to use.
 
-**Red Hat Insights for Ansible Automation Platform** ([console](https://console.redhat.com/ansible/insights/reports) and [product page](https://www.redhat.com/products/insights-for-ansible)): This optional hosted service is available on console.redhat.com. It allows automation architects to aggregate data from multiple Ansible Automation Platform clusters to a single visual dashboard, so architects can analyze and discover trends across multiple automation initiatives. Red Hat Insights for Ansible Automation Platform is a hosted service constantly adding new features and abilities asynchronous from Ansible Automation Platform. However, there is a new feature coinciding with 2.1, called reports. Reports offer analytical data and downloadable PDFs for consumption. For example, you can see which hosts were changed by which job template over time, hosts broken down by organizations, jobs and tasks broken out by organization, and more.
+**Red Hat Insights for Ansible Automation Platform** ([console](https://console.redhat.com/ansible/insights/reports) and product page): This optional hosted service is available on console.redhat.com. It allows automation architects to aggregate data from multiple Ansible Automation Platform clusters to a single visual dashboard, so architects can analyze and discover trends across multiple automation initiatives. Red Hat Insights for Ansible Automation Platform is a hosted service constantly adding new features and abilities asynchronous from Ansible Automation Platform. However, there is a new feature coinciding with 2.1, called reports. Reports offer analytical data and downloadable PDFs for consumption. For example, you can see which hosts were changed by which job template over time, hosts broken down by organizations, jobs and tasks broken out by organization, and more.
 
 **Automation services catalog** ([console](https://console.redhat.com/ansible/catalog/products)): Another hosted service on console.redhat.com included in your Ansible Automation Platform subscription. Automation services catalog acts as a lightweight IT service management, where automation consumers can order automation as catalog items. Automation services catalog allows you to aggregate multiple automation controllers into a single push-button WebUI abstracting any site-specific complexity. This allows new personas to adopt automation in a consumable turn-key fashion across your organization.  It also has approvals and checkout systems, adding a level of governance to your enterprise automation.
 
@@ -145,6 +147,24 @@ Whether you are beginning your automation journey or a seasoned veteran, there a
 |  |
 | --- |
 | subscription-manager repos  --disable=ansible-automation-platform-2.0-early-access-for-rhel-8-x86\_64-rpms  subscription-manager repos --enable=ansible-automation-platform-2.1-for-rhel-8-x86\_64-rpms |
+
+---
+
+[![Sean Cavanaugh](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/sean_profile.jpg?itok=6yG8an6S)](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+[### Sean Cavanaugh
+
+Principal Technical Marketing Manager](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Sean is a Principal Technical Marketing Manager, Ansible, where he brings over 10 years of experience building and automating computer networks. Sean previously worked for both Cumulus Networks (acquired by Nvidia) and Cisco Systems where he helped customers deploy, manage and automate their network infrastructure. He resides in Chapel Hill, NC with his wife and children and tweets from [@IPvSean](https://twitter.com/ipvsean).
+
+[More from this author](https://www.redhat.com/en/authors/sean-cavanaugh)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
 
 <!-- blog-enrichment:related -->
 

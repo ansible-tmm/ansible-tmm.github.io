@@ -5,26 +5,22 @@ authors:
 - slug: anshul-behl
   name: Anshul Behl
 published: '2023-10-30'
-updated: '2025-11-23'
+updated: '2026-10-20'
 source: redhat
 source_url: https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant
-description: In this blog, we’ll walk through the steps to get Ansible Lightspeed
-  with IBM watsonx Code Assistant up and running for your organization. We’ll share
-  how end users can set up the service in their Visual Studio Code (VS Code) environment.
-  We’ll also share more on what to expect from the experience and supplemental tools
-  available to turbocharge your Ansible creator journey with generative AI capabilities
-  built on a foundation of transparency, accuracy, and choice
+description: Learn how to turbocharge Ansible content creation with Red Hat Ansible
+  Lightspeed and IBM watsonx Code Assistant.
 topics:
 - Artificial intelligence
-- Automation and management
+- Automation
 read_time_minutes: 6
-synced_at: '2026-09-03T19:20:33Z'
+synced_at: '2026-10-23T12:49:17Z'
 ---
 
 <!-- blog-enrichment:start -->
 
 > [!callout type=summary]
-> **Summary:** In this blog, we’ll walk through the steps to get Ansible Lightspeed with IBM watsonx Code Assistant up and running for your organization. We’ll share how end users can set up the service in their Visual Studio Code (VS Code) environment. We’ll also share more on what to expect from the experience and supplemental tools available to turbocharge your Ansible creator journey with generative AI capabilities built on a foundation of transparency, accuracy, and choice
+> **Summary:** Learn how to turbocharge Ansible content creation with Red Hat Ansible Lightspeed and IBM watsonx Code Assistant.
 
 > [!toc]
 > **On this page**
@@ -38,6 +34,8 @@ synced_at: '2026-09-03T19:20:33Z'
 > - [Additional resources](#additional-resources)
 
 <!-- blog-enrichment:end -->
+
+---
 
 **Note from the editor:**This blog post was originally published in November 2023 and has been updated to include the latest feature enhancements for Red Hat Ansible Automation Platform subscribers.
 
@@ -199,13 +197,31 @@ After the Ansible code bot is installed for the Git repositories you selected, y
 
 Thanks for reading and happy automating.
 
+---
+
+[![Anshul Behl, Principal Technical Marketing Manager, Red Hat](https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/wa_profile%20-%20Anshul%20Behl.jpeg?itok=vYDgCAJj)](https://www.redhat.com/en/authors/anshul-behl)
+
+[### Anshul Behl
+
+Principal Technical Marketing Manager](https://www.redhat.com/en/authors/anshul-behl)
+
+Anshul is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform's adoption experience for customers by producing technical content on all aspects of the product.
+
+[More from this author](https://www.redhat.com/en/authors/anshul-behl)
+
+Enter keywords here to search blogs
+
+UI\_Icon-Red\_Hat-Close-A-Black-RGB
+
+Search
+
 <!-- blog-enrichment:related -->
 
 > [!related]
 > **More from the team**
 >
+> - [Automate security risk management across enterprise IT operations](/blog/automate-security-risk-management-across-enterprise-it-operations/)
+> - [5 ways to augment security risk management in the AI era](/blog/5-ways-augment-security-risk-management-ai-era/)
 > - [AI threats move fast. Your defenses should too.](/blog/ai-threats-move-fast-your-defenses-should-too/)
-> - [Introducing Ansible plug-ins for Red Hat Developer Hub](/blog/introducing-ansible-plug-ins-red-hat-developer-hub/)
-> - [New reference architecture: Red Hat Ansible Automation Platform 1.2 to 2 Migration Guide](/blog/new-reference-architecture-red-hat-ansible-automation-platform-1.2-to-2-migration-guide/)
 
 <!-- blog-enrichment:related-end -->

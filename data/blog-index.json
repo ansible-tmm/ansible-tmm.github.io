@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-22T12:51:45Z",
+  "updated_at": "2026-10-23T12:49:18Z",
   "posts": [
     {
       "slug": "automate-security-risk-management-across-enterprise-it-operations",
@@ -507,9 +507,9 @@
     {
       "slug": "getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant",
       "title": "Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant",
-      "description": "In this blog, we\u2019ll walk through the steps to get Ansible Lightspeed with IBM watsonx Code Assistant up and running for your organization. We\u2019ll share how end users can set up the service in their Visual Studio Code (VS Code) environment. We\u2019ll also share more on what to expect from the experience and supplemental tools available to turbocharge your Ansible creator journey with generative AI capabilities built on a foundation of transparency, accuracy, and choice",
+      "description": "Learn how to turbocharge Ansible content creation with Red Hat Ansible Lightspeed and IBM watsonx Code Assistant.",
       "published": "2023-10-30",
-      "updated": "2025-11-23",
+      "updated": "2026-10-20",
       "authors": [
         {
           "slug": "anshul-behl",
@@ -518,7 +518,7 @@
       ],
       "topics": [
         "Artificial intelligence",
-        "Automation and management"
+        "Automation"
       ],
       "read_time_minutes": 6,
       "source": "redhat",
@@ -1010,7 +1010,7 @@
       "title": "Introducing Red Hat Ansible Automation Platform 2.1",
       "description": "Red Hat Ansible Automation Platform 2.1 is available now! Create, manage and scale automation with more ease and efficiency than ever before.",
       "published": "2021-12-02",
-      "updated": "2026-03-05",
+      "updated": "2026-10-22",
       "authors": [
         {
           "slug": "sean-cavanaugh",

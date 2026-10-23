@@ -32,9 +32,9 @@
     },
     "getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant": {
       "source_url": "https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant",
-      "updated": "2025-11-23",
-      "content_hash": "13c95e639495f41f530befa8b77d2ad902ff22d482e7012e6c362bb1716c1725",
-      "synced_at": "2026-09-03T19:20:33Z"
+      "updated": "2026-10-20",
+      "content_hash": "60504a80b37446f0a89a1d0f28348f54052e5bfaa786c74111aa59dd1b0bdc91",
+      "synced_at": "2026-10-23T12:49:17Z"
     },
     "new-red-hat-ansible-development-tools": {
       "source_url": "https://www.redhat.com/en/blog/new-red-hat-ansible-development-tools",
@@ -146,9 +146,9 @@
     },
     "introducing-red-hat-ansible-automation-platform-2.1": {
       "source_url": "https://www.redhat.com/en/blog/introducing-red-hat-ansible-automation-platform-2.1",
-      "updated": "2026-03-05",
-      "content_hash": "7c96897eb9c9d69821456a5d99072ff7f7dc42ba2b4fb98127dedaccff090aa8",
-      "synced_at": "2026-09-03T19:20:59Z"
+      "updated": "2026-10-22",
+      "content_hash": "ba794cc1add9e5a81aa8dfd39f075022bbaedad757fc303d675ebec78981e431",
+      "synced_at": "2026-10-23T12:49:18Z"
     },
     "automation-for-the-cloud-cloud-field-day-12-recap": {
       "source_url": "https://www.redhat.com/en/blog/automation-for-the-cloud-cloud-field-day-12-recap",
