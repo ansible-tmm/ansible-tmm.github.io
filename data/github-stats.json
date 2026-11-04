@@ -1,27 +1,27 @@
 {
   "org": "ansible-tmm",
-  "updated_at": "2026-11-03T12:03:33Z",
+  "updated_at": "2026-11-04T12:03:38Z",
   "repositories": 74,
-  "stars": 94,
-  "forks": 142,
-  "commits": 15355,
-  "pull_requests": 294,
-  "merged_pull_requests": 247,
+  "stars": 95,
+  "forks": 143,
+  "commits": 15385,
+  "pull_requests": 295,
+  "merged_pull_requests": 248,
   "recent_repos": [
     {
       "name": "aap_cve_report",
       "url": "https://github.com/ansible-tmm/aap_cve_report",
-      "pushed_at": "2026-11-03T11:16:45Z"
+      "pushed_at": "2026-11-04T11:16:32Z"
+    },
+    {
+      "name": "aap-orchestrator-demos",
+      "url": "https://github.com/ansible-tmm/aap-orchestrator-demos",
+      "pushed_at": "2026-11-03T18:51:14Z"
     },
     {
       "name": "youtube-comments-feed",
       "url": "https://github.com/ansible-tmm/youtube-comments-feed",
-      "pushed_at": "2026-11-02T18:02:51Z"
-    },
-    {
-      "name": "solution-guides",
-      "url": "https://github.com/ansible-tmm/solution-guides",
-      "pushed_at": "2026-11-02T14:09:45Z"
+      "pushed_at": "2026-11-03T17:53:02Z"
     }
   ]
 }
