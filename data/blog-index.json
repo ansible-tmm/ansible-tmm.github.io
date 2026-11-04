@@ -1,6 +1,27 @@
 {
-  "updated_at": "2026-11-03T12:36:51Z",
+  "updated_at": "2026-11-04T12:37:35Z",
   "posts": [
+    {
+      "slug": "moving-lightwell-patches-production-orchestrating-release-lifecycle",
+      "title": "Moving Lightwell patches into production by orchestrating the release lifecycle",
+      "description": "Learn how to orchestrate Lightwell patch releases with Ansible Automation Platform to automate testing and rollback for production deployments.",
+      "published": "2026-10-26",
+      "updated": "2026-10-29",
+      "authors": [
+        {
+          "slug": "anshul-behl",
+          "name": "Anshul Behl"
+        }
+      ],
+      "topics": [
+        "Automation",
+        "Security"
+      ],
+      "read_time_minutes": 5,
+      "source": "redhat",
+      "source_url": "https://www.redhat.com/en/blog/moving-lightwell-patches-production-orchestrating-release-lifecycle",
+      "url": "/blog/moving-lightwell-patches-production-orchestrating-release-lifecycle/"
+    },
     {
       "slug": "automate-security-risk-management-across-enterprise-it-operations",
       "title": "Automate security risk management across enterprise IT operations",

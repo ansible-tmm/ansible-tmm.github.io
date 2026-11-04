@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moving Lightwell patches into production by orchestrating the release lifecycle — Ansible TMM Blog</title>
+  <meta name="description" content="Learn how to orchestrate Lightwell patch releases with Ansible Automation Platform to automate testing and rollback for production deployments.">
+  <link rel="canonical" href="https://www.redhat.com/en/blog/moving-lightwell-patches-production-orchestrating-release-lifecycle">
+  <meta property="og:title" content="Moving Lightwell patches into production by orchestrating the release lifecycle">
+  <meta property="og:description" content="Learn how to orchestrate Lightwell patch releases with Ansible Automation Platform to automate testing and rollback for production deployments.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.redhat.com/en/blog/moving-lightwell-patches-production-orchestrating-release-lifecycle">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../favicon.svg">
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header" role="banner">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="../../" class="nav__brand" aria-label="Ansible TMM — Home">Ansible TMM</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="../../#learn-and-present">Learn &amp; Present</a></li>
+        <li><a href="../../#product-demos">Product Demos</a></li>
+        <li><a href="../../#tools-and-utilities">Tools</a></li>
+        <li><a href="../../#games">Games</a></li>
+        <li><a href="../../#youtube">YouTube</a></li>
+        <li><a href="/blog/" aria-current="page">Blog</a></li>
+        <li><a href="/team/">Team</a></li>
+        <li>
+          <a href="https://github.com/ansible-tmm" class="nav__github" target="_blank" rel="noopener noreferrer" aria-label="Ansible TMM on GitHub (opens in new tab)">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-github"></use></svg>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="blog-post-page">
+    <article class="blog-post-container">
+      <a href="/blog/" class="blog-post-back">← Back to blog</a>
+      <aside class="blog-attribution">Originally published on <a href="https://www.redhat.com/en/blog/moving-lightwell-patches-production-orchestrating-release-lifecycle" target="_blank" rel="noopener noreferrer">Red Hat Blog</a> on October 26, 2026.</aside>
+      <header class="blog-post-header">
+        <h1 class="blog-post-title">Moving Lightwell patches into production by orchestrating the release lifecycle</h1>
+        <p class="blog-post-meta"><a href="/team/#anshul-behl">Anshul Behl</a> · <time datetime="2026-10-26">October 26, 2026</time> · 5-minute read</p>
+      </header>
+      <div class="blog-post-content">
+        <aside class="blog-callout blog-callout--summary"><strong>Summary:</strong> Learn how to orchestrate Lightwell patch releases with Ansible Automation Platform to automate testing and rollback for production deployments.</aside><aside class="blog-toc">
+  
+  <p class="blog-toc__title">On this page</p>
+  <ul><li><a href="#in-this-article">In this article:</a></li><li><a href="#the-last-mile-of-vulnerability-remediation">The last mile of vulnerability remediation</a></li><li><a href="#balancing-security-exposures-with-operational-stability">Balancing security exposures with operational stability</a></li><li><a href="#dependency-remediation-in-the-build-pipeline">Dependency remediation in the build pipeline</a></li><li><a href="#using-ci-completion-to-trigger-automation">Using CI completion to trigger automation</a></li><li><a href="#orchestrating-post-ci-operations-with-automation">Orchestrating post-CI operations with automation</a></li><li><a href="#putting-lightwell-patches-into-production-with-red-hat">Putting Lightwell patches into production with Red Hat</a></li><li><a href="#summary-and-next-steps">Summary and next steps</a></li><li><a href="#learn-more">Learn more</a></li></ul>
+</aside><hr>
+<h2 id="in-this-article">In this article:</h2><ul>
+<li><strong>Vulnerability remediation requires more than just merging code</strong>: While opening a pull request (PR) updates a dependency, that&#39;s not the end of the process. Safely moving that change to production requires integration testing, change management, controlled traffic draining, and patch verification.</li>
+<li><strong>Lightwell provides stable, backported fixes</strong>: Lightwell delivers signed, version-specific binary fixes for eligible application dependencies without forcing major framework or runtime upgrades.</li>
+<li><strong>Red Hat Ansible Automation Platform orchestrates the release lifecycle</strong>, from continuous integration (CI) webhook triggers to pre-flight snapshots, traffic management, gated approvals, and automated rollback. Ansible Automation Platform provides trusted, repeatable execution across IT operations.</li>
+</ul>
+<h2 id="the-last-mile-of-vulnerability-remediation">The last mile of vulnerability remediation</h2><p>In a recent post,<a href="https://www.redhat.com/en/blog/how-patch-application-vulnerabilities-without-upgrading">How to patch application vulnerabilities without upgrading</a>, we examined why full version upgrades can sometimes introduce regression risk, how<a href="https://www.redhat.com/en/interactive-demo/lightwell-network-demo">Lightwell</a> provides targeted vulnerability fixes, and the stages of a governed remediation workflow.</p>
+<p>But the delivery of a fix by itself solves only one part of the problem. In many organizations, dependency updates face significant challenges after CI tests pass:</p>
+<ul>
+<li>Applications require functional and integration testing beyond isolated unit tests</li>
+<li>Change management requires deployment context, including common vulnerabilities and exposure (CVE) identifiers and build artifacts</li>
+<li>Production deployments require traffic draining, state snapshots, and validation steps</li>
+<li>Operators need an immediate, dependable rollback procedure if something fails</li>
+</ul>
+<p>If these steps are executed manually using disjointed tools, internal wikis, and chat channels, your patch deployment lags, extending the period in which your application remains exposed.</p>
+<p>In this article, we&#39;ll talk about how automation excels at the &quot;last mile of remediation,&quot; covering all the operational steps that need to occur once an impacted service has been identified and a remediated dependency is submitted in a PR.</p>
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">Getting started with Event-Driven Ansible</p>
+  <p class="blog-callout__body">Step-by-step guide from the Ansible TMM team.</p>
+  <a class="blog-callout__cta" href="/blog/getting-started-with-event-driven-ansible/">Read the guide →</a>
+</aside><h2 id="balancing-security-exposures-with-operational-stability">Balancing security exposures with operational stability</h2><p>Security teams and operations teams share common goals of protecting IT services, however:</p>
+<ul>
+<li><strong>SecOps</strong> focuses on closing the vulnerability exposure window and verifying CVE mitigation</li>
+<li><strong>ITOps</strong> focuses on service availability and performance</li>
+<li><strong>Platform engineering</strong> builds repeatable, self-service paths that deliver a verified change to production without breaking services</li>
+</ul>
+<p>Using Red Hat Ansible Automation Platform along with Lightwell and your existing CI tools (such as those included in <a href="https://www.redhat.com/en/technologies/cloud-computing/openshift/container-platform">Red Hat OpenShift</a>) allows you to resolve these often conflicting priorities. Instead of managing the process through ad-hoc communications, teams can integrate the workflow directly into their standard change records and automated pipelines so that patches are applied faster without taking down production systems. Teams can coordinate remediation with the operational steps required to move an application change toward production faster.</p>
+<h2 id="dependency-remediation-in-the-build-pipeline">Dependency remediation in the build pipeline</h2><p>For illustrative purposes, imagine a Python application called <code>inventory-service</code>. Like many applications, it relies on libraries—reusable packages that provide functionality developers don’t need to build from scratch. One of its libraries is <code>aiohttp</code>, which helps Python applications handle web traffic and serve files.</p>
+<p>In this example, <code>inventory-service</code> uses <code>aiohttp</code> version 3.9.0. A security advisory for<a href="https://osv.dev/vulnerability/CVE-2024-23334">CVE-2024-23334</a> describes a path traversal vulnerability in <code>aiohttp</code>’s static file handling when <code>follow_symlinks=True</code>. The upstream fix is available in version 3.9.2. If moving to that version right away creates API changes or dependency conflicts, teams can use a Lightwell-remediated artifact instead.</p>
+<p>In our example repository, the pull request updates the package specification to:</p>
+<div class="blog-code-block">
+  <div class="blog-code-block__toolbar">
+    <span class="blog-code-block__lang">Text</span>
+    <button type="button" class="blog-code-block__copy" data-copy-code aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre class="shiki blog-code github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>aiohttp==3.9.0.rhlw-00001</span></span></code></pre>
+</div><p>Note: the <code>.rhlw</code> suffix identifies the Lightwell-patched version and patch level. This provides direct benefits across teams:</p>
+<ul>
+<li><strong>ITOps</strong> receives a predictable artifact that can be tested, staged, deployed, and rolled back using standard release procedures</li>
+<li><strong>SecOps</strong> maintains traceability, as the specific CVE identifier remains linked to the deployment record and build artifact</li>
+<li><strong>Platform engineering</strong> gets a standard golden path from the dependency change in the PR through CI to approval steps and production deployment so every CVE can follow the same workflow</li>
+</ul>
+<p>When the PR is submitted, a corresponding change request (such as a ServiceNow change record) is linked in the metadata. This record tracks the dependency modification, associated CVEs, and deployment lifecycle. Software supply chain and security metadata provided by Lightwell—including package provenance, software bill of materials (SBOM), and (where applicable) Vulnerability Exploitability eXchange (VEX) metadata—attach directly to the record, creating an auditable history as code moves forward.</p>
+<h2 id="using-ci-completion-to-trigger-automation">Using CI completion to trigger automation</h2><p>After the PR merges into the target branch, the standard CI pipeline executes:</p>
+<ol>
+<li>Repository checkout</li>
+<li>Dependency installation</li>
+<li>Unit test execution</li>
+<li>Validation that the vulnerable library version has been replaced</li>
+</ol>
+<p>Once tests pass, your CI pipeline (Jenkins, Tekton, OpenShift Pipelines) sends an outbound webhook to Ansible Automation Platform (through <a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">Event-Driven Ansible</a>). The payload includes the execution parameters required for deployment:</p>
+<ul>
+<li>Application identifier</li>
+<li>Build version and Git commit hash (SHA)</li>
+<li>CI build URL</li>
+<li>Target CVE identifiers</li>
+<li>Associated change ticket number</li>
+</ul>
+<p>This webhook acts as an automated event trigger to initiate the next steps. Rather than waiting for manual handoffs, Ansible Automation Platform ingests the build metadata and initiates the governed deployment process.</p>
+<h2 id="orchestrating-post-ci-operations-with-automation">Orchestrating post-CI operations with automation</h2><p>The <a href="https://www.redhat.com/en/technologies/management/ansible/automation-orchestrator">newly released automation orchestrator</a> directs the overarching multistep deployment. Automation orchestrator is a dedicated extension to Ansible Automation Platform. While Ansible Automation Platform handles specific, linear tasks through individual playbooks (such as stopping a service or running a health check), the automation orchestrator introduces complex workflows with decision points, branching conditions, and approval gates.</p>
+<p><a href="https://www.redhat.com/rhdc/managed-files/Full%20AO%20Lightwell%20Workflow.png"><img src="https://www.redhat.com/rhdc/managed-files/Full%20AO%20Lightwell%20Workflow.png" alt="A screenshot of the automation orchestrator interface displaying a CI/CD pipeline workflow for 'Dev Test'. The interface shows the project is set to 'default' and its status is 'Published'. It includes action buttons and options to 'Add step', 'Run', 'Save', and 'Publish workflow'."></a></p>
+<p>With Lightwell patches, automation orchestrator receives the payload from the PR which kicks off the following process:</p>
+<ol>
+<li><strong>Change ticket synchronization</strong>: Ansible Automation Platform receives the webhook payload and appends operational metadata to the open change ticket. Variables such as the service name, Git SHA, deployed port, and target CVE are recorded automatically.</li>
+<li><strong>Pre-production deployment and validation</strong>: The platform deploys the updated container or package to a staging environment and executes integration tests against connected dependencies. This verifies application stability in an integrated runtime environment.</li>
+<li><strong>Conditional branching</strong>:<ul>
+<li><strong>If the integration test succeeds</strong>, the workflow updates the change ticket and advances to the production step.</li>
+<li><strong>If the test fails</strong>, the workflow stops, attaches test logs to the ticket, and notifies the responsible team.</li>
+</ul>
+</li>
+<li><strong>Context-aware approval gate</strong>: Before touching production systems, the workflow pauses at an approval gate. The approver is presented with the complete context, including: service name, version diff, target CVE, CI build URL, and staging test results. This means operational decisions are made with complete data.</li>
+<li><strong>Traffic draining</strong>: Once approved, the production playbook begins by draining active connections from the load balancer pool (e.g., F5, HAProxy, or cloud application load balancers).</li>
+<li><strong>System snapshot, deployment, and verification</strong>:<ul>
+<li><strong>Snapshot</strong>: The automation captures a recovery snapshot (such as a virtual machine (VM) checkpoint, storage volume snapshot, or configuration backup).</li>
+<li><strong>Deploy</strong>: The new package is installed, configurations are applied, and services are restarted.</li>
+<li><strong>Smoke test</strong>: Post-deployment validation routines query the endpoints to confirm the service is responding and reporting the updated version string.</li>
+</ul>
+</li>
+<li><strong>Completion or automated rollback</strong><ul>
+<li><strong>On success</strong>: The load balancer re-enables the node, the change record is updated with verification outputs, and the service ticket is set to Closed.</li>
+<li><strong>On failure</strong>: If smoke checks fail, the workflow automatically initiates the rollback branch: restoring the snapshot, restarting the prior version, re-engaging traffic, and marking the change record as Failed with relevant diagnostic details.</li>
+</ul>
+</li>
+</ol>
+<p>This process aligns SecOps, ITOps, and platform engineering to share one trusted, repeatable path. Watch this workflow in action:</p>
+<aside class="blog-tmm-insert blog-callout blog-callout--tmm">
+  <span class="blog-callout__label">TMM resource</span>
+  <p class="blog-callout__title">AAP CVE Report</p>
+  <p class="blog-callout__body">Explore CVE information relevant to Ansible Automation Platform.</p>
+  <a class="blog-callout__cta" href="https://ansible-tmm.github.io/aap_cve_report/">Open tool →</a>
+</aside><h2 id="putting-lightwell-patches-into-production-with-red-hat">Putting Lightwell patches into production with Red Hat</h2><p>Red Hat (along with your existing tools) can help you deliver Lightwell patches at scale, but the process after Lightwell delivers the fix depends on where your application runs:</p>
+<h3 id="containerized-applications-running-on-openshift">Containerized applications running on OpenShift</h3><p>In this scenario, your existing build and CI workflow incorporates the Lightwell-remediated dependency and validates the resulting application artifact. For applications running on OpenShift, the platform rebuilds and tests the app with the Lightwell dependency. OpenShift GitOps then promotes the updated image into the cluster with Ansible Automation Platform handling the steps around that deployment including updating the service ticket and deploying changes to infrastructure outside the cluster.</p>
+<h3 id="applications-running-on-vm-or-bare-metal">Applications running on VM or bare metal</h3><p>Here your existing CI tools build and test the remediated dependency. Ansible Automation Platform puts the patch into production with approvals, traffic draining, health checks, and rollback if needed.</p>
+<p>In either case, with Lightwell and Red Hat, IT teams can establish predictable, repeatable, auditable remediation workflows.</p>
+<h2 id="summary-and-next-steps">Summary and next steps</h2><p>Effectively addressing application vulnerabilities requires careful coordination of software packaging, deployment, and operational safety checks. You can enable CVE remediation without breaking production systems, reliably roll back changes upon failure, produce audit-ready reporting, and enable operational consistency without replacing existing CI investments.</p>
+<h2 id="learn-more">Learn more</h2><ul>
+<li>Read the <a href="https://docs.redhat.com/en/documentation/lightwell_network/current/whats_new-what_s_new_in_lightwell_network">Lightwell documentation</a></li>
+<li>Discover more ways to <a href="https://www.redhat.com/en/blog/automate-security-risk-management-across-enterprise-it-operations">automate security risk management across enterprise IT operations</a></li>
+<li>Learn how to <a href="https://youtu.be/oYLdoRENcaA?si=JVMoZL6UEA4d3508">mitigate the PHP CVE with Ansible</a></li>
+<li>Talk to a Red Hatter about <a href="https://www.redhat.com/en/contact">Lightwell and Ansible Automation Platform</a></li>
+</ul>
+<hr>
+<p><a href="https://www.redhat.com/en/authors/anshul-behl"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/wa_profile%20-%20Anshul%20Behl.jpeg?itok=vYDgCAJj" alt="Anshul Behl, Principal Technical Marketing Manager, Red Hat"></a></p>
+<p>[### Anshul Behl</p>
+<p>Principal Technical Marketing Manager](<a href="https://www.redhat.com/en/authors/anshul-behl">https://www.redhat.com/en/authors/anshul-behl</a>)</p>
+<p>Anshul is a Principal Marketing Manager at Red Hat, where he brings his software development and QE experience to increase Ansible Automation Platform&#39;s adoption experience for customers by producing technical content on all aspects of the product.</p>
+<p>:host{display:inline-flex;position:relative;z-index:0;align-items:center;max-width:max-content;border-radius:var(--rh-border-radius-default,3px)}::slotted(:is(a,button,input)),a{vertical-align:middle!important;word-break:break-word!important;white-space:normal!important;display:inline!important;color:inherit!important;font-family:inherit!important;font-size:inherit!important;font-weight:inherit!important;line-height:inherit!important;text-decoration:var(--_text-decoration)!important;text-underline-offset:var(--_text-underline-offset)!important;z-index:2!important}::slotted(a):after,a:after{display:block;content:&quot;&quot;;position:absolute;inset:0;z-index:3}::slotted(button),::slotted(input){background-color:initial;border:none;margin:0;padding:0;text-align:left}#container{position:relative;white-space:var(--_rh-cta-white-space,nowrap);color:var(--_color);font-family:var(--rh-font-family-heading,RedHatDisplay,&quot;Red Hat Display&quot;,Helvetica,Arial,sans-serif);font-size:var(--rh-font-size-body-text-lg,1.125rem);font-weight:var(--rh-font-weight-heading-bold,700);line-height:var(--rh-line-height-body-text,1.5);background-color:var(--_background-color);border-color:var(--_border-color,#0000);border-radius:var(--rh-border-radius-default,3px);border-width:var(--rh-border-width-sm,1px);--_icon-size:var(--rh-icon-size,var(--rh-font-size-body-text-lg,1.125rem))}#container:has(rh-icon){padding-inline-end:calc(var(--rh-icon-size) + var(--rh-space-md, 8px) + 2px)}#container{--rh-color-surface:var(--_background-color)!important;--_arrow-size:13px;--_rh-icon-plus-padding:calc(5px + var(--rh-icon-size))}:dir(rtl){text-align:right}rh-icon{vertical-align:middle;margin-inline-start:var(--rh-space-md,8px);display:inline-block;fill:currentcolor;translate:0 0;transition:translate var(--_trans);--_trans:var(--rh-animation-speed,0.3s) var(--rh-animation-timing,cubic-bezier(0.465,0.183,0.153,0.946))}#container:dir(rtl) rh-icon{rotate:180deg}::slotted(:focus),:host(:is(:focus,:focus-within)) ::slotted(:is(a,button,input)),a:focus,a:focus-within{outline:none!important}:host(:is(:focus,:focus-within)){outline:var(--rh-border-width-md,2px) solid var(--rh-cta-focus-container-outline-color,var(--rh-cta-focus-outline-color));outline-offset:2px}:host(:is(:focus,:focus-within)) #container{--_background-color:var(--rh-cta-focus-background-color);--_color:var(--_focus-color);--_text-decoration:var(--rh-cta-focus-text-decoration,var(--_focus-text-decoration));--_text-underline-offset:var(--rh-cta-focus-text-underline-offset,var(--rh-cta-hover-text-underline-offset));border-color:var(--_focus-border-color);background-color:var(--_focus-container-background-color,var(--_focus-background-color));color:var(--rh-cta-focus-color,var(--_color));outline:var(--rh-border-width-sm,1px) solid var(--_focus-inner-border-color);outline-offset:-3px}:host(:hover) #container{color:var(--_hover-color);border-color:var(--_hover-border-color);background-color:var(--rh-cta-hover-background-color,var(--_hover-background-color));--_text-decoration:var(--rh-cta-hover-text-decoration,var(--_hover-text-decoration));--_text-underline-offset:var(--rh-cta-hover-text-underline-offset)}:host(:hover) #container rh-icon{translate:3px 0}:host(:hover) #container:dir(rtl) rh-icon{translate:-3px 0}:host(:active) #container{background-color:var(--_background-color);color:var(--_active-color);--_background-color:var(--rh-cta-background-color,var(--rh-cta-active-container-background-color,var(--rh-cta-active-background-color)));outline:var(--rh-border-width-sm,1px) solid var(--_active-inner-border-color);outline-offset:-3px}:host([variant]) #container{font-size:var(--rh-font-size-body-text-md,1rem);border-radius:var(--rh-border-radius-default,3px);border-width:var(--rh-border-width-sm,1px);padding-inline:var(--rh-space-2xl,32px);padding-block:var(--rh-space-lg,16px)}:is(:host([variant]) #container) ::slotted(:is(a,button,input)),:is(:host([variant]) #container) a{display:inline-flex!important;text-align:center!important}.icon:is(:host([variant]) #container) ::slotted(:is(a,button,input)),.icon:is(:host([variant]) #container) a{display:inline!important}.icon:is(:host([variant]) #container) rh-icon{margin-inline-start:var(--rh-space-md,8px)}.svg:is(:host([variant]) #container) ::slotted(:is(a,button,input)),.svg:is(:host([variant]) #container) a{--_arrow-plus-padding:calc(var(--rh-space-md, 8px) + var(--_arrow-size));padding-inline-end:calc(var(--_arrow-plus-padding) + var(--rh-space-xl, 24px))!important}:is(:host([variant$=ary]) #container) ::slotted(:is(a,button,input)),:is(:host([variant$=ary]) #container) a{font-size:var(--rh-cta-font-size-priority,var(--rh-font-size-body-text-md,1rem))}:host(:not([variant])) #container{--_background-color:var(--rh-cta-background-color,#0000);--_border-color:var(--rh-cta-border-color,#0000);--_color:var(--rh-cta-color,var(--rh-color-interactive-primary-default));--_hover-background-color:var(--rh-cta-hover-background-color,#0000);--_hover-border-color:var(--rh-cta-hover-border-color,#0000);--_hover-color:var(--rh-cta-hover-color,var(--rh-color-interactive-primary-hover));--_hover-text-decoration:var(--rh-cta-hover-text-decoration,none);--_focus-background-color:var(--rh-cta-focus-background-color,#0000);--_focus-container-background-color:light-dark(var(--rh-cta-focus-container-background-color,#0066cc1a),var(--rh-cta-focus-container-background-color,#73bcf740));--_focus-border-color:var(--rh-cta-focus-border-color,#0000);--_focus-color:var(--rh-cta-focus-color,var(--rh-color-interactive-primary-default));--_focus-inner-border-color:var(--rh-cta-focus-inner-border-color,#0000);--_focus-text-decoration:var(--rh-cta-focus-text-decoration,none);--_active-container-background-color:light-dark(var(--rh-cta-active-container-background-color,#0066cc1a),var(--rh-cta-active-container-background-color,#73bcf740));--_active-inner-border-color:var(--rh-cta-active-inner-border-color,#0000);--_active-text-decoration:var(--rh-cta-active-text-decoration,none)}:host([variant=primary]) #container{border-style:solid;--_background-color:var(--rh-cta-background-color,var(--rh-color-brand-red));--_border-color:var(--rh-cta-border-color,var(--rh-color-brand-red));--_color:var(--rh-cta-color,var(--rh-color-text-primary-on-dark,#fff));--_active-color:var(--rh-cta-color,var(--rh-color-text-primary-on-dark,#fff));--_hover-background-color:var(--rh-cta-hover-background-color,var(--rh-color-brand-red-dark,#a60000));--_hover-border-color:var(--rh-cta-hover-border-color,var(--rh-color-brand-red-dark,#a60000));--_hover-color:var(--rh-cta-hover-color,var(--rh-color-text-primary-on-dark,#fff));--_focus-background-color:var(--rh-cta-focus-background-color,var(--rh-color-brand-red-dark,#a60000));--_focus-border-color:var(--rh-cta-focus-border-color,var(--rh-color-brand-red-dark,#a60000));--_focus-color:var(--rh-cta-focus-color,var(--rh-color-text-primary-on-dark,#fff))!important;--_focus-inner-border-color:var(--rh-cta-focus-inner-border-color,var(--rh-color-text-primary-on-dark,#fff));--_focus-text-decoration:var(--rh-cta-focus-text-decoration,none);--_active-background-color:var(--rh-cta-active-background-color,var(--rh-color-brand-red-dark,#a60000));--_active-inner-border-color:var(--rh-cta-active-inner-border-color,var(--rh-color-text-primary-on-dark,#fff))}:host([variant=secondary]) #container{border-style:solid;--_background-color:var(--rh-cta-background-color,#0000);--_border-color:var(--rh-cta-border-color,var(--rh-color-border-strong));--_color:light-dark(var(--rh-cta-color,var(--rh-color-text-primary-on-light,#151515)),var(--rh-cta-color,var(--rh-color-text-primary-on-dark,#fff)));--_hover-background-color:light-dark(var(--rh-cta-hover-background-color,var(--rh-color-surface-darkest,#151515)),var(--rh-cta-hover-background-color,var(--rh-color-surface-lightest,#fff)));--_hover-border-color:var(--rh-cta-hover-border-color,var(--rh-color-border-strong));--_hover-color:light-dark(var(--rh-cta-hover-color,var(--rh-color-text-primary-on-dark,#fff)),var(--rh-cta-hover-color,var(--rh-color-text-primary-on-light,#151515)));--_focus-background-color:light-dark(var(--rh-cta-focus-background-color,var(--rh-color-surface-lighter,#f2f2f2)),var(--rh-cta-focus-background-color,var(--rh-color-surface-dark,#383838)));--_focus-border-color:var(--rh-cta-focus-border-color,var(--rh-color-border-strong));--_focus-color:var(--rh-color-text-primary);--_focus-inner-border-color:var(--rh-cta-focus-inner-border-color,var(--rh-color-border-strong));--_focus-text-decoration:var(--rh-cta-focus-text-decoration,none);--_active-color:var(--rh-cta-active-color,var(--rh-color-text-primary));--_active-background-color:light-dark(var(--rh-cta-active-background-color,var(--rh-color-border-strong)),var(--rh-cta-active-background-color,var(--rh-color-surface-lightest,#fff)));--_active-inner-border-color:light-dark(var(--rh-cta-active-inner-border-color,var(--rh-color-surface-light,#e0e0e0)),var(--rh-cta-active-inner-border-color,var(--rh-color-border-strong-on-light,#151515)))}:host([variant=brick]){display:inline-block!important;max-width:100%;width:100%}:host([variant=brick]) #container{border-style:solid;font-family:var(--rh-font-family-body-text,RedHatText,&quot;Red Hat Text&quot;,Helvetica,Arial,sans-serif);font-weight:var(--rh-font-weight-body-text-regular,400);display:flex;flex-flow:row wrap;gap:var(--rh-space-md,8px);justify-content:center;align-items:center;--_background-color:var(--rh-cta-background-color,#0000);--_border-color:var(--rh-cta-border-color,var(--rh-color-border-subtle));--_color:var(--rh-cta-color,var(--rh-color-interactive-primary-default));--_hover-background-color:light-dark(var(--rh-cta-hover-background-color,var(--rh-color-surface-lighter,#f2f2f2)),var(--rh-cta-hover-background-color,var(--rh-color-surface-darker,#1f1f1f)));--_hover-border-color:var(--rh-cta-hover-border-color,var(--rh-color-border-subtle));--_hover-color:var(--rh-cta-hover-color,var(--rh-color-interactive-primary-hover));--_hover-text-decoration:light-dark(var(--rh-cta-hover-text-decoration,none),var(--rh-cta-hover-text-decoration,underline));--_focus-color:var(--rh-cta-focus-color,var(--rh-color-interactive-primary-default));--_focus-border-color:var(--rh-cta-focus-border-color,var(--rh-color-border-subtle));--_focus-inner-border-color:var(--rh-cta-focus-inner-border-color,var(--rh-color-border-subtle));--_focus-text-decoration:light-dark(var(--rh-cta-focus-text-decoration,none),var(--rh-cta-focus-text-decoration,none));--_active-background-color:light-dark(var(--rh-cta-active-background-color,var(--rh-color-surface-lighter,#f2f2f2)),var(--rh-cta-active-background-color,var(--rh-color-surface-darker,#1f1f1f)));--_active-inner-border-color:var(--rh-cta-active-inner-border-color,var(--rh-color-border-subtle));--_active-text-decoration:light-dark(var(--rh-cta-active-text-decoration,none),var(--rh-cta-active-text-decoration,underline))}.icon:is(:host([variant=brick]) #container) rh-icon{margin-inline:0}@supports not (translate:0 0){rh-icon{transform:translate(0);transition:transform var(--_trans)}#container:dir(rtl) rh-icon{transform:translate(0) rotate(180deg)}:host(:hover) #container rh-icon{transform:translate(3px)}:host(:hover) #container:dir(rtl) rh-icon{transform:translate(-3px) rotate(180deg)}}:host{line-height:0;aspect-ratio:1/1;display:inline-flex;place-content:center}#container{display:contents}svg{width:var(--rh-icon-size,var(--rh-size-icon-01,16px));fill:currentcolor;aspect-ratio:1/1}.standard svg{width:var(--rh-icon-size,var(--rh-size-icon-04,40px))}.microns svg{min-width:8px;max-width:12px;width:var(--rh-icon-size,12px)}<a href="https://www.redhat.com/en/authors/anshul-behl">More from this author</a></p>
+<p><a href="https://www.redhat.com/en/authors/tricia-mcconnell"><img src="https://www.redhat.com/rhdc/managed-files/styles/media_thumbnail/private/Trish%20220x220.jpeg?itok=Q8zTyRqR" alt="Tricia McConnell"></a></p>
+<p>[### Tricia McConnell</p>
+<p>Principal Product Marketing Manager, Red Hat Ansible Automation Platform](<a href="https://www.redhat.com/en/authors/tricia-mcconnell">https://www.redhat.com/en/authors/tricia-mcconnell</a>)</p>
+<p>Tricia McConnell is Principal Product Marketing Manager, Red Hat Ansible Automation Platform. She brings more than twenty years of experience marketing technical solutions to enterprise IT audiences.</p>
+<p>:host{display:inline-flex;position:relative;z-index:0;align-items:center;max-width:max-content;border-radius:var(--rh-border-radius-default,3px)}::slotted(:is(a,button,input)),a{vertical-align:middle!important;word-break:break-word!important;white-space:normal!important;display:inline!important;color:inherit!important;font-family:inherit!important;font-size:inherit!important;font-weight:inherit!important;line-height:inherit!important;text-decoration:var(--_text-decoration)!important;text-underline-offset:var(--_text-underline-offset)!important;z-index:2!important}::slotted(a):after,a:after{display:block;content:&quot;&quot;;position:absolute;inset:0;z-index:3}::slotted(button),::slotted(input){background-color:initial;border:none;margin:0;padding:0;text-align:left}#container{position:relative;white-space:var(--_rh-cta-white-space,nowrap);color:var(--_color);font-family:var(--rh-font-family-heading,RedHatDisplay,&quot;Red Hat Display&quot;,Helvetica,Arial,sans-serif);font-size:var(--rh-font-size-body-text-lg,1.125rem);font-weight:var(--rh-font-weight-heading-bold,700);line-height:var(--rh-line-height-body-text,1.5);background-color:var(--_background-color);border-color:var(--_border-color,#0000);border-radius:var(--rh-border-radius-default,3px);border-width:var(--rh-border-width-sm,1px);--_icon-size:var(--rh-icon-size,var(--rh-font-size-body-text-lg,1.125rem))}#container:has(rh-icon){padding-inline-end:calc(var(--rh-icon-size) + var(--rh-space-md, 8px) + 2px)}#container{--rh-color-surface:var(--_background-color)!important;--_arrow-size:13px;--_rh-icon-plus-padding:calc(5px + var(--rh-icon-size))}:dir(rtl){text-align:right}rh-icon{vertical-align:middle;margin-inline-start:var(--rh-space-md,8px);display:inline-block;fill:currentcolor;translate:0 0;transition:translate var(--_trans);--_trans:var(--rh-animation-speed,0.3s) var(--rh-animation-timing,cubic-bezier(0.465,0.183,0.153,0.946))}#container:dir(rtl) rh-icon{rotate:180deg}::slotted(:focus),:host(:is(:focus,:focus-within)) ::slotted(:is(a,button,input)),a:focus,a:focus-within{outline:none!important}:host(:is(:focus,:focus-within)){outline:var(--rh-border-width-md,2px) solid var(--rh-cta-focus-container-outline-color,var(--rh-cta-focus-outline-color));outline-offset:2px}:host(:is(:focus,:focus-within)) #container{--_background-color:var(--rh-cta-focus-background-color);--_color:var(--_focus-color);--_text-decoration:var(--rh-cta-focus-text-decoration,var(--_focus-text-decoration));--_text-underline-offset:var(--rh-cta-focus-text-underline-offset,var(--rh-cta-hover-text-underline-offset));border-color:var(--_focus-border-color);background-color:var(--_focus-container-background-color,var(--_focus-background-color));color:var(--rh-cta-focus-color,var(--_color));outline:var(--rh-border-width-sm,1px) solid var(--_focus-inner-border-color);outline-offset:-3px}:host(:hover) #container{color:var(--_hover-color);border-color:var(--_hover-border-color);background-color:var(--rh-cta-hover-background-color,var(--_hover-background-color));--_text-decoration:var(--rh-cta-hover-text-decoration,var(--_hover-text-decoration));--_text-underline-offset:var(--rh-cta-hover-text-underline-offset)}:host(:hover) #container rh-icon{translate:3px 0}:host(:hover) #container:dir(rtl) rh-icon{translate:-3px 0}:host(:active) #container{background-color:var(--_background-color);color:var(--_active-color);--_background-color:var(--rh-cta-background-color,var(--rh-cta-active-container-background-color,var(--rh-cta-active-background-color)));outline:var(--rh-border-width-sm,1px) solid var(--_active-inner-border-color);outline-offset:-3px}:host([variant]) #container{font-size:var(--rh-font-size-body-text-md,1rem);border-radius:var(--rh-border-radius-default,3px);border-width:var(--rh-border-width-sm,1px);padding-inline:var(--rh-space-2xl,32px);padding-block:var(--rh-space-lg,16px)}:is(:host([variant]) #container) ::slotted(:is(a,button,input)),:is(:host([variant]) #container) a{display:inline-flex!important;text-align:center!important}.icon:is(:host([variant]) #container) ::slotted(:is(a,button,input)),.icon:is(:host([variant]) #container) a{display:inline!important}.icon:is(:host([variant]) #container) rh-icon{margin-inline-start:var(--rh-space-md,8px)}.svg:is(:host([variant]) #container) ::slotted(:is(a,button,input)),.svg:is(:host([variant]) #container) a{--_arrow-plus-padding:calc(var(--rh-space-md, 8px) + var(--_arrow-size));padding-inline-end:calc(var(--_arrow-plus-padding) + var(--rh-space-xl, 24px))!important}:is(:host([variant$=ary]) #container) ::slotted(:is(a,button,input)),:is(:host([variant$=ary]) #container) a{font-size:var(--rh-cta-font-size-priority,var(--rh-font-size-body-text-md,1rem))}:host(:not([variant])) #container{--_background-color:var(--rh-cta-background-color,#0000);--_border-color:var(--rh-cta-border-color,#0000);--_color:var(--rh-cta-color,var(--rh-color-interactive-primary-default));--_hover-background-color:var(--rh-cta-hover-background-color,#0000);--_hover-border-color:var(--rh-cta-hover-border-color,#0000);--_hover-color:var(--rh-cta-hover-color,var(--rh-color-interactive-primary-hover));--_hover-text-decoration:var(--rh-cta-hover-text-decoration,none);--_focus-background-color:var(--rh-cta-focus-background-color,#0000);--_focus-container-background-color:light-dark(var(--rh-cta-focus-container-background-color,#0066cc1a),var(--rh-cta-focus-container-background-color,#73bcf740));--_focus-border-color:var(--rh-cta-focus-border-color,#0000);--_focus-color:var(--rh-cta-focus-color,var(--rh-color-interactive-primary-default));--_focus-inner-border-color:var(--rh-cta-focus-inner-border-color,#0000);--_focus-text-decoration:var(--rh-cta-focus-text-decoration,none);--_active-container-background-color:light-dark(var(--rh-cta-active-container-background-color,#0066cc1a),var(--rh-cta-active-container-background-color,#73bcf740));--_active-inner-border-color:var(--rh-cta-active-inner-border-color,#0000);--_active-text-decoration:var(--rh-cta-active-text-decoration,none)}:host([variant=primary]) #container{border-style:solid;--_background-color:var(--rh-cta-background-color,var(--rh-color-brand-red));--_border-color:var(--rh-cta-border-color,var(--rh-color-brand-red));--_color:var(--rh-cta-color,var(--rh-color-text-primary-on-dark,#fff));--_active-color:var(--rh-cta-color,var(--rh-color-text-primary-on-dark,#fff));--_hover-background-color:var(--rh-cta-hover-background-color,var(--rh-color-brand-red-dark,#a60000));--_hover-border-color:var(--rh-cta-hover-border-color,var(--rh-color-brand-red-dark,#a60000));--_hover-color:var(--rh-cta-hover-color,var(--rh-color-text-primary-on-dark,#fff));--_focus-background-color:var(--rh-cta-focus-background-color,var(--rh-color-brand-red-dark,#a60000));--_focus-border-color:var(--rh-cta-focus-border-color,var(--rh-color-brand-red-dark,#a60000));--_focus-color:var(--rh-cta-focus-color,var(--rh-color-text-primary-on-dark,#fff))!important;--_focus-inner-border-color:var(--rh-cta-focus-inner-border-color,var(--rh-color-text-primary-on-dark,#fff));--_focus-text-decoration:var(--rh-cta-focus-text-decoration,none);--_active-background-color:var(--rh-cta-active-background-color,var(--rh-color-brand-red-dark,#a60000));--_active-inner-border-color:var(--rh-cta-active-inner-border-color,var(--rh-color-text-primary-on-dark,#fff))}:host([variant=secondary]) #container{border-style:solid;--_background-color:var(--rh-cta-background-color,#0000);--_border-color:var(--rh-cta-border-color,var(--rh-color-border-strong));--_color:light-dark(var(--rh-cta-color,var(--rh-color-text-primary-on-light,#151515)),var(--rh-cta-color,var(--rh-color-text-primary-on-dark,#fff)));--_hover-background-color:light-dark(var(--rh-cta-hover-background-color,var(--rh-color-surface-darkest,#151515)),var(--rh-cta-hover-background-color,var(--rh-color-surface-lightest,#fff)));--_hover-border-color:var(--rh-cta-hover-border-color,var(--rh-color-border-strong));--_hover-color:light-dark(var(--rh-cta-hover-color,var(--rh-color-text-primary-on-dark,#fff)),var(--rh-cta-hover-color,var(--rh-color-text-primary-on-light,#151515)));--_focus-background-color:light-dark(var(--rh-cta-focus-background-color,var(--rh-color-surface-lighter,#f2f2f2)),var(--rh-cta-focus-background-color,var(--rh-color-surface-dark,#383838)));--_focus-border-color:var(--rh-cta-focus-border-color,var(--rh-color-border-strong));--_focus-color:var(--rh-color-text-primary);--_focus-inner-border-color:var(--rh-cta-focus-inner-border-color,var(--rh-color-border-strong));--_focus-text-decoration:var(--rh-cta-focus-text-decoration,none);--_active-color:var(--rh-cta-active-color,var(--rh-color-text-primary));--_active-background-color:light-dark(var(--rh-cta-active-background-color,var(--rh-color-border-strong)),var(--rh-cta-active-background-color,var(--rh-color-surface-lightest,#fff)));--_active-inner-border-color:light-dark(var(--rh-cta-active-inner-border-color,var(--rh-color-surface-light,#e0e0e0)),var(--rh-cta-active-inner-border-color,var(--rh-color-border-strong-on-light,#151515)))}:host([variant=brick]){display:inline-block!important;max-width:100%;width:100%}:host([variant=brick]) #container{border-style:solid;font-family:var(--rh-font-family-body-text,RedHatText,&quot;Red Hat Text&quot;,Helvetica,Arial,sans-serif);font-weight:var(--rh-font-weight-body-text-regular,400);display:flex;flex-flow:row wrap;gap:var(--rh-space-md,8px);justify-content:center;align-items:center;--_background-color:var(--rh-cta-background-color,#0000);--_border-color:var(--rh-cta-border-color,var(--rh-color-border-subtle));--_color:var(--rh-cta-color,var(--rh-color-interactive-primary-default));--_hover-background-color:light-dark(var(--rh-cta-hover-background-color,var(--rh-color-surface-lighter,#f2f2f2)),var(--rh-cta-hover-background-color,var(--rh-color-surface-darker,#1f1f1f)));--_hover-border-color:var(--rh-cta-hover-border-color,var(--rh-color-border-subtle));--_hover-color:var(--rh-cta-hover-color,var(--rh-color-interactive-primary-hover));--_hover-text-decoration:light-dark(var(--rh-cta-hover-text-decoration,none),var(--rh-cta-hover-text-decoration,underline));--_focus-color:var(--rh-cta-focus-color,var(--rh-color-interactive-primary-default));--_focus-border-color:var(--rh-cta-focus-border-color,var(--rh-color-border-subtle));--_focus-inner-border-color:var(--rh-cta-focus-inner-border-color,var(--rh-color-border-subtle));--_focus-text-decoration:light-dark(var(--rh-cta-focus-text-decoration,none),var(--rh-cta-focus-text-decoration,none));--_active-background-color:light-dark(var(--rh-cta-active-background-color,var(--rh-color-surface-lighter,#f2f2f2)),var(--rh-cta-active-background-color,var(--rh-color-surface-darker,#1f1f1f)));--_active-inner-border-color:var(--rh-cta-active-inner-border-color,var(--rh-color-border-subtle));--_active-text-decoration:light-dark(var(--rh-cta-active-text-decoration,none),var(--rh-cta-active-text-decoration,underline))}.icon:is(:host([variant=brick]) #container) rh-icon{margin-inline:0}@supports not (translate:0 0){rh-icon{transform:translate(0);transition:transform var(--_trans)}#container:dir(rtl) rh-icon{transform:translate(0) rotate(180deg)}:host(:hover) #container rh-icon{transform:translate(3px)}:host(:hover) #container:dir(rtl) rh-icon{transform:translate(-3px) rotate(180deg)}}:host{line-height:0;aspect-ratio:1/1;display:inline-flex;place-content:center}#container{display:contents}svg{width:var(--rh-icon-size,var(--rh-size-icon-01,16px));fill:currentcolor;aspect-ratio:1/1}.standard svg{width:var(--rh-icon-size,var(--rh-size-icon-04,40px))}.microns svg{min-width:8px;max-width:12px;width:var(--rh-icon-size,12px)}<a href="https://www.redhat.com/en/authors/tricia-mcconnell">More from this author</a></p>
+<p>Enter keywords here to search blogs</p>
+<p>UI_Icon-Red_Hat-Close-A-Black-RGB</p>
+<p>Search</p>
+<aside class="blog-tmm-insert blog-related">
+  <p class="blog-tmm-insert__eyebrow">Added by the TMM team</p>
+  <p class="blog-related__title">More from the team</p>
+  <ul><li><a href="/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant/">Getting started with Red Hat Ansible Lightspeed with IBM watsonx Code Assistant</a></li><li><a href="/blog/automate-security-risk-management-across-enterprise-it-operations/">Automate security risk management across enterprise IT operations</a></li><li><a href="/blog/5-ways-augment-security-risk-management-ai-era/">5 ways to augment security risk management in the AI era</a></li></ul>
+</aside>
+      </div>
+      <footer class="blog-post-author-footer"><p>About the author: <a href="/team/#anshul-behl">Anshul Behl</a></p></footer>
+    </article>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div class="site-footer__content">
+        <p class="site-footer__title"><a href="https://ansible-tmm.github.io/">Ansible TMM Project Hub</a></p>
+        <p class="site-footer__note">Community and technical marketing resources for Ansible automation.</p>
+        <p class="site-footer__links">
+          <a href="../../">Project hub</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/blog/">Blog</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="/team/">Team</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <a href="https://github.com/ansible-tmm" target="_blank" rel="noopener noreferrer">github.com/ansible-tmm</a>
+          <span class="site-footer__sep" aria-hidden="true">·</span>
+          <span id="footer-year"></span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true">
+    <symbol id="icon-github" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.021C22 6.484 17.522 2 12 2z"/>
+    </symbol>
+  </svg>
+
+  <script>
+    (function () {
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('nav-menu');
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function () {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', String(!expanded));
+          navMenu.classList.toggle('nav__menu--open', !expanded);
+        });
+      }
+      const yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      document.querySelectorAll('[data-copy-code]').forEach((button) => {
+        button.addEventListener('click', async function () {
+          const block = button.closest('.blog-code-block');
+          const codeEl = block ? block.querySelector('code') : null;
+          if (!codeEl) return;
+          const text = codeEl.textContent || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            const original = button.textContent;
+            button.textContent = 'Copied';
+            button.setAttribute('aria-label', 'Code copied to clipboard');
+            window.setTimeout(function () {
+              button.textContent = original;
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+            }, 1600);
+          } catch (error) {
+            button.textContent = 'Failed';
+            window.setTimeout(function () {
+              button.textContent = 'Copy';
+            }, 1600);
+          }
+        });
+      });
+    })();
+  </script>
+  <noscript>
+    <p>This post is also available at <a href="https://www.redhat.com/en/blog/moving-lightwell-patches-production-orchestrating-release-lifecycle">the original publisher</a>.</p>
+  </noscript>
+</body>
+</html>
