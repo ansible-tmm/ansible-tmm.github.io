@@ -14,7 +14,7 @@ topics:
 - Automation
 - Security
 read_time_minutes: 5
-synced_at: '2026-11-10T12:36:42Z'
+synced_at: '2026-11-11T12:37:26Z'
 ---
 
 <!-- blog-enrichment:start -->
