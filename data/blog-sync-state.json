@@ -428,9 +428,9 @@
     },
     "moving-lightwell-patches-production-orchestrating-release-lifecycle": {
       "source_url": "https://www.redhat.com/en/blog/moving-lightwell-patches-production-orchestrating-release-lifecycle",
-      "updated": "2026-10-29",
-      "content_hash": "bbdd76eb31cb571e74c5b88028d05935e792383ee5b98df5082c654fe76a9632",
-      "synced_at": "2026-11-13T12:36:53Z"
+      "updated": "2026-11-03",
+      "content_hash": "b4e5fec921f0595ff4646fe88720ffeaa0373847a864eae43a4e434dad1c4c56",
+      "synced_at": "2026-11-14T12:35:42Z"
     }
   }
 }

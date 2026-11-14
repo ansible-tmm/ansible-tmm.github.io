@@ -5,7 +5,7 @@ authors:
 - slug: anshul-behl
   name: Anshul Behl
 published: '2026-10-26'
-updated: '2026-10-29'
+updated: '2026-11-03'
 source: redhat
 source_url: https://www.redhat.com/en/blog/moving-lightwell-patches-production-orchestrating-release-lifecycle
 description: Learn how to orchestrate Lightwell patch releases with Ansible Automation
@@ -14,7 +14,7 @@ topics:
 - Automation
 - Security
 read_time_minutes: 5
-synced_at: '2026-11-13T12:36:53Z'
+synced_at: '2026-11-14T12:35:42Z'
 ---
 
 <!-- blog-enrichment:start -->

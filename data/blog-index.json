@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-11-13T12:36:53Z",
+  "updated_at": "2026-11-14T12:35:42Z",
   "posts": [
     {
       "slug": "moving-lightwell-patches-production-orchestrating-release-lifecycle",
       "title": "Moving Lightwell patches into production by orchestrating the release lifecycle",
       "description": "Learn how to orchestrate Lightwell patch releases with Ansible Automation Platform to automate testing and rollback for production deployments.",
       "published": "2026-10-26",
-      "updated": "2026-10-29",
+      "updated": "2026-11-03",
       "authors": [
         {
           "slug": "anshul-behl",
