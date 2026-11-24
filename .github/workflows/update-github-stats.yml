@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   update-stats:
@@ -22,10 +23,22 @@ jobs:
         run: bash scripts/update-github-stats.sh data/github-stats.json
 
       - name: Commit updated stats
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/github-stats.json
-          git diff --staged --quiet && echo "No stats changes." && exit 0
+          if git diff --staged --quiet; then
+            echo "No stats changes."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           git commit -m "Update ansible-tmm GitHub organization stats."
           git push
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger Pages deploy
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run "Deploy static site to GitHub Pages" --ref main
